@@ -36,7 +36,9 @@ until full-case independent adjudication.
 A blinded synthetic robustness panel (four reviewer configurations, two
 isolated repeats) reaches nominal Krippendorff alpha `0.989` and conservative
 consensus identical to the reference-oracle split (15/72 overall, 14/57 among
-functional passes, zero unresolved). This is supporting reproducibility
+functional passes, zero unresolved). A vendor-disjoint sensitivity analysis,
+scoring each candidate only with reviewer configurations from the other
+vendor, reproduces the same split exactly. This is supporting reproducibility
 evidence, not a replacement for human CDC/RDC expert adjudication.
 
 ## Results sequence
@@ -47,7 +49,10 @@ evidence, not a replacement for human CDC/RDC expert adjudication.
 3. Demonstrate structural separation under declared intent.
 4. Audit whether public benchmarks supply sufficient structural intent.
 5. Report the exploratory pilot with task-level and tool-error caveats.
-6. Preregister a larger multi-family, multi-sample estimate.
+6. Report the frozen 72-call replication as a lower-bound detection count.
+7. Report the synthetic robustness panel and its vendor-disjoint sensitivity
+   analysis.
+8. Preregister a larger multi-family, multi-sample estimate.
 
 ## Central figure
 

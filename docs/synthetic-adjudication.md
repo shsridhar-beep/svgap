@@ -35,11 +35,16 @@ analysis. It is not independent human expert adjudication, cannot establish a
 silicon-failure rate, and does not convert the author-confirmed `14/57`
 lower-bound count into a validated prevalence estimate.
 
-Two reviewer configurations share a vendor family with two of the three
-generator configurations. No reviewer model generated any candidate, and the
-cross-vendor panels agree with each other and with the calibration controls,
-which limits but does not eliminate the possibility of vendor-correlated blind
-spots. Human sample review remains the control for that residual risk.
+Every reviewer configuration shares a vendor with at least one generator
+configuration, and one reviewer shares a model family with one generator. No
+reviewer model generated any candidate. To bound vendor-correlated blind
+spots, a vendor-disjoint sensitivity analysis
+(`scripts/analyze_vendor_disjoint.py`) rescores every candidate using only the
+two reviewer configurations from the other vendor, requiring unanimity for
+`yes` or `no`. On the locked panels this reproduces the full-panel consensus
+exactly (see the [result](synthetic-adjudication-result.md)). Residual risk
+from patterns both vendors miss remains, and human sample review stays the
+control for it.
 
 ## Reproduction boundary
 

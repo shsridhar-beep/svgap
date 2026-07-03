@@ -47,6 +47,25 @@ Reference-oracle comparison:
 - `oracle_no__consensus_no`: 57
 - `oracle_yes__consensus_yes`: 15
 
+## Vendor-disjoint sensitivity analysis
+
+Every reviewer configuration shares a vendor with at least one generator
+configuration, so each candidate was rescored using only the two reviewer
+configurations whose vendor differs from the candidate's generator, with
+unanimity required for `yes` or `no`
+(`scripts/analyze_vendor_disjoint.py`).
+
+- All 72 targets: yes=15, no=57, unresolved=0 — identical to the full-panel
+  consensus and the reference oracle.
+- Among 57 functional passes: yes=14, no=43, unresolved=0.
+- By generator vendor: Anthropic-generated candidates score 9 yes / 39 no
+  under OpenAI-only review; OpenAI-generated candidates score 6 yes / 18 no
+  under Anthropic-only review.
+
+Same-vendor and same-family reviewer/generator pairings therefore do not
+drive any consensus label in this study. Patterns invisible to both vendor
+families remain uncontrolled by construction.
+
 ## Interpretation boundary
 
 These results test whether diverse model configurations can reproduce the
