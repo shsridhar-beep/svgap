@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0",
+  "run_date": "2026-07-02",
+  "frozen_design": {
+    "candidates": 72,
+    "models": ["openai-frontier-a", "claude-sonnet-5", "claude-opus-4-8"],
+    "samples_per_model_task": 3,
+    "tasks": 8,
+    "legacy_taskpack_digest": "e1d0fbe101a571d857a3ff6384a408a06c4dd54782c587bb2fe646055198ad30",
+    "canonical_taskpack_digest": "sha256:bc250e3a033b74420347b993bbf0b8fa798e83975f2489891c3fbe170bc4bbe4",
+    "freeze_status": "locally frozen; not externally preregistered"
+  },
+  "all_frozen_tasks": {
+    "functional_pass": 57,
+    "functional_nonpass": 15,
+    "functional_compile_error": 6,
+    "functional_behavioral_fail": 9,
+    "structural_pass": 57,
+    "structural_fail": 15,
+    "structural_findings": 17,
+    "structural_tool_error": 0,
+    "gap_members": 14,
+    "gap_denominator": 57,
+    "automated_detection_fraction": 0.2456140351,
+    "validated_defect_rate": null
+  },
+  "sensitivity_excluding_ambiguous_reset_timer": {
+    "reason": "The prompt did not define the reset value of expired, while the testbench assumed zero.",
+    "candidates": 63,
+    "functional_pass": 56,
+    "functional_nonpass": 7,
+    "gap_members": 14,
+    "gap_denominator": 56,
+    "automated_detection_fraction": 0.25
+  },
+  "by_model": {
+    "openai-frontier-a": {"functional_pass": 21, "gap_members": 6, "gap": 0.2857142857},
+    "claude-sonnet-5": {"functional_pass": 19, "gap_members": 7, "gap": 0.3684210526},
+    "claude-opus-4-8": {"functional_pass": 17, "gap_members": 1, "gap": 0.0588235294}
+  },
+  "by_task": {
+    "reset_config": {"functional_pass": 9, "gap_members": 0},
+    "reset_counter": {"functional_pass": 9, "gap_members": 6},
+    "reset_credits": {"functional_pass": 9, "gap_members": 3},
+    "reset_events": {"functional_pass": 9, "gap_members": 0},
+    "reset_fsm": {"functional_pass": 3, "gap_members": 1},
+    "reset_status": {"functional_pass": 8, "gap_members": 2},
+    "reset_timer": {"functional_pass": 1, "gap_members": 0},
+    "reset_watchdog": {"functional_pass": 9, "gap_members": 2}
+  },
+  "adjudication": {
+    "structural_fail_candidates_reviewed": 15,
+    "confirmed": 15,
+    "overturned": 0
+  },
+  "interpretation": "Author-confirmed lower-bound detection count; full-case independent adjudication pending. Not a validated defect rate, population prevalence estimate, or model ranking."
+}

@@ -1,0 +1,102 @@
+{
+  "by_model": {
+    "claude-opus-4-8": {
+      "candidates": 24,
+      "functional_pass": 17,
+      "gap_members": 1
+    },
+    "claude-sonnet-5": {
+      "candidates": 24,
+      "functional_pass": 19,
+      "gap_members": 7
+    },
+    "openai-frontier-a": {
+      "candidates": 24,
+      "functional_pass": 21,
+      "gap_members": 6
+    }
+  },
+  "by_task": {
+    "reset_config": {
+      "candidates": 9,
+      "functional_pass": 9,
+      "gap_members": 0
+    },
+    "reset_counter": {
+      "candidates": 9,
+      "functional_pass": 9,
+      "gap_members": 6
+    },
+    "reset_credits": {
+      "candidates": 9,
+      "functional_pass": 9,
+      "gap_members": 3
+    },
+    "reset_events": {
+      "candidates": 9,
+      "functional_pass": 9,
+      "gap_members": 0
+    },
+    "reset_fsm": {
+      "candidates": 9,
+      "functional_pass": 3,
+      "gap_members": 1
+    },
+    "reset_status": {
+      "candidates": 9,
+      "functional_pass": 8,
+      "gap_members": 2
+    },
+    "reset_timer": {
+      "candidates": 9,
+      "functional_pass": 1,
+      "gap_members": 0
+    },
+    "reset_watchdog": {
+      "candidates": 9,
+      "functional_pass": 9,
+      "gap_members": 2
+    }
+  },
+  "detected_gap_fraction": 0.24561403508771928,
+  "functional_pass": 57,
+  "gap_members": 14,
+  "outcomes": [
+    {
+      "count": 1,
+      "functional": "compile_error",
+      "gap_member": false,
+      "structural": "fail"
+    },
+    {
+      "count": 5,
+      "functional": "compile_error",
+      "gap_member": false,
+      "structural": "pass"
+    },
+    {
+      "count": 9,
+      "functional": "fail",
+      "gap_member": false,
+      "structural": "pass"
+    },
+    {
+      "count": 14,
+      "functional": "pass",
+      "gap_member": true,
+      "structural": "fail"
+    },
+    {
+      "count": 43,
+      "functional": "pass",
+      "gap_member": false,
+      "structural": "pass"
+    }
+  ],
+  "report_count": 72,
+  "rules": {
+    "REF-RDC-001": 17
+  },
+  "schema_version": "1.0",
+  "structurally_determinate_functional_pass": 57
+}

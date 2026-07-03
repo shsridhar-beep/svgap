@@ -1,0 +1,13 @@
+id = "reset_fsm"
+top = "reset_fsm"
+testbench = "tb.sv"
+asynchronous_groups = []
+[[clocks]]
+name = "control"
+port = "clk"
+[[resets]]
+name = "board_reset"
+port = "reset_n"
+active = "low"
+assertion = "async"
+deassertion = "sync"

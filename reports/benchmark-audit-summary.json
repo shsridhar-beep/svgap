@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "generated_on": "2026-07-02",
+  "benchmarks": [
+    {
+      "name": "verilog-eval",
+      "subset": "dataset_spec-to-rtl",
+      "source_revision": "c498220d0a52248f8e3fdffe279075215bde2da6",
+      "tasks": 156,
+      "functional_oracle": 156,
+      "multi_clock": 0,
+      "structural_risk_exposed": 0,
+      "intent_sufficient_for_reference_audit": 0,
+      "native_structural_scoring": 0
+    },
+    {
+      "name": "rtllm",
+      "subset": "v2 repository task descriptions",
+      "source_revision": "41b26896e33b536940116a975626455eed3de65e",
+      "tasks": 50,
+      "functional_oracle": 50,
+      "multi_clock": 2,
+      "structural_risk_exposed": 2,
+      "intent_sufficient_for_reference_audit": 2,
+      "native_structural_scoring": 0
+    },
+    {
+      "name": "cvdp",
+      "subset": "v1.1.0 nonagentic code generation, no-commercial-tool",
+      "source_revision": "sha256:cbcd81295561ebb16e4d857e096f4d9908d042c33aff3b58abf236e868411857",
+      "tasks": 302,
+      "functional_oracle": 302,
+      "multi_clock": 10,
+      "structural_risk_exposed": 10,
+      "intent_sufficient_for_reference_audit": 9,
+      "native_structural_scoring": 0
+    }
+  ],
+  "combined": {
+    "tasks": 508,
+    "functional_oracle": 508,
+    "multi_clock": 12,
+    "multi_clock_fraction": 0.0236220472,
+    "intent_sufficient_for_reference_audit": 11,
+    "native_structural_scoring": 0
+  }
+}

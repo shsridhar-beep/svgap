@@ -1,0 +1,13 @@
+id = "reset_status"
+top = "reset_status"
+testbench = "tb.sv"
+asynchronous_groups = []
+[[clocks]]
+name = "status"
+port = "clk"
+[[resets]]
+name = "chip_reset"
+port = "rst_n"
+active = "low"
+assertion = "async"
+deassertion = "sync"

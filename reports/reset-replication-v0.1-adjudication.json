@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "reviewed_at": "2026-07-02",
+  "reviewer": "project authoring session; independent review still required",
+  "criterion": "Operational state has the external raw asynchronous reset on its asynchronous reset input despite a synchronized-release signal.",
+  "candidates": [
+    {"run": "claude-opus-4-8--sample-01", "task": "reset_counter", "functional": "pass", "location": "design.sv:21.5-29.8", "decision": "confirmed"},
+    {"run": "claude-sonnet-5--sample-01", "task": "reset_counter", "functional": "pass", "location": "design.sv:16.3-24.6", "decision": "confirmed"},
+    {"run": "claude-sonnet-5--sample-01", "task": "reset_credits", "functional": "pass", "location": "design.sv:24.5-38.8", "decision": "confirmed"},
+    {"run": "claude-sonnet-5--sample-01", "task": "reset_status", "functional": "pass", "location": "design.sv:16.5-26.8", "decision": "confirmed"},
+    {"run": "claude-sonnet-5--sample-02", "task": "reset_counter", "functional": "pass", "location": "design.sv:16.3-24.6", "decision": "confirmed"},
+    {"run": "claude-sonnet-5--sample-02", "task": "reset_credits", "functional": "pass", "location": "design.sv:28.5-40.8", "decision": "confirmed"},
+    {"run": "claude-sonnet-5--sample-03", "task": "reset_fsm", "functional": "compile_error", "location": "design.sv:27.3-34.6", "decision": "confirmed"},
+    {"run": "claude-sonnet-5--sample-03", "task": "reset_status", "functional": "pass", "location": "design.sv:17.3-27.6", "decision": "confirmed"},
+    {"run": "claude-sonnet-5--sample-03", "task": "reset_watchdog", "functional": "pass", "location": "design.sv:30.5-49.8", "decision": "confirmed"},
+    {"run": "openai-frontier-a--sample-01", "task": "reset_counter", "functional": "pass", "location": "design.sv:6.5-18.8", "decision": "confirmed"},
+    {"run": "openai-frontier-a--sample-01", "task": "reset_fsm", "functional": "pass", "location": "design.sv:30.5-37.8", "decision": "confirmed"},
+    {"run": "openai-frontier-a--sample-02", "task": "reset_counter", "functional": "pass", "location": "design.sv:17.5-24.8", "decision": "confirmed"},
+    {"run": "openai-frontier-a--sample-02", "task": "reset_credits", "functional": "pass", "location": "design.sv:18.5-31.8", "decision": "confirmed"},
+    {"run": "openai-frontier-a--sample-02", "task": "reset_watchdog", "functional": "pass", "location": "design.sv:23.5-40.8", "decision": "confirmed"},
+    {"run": "openai-frontier-a--sample-03", "task": "reset_counter", "functional": "pass", "location": "design.sv:13.5-20.8", "decision": "confirmed"}
+  ]
+}

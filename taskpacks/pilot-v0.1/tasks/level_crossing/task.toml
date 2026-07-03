@@ -1,0 +1,10 @@
+id = "level_crossing"
+top = "level_crossing"
+testbench = "../../../../examples/level_crossing/tb.sv"
+asynchronous_groups = [["source"], ["destination"]]
+[[clocks]]
+name = "source"
+port = "src_clk"
+[[clocks]]
+name = "destination"
+port = "dst_clk"

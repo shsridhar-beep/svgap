@@ -1,0 +1,29 @@
+name: False positive or false negative
+description: Challenge a structural finding or a no-finding result with evidence.
+title: "oracle: "
+labels: ["oracle-review"]
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Result type
+      options: [False positive, False negative, Inconclusive incorrectly classified]
+    validations:
+      required: true
+  - type: input
+    id: rule
+    attributes:
+      label: Rule ID and backend version
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Structural evidence and rationale
+    validations:
+      required: true
+  - type: textarea
+    id: fixture
+    attributes:
+      label: Proposed regression fixture
+      description: Describe a minimal safe/unsafe pair if redistribution permits.

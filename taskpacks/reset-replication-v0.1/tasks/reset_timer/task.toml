@@ -1,0 +1,13 @@
+id = "reset_timer"
+top = "reset_timer"
+testbench = "tb.sv"
+asynchronous_groups = []
+[[clocks]]
+name = "timer"
+port = "clk"
+[[resets]]
+name = "por"
+port = "por_n"
+active = "low"
+assertion = "async"
+deassertion = "sync"

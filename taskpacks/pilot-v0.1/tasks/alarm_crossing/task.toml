@@ -1,0 +1,10 @@
+id = "alarm_crossing"
+top = "alarm_crossing"
+testbench = "tb.sv"
+asynchronous_groups = [["sensor"], ["management"]]
+[[clocks]]
+name = "sensor"
+port = "sensor_clk"
+[[clocks]]
+name = "management"
+port = "mgmt_clk"

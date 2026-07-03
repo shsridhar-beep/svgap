@@ -1,0 +1,1398 @@
+{
+  "schema_version": "1.0",
+  "summary": {
+    "benchmark": "rtllm",
+    "functional_oracle": 50,
+    "intent_sufficient_for_reference_audit": 2,
+    "manual_review": 2,
+    "multi_clock": 2,
+    "multi_reset": 2,
+    "native_structural_scoring": 0,
+    "source_revision": "41b26896e33b536940116a975626455eed3de65e",
+    "structural_risk_exposed": 2,
+    "tasks": 50
+  },
+  "tasks": [
+    {
+      "asynchronous_relation_explicit": true,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst_n",
+        "specification contains asynchronous/synchronization intent"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst_n",
+        "valid_in"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": true,
+      "reset_ports": [
+        "rst_n"
+      ],
+      "specification": "Arithmetic/Accumulator/accu/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Arithmetic/Accumulator/accu"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "Cin"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "Arithmetic/Adder/adder_16bit/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Arithmetic/Adder/adder_16bit"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "Arithmetic/Adder/adder_32bit/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Arithmetic/Adder/adder_32bit"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "cin"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "Arithmetic/Adder/adder_8bit/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Arithmetic/Adder/adder_8bit"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "Cin"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "Arithmetic/Adder/adder_bcd/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Arithmetic/Adder/adder_bcd"
+    },
+    {
+      "asynchronous_relation_explicit": true,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst_n",
+        "specification contains asynchronous/synchronization intent"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst_n",
+        "i_en",
+        "adda",
+        "addb"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": true,
+      "reset_ports": [
+        "rst_n"
+      ],
+      "specification": "Arithmetic/Adder/adder_pipe_64bit/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Arithmetic/Adder/adder_pipe_64bit"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "Arithmetic/Comparator/comparator_3bit/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Arithmetic/Comparator/comparator_3bit"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "Arithmetic/Comparator/comparator_4bit/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Arithmetic/Comparator/comparator_4bit"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "A",
+        "B"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "Arithmetic/Divider/div_16bit/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Arithmetic/Divider/div_16bit"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst",
+        "sign",
+        "dividend",
+        "divisor",
+        "opn_valid"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "rst"
+      ],
+      "specification": "Arithmetic/Divider/radix2_div/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Arithmetic/Divider/radix2_div"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst_n"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst_n",
+        "start",
+        "ain",
+        "bin"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": true,
+      "reset_ports": [
+        "rst_n"
+      ],
+      "specification": "Arithmetic/Multiplier/multi_16bit/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Arithmetic/Multiplier/multi_16bit"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "Arithmetic/Multiplier/multi_8bit/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Arithmetic/Multiplier/multi_8bit"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset",
+        "a",
+        "b"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "reset"
+      ],
+      "specification": "Arithmetic/Multiplier/multi_booth_8bit/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Arithmetic/Multiplier/multi_booth_8bit"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst_n"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst_n",
+        "mul_a",
+        "mul_b"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": true,
+      "reset_ports": [
+        "rst_n"
+      ],
+      "specification": "Arithmetic/Multiplier/multi_pipe_4bit/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Arithmetic/Multiplier/multi_pipe_4bit"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst_n"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst_n",
+        "mul_en_in",
+        "mul_a",
+        "mul_b"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": true,
+      "reset_ports": [
+        "rst_n"
+      ],
+      "specification": "Arithmetic/Multiplier/multi_pipe_8bit/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Arithmetic/Multiplier/multi_pipe_8bit"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "Arithmetic/Other/fixed_point_adder/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Arithmetic/Other/fixed_point_adder"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "Arithmetic/Other/fixed_point_substractor/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Arithmetic/Other/fixed_point_substractor"
+    },
+    {
+      "asynchronous_relation_explicit": true,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [
+        "specification contains asynchronous/synchronization intent"
+      ],
+      "functional_oracle": true,
+      "input_ports": [],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "Arithmetic/Other/float_multi/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Arithmetic/Other/float_multi"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "Arithmetic/Substractor/sub_64bit/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Arithmetic/Substractor/sub_64bit"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "ports"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": true,
+      "reset_ports": [],
+      "specification": "Control/Counter/JC_counter/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Control/Counter/JC_counter"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst_n"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "rst_n",
+        "clk",
+        "valid_count"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "rst_n"
+      ],
+      "specification": "Control/Counter/counter_12/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Control/Counter/counter_12"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "reset"
+      ],
+      "specification": "Control/Counter/ring_counter/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Control/Counter/ring_counter"
+    },
+    {
+      "asynchronous_relation_explicit": true,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset",
+        "specification contains asynchronous/synchronization intent"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset",
+        "up_down"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "reset"
+      ],
+      "specification": "Control/Counter/up_down_counter/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Control/Counter/up_down_counter"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "CLK"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: CLK",
+        "reset ports: RST"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "IN",
+        "CLK",
+        "RST"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "RST"
+      ],
+      "specification": "Control/Finite State Machine/fsm/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Control/Finite State Machine/fsm"
+    },
+    {
+      "asynchronous_relation_explicit": true,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset_n",
+        "specification contains asynchronous/synchronization intent"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset_n",
+        "data_in"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "reset_n"
+      ],
+      "specification": "Control/Finite State Machine/sequence_detector/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Control/Finite State Machine/sequence_detector"
+    },
+    {
+      "asynchronous_relation_explicit": true,
+      "clock_ports": [
+        "wclk",
+        "rclk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: wclk, rclk",
+        "reset ports: wrstn, rrstn",
+        "specification contains asynchronous/synchronization intent"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "wclk",
+        "rclk",
+        "wrstn",
+        "rrstn",
+        "winc",
+        "rinc",
+        "wdata"
+      ],
+      "intent_sufficient_for_reference_audit": true,
+      "manual_review": true,
+      "multi_clock": true,
+      "multi_reset": true,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": true,
+      "reset_ports": [
+        "wrstn",
+        "rrstn"
+      ],
+      "specification": "Memory/FIFO/asyn_fifo/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": true,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Memory/FIFO/asyn_fifo"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "Clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: Clk",
+        "reset ports: Rst"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "RW",
+        "EN",
+        "Rst",
+        "Clk"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": true,
+      "reset_ports": [
+        "Rst"
+      ],
+      "specification": "Memory/LIFO/LIFObuffer/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Memory/LIFO/LIFObuffer"
+    },
+    {
+      "asynchronous_relation_explicit": true,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst",
+        "specification contains asynchronous/synchronization intent"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": true,
+      "reset_ports": [
+        "rst"
+      ],
+      "specification": "Memory/Shifter/LFSR/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Memory/Shifter/LFSR"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "Memory/Shifter/barrel_shifter/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Memory/Shifter/barrel_shifter"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "d"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "Memory/Shifter/right_shifter/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Memory/Shifter/right_shifter"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "CLK_in"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: CLK_in",
+        "reset ports: RST"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "CLK_in",
+        "RST"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "RST"
+      ],
+      "specification": "Miscellaneous/Frequency divider/freq_div/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Miscellaneous/Frequency divider/freq_div"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst_n"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst_n"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": true,
+      "reset_ports": [
+        "rst_n"
+      ],
+      "specification": "Miscellaneous/Frequency divider/freq_divbyeven/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Miscellaneous/Frequency divider/freq_divbyeven"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst_n"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst_n"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": true,
+      "reset_ports": [
+        "rst_n"
+      ],
+      "specification": "Miscellaneous/Frequency divider/freq_divbyfrac/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Miscellaneous/Frequency divider/freq_divbyfrac"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst_n"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst_n"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": true,
+      "reset_ports": [
+        "rst_n"
+      ],
+      "specification": "Miscellaneous/Frequency divider/freq_divbyodd/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Miscellaneous/Frequency divider/freq_divbyodd"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "CLK"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: CLK",
+        "reset ports: RST"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "CLK",
+        "RST"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": true,
+      "reset_ports": [
+        "RST"
+      ],
+      "specification": "Miscellaneous/Others/calendar/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Miscellaneous/Others/calendar"
+    },
+    {
+      "asynchronous_relation_explicit": true,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst_n",
+        "specification contains asynchronous/synchronization intent"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst_n",
+        "a"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "rst_n"
+      ],
+      "specification": "Miscellaneous/Others/edge_detect/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Miscellaneous/Others/edge_detect"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst_n"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst_n",
+        "d"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": true,
+      "reset_ports": [
+        "rst_n"
+      ],
+      "specification": "Miscellaneous/Others/parallel2serial/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Miscellaneous/Others/parallel2serial"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "ports"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "Miscellaneous/Others/pulse_detect/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Miscellaneous/Others/pulse_detect"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst_n"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst_n",
+        "din_serial",
+        "din_valid"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "rst_n"
+      ],
+      "specification": "Miscellaneous/Others/serial2parallel/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Miscellaneous/Others/serial2parallel"
+    },
+    {
+      "asynchronous_relation_explicit": true,
+      "clock_ports": [
+        "clk_a",
+        "clk_b"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk_a, clk_b",
+        "reset ports: arstn, brstn",
+        "specification contains asynchronous/synchronization intent"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk_a",
+        "clk_b",
+        "arstn",
+        "brstn",
+        "data_in",
+        "data_en"
+      ],
+      "intent_sufficient_for_reference_audit": true,
+      "manual_review": true,
+      "multi_clock": true,
+      "multi_reset": true,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": true,
+      "reset_ports": [
+        "arstn",
+        "brstn"
+      ],
+      "specification": "Miscellaneous/Others/synchronizer/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": true,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Miscellaneous/Others/synchronizer"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "Miscellaneous/Others/traffic_light/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Miscellaneous/Others/traffic_light"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst_n"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst_n",
+        "valid_in",
+        "data_in"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": true,
+      "reset_ports": [
+        "rst_n"
+      ],
+      "specification": "Miscellaneous/Others/width_8to16/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Miscellaneous/Others/width_8to16"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst_n"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst_n",
+        "write_en",
+        "write_addr",
+        "write_data",
+        "read_en",
+        "read_addr"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": true,
+      "reset_ports": [
+        "rst_n"
+      ],
+      "specification": "Miscellaneous/RISC-V/RAM/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Miscellaneous/RISC-V/RAM"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "Miscellaneous/RISC-V/ROM/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Miscellaneous/RISC-V/ROM"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "a",
+        "b",
+        "aluc"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "Miscellaneous/RISC-V/alu/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Miscellaneous/RISC-V/alu"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "Miscellaneous/RISC-V/clkgenerator/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Miscellaneous/RISC-V/clkgenerator"
+    },
+    {
+      "asynchronous_relation_explicit": true,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst",
+        "specification contains asynchronous/synchronization intent"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": true,
+      "reset_ports": [
+        "rst"
+      ],
+      "specification": "Miscellaneous/RISC-V/instr_reg/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Miscellaneous/RISC-V/instr_reg"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst",
+        "a",
+        "b"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": true,
+      "reset_ports": [
+        "rst"
+      ],
+      "specification": "Miscellaneous/RISC-V/pe/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Miscellaneous/RISC-V/pe"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst_n"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst_n"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": true,
+      "reset_ports": [
+        "rst_n"
+      ],
+      "specification": "Miscellaneous/Signal generation/signal_generator/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Miscellaneous/Signal generation/signal_generator"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "Miscellaneous/Signal generation/square_wave/design_description.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Miscellaneous/Signal generation/square_wave"
+    }
+  ]
+}

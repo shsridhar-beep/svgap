@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://svgap.dev/schemas/report-v1.json",
+  "title": "SV-Gap evaluation report",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "candidate_id",
+    "manifest",
+    "functional",
+    "structural",
+    "gap_member",
+    "generated_at"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "candidate_id": {"type": "string"},
+    "manifest": {"type": "string"},
+    "gap_member": {"type": "boolean"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "functional": {"$ref": "#/$defs/result"},
+    "structural": {
+      "allOf": [
+        {"$ref": "#/$defs/result"},
+        {
+          "type": "object",
+          "required": ["backend", "backend_version", "findings"],
+          "properties": {
+            "backend": {"type": "string"},
+            "backend_version": {"type": "string"},
+            "findings": {"type": "array"},
+            "tool_versions": {
+              "type": "object",
+              "additionalProperties": {"type": "string"}
+            }
+          }
+        }
+      ]
+    }
+  },
+  "$defs": {
+    "result": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": {
+          "enum": ["pass", "fail", "compile_error", "unknown", "tool_error", "not_run"]
+        },
+        "tool_versions": {
+          "type": "object",
+          "additionalProperties": {"type": "string"}
+        }
+      }
+    }
+  }
+}

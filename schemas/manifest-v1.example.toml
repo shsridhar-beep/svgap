@@ -1,0 +1,41 @@
+schema_version = "1.0"
+candidate_id = "example-candidate"
+
+[design]
+top = "example_top"
+sources = ["design.sv"]
+
+[functional]
+commands = [
+  ["iverilog", "-g2012", "-o", "${SVGAP_BUILD}/sim.vvp", "design.sv", "tb.sv"],
+  ["vvp", "${SVGAP_BUILD}/sim.vvp"],
+]
+
+[structural]
+backend = "reference-yosys"
+
+[intent]
+asynchronous_groups = [["source"], ["destination"]]
+
+[[intent.clocks]]
+name = "source"
+port = "src_clk"
+
+[[intent.clocks]]
+name = "destination"
+port = "dst_clk"
+
+[[intent.resets]]
+name = "source_reset"
+port = "src_rst_n"
+active = "low"
+assertion = "async"
+deassertion = "sync"
+
+[[intent.crossings]]
+source = "status_src"
+destination = "status_dst"
+protocol = "single_bit"
+
+[output]
+report = "build/report.json"

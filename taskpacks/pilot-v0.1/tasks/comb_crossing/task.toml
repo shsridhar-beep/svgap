@@ -1,0 +1,10 @@
+id = "comb_crossing"
+top = "comb_crossing"
+testbench = "../../../../examples/comb_crossing/tb.sv"
+asynchronous_groups = [["source"], ["destination"]]
+[[clocks]]
+name = "source"
+port = "src_clk"
+[[clocks]]
+name = "destination"
+port = "dst_clk"

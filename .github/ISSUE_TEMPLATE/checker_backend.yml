@@ -1,0 +1,30 @@
+name: Checker backend
+description: Propose or contribute an adapter for an accessible structural checker.
+title: "backend: "
+labels: ["backend"]
+body:
+  - type: input
+    id: tool
+    attributes:
+      label: Tool and version
+    validations:
+      required: true
+  - type: input
+    id: license
+    attributes:
+      label: License and public source URL
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence contract
+      description: Describe statuses, rule IDs, locations, and inconclusive behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: limits
+    attributes:
+      label: Known limitations
+    validations:
+      required: true

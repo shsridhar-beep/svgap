@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0",
+  "run_date": "2026-07-02",
+  "design": {
+    "configurations": 3,
+    "samples_per_configuration_task": 1,
+    "tasks": 6,
+    "total_candidates": 18
+  },
+  "configurations": [
+    {
+      "label": "codex-default-2026-07-02",
+      "interface": "Codex CLI 0.143.0-alpha.31",
+      "requested_model": null,
+      "resolved_model": null,
+      "note": "The installed CLI did not emit its resolved default model identifier."
+    },
+    {
+      "label": "claude-sonnet-2026-07-02",
+      "interface": "Claude Code 2.1.198",
+      "requested_model": "sonnet",
+      "resolved_model_check": "claude-sonnet-5"
+    },
+    {
+      "label": "claude-opus-2026-07-02",
+      "interface": "Claude Code 2.1.198",
+      "requested_model": "opus",
+      "resolved_model_check": "claude-opus-4-8"
+    }
+  ],
+  "outcomes": {
+    "functional_pass": 18,
+    "structural_pass": 13,
+    "structural_fail": 3,
+    "structural_tool_error": 2,
+    "structurally_determinate": 16,
+    "gap_members": 3,
+    "descriptive_gap_among_determinate_functional_passes": 0.1875
+  },
+  "failure_rules": {
+    "REF-RDC-001": 3
+  },
+  "task_matrix": {
+    "level_crossing": ["pass", "pass", "pass"],
+    "comb_crossing": ["pass", "pass", "pass"],
+    "gray_counter": ["tool_error", "pass", "tool_error"],
+    "reset_release": ["fail", "fail", "fail"],
+    "mode_crossing": ["pass", "pass", "pass"],
+    "alarm_crossing": ["pass", "pass", "pass"]
+  },
+  "toolchain": {
+    "svgap_reference_oracle": "0.1",
+    "yosys": "0.66",
+    "iverilog": "13.0"
+  },
+  "interpretation": "Exploratory harness result; not a model ranking or prevalence estimate."
+}

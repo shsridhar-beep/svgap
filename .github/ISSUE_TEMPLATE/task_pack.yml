@@ -1,0 +1,24 @@
+name: Structural task pack
+description: Propose a reproducible CDC/RDC task or paired witness.
+title: "task: "
+labels: ["task-pack"]
+body:
+  - type: textarea
+    id: intent
+    attributes:
+      label: Structural intent
+      description: Declare clocks, resets, asynchronous relationships, and expected protocol.
+    validations:
+      required: true
+  - type: textarea
+    id: oracle
+    attributes:
+      label: Functional and structural oracles
+    validations:
+      required: true
+  - type: input
+    id: license
+    attributes:
+      label: Artifact license
+    validations:
+      required: true

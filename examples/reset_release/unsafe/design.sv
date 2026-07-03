@@ -1,0 +1,15 @@
+module reset_release (
+    input  logic clk,
+    input  logic arst_n,
+    input  logic enable,
+    output logic [3:0] count
+);
+    // Unsafe under the declared intent: reset deassertion is asynchronous at
+    // the state element.
+    always_ff @(posedge clk or negedge arst_n) begin
+        if (!arst_n)
+            count <= 0;
+        else if (enable)
+            count <= count + 1'b1;
+    end
+endmodule

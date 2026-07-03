@@ -1,0 +1,10 @@
+id = "mode_crossing"
+top = "mode_crossing"
+testbench = "tb.sv"
+asynchronous_groups = [["control"], ["core"]]
+[[clocks]]
+name = "control"
+port = "cfg_clk"
+[[clocks]]
+name = "core"
+port = "core_clk"

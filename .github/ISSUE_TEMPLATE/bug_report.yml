@@ -1,0 +1,31 @@
+name: Bug report
+description: Report an evaluator, parser, schema, or reproducibility defect.
+title: "bug: "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Include the manifest, command, and smallest non-confidential RTL needed.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and observed result
+    validations:
+      required: true
+  - type: input
+    id: versions
+    attributes:
+      label: SV-Gap, Python, Yosys, and simulator versions
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Artifact safety
+      options:
+        - label: I removed credentials, proprietary RTL, and confidential constraints.
+          required: true

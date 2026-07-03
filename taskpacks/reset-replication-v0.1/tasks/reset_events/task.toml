@@ -1,0 +1,13 @@
+id = "reset_events"
+top = "reset_events"
+testbench = "tb.sv"
+asynchronous_groups = []
+[[clocks]]
+name = "event"
+port = "clk"
+[[resets]]
+name = "external_reset"
+port = "ext_rst_n"
+active = "low"
+assertion = "async"
+deassertion = "sync"

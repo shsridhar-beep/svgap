@@ -1,0 +1,13 @@
+id = "reset_config"
+top = "reset_config"
+testbench = "tb.sv"
+asynchronous_groups = []
+[[clocks]]
+name = "config"
+port = "clk"
+[[resets]]
+name = "global_reset"
+port = "global_reset_n"
+active = "low"
+assertion = "async"
+deassertion = "sync"

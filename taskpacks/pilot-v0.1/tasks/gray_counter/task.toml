@@ -1,0 +1,14 @@
+id = "gray_counter"
+top = "gray_counter"
+testbench = "../../../../examples/gray_counter/tb.sv"
+asynchronous_groups = [["source"], ["destination"]]
+[[clocks]]
+name = "source"
+port = "src_clk"
+[[clocks]]
+name = "destination"
+port = "dst_clk"
+[[crossings]]
+source = "*"
+destination = "*"
+protocol = "gray"

@@ -1,0 +1,4169 @@
+{
+  "schema_version": "1.0",
+  "summary": {
+    "benchmark": "verilog-eval",
+    "functional_oracle": 156,
+    "intent_sufficient_for_reference_audit": 0,
+    "manual_review": 0,
+    "multi_clock": 0,
+    "multi_reset": 0,
+    "native_structural_scoring": 0,
+    "source_revision": "c498220d0a52248f8e3fdffe279075215bde2da6",
+    "structural_risk_exposed": 0,
+    "tasks": 156
+  },
+  "tasks": [
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob001_zero_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob001_zero"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob002_m2014_q4i_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob002_m2014_q4i"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob003_step_one_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob003_step_one"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "in"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob004_vector2_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob004_vector2"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "in"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob005_notgate_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob005_notgate"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "in"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob006_vectorr_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob006_vectorr"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "in"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob007_wire_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob007_wire"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "in"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob008_m2014_q4h_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob008_m2014_q4h"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "in"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob009_popcount3_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob009_popcount3"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "x",
+        "y"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob010_mt2015_q4a_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob010_mt2015_q4a"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "a",
+        "b"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob011_norgate_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob011_norgate"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "a",
+        "b"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob012_xnorgate_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob012_xnorgate"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "in1",
+        "in2"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob013_m2014_q4e_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob013_m2014_q4e"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "a",
+        "b"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob014_andgate_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob014_andgate"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "in"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob015_vector1_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob015_vector1"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "x",
+        "y"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob016_m2014_q4j_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob016_m2014_q4j"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "a",
+        "b",
+        "sel"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob017_mux2to1v_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob017_mux2to1v"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "in",
+        "sel"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob018_mux256to1_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob018_mux256to1"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "in1",
+        "in2"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob019_m2014_q4f_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob019_m2014_q4f"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "A",
+        "B"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob020_mt2015_eq2_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob020_mt2015_eq2"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "in",
+        "sel"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob021_mux256to1v_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob021_mux256to1v"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "a",
+        "b",
+        "sel"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob022_mux2to1_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob022_mux2to1"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "in"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob023_vector100r_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob023_vector100r"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "a",
+        "b"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob024_hadd_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob024_hadd"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "in"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob025_reduction_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob025_reduction"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "a",
+        "b"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob026_alwaysblock1_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob026_alwaysblock1"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "a",
+        "b",
+        "cin"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob027_fadd_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob027_fadd"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "d",
+        "ena"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob028_m2014_q4a_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob028_m2014_q4a"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "in1",
+        "in2",
+        "in3"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob029_m2014_q4g_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob029_m2014_q4g"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "in"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob030_popcount255_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob030_popcount255"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "d",
+        "q"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob031_dff_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob031_dff"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "vec"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob032_vector0_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob032_vector0"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "a",
+        "b"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob033_ece241_2014_q1c_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob033_ece241_2014_q1c"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "d"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob034_dff8_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob034_dff8"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "reset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob035_count1to10_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob035_count1to10"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "ring",
+        "vibrate_mode"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob036_ringer_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob036_ringer"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "reset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob037_review2015_count1k_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob037_review2015_count1k"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "reset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob038_count15_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob038_count15"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "a",
+        "b",
+        "sel_b1",
+        "sel_b2"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob039_always_if_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob039_always_if"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "reset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob040_count10_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob040_count10"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset",
+        "d"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "reset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob041_dff8r_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob041_dff8r"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "in"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob042_vector4_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob042_vector4"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob043_vector5_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob043_vector5"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "a",
+        "b"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob044_vectorgates_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob044_vectorgates"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "in"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob045_edgedetect2_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob045_edgedetect2"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset",
+        "d"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "reset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob046_dff8p_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob046_dff8p"
+    },
+    {
+      "asynchronous_relation_explicit": true,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: areset",
+        "specification contains asynchronous/synchronization intent"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "areset",
+        "d"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "areset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob047_dff8ar_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob047_dff8ar"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "d",
+        "r"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob048_m2014_q4c_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob048_m2014_q4c"
+    },
+    {
+      "asynchronous_relation_explicit": true,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "specification contains asynchronous/synchronization intent"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "ar",
+        "d"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob049_m2014_q4b_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob049_m2014_q4b"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "a",
+        "b",
+        "c"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob050_kmap1_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob050_kmap1"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "in"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob051_gates4_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob051_gates4"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "in"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob052_gates100_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob052_gates100"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "in"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob053_m2014_q4d_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob053_m2014_q4d"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "in"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob054_edgedetect_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob054_edgedetect"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob055_conditional_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob055_conditional"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "j",
+        "k"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob056_ece241_2013_q7_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob056_ece241_2013_q7"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob057_kmap2_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob057_kmap2"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "a",
+        "b"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob058_alwaysblock2_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob058_alwaysblock2"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "a",
+        "b",
+        "c"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob059_wire4_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob059_wire4"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "resetn",
+        "in"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob060_m2014_q4k_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob060_m2014_q4k"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "w",
+        "R",
+        "E",
+        "L"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob061_2014_q4a_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob061_2014_q4a"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob062_bugs_mux2_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob062_bugs_mux2"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "shift_ena",
+        "count_ena",
+        "data"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob063_review2015_shiftcount_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob063_review2015_shiftcount"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob064_vector3_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob064_vector3"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "p1a",
+        "p1b",
+        "p1c",
+        "p1d",
+        "p2a",
+        "p2b",
+        "p2c",
+        "p2d"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob065_7420_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob065_7420"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset",
+        "in"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "reset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob066_edgecapture_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob066_edgecapture"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset",
+        "slowena"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "reset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob067_countslow_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob067_countslow"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": true,
+      "reset_ports": [
+        "reset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob068_countbcd_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob068_countbcd"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "x3",
+        "x2",
+        "x1"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob069_truthtable1_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob069_truthtable1"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob070_ece241_2013_q2_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob070_ece241_2013_q2"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "in"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob071_always_casez_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob071_always_casez"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "mode",
+        "too_cold",
+        "too_hot",
+        "fan_on"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob072_thermostat_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob072_thermostat"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "resetn",
+        "byteena",
+        "d"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": true,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob073_dff16e_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob073_dff16e"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "x"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob074_ece241_2014_q4_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob074_ece241_2014_q4"
+    },
+    {
+      "asynchronous_relation_explicit": true,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: areset",
+        "specification contains asynchronous/synchronization intent"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "areset",
+        "train_valid",
+        "train_taken"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "areset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob075_counter_2bc_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob075_counter_2bc"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "sel",
+        "data0",
+        "data1",
+        "data2",
+        "data3",
+        "data4",
+        "data5"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob076_always_case_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob076_always_case"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob077_wire_decl_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob077_wire_decl"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "d"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob078_dualedge_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob078_dualedge"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "in",
+        "state"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob079_fsm3onehot_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob079_fsm3onehot"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "load",
+        "data"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob080_timer_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob080_timer"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "p1a",
+        "p1b",
+        "p1c",
+        "p1d",
+        "p1e",
+        "p1f",
+        "p2a",
+        "p2b",
+        "p2c",
+        "p2d"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob081_7458_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob081_7458"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "reset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob082_lfsr32_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob082_lfsr32"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "x",
+        "y"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob083_mt2015_q4b_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob083_mt2015_q4b"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "enable",
+        "S",
+        "A",
+        "B",
+        "C"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob084_ece241_2013_q12_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob084_ece241_2013_q12"
+    },
+    {
+      "asynchronous_relation_explicit": true,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: areset",
+        "specification contains asynchronous/synchronization intent"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "areset",
+        "load",
+        "ena",
+        "data"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "areset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob085_shift4_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob085_shift4"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "reset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob086_lfsr5_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob086_lfsr5"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "a",
+        "b"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob087_gates_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob087_gates"
+    },
+    {
+      "asynchronous_relation_explicit": true,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: areset",
+        "specification contains asynchronous/synchronization intent"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "areset",
+        "x"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "areset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob088_ece241_2014_q5b_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob088_ece241_2014_q5b"
+    },
+    {
+      "asynchronous_relation_explicit": true,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: areset",
+        "specification contains asynchronous/synchronization intent"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "areset",
+        "x"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "areset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob089_ece241_2014_q5a_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob089_ece241_2014_q5a"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "a",
+        "b"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob090_circuit1_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob090_circuit1"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "y",
+        "w"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob091_2012_q2b_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob091_2012_q2b"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "in"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob092_gatesv100_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob092_gatesv100"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "c",
+        "d"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob093_ece241_2014_q3_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob093_ece241_2014_q3"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "in"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob094_gatesv_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob094_gatesv"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "reset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob095_review2015_fsmshift_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob095_review2015_fsmshift"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset",
+        "data"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "reset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob096_review2015_fsmseq_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob096_review2015_fsmseq"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h",
+        "i",
+        "sel"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob097_mux9to1v_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob097_mux9to1v"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "a"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob098_circuit7_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob098_circuit7"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "y",
+        "w"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob099_m2014_q6c_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob099_m2014_q6c"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "in",
+        "state"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob100_fsm3comb_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob100_fsm3comb"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob101_circuit4_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob101_circuit4"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob102_circuit3_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob102_circuit3"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob103_circuit2_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob103_circuit2"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "L",
+        "q_in",
+        "r_in"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob104_mt2015_muxdff_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob104_mt2015_muxdff"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "load",
+        "ena",
+        "data"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob105_rotate100_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob105_rotate100"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "scancode"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob106_always_nolatches_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob106_always_nolatches"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset",
+        "in"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "reset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob107_fsm1s_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob107_fsm1s"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "load",
+        "data"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob108_rule90_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob108_rule90"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: areset"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "areset",
+        "in"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "areset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob109_fsm1_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob109_fsm1"
+    },
+    {
+      "asynchronous_relation_explicit": true,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: areset",
+        "specification contains asynchronous/synchronization intent"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "areset",
+        "j",
+        "k"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": true,
+      "reset_ports": [
+        "areset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob110_fsm2_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob110_fsm2"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset",
+        "j",
+        "k"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "reset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob111_fsm2s_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob111_fsm2s"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "in"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob112_always_case2_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob112_always_case2"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "x"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob113_2012_q1g_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob113_2012_q1g"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "code"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob114_bugs_case_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob114_bugs_case"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "load",
+        "ena",
+        "amount",
+        "data"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob115_shift18_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob115_shift18"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "x"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob116_m2014_q3_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob116_m2014_q3"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "a"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob117_circuit9_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob117_circuit9"
+    },
+    {
+      "asynchronous_relation_explicit": true,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: areset",
+        "specification contains asynchronous/synchronization intent"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "areset",
+        "predict_valid",
+        "predict_taken",
+        "train_mispredicted",
+        "train_taken",
+        "train_history"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "areset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob118_history_shift_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob118_history_shift"
+    },
+    {
+      "asynchronous_relation_explicit": true,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: areset",
+        "specification contains asynchronous/synchronization intent"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "areset",
+        "in"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "areset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob119_fsm3_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob119_fsm3"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset",
+        "in"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": true,
+      "reset_ports": [
+        "reset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob120_fsm3s_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob120_fsm3s"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset",
+        "x"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "reset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob121_2014_q3bfsm_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob121_2014_q3bfsm"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob122_kmap4_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob122_kmap4"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob123_bugs_addsubz_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob123_bugs_addsubz"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "load",
+        "data"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob124_rule110_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob124_rule110"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob125_kmap3_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob125_kmap3"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "a"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob126_circuit6_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob126_circuit6"
+    },
+    {
+      "asynchronous_relation_explicit": true,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: areset",
+        "specification contains asynchronous/synchronization intent"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "areset",
+        "bump_left",
+        "bump_right"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "areset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob127_lemmings1_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob127_lemmings1"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset",
+        "in"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "reset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob128_fsm_ps2_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob128_fsm_ps2"
+    },
+    {
+      "asynchronous_relation_explicit": true,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "specification contains asynchronous/synchronization intent"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "aresetn",
+        "x"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob129_ece241_2013_q8_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob129_ece241_2013_q8"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob130_circuit5_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob130_circuit5"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "x",
+        "y"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob131_mt2015_q4_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob131_mt2015_q4"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob132_always_if2_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob132_always_if2"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset",
+        "s",
+        "w"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "reset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob133_2014_q3fsm_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob133_2014_q3fsm"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "x",
+        "y"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob134_2014_q3c_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob134_2014_q3c"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "y",
+        "w"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob135_m2014_q6b_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob135_m2014_q6b"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset",
+        "w"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "reset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob136_m2014_q6_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob136_m2014_q6"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset",
+        "in"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "reset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob137_fsm_serial_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob137_fsm_serial"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset",
+        "w"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "reset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob138_2012_q2fsm_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob138_2012_q2fsm"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "resetn",
+        "x",
+        "y"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob139_2013_q2bfsm_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob139_2013_q2bfsm"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset",
+        "in"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "reset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob140_fsm_hdlc_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob140_fsm_hdlc"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset",
+        "ena"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "reset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob141_count_clock_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob141_count_clock"
+    },
+    {
+      "asynchronous_relation_explicit": true,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: areset",
+        "specification contains asynchronous/synchronization intent"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "areset",
+        "bump_left",
+        "bump_right",
+        "ground"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "areset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob142_lemmings2_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob142_lemmings2"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "in",
+        "state"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob143_fsm_onehot_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob143_fsm_onehot"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "load",
+        "data"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob144_conwaylife_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob144_conwaylife"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clock"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clock"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clock",
+        "a"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob145_circuit8_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob145_circuit8"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "in",
+        "reset"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "reset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob146_fsm_serialdata_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob146_fsm_serialdata"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "a",
+        "b"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob147_circuit10_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob147_circuit10"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "resetn",
+        "r"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob148_2013_q2afsm_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob148_2013_q2afsm"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset",
+        "s"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "reset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob149_ece241_2013_q4_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob149_ece241_2013_q4"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [],
+      "constraint_files": [],
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "d",
+        "done_counting",
+        "ack",
+        "state"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [],
+      "specification": "dataset_spec-to-rtl/Prob150_review2015_fsmonehot_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob150_review2015_fsmonehot"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset",
+        "data",
+        "done_counting",
+        "ack"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "reset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob151_review2015_fsm_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob151_review2015_fsm"
+    },
+    {
+      "asynchronous_relation_explicit": true,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: areset",
+        "specification contains asynchronous/synchronization intent"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "areset",
+        "bump_left",
+        "bump_right",
+        "ground",
+        "dig"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "areset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob152_lemmings3_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob152_lemmings3"
+    },
+    {
+      "asynchronous_relation_explicit": true,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: areset",
+        "specification contains asynchronous/synchronization intent"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "areset",
+        "predict_valid",
+        "predict_pc",
+        "train_valid",
+        "train_taken",
+        "train_mispredicted",
+        "train_history",
+        "train_pc"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "areset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob153_gshare_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob153_gshare"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset",
+        "in"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "reset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob154_fsm_ps2data_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob154_fsm_ps2data"
+    },
+    {
+      "asynchronous_relation_explicit": true,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: areset",
+        "specification contains asynchronous/synchronization intent"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "areset",
+        "bump_left",
+        "bump_right",
+        "ground",
+        "dig"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "areset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob155_lemmings4_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob155_lemmings4"
+    },
+    {
+      "asynchronous_relation_explicit": false,
+      "clock_ports": [
+        "clk"
+      ],
+      "constraint_files": [],
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset",
+        "data",
+        "ack"
+      ],
+      "intent_sufficient_for_reference_audit": false,
+      "manual_review": false,
+      "multi_clock": false,
+      "multi_reset": false,
+      "natively_structurally_scored": false,
+      "reset_polarity_explicit": false,
+      "reset_ports": [
+        "reset"
+      ],
+      "specification": "dataset_spec-to-rtl/Prob156_review2015_fancytimer_prompt.txt",
+      "structural_oracle_files": [],
+      "structural_risk_exposed": false,
+      "synchronous_deassertion_explicit": false,
+      "task_id": "Prob156_review2015_fancytimer"
+    }
+  ]
+}

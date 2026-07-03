@@ -1,0 +1,80 @@
+{
+  "by_model": {
+    "claude-opus-2026-07-02": {
+      "candidates": 6,
+      "functional_pass": 6,
+      "gap_members": 1
+    },
+    "claude-sonnet-2026-07-02": {
+      "candidates": 6,
+      "functional_pass": 6,
+      "gap_members": 1
+    },
+    "codex-default-2026-07-02": {
+      "candidates": 6,
+      "functional_pass": 6,
+      "gap_members": 1
+    }
+  },
+  "by_task": {
+    "alarm_crossing": {
+      "candidates": 3,
+      "functional_pass": 3,
+      "gap_members": 0
+    },
+    "comb_crossing": {
+      "candidates": 3,
+      "functional_pass": 3,
+      "gap_members": 0
+    },
+    "gray_counter": {
+      "candidates": 3,
+      "functional_pass": 3,
+      "gap_members": 0
+    },
+    "level_crossing": {
+      "candidates": 3,
+      "functional_pass": 3,
+      "gap_members": 0
+    },
+    "mode_crossing": {
+      "candidates": 3,
+      "functional_pass": 3,
+      "gap_members": 0
+    },
+    "reset_release": {
+      "candidates": 3,
+      "functional_pass": 3,
+      "gap_members": 3
+    }
+  },
+  "detected_gap_fraction": 0.1875,
+  "functional_pass": 18,
+  "gap_members": 3,
+  "outcomes": [
+    {
+      "count": 3,
+      "functional": "pass",
+      "gap_member": true,
+      "structural": "fail"
+    },
+    {
+      "count": 13,
+      "functional": "pass",
+      "gap_member": false,
+      "structural": "pass"
+    },
+    {
+      "count": 2,
+      "functional": "pass",
+      "gap_member": false,
+      "structural": "tool_error"
+    }
+  ],
+  "report_count": 18,
+  "rules": {
+    "REF-RDC-001": 3
+  },
+  "schema_version": "1.0",
+  "structurally_determinate_functional_pass": 16
+}

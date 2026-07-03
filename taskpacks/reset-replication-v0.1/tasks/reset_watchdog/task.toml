@@ -1,0 +1,13 @@
+id = "reset_watchdog"
+top = "reset_watchdog"
+testbench = "tb.sv"
+asynchronous_groups = []
+[[clocks]]
+name = "watchdog"
+port = "clk"
+[[resets]]
+name = "system_reset"
+port = "system_rst_n"
+active = "low"
+assertion = "async"
+deassertion = "sync"
