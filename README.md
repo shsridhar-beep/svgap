@@ -120,6 +120,12 @@ quantitative claims were narrowed and which release blockers remain.
 3. Add a benchmark or functional-result adapter.
 4. Contribute reproduced model outputs and expert-adjudicated evidence.
 
+## Citing
+
+Cite the archived release
+([doi:10.5281/zenodo.21152349](https://doi.org/10.5281/zenodo.21152349));
+machine-readable metadata is in [CITATION.cff](CITATION.cff).
+
 ## License
 
 Apache-2.0. External tools and imported datasets retain their own licenses.

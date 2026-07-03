@@ -11,5 +11,9 @@ authors:
     email: "shsridhar@nvidia.com"
     affiliation: "NVIDIA"
     orcid: "https://orcid.org/0009-0009-8522-5033"
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.21152349
+    description: "Zenodo archive of v0.1.0-alpha.1"
 repository-code: "https://github.com/shsridhar-beep/svgap"
 url: "https://github.com/shsridhar-beep/svgap"
