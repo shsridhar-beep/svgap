@@ -1,6 +1,7 @@
 # SV-Gap
 
 [![CI](https://github.com/shsridhar-beep/svgap/actions/workflows/ci.yml/badge.svg)](https://github.com/shsridhar-beep/svgap/actions/workflows/ci.yml)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21152349.svg)](https://doi.org/10.5281/zenodo.21152349)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
 
 **Production-readiness evaluation for AI-generated RTL.**
@@ -53,7 +54,41 @@ the [controlled result](docs/controlled-result.md). Its deliberately balanced
 `0.500` gap validates the harness and must not be interpreted as defect
 prevalence.
 
-An automated inventory of 508 public RTL-generation tasks detected 12
+## What you can do here
+
+**Gate your own generation pipeline.** Write a manifest declaring your
+design's clocks, resets, and asynchronous groups, then run `svgap check`
+after your functional tests. Your evaluation gains a structural dimension
+with explicit `unknown` and `tool_error` states instead of silent passes.
+The [architecture](docs/architecture.md) doc describes the manifest contract;
+`examples/` holds working templates.
+
+**Rerun the reset study on your model.** The
+[reset-release taskpack](taskpacks/reset-replication-v0.1/) ships the frozen
+prompts, testbenches, and harness behind the `14/57` result. Generate your
+own samples, score them with the same oracle, and you have a comparable
+detection count for your model in an afternoon — see the
+[research protocol](docs/research-protocol.md) before interpreting it.
+
+**Audit a benchmark for structural intent.** `svgap audit` censuses a task
+set for multi-clock interfaces, declared clock/reset intent, and native
+CDC/RDC scoring — the same tooling behind the
+[benchmark audit](docs/benchmark-audit.md). Point it at your own benchmark to
+learn whether structural safety is even scorable from your task metadata.
+
+**Extend the oracle.** The backend boundary is one function:
+`check(manifest) -> CheckResult`. Wrap a commercial checker, write an
+independent second implementation, or contribute a witness pair or task pack
+— the [open issues](https://github.com/shsridhar-beep/svgap/issues) are
+scoped entry points, and two designed-but-unbuilt v0.2 components
+([perturbation adjudication](docs/perturbation-adjudication.md),
+[X-optimism and metastability rules](docs/category-expansion-xprop-metastability.md))
+are documented and waiting.
+
+An automated inventory of 508 public RTL-generation tasks — from
+[VerilogEval](https://github.com/NVlabs/verilog-eval),
+[RTLLM](https://github.com/hkust-zhiyao/RTLLM), and
+[CVDP](https://github.com/NVlabs/cvdp_benchmark) — detected 12
 multi-clock tasks (2.4%) and no recognizable native CDC/RDC scoring artifacts.
 These are heuristic detector counts, not a validated census; see the
 [benchmark audit](docs/benchmark-audit.md) for definitions, revisions, and

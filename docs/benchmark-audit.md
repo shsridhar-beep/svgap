@@ -56,9 +56,13 @@ manual-review flags. Source data are not vendored.
 
 ## Frozen sources
 
-- VerilogEval commit `c498220d0a52248f8e3fdffe279075215bde2da6`
-- RTLLM commit `41b26896e33b536940116a975626455eed3de65e`
-- CVDP JSONL SHA-256
+- [VerilogEval](https://github.com/NVlabs/verilog-eval) commit
+  `c498220d0a52248f8e3fdffe279075215bde2da6`
+- [RTLLM](https://github.com/hkust-zhiyao/RTLLM) commit
+  `41b26896e33b536940116a975626455eed3de65e`
+- [CVDP](https://github.com/NVlabs/cvdp_benchmark)
+  ([dataset](https://huggingface.co/datasets/nvidia/cvdp-benchmark-dataset),
+  [paper](https://arxiv.org/abs/2506.14074)) JSONL SHA-256
   `cbcd81295561ebb16e4d857e096f4d9908d042c33aff3b58abf236e868411857`
 
 The CVDP dataset describes non-code content as CC BY 4.0, original code as
