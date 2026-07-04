@@ -5,6 +5,21 @@ versioning once the manifest and report contracts reach public v0.1.
 
 ## Unreleased
 
+### Added
+
+- Intent-preserving `init` and `validate` onboarding commands and an `explain`
+  command that exposes answered, failed, and unanswered production questions.
+- Strict digital trace, calibration, and adjudication contracts with a
+  prerecorded mock calibration suite.
+- Frontier-model generation, diagnosis, and repair challenge contracts and a
+  multidimensional `challenge-score` workflow.
+
+### Safety boundary
+
+- The reset-release perturbation instrumenter is an unavailable capability
+  marker with no rewrite, skew injection, execution, or candidate-result code
+  pending patent and employer review.
+
 ## 0.2.0-alpha.1 — 2026-07-04
 
 ### Added

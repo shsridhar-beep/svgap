@@ -20,7 +20,10 @@
 
 ## v0.2 follow-ons — evaluation breadth
 
-- perturbation adjudication for reset release
+- generic prerecorded trace adjudication contract and calibration scaffold
+  (shipped; no candidate-level empirical claim)
+- real perturbation adjudication for reset release (blocked pending patent and
+  employer review)
   ([design](docs/perturbation-adjudication.md))
 - `REF-XPROP-001` and `REF-META-001` with witness pairs
   ([design](docs/category-expansion-xprop-metastability.md))

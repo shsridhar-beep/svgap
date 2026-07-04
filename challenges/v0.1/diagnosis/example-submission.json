@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "challenge_id": "frontier-model-handoff-v0.1",
+  "task_id": "diagnose-production-evidence",
+  "model": "example-only-not-a-model-result",
+  "run_id": "example-001",
+  "responses": [
+    {
+      "question_id": "functional-oracle",
+      "status": "answered",
+      "evidence": "The content-bound functional result reports pass.",
+      "next_evidence": ""
+    },
+    {
+      "question_id": "configured-structural-rule",
+      "status": "failed",
+      "evidence": "REF-RDC-001 is present in the structural findings.",
+      "next_evidence": ""
+    },
+    {
+      "question_id": "production-safety",
+      "status": "unanswered",
+      "evidence": "The configured checks cover a bounded set of digital properties.",
+      "next_evidence": "Declare remaining intent and obtain independent verification and signoff evidence."
+    }
+  ]
+}

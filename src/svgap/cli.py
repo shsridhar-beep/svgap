@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+from dataclasses import asdict
 import json
 import shutil
 import subprocess
@@ -10,10 +11,25 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from svgap.backends.registry import BackendError, discover_backends, load_backend
+from svgap.challenge import ChallengeError, score_challenge
 from svgap.audit import audit_benchmark, write_audit
+from svgap.adjudication import (
+    InstrumenterUnavailable,
+    MockPrerecordedInstrumenter,
+    ResetReleaseSkewInstrumenter,
+    TraceError,
+    adjudicate_prerecorded,
+    compare_traces,
+    load_trace,
+    run_calibration_suite,
+    trace_digest,
+    trace_from_csv,
+)
 from svgap.functional import run_functional
+from svgap.legibility import explain_payload, render_explanation
 from svgap.manifest import ManifestError, load_manifest
 from svgap.model import EvaluationReport, FunctionalResult
+from svgap.onboarding import manifest_readiness, render_manifest_draft
 from svgap.pilot import materialize_candidate
 from svgap.provenance import canonical_file_set_digest
 from svgap.reporting import build_html, dumps_sarif
@@ -27,6 +43,23 @@ def build_parser() -> argparse.ArgumentParser:
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
     subparsers.add_parser("doctor", help="check local open-source tool prerequisites")
+    initialize = subparsers.add_parser(
+        "init", help="create a manifest draft without inferring design intent"
+    )
+    initialize.add_argument("source", type=Path)
+    initialize.add_argument("--top", required=True)
+    initialize.add_argument("--candidate-id", required=True)
+    initialize.add_argument("--output", required=True, type=Path)
+    validate = subparsers.add_parser(
+        "validate", help="validate a manifest and report unanswered evidence questions"
+    )
+    validate.add_argument("manifest", type=Path)
+    validate.add_argument("--json", action="store_true")
+    explain = subparsers.add_parser(
+        "explain", help="translate a report into answered, failed, and unanswered questions"
+    )
+    explain.add_argument("report", type=Path)
+    explain.add_argument("--json", action="store_true")
     digest = subparsers.add_parser("digest", help="print the canonical source digest for a manifest")
     digest.add_argument("manifest", type=Path)
     check = subparsers.add_parser("check", help="evaluate one RTL candidate")
@@ -52,6 +85,53 @@ def build_parser() -> argparse.ArgumentParser:
     export.add_argument("reports", nargs="+", type=Path)
     export.add_argument("--sarif", type=Path)
     export.add_argument("--html", type=Path)
+    trace = subparsers.add_parser("trace-normalize", help="normalize observer CSV into a digital trace")
+    trace.add_argument("csv", type=Path)
+    trace.add_argument("--trace-id", required=True)
+    trace.add_argument("--candidate-digest", required=True)
+    trace.add_argument("--observer", required=True)
+    trace.add_argument("--observer-version", required=True)
+    trace.add_argument("--sampling", required=True)
+    trace.add_argument("--output", required=True, type=Path)
+    compare = subparsers.add_parser("compare-traces", help="compare two normalized digital traces")
+    compare.add_argument("golden", type=Path)
+    compare.add_argument("observed", type=Path)
+    compare.add_argument("--max-shift", type=int, default=0)
+    compare.add_argument("--warmup-samples", type=int, default=0)
+    compare.add_argument("--x-policy", choices=("exact", "golden_x_wildcard"), default="exact")
+    compare.add_argument("--json", action="store_true")
+    calibrate = subparsers.add_parser(
+        "calibrate-adjudicator", help="run a prerecorded generic calibration suite"
+    )
+    calibrate.add_argument("suite", type=Path)
+    calibrate.add_argument("--max-shift", type=int, default=0)
+    calibrate.add_argument("--warmup-samples", type=int, default=0)
+    calibrate.add_argument("--output", type=Path)
+    adjudicate = subparsers.add_parser(
+        "adjudicate", help="adjudicate prerecorded traces or report unavailable instrumenters"
+    )
+    adjudicate.add_argument(
+        "--instrumenter",
+        required=True,
+        choices=("mock-prerecorded", "reset-release-skew"),
+    )
+    adjudicate.add_argument("--candidate-id")
+    adjudicate.add_argument("--rule-id")
+    adjudicate.add_argument("--golden", type=Path)
+    adjudicate.add_argument("--observed", nargs="*", type=Path, default=[])
+    adjudicate.add_argument("--calibration-suite", type=Path)
+    adjudicate.add_argument("--semantics", default="generic-prerecorded-trace-comparison")
+    adjudicate.add_argument("--semantics-version", default="1.0")
+    adjudicate.add_argument("--max-shift", type=int, default=0)
+    adjudicate.add_argument("--warmup-samples", type=int, default=0)
+    adjudicate.add_argument("--output", type=Path)
+    challenge = subparsers.add_parser(
+        "challenge-score", help="score a frontier-model generation, diagnosis, or repair submission"
+    )
+    challenge.add_argument("task", type=Path)
+    challenge.add_argument("submission", type=Path)
+    challenge.add_argument("--output", type=Path)
+    challenge.add_argument("--json", action="store_true")
     return parser
 
 
@@ -59,6 +139,56 @@ def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     if args.command == "doctor":
         return doctor()
+    if args.command == "init":
+        output = args.output.resolve()
+        source = args.source.resolve()
+        if output.exists():
+            print(f"refusing to overwrite existing manifest: {output}", file=sys.stderr)
+            return 2
+        if not source.is_file():
+            print(f"source file does not exist: {source}", file=sys.stderr)
+            return 2
+        try:
+            relative_source = source.relative_to(output.parent)
+            draft = render_manifest_draft(relative_source, args.top, args.candidate_id)
+        except ValueError as exc:
+            print(f"cannot initialize manifest: {exc}", file=sys.stderr)
+            return 2
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(draft, encoding="utf-8")
+        print(f"manifest    {output}")
+        print("status      incomplete: add functional evidence and explicit design intent")
+        return 0
+    if args.command == "validate":
+        try:
+            manifest = load_manifest(args.manifest)
+            load_backend(manifest.backend)
+            readiness = manifest_readiness(manifest)
+        except (ManifestError, BackendError) as exc:
+            print(f"manifest validation failed: {exc}", file=sys.stderr)
+            return 2
+        if args.json:
+            print(json.dumps(readiness, indent=2, sort_keys=True))
+        else:
+            print(f"candidate   {readiness['candidate_id']}")
+            print(f"status      {readiness['status']}")
+            for item in readiness["answered"]:
+                print(f"answered    {item}")
+            for item in readiness["unanswered"]:
+                print(f"unanswered  {item}")
+        return 0 if readiness["status"] == "ready" else 3
+    if args.command == "explain":
+        try:
+            payload = json.loads(args.report.read_text(encoding="utf-8"))
+            explanation = explain_payload(payload)
+        except (OSError, json.JSONDecodeError, ValueError, ReportValidationError) as exc:
+            print(f"cannot explain report: {exc}", file=sys.stderr)
+            return 2
+        if args.json:
+            print(json.dumps(explanation, indent=2, sort_keys=True))
+        else:
+            print(render_explanation(explanation), end="")
+        return 1 if explanation["failed"] else (3 if explanation["unanswered"] else 0)
     if args.command == "digest":
         try:
             manifest = load_manifest(args.manifest)
@@ -118,6 +248,142 @@ def main(argv: list[str] | None = None) -> int:
             args.html.write_text(build_html(reports), encoding="utf-8")
             print(f"html        {args.html}")
         return 0
+    if args.command == "trace-normalize":
+        try:
+            trace = trace_from_csv(
+                args.csv,
+                trace_id=args.trace_id,
+                candidate_digest=args.candidate_digest,
+                observer_name=args.observer,
+                observer_version=args.observer_version,
+                sampling=args.sampling,
+            )
+        except TraceError as exc:
+            print(f"trace normalization failed: {exc}", file=sys.stderr)
+            return 2
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+        args.output.write_text(
+            json.dumps(trace.to_dict(), indent=2, sort_keys=True) + "\n", encoding="utf-8"
+        )
+        print(f"trace       {args.output}")
+        print(f"digest      {trace_digest(trace)}")
+        return 0
+    if args.command == "compare-traces":
+        try:
+            result = compare_traces(
+                load_trace(args.golden),
+                load_trace(args.observed),
+                max_shift=args.max_shift,
+                warmup_samples=args.warmup_samples,
+                x_policy=args.x_policy,
+            )
+        except TraceError as exc:
+            print(f"trace comparison inconclusive: {exc}", file=sys.stderr)
+            return 3
+        payload = asdict(result)
+        if args.json:
+            print(json.dumps(payload, indent=2, sort_keys=True))
+        elif result.equivalent:
+            print(f"equivalent  yes (matched shift {result.matched_shift})")
+        else:
+            print("equivalent  no")
+            if result.first_divergence:
+                item = result.first_divergence
+                print(
+                    f"divergence  cycle={item.cycle} signal={item.signal} "
+                    f"golden={item.golden} observed={item.observed}"
+                )
+        return 0 if result.equivalent else 1
+    if args.command == "calibrate-adjudicator":
+        try:
+            result = run_calibration_suite(
+                args.suite,
+                max_shift=args.max_shift,
+                warmup_samples=args.warmup_samples,
+            )
+        except TraceError as exc:
+            print(f"calibration failed: {exc}", file=sys.stderr)
+            return 2
+        payload = json.dumps(result, indent=2, sort_keys=True) + "\n"
+        if args.output:
+            args.output.parent.mkdir(parents=True, exist_ok=True)
+            args.output.write_text(payload, encoding="utf-8")
+            print(f"calibration {args.output}")
+        else:
+            print(payload, end="")
+        return 0 if result["status"] == "pass" else 1
+    if args.command == "adjudicate":
+        if args.instrumenter == "reset-release-skew":
+            try:
+                ResetReleaseSkewInstrumenter().trace_for_seed(0)
+            except InstrumenterUnavailable as exc:
+                print(str(exc), file=sys.stderr)
+                return 4
+        missing = [
+            name
+            for name, value in (
+                ("--candidate-id", args.candidate_id),
+                ("--rule-id", args.rule_id),
+                ("--golden", args.golden),
+                ("--calibration-suite", args.calibration_suite),
+                ("--output", args.output),
+            )
+            if not value
+        ]
+        if missing or not args.observed:
+            print(
+                "mock-prerecorded adjudication requires "
+                + ", ".join([*missing, *([] if args.observed else ["--observed"])]),
+                file=sys.stderr,
+            )
+            return 2
+        try:
+            calibration = run_calibration_suite(
+                args.calibration_suite,
+                max_shift=args.max_shift,
+                warmup_samples=args.warmup_samples,
+            )
+            golden = load_trace(args.golden)
+            traces = {index: load_trace(path) for index, path in enumerate(args.observed)}
+            result = adjudicate_prerecorded(
+                candidate_id=args.candidate_id,
+                rule_id=args.rule_id,
+                golden=golden,
+                instrumenter=MockPrerecordedInstrumenter(traces),
+                seeds=list(traces),
+                semantics_name=args.semantics,
+                semantics_version=args.semantics_version,
+                calibration_status=calibration["status"],
+                calibration_suite_digest=calibration["suite_digest"],
+                max_shift=args.max_shift,
+                warmup_samples=args.warmup_samples,
+            )
+        except TraceError as exc:
+            print(f"adjudication inconclusive: {exc}", file=sys.stderr)
+            return 3
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+        args.output.write_text(
+            json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+        )
+        print(f"verdict     {result['verdict']}")
+        print(f"report      {args.output}")
+        return {"hazard_demonstrated": 1, "no_divergence_observed": 0}.get(
+            result["verdict"], 3
+        )
+    if args.command == "challenge-score":
+        try:
+            result = score_challenge(args.task, args.submission)
+        except ChallengeError as exc:
+            print(f"challenge scoring failed: {exc}", file=sys.stderr)
+            return 2
+        payload = json.dumps(result, indent=2, sort_keys=True) + "\n"
+        if args.output:
+            args.output.parent.mkdir(parents=True, exist_ok=True)
+            args.output.write_text(payload, encoding="utf-8")
+            print(f"result      {args.output}")
+        if args.json or not args.output:
+            print(payload, end="")
+        return 0 if result["overall"] == "pass" else 1
     return 2
 
 

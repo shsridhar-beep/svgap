@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://svgap.dev/schemas/calibration-suite-v1.json",
+  "title": "SV-Gap prerecorded adjudication calibration suite",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "suite_id", "instrumenter", "cases"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "suite_id": {"type": "string", "minLength": 1},
+    "instrumenter": {"const": "mock_prerecorded"},
+    "cases": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["case_id", "expected", "golden", "observed"],
+        "properties": {
+          "case_id": {"type": "string", "minLength": 1},
+          "expected": {"enum": ["hazard_demonstrated", "no_divergence_observed", "inconclusive"]},
+          "golden": {"type": "string", "minLength": 1},
+          "observed": {
+            "type": "array",
+            "minItems": 1,
+            "items": {"type": "string", "minLength": 1}
+          }
+        }
+      }
+    }
+  }
+}

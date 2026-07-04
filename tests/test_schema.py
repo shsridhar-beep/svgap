@@ -52,3 +52,33 @@ class SchemaTests(TestCase):
         report = json.loads(report_path.read_text(encoding="utf-8"))
         report["silent_extension"] = True
         self.assertTrue(list(validator.iter_errors(report)))
+
+
+class ContractSchemaTests(TestCase):
+    def test_adjudication_fixture_contracts_validate(self) -> None:
+        trace_schema = json.loads((ROOT / "schemas/trace-v1.json").read_text())
+        trace_validator = Draft202012Validator(trace_schema)
+        for path in sorted((ROOT / "examples/adjudication_calibration").glob("*.json")):
+            if path.name != "suite.json":
+                trace_validator.validate(json.loads(path.read_text(encoding="utf-8")))
+        suite_schema = json.loads((ROOT / "schemas/calibration-suite-v1.json").read_text())
+        Draft202012Validator(suite_schema).validate(
+            json.loads((ROOT / "examples/adjudication_calibration/suite.json").read_text())
+        )
+
+    def test_frontier_challenge_contracts_validate(self) -> None:
+        task_schema = json.loads((ROOT / "schemas/challenge-task-v1.json").read_text())
+        submission_schema = json.loads(
+            (ROOT / "schemas/challenge-submission-v1.json").read_text()
+        )
+        task_validator = Draft202012Validator(task_schema)
+        submission_validator = Draft202012Validator(submission_schema)
+        for track in ("generation", "diagnosis", "repair"):
+            task_validator.validate(
+                json.loads((ROOT / f"challenges/v0.1/{track}/task.json").read_text())
+            )
+            submission_validator.validate(
+                json.loads(
+                    (ROOT / f"challenges/v0.1/{track}/example-submission.json").read_text()
+                )
+            )

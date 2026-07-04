@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0",
+  "trace_id": "divergence",
+  "candidate_digest": "sha256:controlled-digital-calibration",
+  "observer": {
+    "name": "prerecorded-calibration-observer",
+    "version": "1.0",
+    "sampling": "one sample per declared digital clock cycle"
+  },
+  "signals": [
+    "count"
+  ],
+  "samples": [
+    {
+      "cycle": 0,
+      "clock": "clk",
+      "values": {
+        "count": "0"
+      }
+    },
+    {
+      "cycle": 1,
+      "clock": "clk",
+      "values": {
+        "count": "0"
+      }
+    },
+    {
+      "cycle": 2,
+      "clock": "clk",
+      "values": {
+        "count": "1"
+      }
+    },
+    {
+      "cycle": 3,
+      "clock": "clk",
+      "values": {
+        "count": "5"
+      }
+    },
+    {
+      "cycle": 4,
+      "clock": "clk",
+      "values": {
+        "count": "6"
+      }
+    }
+  ],
+  "provenance": {
+    "kind": "prerecorded calibration fixture; not an instrumented candidate result"
+  }
+}

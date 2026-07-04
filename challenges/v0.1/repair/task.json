@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "challenge_id": "frontier-model-handoff-v0.1",
+  "task_id": "repair-reset-domain-finding",
+  "track": "repair",
+  "title": "Repair a reset-domain finding without regression",
+  "target_rule": "REF-RDC-001"
+}

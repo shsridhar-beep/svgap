@@ -18,6 +18,10 @@ makes the mismatch explicit; it does not require a population-level defect-rate
 claim. See the [v0.2 research scope](docs/research-scope-v0.2.md) and
 [compact research note](docs/compact-research-note.md).
 
+SV-Gap's executable scope is digital RTL and digital verification. Analog and
+mixed-signal design, modeling, and capability claims are explicitly excluded;
+see the [scope boundary](docs/scope-boundary.md).
+
 > **Early reference implementation.** SV-Gap v0.2 alpha is research software, not a
 > replacement for commercial CDC/RDC signoff. Its built-in reference oracle is
 > deliberately narrow, transparent, and validated only on the shipped fixtures.
@@ -51,6 +55,7 @@ python3 -m venv .venv
 .venv/bin/svgap doctor
 .venv/bin/svgap check examples/level_crossing/unsafe/manifest.toml
 .venv/bin/svgap check examples/level_crossing/safe/manifest.toml
+.venv/bin/svgap explain examples/level_crossing/unsafe/build/report.json
 ```
 
 Or use the checksum-pinned open-tool container:
@@ -78,6 +83,20 @@ with explicit `unknown` and `tool_error` states instead of silent passes.
 The [architecture](docs/architecture.md) doc describes the manifest contract;
 `examples/` holds working templates.
 
+Start from existing RTL without allowing the tool to guess intent:
+
+```bash
+svgap init path/to/design.sv --top top --candidate-id candidate-001 \
+  --output path/to/manifest.toml
+svgap validate path/to/manifest.toml
+svgap check path/to/manifest.toml
+svgap explain path/to/build/report.json
+```
+
+`validate` identifies unanswered evidence questions before execution. `explain`
+turns a report into answered, failed, and unanswered production questions plus
+the evidence needed next.
+
 **Layer onto an existing benchmark.** Import its normalized functional verdict
 with a digest binding it to the exact RTL, then add production intent and a
 structural backend. The [integration recipe](docs/integrating-existing-benchmarks.md)
@@ -102,11 +121,16 @@ learn whether structural safety is even scorable from your task metadata.
 independent second implementation, or contribute a witness pair or task pack
 — the [open issues](https://github.com/shsridhar-beep/svgap/issues) are
 scoped entry points, and two designed-but-unbuilt v0.2 components
-([perturbation adjudication](docs/perturbation-adjudication.md),
+([project-specific perturbation adjudication](docs/perturbation-adjudication.md),
 [X-optimism and metastability rules](docs/category-expansion-xprop-metastability.md))
 are documented and waiting.
 Third-party checker packages can now register through the
 [`svgap.backends` entry-point SDK](docs/backend-sdk.md).
+
+**Study frontier-model handoff capability.** The
+[`challenges/v0.1`](challenges/v0.1/) contract separates generation, diagnosis,
+and repair. It produces a legible score profile rather than a blended scalar;
+see [frontier-model research workflows](docs/frontier-model-research.md).
 
 An automated inventory of 508 public RTL-generation tasks — from
 [VerilogEval](https://github.com/NVlabs/verilog-eval),
@@ -154,6 +178,11 @@ the [synthetic adjudication result](docs/synthetic-adjudication-result.md).
   GitHub Action, and a pinned open-tool container.
 - Reset taskpack v0.2 with corrected timer intent and calibrated safe/unsafe
   references for all eight tasks.
+- Intent-preserving onboarding and report explanation commands.
+- A generic prerecorded digital-trace adjudication scaffold with calibration;
+  the real perturbation instrumenter remains blocked and unimplemented.
+- Frontier-model generation, diagnosis, and repair challenge contracts with
+  multidimensional score profiles.
 
 ## What the current alpha does not claim
 

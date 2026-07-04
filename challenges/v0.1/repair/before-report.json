@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "example-repair-candidate",
+  "manifest": "before/manifest.toml",
+  "functional": {"status": "pass", "commands": [["iverilog", "design.sv", "tb.sv"]]},
+  "structural": {
+    "status": "fail",
+    "backend": "reference-yosys",
+    "backend_version": "0.1",
+    "findings": [{
+      "rule_id": "REF-RDC-001",
+      "severity": "error",
+      "message": "Example raw asynchronous reset finding",
+      "evidence": {"fixture": true}
+    }],
+    "diagnostics": [],
+    "tool_versions": {"yosys": "example-version"}
+  },
+  "gap_member": true,
+  "generated_at": "2026-07-04T00:00:00Z"
+}

@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "challenge_id": "frontier-model-handoff-v0.1",
+  "task_id": "generation-evidence-complete",
+  "model": "example-only-not-a-model-result",
+  "run_id": "example-001",
+  "artifacts": {"report": "report.json"}
+}

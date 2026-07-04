@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://svgap.dev/schemas/challenge-submission-v1.json",
+  "title": "SV-Gap frontier-model challenge submission",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "challenge_id", "task_id", "model", "run_id"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "challenge_id": {"type": "string", "minLength": 1},
+    "task_id": {"type": "string", "minLength": 1},
+    "model": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "artifacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "report": {"type": "string", "minLength": 1},
+        "before_report": {"type": "string", "minLength": 1},
+        "after_report": {"type": "string", "minLength": 1}
+      },
+      "oneOf": [
+        {
+          "required": ["report"],
+          "not": {"anyOf": [{"required": ["before_report"]}, {"required": ["after_report"]}]}
+        },
+        {
+          "required": ["before_report", "after_report"],
+          "not": {"required": ["report"]}
+        }
+      ]
+    },
+    "responses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["question_id", "status", "evidence", "next_evidence"],
+        "properties": {
+          "question_id": {"type": "string", "minLength": 1},
+          "status": {"enum": ["answered", "failed", "unanswered"]},
+          "evidence": {"type": "string"},
+          "next_evidence": {"type": "string"}
+        }
+      }
+    }
+  },
+  "oneOf": [
+    {"required": ["artifacts"], "not": {"required": ["responses"]}},
+    {"required": ["responses"], "not": {"required": ["artifacts"]}}
+  ]
+}

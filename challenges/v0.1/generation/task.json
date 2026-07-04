@@ -1,0 +1,7 @@
+{
+  "schema_version": "1.0",
+  "challenge_id": "frontier-model-handoff-v0.1",
+  "task_id": "generation-evidence-complete",
+  "track": "generation",
+  "title": "Generate digital RTL with determinate functional and structural evidence"
+}

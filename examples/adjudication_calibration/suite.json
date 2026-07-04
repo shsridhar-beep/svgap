@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "suite_id": "generic-prerecorded-calibration-v1",
+  "instrumenter": "mock_prerecorded",
+  "cases": [
+    {
+      "case_id": "known-divergence",
+      "expected": "hazard_demonstrated",
+      "golden": "golden.json",
+      "observed": [
+        "divergence.json"
+      ]
+    },
+    {
+      "case_id": "known-global-delay",
+      "expected": "no_divergence_observed",
+      "golden": "golden.json",
+      "observed": [
+        "no-divergence.json"
+      ]
+    },
+    {
+      "case_id": "known-inconclusive",
+      "expected": "inconclusive",
+      "golden": "golden.json",
+      "observed": [
+        "inconclusive.json"
+      ]
+    }
+  ]
+}

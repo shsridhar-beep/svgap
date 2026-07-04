@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "challenge_id": "frontier-model-handoff-v0.1",
+  "task_id": "diagnose-production-evidence",
+  "track": "diagnosis",
+  "title": "Diagnose which production questions the evidence resolves",
+  "questions": [
+    {
+      "question_id": "functional-oracle",
+      "prompt": "Did the supplied functional oracle accept the candidate?",
+      "expected_status": "answered"
+    },
+    {
+      "question_id": "configured-structural-rule",
+      "prompt": "Did the candidate satisfy the configured reset-domain rule?",
+      "expected_status": "failed"
+    },
+    {
+      "question_id": "production-safety",
+      "prompt": "Does the supplied evidence prove the candidate safe for every production context?",
+      "expected_status": "unanswered"
+    }
+  ]
+}

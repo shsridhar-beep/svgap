@@ -39,3 +39,7 @@ failure behavior. Inconclusive analysis must return `unknown`, never `pass`.
 
 Please do not contribute proprietary RTL, confidential constraints, model
 credentials, or artifacts whose redistribution terms are unclear.
+
+Taskpacks and backends must stay within the project's
+[digital RTL scope boundary](docs/scope-boundary.md). Analog and mixed-signal
+design or verification contributions are out of scope.

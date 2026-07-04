@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "example-repair-candidate",
+  "manifest": "after/manifest.toml",
+  "functional": {"status": "pass", "commands": [["iverilog", "design.sv", "tb.sv"]]},
+  "structural": {
+    "status": "pass",
+    "backend": "reference-yosys",
+    "backend_version": "0.1",
+    "findings": [],
+    "diagnostics": [],
+    "tool_versions": {"yosys": "example-version"}
+  },
+  "gap_member": false,
+  "generated_at": "2026-07-04T00:00:00Z"
+}
