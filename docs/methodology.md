@@ -16,6 +16,12 @@ failure the **structural validity gap**: the benchmark's supplied contract and
 oracle do not identify whether the candidate satisfies the declared structural
 property. This term is distinct from control-theoretic structural observability.
 
+The primary claim is existential and diagnostic. It does not require an
+estimate of how frequently the gap occurs in a model or population. A
+population estimate is a separate follow-on question requiring a sampling
+frame, clustered analysis, and broader adjudication. See
+[`research-scope-v0.2.md`](research-scope-v0.2.md).
+
 ## Primary metric
 
 For candidates whose structural result is determinate:

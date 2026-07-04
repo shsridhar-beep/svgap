@@ -7,7 +7,7 @@ Audit date: 2026-07-02
 - Apache-2.0 license, notice, and third-party inventory are present.
 - The quickstart, limitations, security warning, contribution guide, and conduct
   policy are present.
-- Twenty-eight tests pass with Yosys 0.66 and Icarus Verilog 13.0, including
+- Forty-three tests pass with Yosys 0.66 and Icarus Verilog 13.0, including
   adversarial oracle and JSON Schema checks.
 - A wheel builds and installs successfully in a clean temporary environment.
 - The controlled witnesses, 508-task benchmark audit, exploratory pilot, and
@@ -28,6 +28,9 @@ Audit date: 2026-07-02
 - The public repository is `https://github.com/shsridhar-beep/svgap`. Release
   `v0.1.0-alpha.1` is tagged, published on GitHub, and archived at Zenodo
   (`doi:10.5281/zenodo.21152349`).
+- Zenodo concept DOI `10.5281/zenodo.21152348` identifies the project across
+  versions; the v0.2 version DOI will be assigned after its GitHub release is
+  ingested and must not be guessed in advance.
 - Author identity, affiliation, ORCID, and contact are recorded in
   `CITATION.cff`.
 - Publication of normalized generated RTL is authorized by the project author.
@@ -45,15 +48,36 @@ Audit date: 2026-07-02
    and archive it at Zenodo (superseding the earlier untagged-branch
    decision).
 
-## Research blocker, not repository blocker
+## Optional evidence for a stronger rate claim
 
-Independent full-case human expert adjudication is required before `14/57` is
-described as a validated defect rate. Until then it is an author-confirmed
-lower-bound detection count. The blinded synthetic panel is a robustness check,
-not a substitute; see [synthetic adjudication](synthetic-adjudication.md).
+Independent full-case human expert adjudication is required only before `14/57`
+is described as a validated defect rate. Until then it is an author-confirmed
+lower-bound demonstration count. This does not block the existential research
+claim, framework release, or community launch. The blinded synthetic panel is a
+robustness check, not a substitute; see
+[synthetic adjudication](synthetic-adjudication.md).
 
 Current blinded packet: `review_packets/reset-replication-v0.3.zip`, SHA-256
 `942bcfc09d3aeafc834f64bdae69c07f08243351c332e36018d10077762655b9`.
 
 No package-registry publication is part of this milestone; installation is
 from source or the tagged archive.
+
+## v0.2 alpha candidate
+
+- The research scope is explicitly existential and no longer treats population
+  estimation or human adjudication as a release gate.
+- Existing functional verdicts can be imported with a digest binding them to
+  the candidate source set.
+- Third-party checker backends are discoverable through a documented entry
+  point contract.
+- Strict report validation, SARIF, static HTML, a composite GitHub Action, and a
+  pinned OSS CAD Suite container are implemented.
+- Reset taskpack v0.2 fixes the timer ambiguity and calibrates safe/unsafe
+  references for all eight tasks in automated tests.
+- Release automation builds wheels, source distributions, schemas, taskpack and
+  result archives, checksums, and a multi-architecture GHCR image.
+
+The v0.2 tag, GitHub prerelease, branch protection, and Zenodo ingestion are
+repository-state steps performed only after the expanded CI passes on public
+`main`.

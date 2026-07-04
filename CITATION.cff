@@ -2,8 +2,8 @@ cff-version: 1.2.0
 message: "If you use SV-Gap, cite the repository release and accompanying technical report."
 title: "SV-Gap: Structural-validity evaluation for AI-generated RTL"
 type: software
-version: 0.1.0-alpha.1
-date-released: 2026-07-02
+version: 0.2.0-alpha.1
+date-released: 2026-07-04
 license: Apache-2.0
 authors:
   - family-names: "Sridhar"
@@ -13,7 +13,7 @@ authors:
     orcid: "https://orcid.org/0009-0009-8522-5033"
 identifiers:
   - type: doi
-    value: 10.5281/zenodo.21152349
-    description: "Zenodo archive of v0.1.0-alpha.1"
+    value: 10.5281/zenodo.21152348
+    description: "Zenodo concept DOI for all SV-Gap versions; cite the exact version DOI when available"
 repository-code: "https://github.com/shsridhar-beep/svgap"
 url: "https://github.com/shsridhar-beep/svgap"

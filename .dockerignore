@@ -1,0 +1,9 @@
+.git
+.venv
+**/__pycache__
+**/build
+reports/generated
+review_packets
+release_staging
+dist
+*.egg-info

@@ -19,10 +19,20 @@ class StudyTests(TestCase):
                 path.write_text(
                     json.dumps(
                         {
+                            "schema_version": "1.0",
                             "candidate_id": "task",
+                            "manifest": "manifest.toml",
                             "functional": {"status": functional},
-                            "structural": {"status": structural, "findings": []},
+                            "structural": {
+                                "status": structural,
+                                "backend": "test",
+                                "backend_version": "1",
+                                "findings": [],
+                                "diagnostics": [],
+                                "tool_versions": {},
+                            },
                             "gap_member": functional == "pass" and structural == "fail",
+                            "generated_at": "2026-07-02T00:00:00+00:00",
                         }
                     ),
                     encoding="utf-8",

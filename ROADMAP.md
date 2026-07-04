@@ -8,7 +8,17 @@
 - JSON and terminal reports
 - reproducible functional simulation
 
-## v0.2 — evaluation breadth
+## v0.2 alpha — handoff and adoption contract
+
+- imported, content-bound functional results
+- discoverable checker backend SDK
+- strict report validation
+- SARIF and static HTML export
+- pinned open-tool container and reusable GitHub Action
+- reset taskpack v0.2 with corrected intent and executable references
+- Python 3.11–3.13 CI, package assets, governance, and launch kit
+
+## v0.2 follow-ons — evaluation breadth
 
 - perturbation adjudication for reset release
   ([design](docs/perturbation-adjudication.md))
@@ -16,16 +26,16 @@
   ([design](docs/category-expansion-xprop-metastability.md))
 - power-on randomization adjudication for `REF-XPROP-001`
 - second open-source SystemVerilog frontend
-- additional intent-carrying CDC/RDC task packs
-- blinded adjudication import and agreement reports
-- SARIF output and static HTML summary
+- additional intent-carrying CDC/RDC task packs (reset v0.2 shipped; broader
+  CDC packs remain)
+- blinded human-adjudication import and agreement reports
 
 ## v0.3 — contributor ecosystem
 
-- external checker backend SDK
-- versioned task packs
+- public backend compatibility matrix
+- taskpack registry and discovery
 - waiver and expert-adjudication records
-- CI templates for generation pipelines
+- multiple independently maintained backends and taskpacks
 
 ## Later
 

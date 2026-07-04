@@ -1,0 +1,12 @@
+{
+  "canonical_digest": "sha256:b63acd8845b555ebb0b2ddd5085b70737befdee295b6e68789749494cf3e20e8",
+  "created_at": "2026-07-04T22:06:50.322168+00:00",
+  "digest_excludes": [
+    "freeze.json"
+  ],
+  "property": "REF-RDC-001",
+  "reference_variants_per_task": 2,
+  "schema_version": "1.0",
+  "status": "repository freeze candidate; external timestamp is the release tag",
+  "tasks": 8
+}

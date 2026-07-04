@@ -1,9 +1,14 @@
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from unittest import TestCase
+import json
+import shutil
 
+from svgap.backends.reference_yosys import ReferenceYosysBackend
+from svgap.functional import run_functional
 from svgap.manifest import load_manifest
-from svgap.pilot import extract_systemverilog, load_task, materialize_candidate
+from svgap.pilot import extract_systemverilog, load_task, materialize_candidate, render_manifest
+from svgap.provenance import canonical_tree_digest
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -38,3 +43,35 @@ class PilotTests(TestCase):
                 self.assertTrue((task_dir / "prompt.md").is_file())
                 self.assertTrue((task_dir / str(task["testbench"])).is_file())
                 self.assertEqual(len(task.get("resets", [])), 1)
+
+    def test_reset_v02_references_calibrate_every_task(self) -> None:
+        pack = ROOT / "taskpacks/reset-replication-v0.2"
+        task_dirs = sorted(path for path in (pack / "tasks").iterdir() if path.is_dir())
+        self.assertEqual(len(task_dirs), 8)
+        for task_dir in task_dirs:
+            task = load_task(task_dir)
+            for variant, expected in (("safe", "pass"), ("unsafe", "fail")):
+                with self.subTest(task=task_dir.name, variant=variant):
+                    with TemporaryDirectory() as directory:
+                        run = Path(directory)
+                        shutil.copy2(task_dir / f"reference-{variant}.sv", run / "design.sv")
+                        (run / "manifest.toml").write_text(
+                            render_manifest(task, task_dir), encoding="utf-8"
+                        )
+                        manifest = load_manifest(run / "manifest.toml")
+                        self.assertEqual(run_functional(manifest).status, "pass")
+                        result = ReferenceYosysBackend().check(manifest)
+                        self.assertEqual(result.status, expected, result)
+                        if variant == "unsafe":
+                            self.assertIn(
+                                "REF-RDC-001",
+                                {finding.rule_id for finding in result.findings},
+                            )
+
+    def test_reset_v02_digest_is_stable(self) -> None:
+        pack = ROOT / "taskpacks/reset-replication-v0.2"
+        freeze = json.loads((pack / "freeze.json").read_text(encoding="utf-8"))
+        self.assertEqual(
+            canonical_tree_digest(pack, exclude_names={"freeze.json"}),
+            freeze["canonical_digest"],
+        )

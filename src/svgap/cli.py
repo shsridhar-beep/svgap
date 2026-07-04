@@ -9,13 +9,16 @@ import tomllib
 from datetime import datetime, timezone
 from pathlib import Path
 
-from svgap.backends.reference_yosys import ReferenceYosysBackend
+from svgap.backends.registry import BackendError, discover_backends, load_backend
 from svgap.audit import audit_benchmark, write_audit
 from svgap.functional import run_functional
 from svgap.manifest import ManifestError, load_manifest
 from svgap.model import EvaluationReport, FunctionalResult
 from svgap.pilot import materialize_candidate
+from svgap.provenance import canonical_file_set_digest
+from svgap.reporting import build_html, dumps_sarif
 from svgap.study import summarize_reports
+from svgap.validation import ReportValidationError, validate_report_payload
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -24,6 +27,8 @@ def build_parser() -> argparse.ArgumentParser:
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
     subparsers.add_parser("doctor", help="check local open-source tool prerequisites")
+    digest = subparsers.add_parser("digest", help="print the canonical source digest for a manifest")
+    digest.add_argument("manifest", type=Path)
     check = subparsers.add_parser("check", help="evaluate one RTL candidate")
     check.add_argument("manifest", type=Path)
     check.add_argument("--skip-functional", action="store_true")
@@ -43,6 +48,10 @@ def build_parser() -> argparse.ArgumentParser:
     summarize = subparsers.add_parser("summarize", help="deterministically aggregate a study")
     summarize.add_argument("root", type=Path, help="study directory containing candidate reports")
     summarize.add_argument("--output", type=Path)
+    export = subparsers.add_parser("export", help="export reports as SARIF and/or static HTML")
+    export.add_argument("reports", nargs="+", type=Path)
+    export.add_argument("--sarif", type=Path)
+    export.add_argument("--html", type=Path)
     return parser
 
 
@@ -50,6 +59,14 @@ def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     if args.command == "doctor":
         return doctor()
+    if args.command == "digest":
+        try:
+            manifest = load_manifest(args.manifest)
+        except ManifestError as exc:
+            print(f"manifest error: {exc}", file=sys.stderr)
+            return 2
+        print(canonical_file_set_digest(manifest.path.parent, manifest.sources))
+        return 0
     if args.command == "check":
         return check(args.manifest, args.skip_functional, args.json)
     if args.command == "gap":
@@ -79,6 +96,28 @@ def main(argv: list[str] | None = None) -> int:
         else:
             print(payload, end="")
         return 0
+    if args.command == "export":
+        if args.sarif is None and args.html is None:
+            print("export requires --sarif and/or --html", file=sys.stderr)
+            return 2
+        reports = []
+        try:
+            for path in args.reports:
+                reports.append(
+                    validate_report_payload(json.loads(path.read_text(encoding="utf-8")))
+                )
+        except (OSError, json.JSONDecodeError, ReportValidationError) as exc:
+            print(f"cannot export reports: {exc}", file=sys.stderr)
+            return 2
+        if args.sarif:
+            args.sarif.parent.mkdir(parents=True, exist_ok=True)
+            args.sarif.write_text(dumps_sarif(reports), encoding="utf-8")
+            print(f"sarif       {args.sarif}")
+        if args.html:
+            args.html.parent.mkdir(parents=True, exist_ok=True)
+            args.html.write_text(build_html(reports), encoding="utf-8")
+            print(f"html        {args.html}")
+        return 0
     return 2
 
 
@@ -94,6 +133,11 @@ def doctor() -> int:
             ["yosys", "-V"], capture_output=True, text=True, check=False
         ).stdout.strip()
         print(f"backend    reference-yosys 0.1 ({version})")
+    backends, backend_errors = discover_backends()
+    print(f"backends   {', '.join(sorted(backends))}")
+    for name, error in sorted(backend_errors.items()):
+        print(f"plugin     {name}: {error}")
+        missing.append(f"backend:{name}")
     return 1 if missing else 0
 
 
@@ -107,10 +151,12 @@ def check(manifest_path: Path, skip_functional: bool, print_json: bool) -> int:
     functional = (
         FunctionalResult(status="not_run") if skip_functional else run_functional(manifest)
     )
-    if manifest.backend != "reference-yosys":
-        print(f"unsupported structural backend: {manifest.backend}", file=sys.stderr)
+    try:
+        backend = load_backend(manifest.backend)
+    except (BackendError, ImportError, AttributeError) as exc:
+        print(str(exc), file=sys.stderr)
         return 2
-    structural = ReferenceYosysBackend().check(manifest)
+    structural = backend.check(manifest)
     report = EvaluationReport(
         schema_version="1.0",
         candidate_id=manifest.candidate_id,
@@ -156,8 +202,8 @@ def gap(report_paths: list[Path]) -> int:
     reports = []
     for path in report_paths:
         try:
-            reports.append(json.loads(path.read_text(encoding="utf-8")))
-        except (OSError, json.JSONDecodeError) as exc:
+            reports.append(validate_report_payload(json.loads(path.read_text(encoding="utf-8"))))
+        except (OSError, json.JSONDecodeError, ReportValidationError) as exc:
             print(f"cannot read {path}: {exc}", file=sys.stderr)
             return 2
     functional_pass = [item for item in reports if item["functional"]["status"] == "pass"]

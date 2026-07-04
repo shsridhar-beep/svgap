@@ -45,3 +45,29 @@ class ManifestTests(TestCase):
             (Path(directory) / "design.sv").write_text("module level_crossing; endmodule\n")
             with self.assertRaises(ManifestError):
                 load_manifest(path)
+
+    def test_malformed_intent_table_has_clean_manifest_error(self) -> None:
+        source = (ROOT / "examples/level_crossing/safe/manifest.toml").read_text()
+        source = source.replace("[[intent.clocks]]", "[[intent.clocks]]\nunexpected = 1", 1)
+        with TemporaryDirectory() as directory:
+            path = Path(directory) / "manifest.toml"
+            path.write_text(source, encoding="utf-8")
+            (Path(directory) / "design.sv").write_text(
+                "module level_crossing; endmodule\n", encoding="utf-8"
+            )
+            with self.assertRaises(ManifestError):
+                load_manifest(path)
+
+    def test_functional_import_and_commands_are_mutually_exclusive(self) -> None:
+        source = (ROOT / "examples/level_crossing/safe/manifest.toml").read_text()
+        source = source.replace(
+            "[functional]\n", '[functional]\nimport = "functional-result.json"\n'
+        )
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root / "manifest.toml"
+            path.write_text(source, encoding="utf-8")
+            (root / "design.sv").write_text("module level_crossing; endmodule\n")
+            (root / "functional-result.json").write_text("{}\n")
+            with self.assertRaises(ManifestError):
+                load_manifest(path)

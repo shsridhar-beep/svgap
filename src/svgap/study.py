@@ -5,11 +5,15 @@ from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any, Iterable
 
+from svgap.validation import validate_report_payload
+
 
 def summarize_reports(report_paths: Iterable[Path]) -> dict[str, Any]:
     reports: list[tuple[Path, dict[str, Any]]] = []
     for path in sorted(report_paths):
-        reports.append((path, json.loads(path.read_text(encoding="utf-8"))))
+        reports.append(
+            (path, validate_report_payload(json.loads(path.read_text(encoding="utf-8"))))
+        )
     outcome_counts: Counter[tuple[str, str, bool]] = Counter()
     by_task: dict[str, Counter[tuple[str, str, bool]]] = defaultdict(Counter)
     by_model: dict[str, Counter[tuple[str, str, bool]]] = defaultdict(Counter)

@@ -1,0 +1,13 @@
+id = "reset_counter"
+top = "reset_counter"
+testbench = "tb.sv"
+asynchronous_groups = []
+[[clocks]]
+name = "core"
+port = "clk"
+[[resets]]
+name = "external_reset"
+port = "arst_n"
+active = "low"
+assertion = "async"
+deassertion = "sync"

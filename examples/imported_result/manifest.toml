@@ -1,0 +1,29 @@
+schema_version = "1.0"
+candidate_id = "imported-reset-example"
+
+[design]
+top = "imported_reset"
+sources = ["design.sv"]
+
+[functional]
+import = "functional-result.json"
+
+[structural]
+backend = "reference-yosys"
+
+[intent]
+asynchronous_groups = []
+
+[[intent.clocks]]
+name = "core"
+port = "clk"
+
+[[intent.resets]]
+name = "external_reset"
+port = "rst_n"
+active = "low"
+assertion = "async"
+deassertion = "sync"
+
+[output]
+report = "build/report.json"

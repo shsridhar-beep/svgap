@@ -5,6 +5,27 @@ versioning once the manifest and report contracts reach public v0.1.
 
 ## Unreleased
 
+## 0.2.0-alpha.1 — 2026-07-04
+
+### Added
+
+- Existential research scope and compact research artifact.
+- Content-bound imported functional results and example integration.
+- Discoverable third-party checker backend registry and SDK.
+- Strict report contract plus SARIF and static HTML export.
+- Reset-release taskpack v0.2 with corrected timer intent and calibrated safe/
+  unsafe references for all eight tasks.
+- Pinned OSS CAD Suite container, reusable GitHub Action, Python 3.11–3.13 CI,
+  release automation, governance, support, and community launch materials.
+
+### Changed
+
+- Runtime and package versions now agree.
+- Public artifact verification checks exact candidate/file sets and report
+  semantics in CI.
+- Research positioning treats the reset count as a worked mechanism
+  demonstration, not a prerequisite population estimate.
+
 ## 0.1.0-alpha.1 — 2026-07-02
 
 ### Added

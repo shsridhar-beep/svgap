@@ -41,6 +41,14 @@ class ExampleTests(TestCase):
                 self.assertEqual(result.status, "pass", result)
                 self.assertEqual(result.findings, [])
 
+    def test_imported_functional_result_example(self) -> None:
+        manifest = load_manifest(ROOT / "examples/imported_result/manifest.toml")
+        functional = run_functional(manifest)
+        self.assertEqual(functional.status, "pass")
+        self.assertIsNotNone(functional.imported_from)
+        self.assertIn("import_sha256", functional.evidence)
+        self.assertEqual(ReferenceYosysBackend().check(manifest).status, "pass")
+
     def test_gray_declaration_does_not_waive_binary_source(self) -> None:
         manifest = load_manifest(ROOT / "examples/gray_counter/unsafe/manifest.toml")
         manifest.crossings.append(

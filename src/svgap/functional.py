@@ -1,13 +1,18 @@
 from __future__ import annotations
 
 import os
+import hashlib
+import json
 import subprocess
 from pathlib import Path
 
 from svgap.model import FunctionalResult, Manifest
+from svgap.provenance import canonical_file_set_digest
 
 
 def run_functional(manifest: Manifest) -> FunctionalResult:
+    if manifest.functional_import is not None:
+        return import_functional_result(manifest)
     versions = {
         "iverilog": command_version(["iverilog", "-V"]),
         "vvp": command_version(["vvp", "-V"]),
@@ -75,6 +80,77 @@ def run_functional(manifest: Manifest) -> FunctionalResult:
         stdout="\n".join(stdout_parts),
         stderr="\n".join(stderr_parts),
         tool_versions=versions,
+    )
+
+
+def import_functional_result(manifest: Manifest) -> FunctionalResult:
+    path = manifest.functional_import
+    if path is None:
+        raise ValueError("manifest does not declare a functional import")
+    base = manifest.path.parent
+    try:
+        raw = path.read_bytes()
+        payload = json.loads(raw)
+    except (OSError, json.JSONDecodeError) as exc:
+        return FunctionalResult(
+            status="tool_error",
+            stderr=f"cannot import functional result: {exc}",
+            imported_from=str(path.relative_to(base)),
+        )
+    allowed = {"pass", "fail", "compile_error", "unknown", "tool_error"}
+    status = payload.get("status")
+    if payload.get("schema_version") != "1.0" or status not in allowed:
+        return FunctionalResult(
+            status="tool_error",
+            stderr="imported functional result has an unsupported schema or status",
+            imported_from=str(path.relative_to(base)),
+        )
+    producer = payload.get("producer")
+    candidate_digest = payload.get("candidate_digest")
+    expected_digest = canonical_file_set_digest(base, manifest.sources)
+    if not isinstance(producer, str) or not producer.strip():
+        return FunctionalResult(
+            status="tool_error",
+            stderr="imported functional result must identify its producer",
+            imported_from=str(path.relative_to(base)),
+        )
+    if candidate_digest != expected_digest:
+        return FunctionalResult(
+            status="tool_error",
+            stderr=(
+                "imported functional result candidate_digest does not match "
+                f"the manifest sources (expected {expected_digest})"
+            ),
+            imported_from=str(path.relative_to(base)),
+        )
+    tool_versions = payload.get("tool_versions", {})
+    evidence = payload.get("evidence", {})
+    if not isinstance(tool_versions, dict) or not all(
+        isinstance(key, str) and isinstance(value, str)
+        for key, value in tool_versions.items()
+    ):
+        return FunctionalResult(
+            status="tool_error",
+            stderr="imported functional result tool_versions must map strings to strings",
+            imported_from=str(path.relative_to(base)),
+        )
+    if not isinstance(evidence, dict):
+        return FunctionalResult(
+            status="tool_error",
+            stderr="imported functional result evidence must be an object",
+            imported_from=str(path.relative_to(base)),
+        )
+    evidence = dict(evidence)
+    evidence["import_sha256"] = hashlib.sha256(raw).hexdigest()
+    for key in ("producer", "observed_at", "candidate_digest"):
+        if key in payload:
+            evidence[key] = payload[key]
+    return FunctionalResult(
+        status=status,
+        stdout=str(payload.get("summary", "")),
+        tool_versions=tool_versions,
+        imported_from=str(path.relative_to(base)),
+        evidence=evidence,
     )
 
 

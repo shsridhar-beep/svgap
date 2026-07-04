@@ -5,6 +5,10 @@
 Can a conventional functional RTL oracle assign the same successful outcome to
 implementations that differ on declared production-relevant structural rules?
 
+This is an existential construct-validity question. It does not require a
+population defect-rate estimate. The full claim hierarchy is frozen in
+[`research-scope-v0.2.md`](research-scope-v0.2.md).
+
 ## Controlled witnesses
 
 The first release contains four paired witnesses. Each pair shares a module
@@ -22,14 +26,19 @@ supplied simulations. It does not estimate the prevalence of defects in model
 outputs. That estimate requires a preregistered task set, multiple model
 families and samples, and task-clustered uncertainty intervals.
 
-## Planned expansion
+## Incremental expansion
 
-1. Audit public task metadata for structural identifiability.
-2. Freeze 16 independently reviewed CDC/RDC generation tasks.
-3. Generate five samples from each of four model families.
-4. Preserve prompts, model versions, sampling parameters, raw RTL, logs, and
-   checker versions.
-5. Expert-adjudicate primary findings and report unknown/tool-error rates.
+1. Preserve the controlled witnesses as the primary existence proof.
+2. Audit public task metadata for whether the production question is
+   representable and scorable.
+3. Use reset-release generation as a worked application of the contract,
+   reporting calls, tasks, duplicate outputs, and inconclusive states without a
+   population interpretation.
+4. Freeze reset taskpack v0.2 with corrected intent and executable references
+   before any new generation.
+5. Accept author review, synthetic review, expert review, competing backends,
+   and executable perturbations as separately identified evidence layers. No
+   one optional layer gates publication of the existential result.
 
 ## Exploratory pilot completed
 

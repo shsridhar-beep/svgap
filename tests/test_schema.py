@@ -31,3 +31,24 @@ class SchemaTests(TestCase):
         for path in reports:
             with self.subTest(path=path):
                 validator.validate(json.loads(path.read_text(encoding="utf-8")))
+
+    def test_all_public_artifact_reports_validate(self) -> None:
+        schema = json.loads((ROOT / "schemas/report-v1.json").read_text(encoding="utf-8"))
+        validator = Draft202012Validator(schema, format_checker=FormatChecker())
+        reports = sorted(
+            ROOT.glob("artifacts/reset-replication-v0.1/candidates/*/*/report.json")
+        )
+        self.assertEqual(len(reports), 72)
+        for path in reports:
+            with self.subTest(path=path):
+                validator.validate(json.loads(path.read_text(encoding="utf-8")))
+
+    def test_report_schema_rejects_unknown_top_level_fields(self) -> None:
+        schema = json.loads((ROOT / "schemas/report-v1.json").read_text(encoding="utf-8"))
+        validator = Draft202012Validator(schema)
+        report_path = next(
+            ROOT.glob("artifacts/reset-replication-v0.1/candidates/*/*/report.json")
+        )
+        report = json.loads(report_path.read_text(encoding="utf-8"))
+        report["silent_extension"] = True
+        self.assertTrue(list(validator.iter_errors(report)))

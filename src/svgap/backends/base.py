@@ -7,5 +7,6 @@ from svgap.model import CheckResult, Manifest
 
 class CheckerBackend(Protocol):
     name: str
+    version: str
 
     def check(self, manifest: Manifest) -> CheckResult: ...

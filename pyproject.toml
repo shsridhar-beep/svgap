@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "svgap"
-version = "0.1.0a1"
+version = "0.2.0a1"
 description = "Production-readiness evaluation for AI-generated RTL"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -26,6 +26,9 @@ dev = ["jsonschema>=4.23,<5"]
 
 [project.scripts]
 svgap = "svgap.cli:main"
+
+[project.entry-points."svgap.backends"]
+reference-yosys = "svgap.backends.reference_yosys:ReferenceYosysBackend"
 
 [tool.setuptools.packages.find]
 where = ["src"]

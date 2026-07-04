@@ -1,7 +1,7 @@
 # SV-Gap
 
 [![CI](https://github.com/shsridhar-beep/svgap/actions/workflows/ci.yml/badge.svg)](https://github.com/shsridhar-beep/svgap/actions/workflows/ci.yml)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21152349.svg)](https://doi.org/10.5281/zenodo.21152349)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21152348.svg)](https://doi.org/10.5281/zenodo.21152348)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
 
 **Production-readiness evaluation for AI-generated RTL.**
@@ -11,7 +11,14 @@ answer whether the RTL is structurally safe to deploy in silicon. SV-Gap makes
 that missing evaluation layer explicit, starting with clock-domain crossing
 (CDC) and reset-domain crossing (RDC) risks.
 
-> **Early reference implementation.** SV-Gap v0.1 is research software, not a
+The primary research contribution is existential and diagnostic: functional
+success can be non-identifying for a declared production property, and a
+benchmark can omit the intent needed to evaluate that property at all. SV-Gap
+makes the mismatch explicit; it does not require a population-level defect-rate
+claim. See the [v0.2 research scope](docs/research-scope-v0.2.md) and
+[compact research note](docs/compact-research-note.md).
+
+> **Early reference implementation.** SV-Gap v0.2 alpha is research software, not a
 > replacement for commercial CDC/RDC signoff. Its built-in reference oracle is
 > deliberately narrow, transparent, and validated only on the shipped fixtures.
 
@@ -63,6 +70,12 @@ with explicit `unknown` and `tool_error` states instead of silent passes.
 The [architecture](docs/architecture.md) doc describes the manifest contract;
 `examples/` holds working templates.
 
+**Layer onto an existing benchmark.** Import its normalized functional verdict
+with a digest binding it to the exact RTL, then add production intent and a
+structural backend. The [integration recipe](docs/integrating-existing-benchmarks.md)
+and [`examples/imported_result`](examples/imported_result) show the complete
+flow without rerunning an upstream test suite.
+
 **Rerun the reset study on your model.** The
 [reset-release taskpack](taskpacks/reset-replication-v0.1/) ships the frozen
 prompts, testbenches, and harness behind the `14/57` result. Generate your
@@ -84,6 +97,8 @@ scoped entry points, and two designed-but-unbuilt v0.2 components
 ([perturbation adjudication](docs/perturbation-adjudication.md),
 [X-optimism and metastability rules](docs/category-expansion-xprop-metastability.md))
 are documented and waiting.
+Third-party checker packages can now register through the
+[`svgap.backends` entry-point SDK](docs/backend-sdk.md).
 
 An automated inventory of 508 public RTL-generation tasks — from
 [VerilogEval](https://github.com/NVlabs/verilog-eval),
@@ -113,7 +128,7 @@ positives (14 among the 57 functional passes), with nominal Krippendorff alpha
 `0.989` and no unresolved target cases. This is not human expert validation; see
 the [synthetic adjudication result](docs/synthetic-adjudication-result.md).
 
-## What v0.1 includes
+## What the current alpha includes
 
 - A versioned intent manifest and normalized report contract.
 - A Yosys-backed reference oracle for a small set of high-confidence patterns.
@@ -125,8 +140,14 @@ the [synthetic adjudication result](docs/synthetic-adjudication-result.md).
   agreement analysis, explicitly separated from human expert adjudication.
 - Terminal and JSON reports with raw evidence and explicit inconclusive states.
 - A backend interface intended for open and commercial checker adapters.
+- Content-bound imports for functional results produced by existing benchmark
+  or verification pipelines.
+- Discoverable third-party checker backends, SARIF/HTML export, a reusable
+  GitHub Action, and a pinned open-tool container.
+- Reset taskpack v0.2 with corrected timer intent and calibrated safe/unsafe
+  references for all eight tasks.
 
-## What v0.1 does not claim
+## What the current alpha does not claim
 
 - Silicon signoff, exhaustive CDC/RDC coverage, or formal proof.
 - General X-propagation or metastability modeling.
@@ -157,9 +178,9 @@ quantitative claims were narrowed and which release blockers remain.
 
 ## Citing
 
-Cite the archived release
-([doi:10.5281/zenodo.21152349](https://doi.org/10.5281/zenodo.21152349));
-machine-readable metadata is in [CITATION.cff](CITATION.cff).
+Cite the exact archived version used. The
+[concept DOI](https://doi.org/10.5281/zenodo.21152348) resolves to the latest
+Zenodo version; machine-readable metadata is in [CITATION.cff](CITATION.cff).
 
 ## License
 

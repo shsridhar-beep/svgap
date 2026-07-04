@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://svgap.dev/schemas/functional-result-v1.json",
+  "title": "SV-Gap imported functional result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "producer", "candidate_digest"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "status": {"enum": ["pass", "fail", "compile_error", "unknown", "tool_error"]},
+    "producer": {"type": "string", "minLength": 1},
+    "observed_at": {"type": "string", "format": "date-time"},
+    "candidate_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "summary": {"type": "string"},
+    "tool_versions": {
+      "type": "object",
+      "additionalProperties": {"type": "string"}
+    },
+    "evidence": {"type": "object"}
+  }
+}

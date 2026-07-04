@@ -12,6 +12,11 @@ Good first contributions include:
 - a reproduced model run with immutable generation metadata;
 - an expert adjudication that explains a false positive or false negative.
 
+The project is backend- and evidence-neutral: a contribution may challenge the
+reference oracle. See [GOVERNANCE.md](GOVERNANCE.md), the
+[backend SDK](docs/backend-sdk.md), and the
+[existing-benchmark recipe](docs/integrating-existing-benchmarks.md).
+
 ## Development setup
 
 Install Python 3.11+, Yosys, and Icarus Verilog, then:

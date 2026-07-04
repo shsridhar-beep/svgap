@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "status": "pass",
+  "producer": "example-public-benchmark/v1",
+  "observed_at": "2026-07-04T00:00:00Z",
+  "candidate_digest": "sha256:54c9fd30396e2d01bc919a99f5d13ec05ff309f210e6a202c735930258b1f570",
+  "summary": "12/12 supplied behavioral tests passed.",
+  "tool_versions": {
+    "example-simulator": "1.0"
+  },
+  "evidence": {
+    "tests_passed": 12,
+    "tests_total": 12,
+    "source_url": "https://example.invalid/public-benchmark/result/1"
+  }
+}

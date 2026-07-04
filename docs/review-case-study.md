@@ -17,10 +17,11 @@ lesson: offline outcome metrics may leave latent implementation properties
 unobserved. This example motivates layered evaluation rather than claiming that
 one additional checker establishes deployment readiness.
 
-Until full-case independent adjudication is complete, the Review should use the
-conceptual example without the `14/57` rate. After public archival and locked
-independent labels, a compact parenthetical may report the reconciled count with
-its denominator and taskpack-conditional qualifier.
+The Review can use the controlled witness as the primary conceptual example.
+The public `14/57` result may appear as a taskpack-conditional demonstration
+count when its denominator and lower-bound qualifier are adjacent. Independent
+human adjudication would support a different prevalence-oriented claim, but it
+is not a prerequisite for the construct-validity example.
 
 ## Generalization boundary
 

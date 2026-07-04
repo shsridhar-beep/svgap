@@ -1,0 +1,13 @@
+id = "reset_credits"
+top = "reset_credits"
+testbench = "tb.sv"
+asynchronous_groups = []
+[[clocks]]
+name = "link"
+port = "clk"
+[[resets]]
+name = "link_reset"
+port = "async_reset_n"
+active = "low"
+assertion = "async"
+deassertion = "sync"

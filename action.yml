@@ -1,0 +1,35 @@
+name: SV-Gap structural gate
+description: Evaluate an RTL candidate and export deterministic SARIF/HTML evidence.
+inputs:
+  manifest:
+    description: Candidate manifest path relative to the caller workspace.
+    required: true
+  report:
+    description: Report path written by the manifest.
+    required: false
+    default: build/report.json
+  sarif:
+    description: SARIF output path.
+    required: false
+    default: svgap.sarif
+  html:
+    description: Static HTML output path.
+    required: false
+    default: svgap.html
+runs:
+  using: composite
+  steps:
+    - name: Install open RTL tools
+      shell: bash
+      run: sudo apt-get update && sudo apt-get install -y iverilog yosys
+    - name: Install SV-Gap action version
+      shell: bash
+      run: python -m pip install "$GITHUB_ACTION_PATH"
+    - name: Evaluate and export
+      shell: bash
+      env:
+        SVGAP_MANIFEST: ${{ inputs.manifest }}
+        SVGAP_REPORT: ${{ inputs.report }}
+        SVGAP_SARIF: ${{ inputs.sarif }}
+        SVGAP_HTML: ${{ inputs.html }}
+      run: "$GITHUB_ACTION_PATH/scripts/run_github_action.sh"

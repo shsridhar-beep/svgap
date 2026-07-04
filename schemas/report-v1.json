@@ -3,6 +3,7 @@
   "$id": "https://svgap.dev/schemas/report-v1.json",
   "title": "SV-Gap evaluation report",
   "type": "object",
+  "additionalProperties": false,
   "required": [
     "schema_version",
     "candidate_id",
@@ -14,42 +15,67 @@
   ],
   "properties": {
     "schema_version": {"const": "1.0"},
-    "candidate_id": {"type": "string"},
-    "manifest": {"type": "string"},
+    "candidate_id": {"type": "string", "minLength": 1},
+    "manifest": {"type": "string", "minLength": 1},
     "gap_member": {"type": "boolean"},
     "generated_at": {"type": "string", "format": "date-time"},
-    "functional": {"$ref": "#/$defs/result"},
-    "structural": {
-      "allOf": [
-        {"$ref": "#/$defs/result"},
-        {
-          "type": "object",
-          "required": ["backend", "backend_version", "findings"],
-          "properties": {
-            "backend": {"type": "string"},
-            "backend_version": {"type": "string"},
-            "findings": {"type": "array"},
-            "tool_versions": {
-              "type": "object",
-              "additionalProperties": {"type": "string"}
-            }
-          }
-        }
-      ]
-    }
+    "functional": {"$ref": "#/$defs/functionalResult"},
+    "structural": {"$ref": "#/$defs/structuralResult"}
   },
   "$defs": {
-    "result": {
+    "toolVersions": {
       "type": "object",
+      "additionalProperties": {"type": "string"}
+    },
+    "functionalResult": {
+      "type": "object",
+      "additionalProperties": false,
       "required": ["status"],
       "properties": {
         "status": {
           "enum": ["pass", "fail", "compile_error", "unknown", "tool_error", "not_run"]
         },
-        "tool_versions": {
-          "type": "object",
-          "additionalProperties": {"type": "string"}
-        }
+        "commands": {
+          "type": "array",
+          "items": {"type": "array", "items": {"type": "string"}}
+        },
+        "returncodes": {"type": "array", "items": {"type": "integer"}},
+        "stdout": {"type": "string"},
+        "stderr": {"type": "string"},
+        "tool_versions": {"$ref": "#/$defs/toolVersions"},
+        "imported_from": {"type": ["string", "null"]},
+        "evidence": {"type": "object"}
+      }
+    },
+    "finding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rule_id", "severity", "message", "evidence"],
+      "properties": {
+        "rule_id": {"type": "string", "pattern": "^[A-Z0-9][A-Z0-9_.-]*$"},
+        "severity": {"enum": ["error", "warning", "info"]},
+        "message": {"type": "string", "minLength": 1},
+        "evidence": {"type": "object"}
+      }
+    },
+    "structuralResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "backend",
+        "backend_version",
+        "findings",
+        "diagnostics",
+        "tool_versions"
+      ],
+      "properties": {
+        "status": {"enum": ["pass", "fail", "unknown", "tool_error"]},
+        "backend": {"type": "string", "minLength": 1},
+        "backend_version": {"type": "string", "minLength": 1},
+        "findings": {"type": "array", "items": {"$ref": "#/$defs/finding"}},
+        "diagnostics": {"type": "array", "items": {"type": "string"}},
+        "tool_versions": {"$ref": "#/$defs/toolVersions"}
       }
     }
   }

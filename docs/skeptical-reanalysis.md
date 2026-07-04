@@ -39,10 +39,11 @@ not a validated census.
   locally with no personal paths or raw provider transcripts.
 - JSON Schema validation is now exercised in CI tests.
 
-## Still open before a claim-bearing research release
+## Still open before a prevalence- or signoff-oriented claim
 
-- Two independent CDC/RDC reviewers must label all 72 blinded cases before model
-  identities or labeled candidate artifacts are published.
+- Independent CDC/RDC review is needed before describing the reset count as an
+  independently validated rate; it is not a gate on the existential framework
+  claim or public artifacts.
 - The reference oracle still does not cover every gated/inverted reset, async
   set/reset cell, mux hazard, or general protocol. Structural `pass` means no
   configured finding, not verified safety.

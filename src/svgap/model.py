@@ -33,6 +33,8 @@ class FunctionalResult:
     stdout: str = ""
     stderr: str = ""
     tool_versions: dict[str, str] = field(default_factory=dict)
+    imported_from: str | None = None
+    evidence: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass
@@ -79,6 +81,7 @@ class Manifest:
     top: str
     sources: list[Path]
     functional_commands: list[list[str]]
+    functional_import: Path | None
     clocks: list[ClockIntent]
     asynchronous_groups: list[list[str]]
     resets: list[ResetIntent]

@@ -1,9 +1,11 @@
 # Independent adjudication protocol
 
-SV-Gap's first authoring-session review is not independent. Before the
-reset-release result is submitted as research evidence, at least two reviewers
-with CDC/RDC or RTL signoff experience should independently label the blinded
-72-case packet.
+SV-Gap's first authoring-session review is not independent. Independent review
+is optional supporting evidence for the existential framework claim. It is
+required only before the reset-release count is promoted from an
+author-confirmed lower bound to an independently validated rate. If pursued, at
+least two reviewers with CDC/RDC or RTL signoff experience should independently
+label the blinded 72-case packet.
 
 Reviewers receive candidate RTL and task intent, but not model identity,
 functional results, automated findings, or one another's labels. The primary
