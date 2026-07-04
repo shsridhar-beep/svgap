@@ -29,8 +29,8 @@ permissions:
   contents: read
 
 steps:
-  - uses: actions/checkout@v4
-  - uses: actions/setup-python@v5
+  - uses: actions/checkout@v6
+  - uses: actions/setup-python@v6
     with:
       python-version: "3.12"
   - uses: shsridhar-beep/svgap@v0.2.0-alpha.1
