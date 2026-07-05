@@ -3,7 +3,6 @@
 [![CI](https://github.com/shsridhar-beep/svgap/actions/workflows/ci.yml/badge.svg)](https://github.com/shsridhar-beep/svgap/actions/workflows/ci.yml)
 [![Documentation](https://github.com/shsridhar-beep/svgap/actions/workflows/docs.yml/badge.svg)](https://shsridhar-beep.github.io/svgap/)
 [![PyPI](https://img.shields.io/pypi/v/svgap.svg)](https://pypi.org/project/svgap/)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21198938.svg)](https://doi.org/10.5281/zenodo.21198938)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
 
 **Make the gap between “passes the benchmark” and “reviewable by a chip-design
@@ -41,7 +40,7 @@ Install Python 3.11+, Yosys, and Icarus Verilog. On macOS:
 ```bash
 brew install yosys icarus-verilog
 python3 -m venv .venv
-.venv/bin/python -m pip install svgap==0.3.0a1
+.venv/bin/python -m pip install svgap==0.3.0a2
 .venv/bin/svgap demo
 ```
 
@@ -60,7 +59,7 @@ reproducer with `svgap demo --output demo-output`.
 The same workflow is available in the open-tool container:
 
 ```bash
-docker run --rm ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.1 demo
+docker run --rm ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.2 demo
 ```
 
 ## Use SV-Gap on your own RTL
@@ -200,7 +199,7 @@ See [methodology](docs/methodology.md), [architecture](docs/architecture.md), an
 ### From PyPI
 
 ```bash
-python3 -m pip install svgap==0.3.0a1
+python3 -m pip install svgap==0.3.0a2
 svgap doctor
 ```
 
@@ -233,10 +232,8 @@ the issue templates for reproducible bugs, taskpacks, backends, and false
 results. See [GOVERNANCE.md](GOVERNANCE.md), [SECURITY.md](SECURITY.md), and
 [SUPPORT.md](SUPPORT.md).
 
-Cite the exact archived version used. The
-[v0.3.0-alpha.1 DOI](https://doi.org/10.5281/zenodo.21199446) identifies the
-current archived research release; the
-[concept DOI](https://doi.org/10.5281/zenodo.21198938) resolves to the latest
-GitHub-integrated version.
+Cite the exact GitHub release used. Archival DOI metadata is being replaced
+after a provenance-label redaction; a new DOI will be recorded only after the
+sanitized archive is publicly verified.
 
 Apache-2.0. External tools and imported datasets retain their own licenses.

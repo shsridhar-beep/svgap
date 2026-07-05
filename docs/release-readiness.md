@@ -26,15 +26,12 @@ Audit date: 2026-07-05
   `e523a03b604864d276b35d88d097c45f0a17ed3f9650bd2c3dcb9a9d4ea0f132`.
 - Ten scoped issues are open, including five bounded `good first issue` entry
   points for demo, registry, documentation, and oracle-review contributions.
-- The public repository is `https://github.com/shsridhar-beep/svgap`. Release
-  `v0.1.0-alpha.1` is tagged, published on GitHub, and archived at Zenodo
-  (`doi:10.5281/zenodo.21152349`). Its standalone historical concept DOI is
-  `10.5281/zenodo.21152348`.
-- GitHub integration begins with `v0.2.0-alpha.1`. Its assigned version DOI is
-  `10.5281/zenodo.21198939`, and canonical concept DOI
-  `10.5281/zenodo.21198938` identifies this and future integrated releases.
-- Release `v0.3.0-alpha.1` was archived under version DOI
-  `10.5281/zenodo.21199446`; this value was recorded after API verification.
+- The public repository is `https://github.com/shsridhar-beep/svgap`. Releases
+  `v0.1.0-alpha.1` through `v0.3.0-alpha.1` were rebuilt from rewritten,
+  identifier-sanitized tags.
+- Pre-redaction Zenodo deposits are under withdrawal and are not advertised.
+  A replacement DOI will be recorded only after the sanitized archive is
+  independently fetched and scanned.
 - Author identity, affiliation, ORCID, and contact are recorded in
   `CITATION.cff`.
 - Publication of normalized generated RTL is authorized by the project author.
@@ -86,10 +83,8 @@ Tag `v0.2.0-alpha.1` and its GitHub prerelease were published from tested commit
 `6839263`. The release carries a wheel, source distribution, schemas, v0.1
 result archive, v0.2 taskpack archive, and SHA-256 manifest. Public `main`
 requires the Python 3.11–3.13, package, and container checks; force pushes and
-branch deletion are disabled. Zenodo ingested the republished prerelease after
-the repository integration was enabled and assigned version DOI
-`10.5281/zenodo.21198939`; the value above was recorded after public API
-verification rather than inferred from record numbering.
+branch deletion are disabled. The original archival deposit was subsequently
+submitted for withdrawal as part of the provider-label history redaction.
 
 ## v0.3 adoption alpha released
 
@@ -113,5 +108,5 @@ release carries the wheel, source distribution, schemas, v0.1 generation
 artifact, v0.2 taskpack, public baseline registry and evidence archive, and
 SHA-256 manifest. The container manifest digest is
 `sha256:632bb0a1a4bbeb7a4f1ac1917bf8edd24f4b9937ea5d2ee4977b0a50d8952d28`.
-Zenodo assigned version DOI `10.5281/zenodo.21199446` under canonical concept
-DOI `10.5281/zenodo.21198938`.
+The original archival deposit was subsequently submitted for withdrawal as
+part of the provider-label history redaction. A replacement DOI is pending.

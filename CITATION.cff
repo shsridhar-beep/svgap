@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use SV-Gap, cite the repository release and accompanying technical report."
 title: "SV-Gap: Structural-validity evaluation for AI-generated RTL"
 type: software
-version: 0.3.0-alpha.1
+version: 0.3.0-alpha.2
 date-released: 2026-07-05
 license: Apache-2.0
 authors:
@@ -11,12 +11,5 @@ authors:
     email: "shsridhar@nvidia.com"
     affiliation: "NVIDIA"
     orcid: "https://orcid.org/0009-0009-8522-5033"
-identifiers:
-  - type: doi
-    value: 10.5281/zenodo.21199446
-    description: "Zenodo DOI for SV-Gap v0.3.0-alpha.1"
-  - type: doi
-    value: 10.5281/zenodo.21198938
-    description: "Canonical Zenodo concept DOI for GitHub-integrated SV-Gap releases"
 repository-code: "https://github.com/shsridhar-beep/svgap"
 url: "https://github.com/shsridhar-beep/svgap"

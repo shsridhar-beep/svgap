@@ -5,6 +5,15 @@ versioning once the manifest and report contracts reach public v0.1.
 
 ## Unreleased
 
+## 0.3.0-alpha.2 — 2026-07-05
+
+### Changed
+
+- Replaced withheld provider model identifiers with stable public configuration
+  aliases across repository history, release artifacts, and result provenance.
+- Reissued package, container, and archival metadata from the sanitized source
+  history.
+
 ## 0.3.0-alpha.1 — 2026-07-05
 
 ### Added
