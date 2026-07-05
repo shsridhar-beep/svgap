@@ -57,6 +57,31 @@ Both implementations satisfy the supplied functional test. Declared
 reset-release intent separates them structurally. Preserve the complete
 reproducer with `svgap demo --output demo-output`.
 
+For a copy-pasteable machine-readable check, keep the generated artifacts out
+of Git and inspect the JSON summary:
+
+```bash
+svgap demo --json --output demo-output \
+  | jq '{status, safe: .safe.structural, unsafe: .unsafe.structural, findings: .unsafe.findings}'
+```
+
+```json
+{
+  "findings": [
+    "REF-RDC-001"
+  ],
+  "safe": "pass",
+  "status": "pass",
+  "unsafe": "fail"
+}
+```
+
+Attach `demo-output/summary.json`, both `*/build/report.json` files, and the
+preserved manifests/RTL sources to an issue or CI artifact when sharing a
+reproduction. The demo is a controlled witness that the supplied functional
+oracle does not identify the structural reset-release finding; it is not a
+defect-rate estimate or silicon signoff.
+
 The same workflow is available in the open-tool container:
 
 ```bash

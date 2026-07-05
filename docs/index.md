@@ -12,6 +12,35 @@ chip-design team” explicit for AI-generated digital RTL.
 - [Integrate an existing benchmark](integrating-existing-benchmarks.md)
 - [Study frontier-model handoff capability](frontier-model-research.md)
 
+## Copy-paste JSON demo
+
+Use `--json` with `--output` when a CI job, issue, or agent benchmark needs a
+machine-readable first result and a preserved reproducer:
+
+```bash
+svgap demo --json --output demo-output \
+  | jq '{status, safe: .safe.structural, unsafe: .unsafe.structural, findings: .unsafe.findings}'
+```
+
+```json
+{
+  "findings": [
+    "REF-RDC-001"
+  ],
+  "safe": "pass",
+  "status": "pass",
+  "unsafe": "fail"
+}
+```
+
+Attach `demo-output/summary.json`, both `*/build/report.json` files, and the
+preserved manifests/RTL sources when filing an issue or publishing a CI
+artifact. Do not commit `demo-output`; it is generated evidence.
+
+Claim boundary: this controlled witness shows that the supplied functional
+oracle does not identify the structural reset-release finding. It is not a
+defect-rate estimate or silicon signoff.
+
 ## Build the ecosystem
 
 - [Write a checker backend](backend-sdk.md)
