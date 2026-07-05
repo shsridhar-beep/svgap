@@ -1,0 +1,57 @@
+{
+  "candidate_id": "reset_fsm",
+  "functional": {
+    "commands": [
+      [
+        "iverilog",
+        "-g2012",
+        "-o",
+        "${SVGAP_BUILD}/sim.vvp",
+        "design.sv",
+        "/tasks/reset_fsm/tb.sv"
+      ],
+      [
+        "vvp",
+        "${SVGAP_BUILD}/sim.vvp"
+      ]
+    ],
+    "evidence": {},
+    "imported_from": null,
+    "returncodes": [
+      1
+    ],
+    "status": "compile_error",
+    "stderr": "design.sv:19: error: This assignment requires an explicit cast.\n1 error(s) during elaboration.\n",
+    "stdout": "",
+    "tool_versions": {
+      "iverilog": "Icarus Verilog version 14.0 (devel) (s20251012-184-ge4c424726-dirty)",
+      "vvp": "Icarus Verilog runtime version 14.0 (devel) (s20251012-184-ge4c424726-dirty)"
+    }
+  },
+  "gap_member": false,
+  "generated_at": "2026-07-05T07:38:35.644872+00:00",
+  "manifest": "/output/deepseek-coder-v2-16b--sample-02/reset_fsm/manifest.toml",
+  "schema_version": "1.0",
+  "structural": {
+    "backend": "reference-yosys",
+    "backend_version": "0.1",
+    "diagnostics": [],
+    "findings": [
+      {
+        "evidence": {
+          "cell": "$procdff$17",
+          "clock": "control",
+          "reset": "board_reset",
+          "source_location": "design.sv:8.3-14.6"
+        },
+        "message": "raw asynchronous reset reaches an unmarked state element although synchronous deassertion is required",
+        "rule_id": "REF-RDC-001",
+        "severity": "error"
+      }
+    ],
+    "status": "fail",
+    "tool_versions": {
+      "yosys": "Yosys 0.64+199 (git sha1 bfc09777e-dirty, aarch64-linux-gnu-g++ 11.4.0-1ubuntu1~22.04 -fPIC -O3)"
+    }
+  }
+}

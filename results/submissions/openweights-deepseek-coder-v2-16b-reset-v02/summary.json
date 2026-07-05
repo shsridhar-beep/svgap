@@ -1,0 +1,93 @@
+{
+  "by_model": {
+    "openweights-deepseek-coder-v2-16b-reset-v02": {
+      "candidates": 22,
+      "functional_pass": 11,
+      "gap_members": 9
+    }
+  },
+  "by_task": {
+    "reset_config": {
+      "candidates": 3,
+      "functional_pass": 1,
+      "gap_members": 1
+    },
+    "reset_counter": {
+      "candidates": 3,
+      "functional_pass": 2,
+      "gap_members": 1
+    },
+    "reset_credits": {
+      "candidates": 3,
+      "functional_pass": 3,
+      "gap_members": 3
+    },
+    "reset_events": {
+      "candidates": 3,
+      "functional_pass": 0,
+      "gap_members": 0
+    },
+    "reset_fsm": {
+      "candidates": 3,
+      "functional_pass": 1,
+      "gap_members": 0
+    },
+    "reset_status": {
+      "candidates": 3,
+      "functional_pass": 3,
+      "gap_members": 3
+    },
+    "reset_timer": {
+      "candidates": 3,
+      "functional_pass": 0,
+      "gap_members": 0
+    },
+    "reset_watchdog": {
+      "candidates": 1,
+      "functional_pass": 1,
+      "gap_members": 1
+    }
+  },
+  "detected_gap_fraction": 1.0,
+  "functional_pass": 11,
+  "gap_members": 9,
+  "kind": "generation_reports",
+  "outcomes": [
+    {
+      "count": 6,
+      "functional": "compile_error",
+      "gap_member": false,
+      "structural": "fail"
+    },
+    {
+      "count": 4,
+      "functional": "fail",
+      "gap_member": false,
+      "structural": "fail"
+    },
+    {
+      "count": 1,
+      "functional": "fail",
+      "gap_member": false,
+      "structural": "pass"
+    },
+    {
+      "count": 9,
+      "functional": "pass",
+      "gap_member": true,
+      "structural": "fail"
+    },
+    {
+      "count": 2,
+      "functional": "pass",
+      "gap_member": false,
+      "structural": "tool_error"
+    }
+  ],
+  "report_count": 22,
+  "rules": {
+    "REF-RDC-001": 20
+  },
+  "schema_version": "1.0",
+  "structurally_determinate_functional_pass": 9
+}

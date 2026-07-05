@@ -1,0 +1,58 @@
+{
+  "candidate_id": "reset_events",
+  "functional": {
+    "commands": [
+      [
+        "iverilog",
+        "-g2012",
+        "-o",
+        "${SVGAP_BUILD}/sim.vvp",
+        "design.sv",
+        "/tasks/reset_events/tb.sv"
+      ],
+      [
+        "vvp",
+        "${SVGAP_BUILD}/sim.vvp"
+      ]
+    ],
+    "evidence": {},
+    "imported_from": null,
+    "returncodes": [
+      0,
+      1
+    ],
+    "status": "fail",
+    "stderr": "\n",
+    "stdout": "\nFATAL: /tasks/reset_events/tb.sv:10: reset did not assert asynchronously\n       Time: 94  Scope: tb\n",
+    "tool_versions": {
+      "iverilog": "Icarus Verilog version 14.0 (devel) (s20251012-184-ge4c424726-dirty)",
+      "vvp": "Icarus Verilog runtime version 14.0 (devel) (s20251012-184-ge4c424726-dirty)"
+    }
+  },
+  "gap_member": false,
+  "generated_at": "2026-07-05T07:38:35.415381+00:00",
+  "manifest": "/output/deepseek-coder-v2-16b--sample-02/reset_events/manifest.toml",
+  "schema_version": "1.0",
+  "structural": {
+    "backend": "reference-yosys",
+    "backend_version": "0.1",
+    "diagnostics": [],
+    "findings": [
+      {
+        "evidence": {
+          "cell": "$procdff$16",
+          "clock": "event",
+          "reset": "external_reset",
+          "source_location": "design.sv:9.3-15.6"
+        },
+        "message": "raw asynchronous reset reaches an unmarked state element although synchronous deassertion is required",
+        "rule_id": "REF-RDC-001",
+        "severity": "error"
+      }
+    ],
+    "status": "fail",
+    "tool_versions": {
+      "yosys": "Yosys 0.64+199 (git sha1 bfc09777e-dirty, aarch64-linux-gnu-g++ 11.4.0-1ubuntu1~22.04 -fPIC -O3)"
+    }
+  }
+}

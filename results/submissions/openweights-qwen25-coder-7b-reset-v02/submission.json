@@ -1,0 +1,73 @@
+{
+  "artifacts": {
+    "evidence": [
+      "evidence/001-reset_counter.json",
+      "evidence/002-reset_credits.json",
+      "evidence/003-reset_events.json",
+      "evidence/004-reset_fsm.json",
+      "evidence/005-reset_timer.json",
+      "evidence/006-reset_watchdog.json",
+      "evidence/007-reset_config.json",
+      "evidence/008-reset_counter.json",
+      "evidence/009-reset_credits.json",
+      "evidence/010-reset_events.json",
+      "evidence/011-reset_fsm.json",
+      "evidence/012-reset_status.json",
+      "evidence/013-reset_timer.json",
+      "evidence/014-reset_watchdog.json",
+      "evidence/015-reset_config.json",
+      "evidence/016-reset_counter.json",
+      "evidence/017-reset_credits.json",
+      "evidence/018-reset_events.json",
+      "evidence/019-reset_fsm.json",
+      "evidence/020-reset_status.json",
+      "evidence/021-reset_timer.json",
+      "evidence/022-reset_watchdog.json"
+    ],
+    "summary": "summary.json"
+  },
+  "claim_boundary": "This profile describes submitted digital RTL evidence under configured functional and structural checks. It is not silicon signoff, a population estimate, or a general model ranking.",
+  "configuration": {
+    "comparative_eligible": true,
+    "label": "qwen2.5-coder-7b",
+    "model_id": "qwen2.5-coder:7b",
+    "provenance_level": "public",
+    "provider": "ollama"
+  },
+  "contributor": "Shraddha Sridhar",
+  "created_at": "2026-07-05T07:41:29.887544+00:00",
+  "digests": {
+    "evidence/001-reset_counter.json": "2f08a7ed37b806229534e96c677c9e0b8e7ea96ce587b69600afa743690130d2",
+    "evidence/002-reset_credits.json": "55a169c302e0da35e9d46f27bcffeca59bad392192f0f6622673a49fc8013713",
+    "evidence/003-reset_events.json": "3799298f6674200fbd5d00a4373eb1bdf9ff454bb2b630e9ff2d370166506b15",
+    "evidence/004-reset_fsm.json": "4fecdba76326acef18a2fb86dd75a83641a002bedb993c2a243206356b7ccbf5",
+    "evidence/005-reset_timer.json": "64c6d3292f36b3e01a263e1aac192171d0974594a454bffe85fce06ce4146272",
+    "evidence/006-reset_watchdog.json": "0a449123fa11c3103fdd3ac49f09a39c392fa6b9e3722295ba1843bc2fdd6f87",
+    "evidence/007-reset_config.json": "f89be7c963264002deb6f75d6d190b231445800ad5ac632122fd7fbd285076b6",
+    "evidence/008-reset_counter.json": "460ed0910f0a9225bf6f1a50e3ca01c259899eb02d9fd9f795d96954a80aab49",
+    "evidence/009-reset_credits.json": "fff3cc5294f4a3c37dffa6ae1e71d4798a57fd1b9856a5c21f19a3735114ddc3",
+    "evidence/010-reset_events.json": "fa3e7f996118b446a577a003633db26939f54f1053668d593a50de697ee7fbe0",
+    "evidence/011-reset_fsm.json": "c3e3b33e8142d1ebb33a03678ea01329a0b91d5ea766d15908730484e462ecc8",
+    "evidence/012-reset_status.json": "e0673a779d3dce7524a366e9cd0aa2f062274e08bb7071515277bfb13660d794",
+    "evidence/013-reset_timer.json": "e045111f7575e97dd1d2c87d0780869de7c037dbd890c700ff48433275640775",
+    "evidence/014-reset_watchdog.json": "8167ed7db4f7e4e1901f3811d79cfac234e035e81737c0eaa5c9db38029c67da",
+    "evidence/015-reset_config.json": "103acdd8bf3eb3e992091c860b5a0fb1da2cbbfbf0aebce080b221caba14a265",
+    "evidence/016-reset_counter.json": "b9cf752152598cca67e0c3cad52d0591603699974f84b75f42880d59ff5acb26",
+    "evidence/017-reset_credits.json": "77d1515dc22d7d042425d8dc4d29f98175ac83a3353f9121f3ecc2138b005f72",
+    "evidence/018-reset_events.json": "433f0a7dd3f898fcc8a653eeb61a8b5f4af48f92c706dfc2ba9f7a96aeee7797",
+    "evidence/019-reset_fsm.json": "871953bd73ad190671802870ac135446d2c19706a0733c2c046c63036ac8644c",
+    "evidence/020-reset_status.json": "69e59521691d1219a576ef67586d6eca4ea0251077b5baef90da7433570851fd",
+    "evidence/021-reset_timer.json": "459daf2015be7b9f08189fda6698caef6cdfe7ae6f4226afff9eae1be6210f1d",
+    "evidence/022-reset_watchdog.json": "d71f8db14c35fb0123d9959048b8f6c9623e964c07bf54a0804e2475db9510a9",
+    "summary.json": "8a755084832d30780b09d65599993d6c293961400e22f6dd468a5efeffb6d3cc"
+  },
+  "license": "Apache-2.0",
+  "schema_version": "1.0",
+  "submission_id": "openweights-qwen25-coder-7b-reset-v02",
+  "taskpack": {
+    "id": "reset-replication",
+    "version": "0.2"
+  },
+  "title": "Qwen2.5-Coder-7B open-weights reset-release generation profile",
+  "track": "generation"
+}

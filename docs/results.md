@@ -27,6 +27,27 @@ and provenance level.
 | `gpt-5.4` | `pass` | 7 | 7 |
 | `openai-frontier-a` | `fail` | 5 | 7 |
 
+## Open-weights seeded baselines
+
+Two fully public, key-free baselines run through the documented
+[evaluate-your-model](evaluate-your-model.md) two-stage workflow (local
+ollama generation, isolated container evaluation) and packaged with the
+submission contract under
+[`results/submissions/`](https://github.com/shsridhar-beep/svgap/tree/main/results/submissions):
+
+| Configuration | Generated | Ingested | Functional pass | Determinate | Functional-pass / structural-fail |
+|---|---:|---:|---:|---:|---:|
+| `qwen2.5-coder:7b` (ollama) | 24 | 22 | 8 | 8 | 8 |
+| `deepseek-coder-v2:16b` (ollama) | 24 | 22 | 11 | 9 | 9 |
+
+Per model, two responses were rejected at ingestion for not containing the
+required module; deepseek's two structurally indeterminate functional passes
+are Yosys latch-inference `tool_error` outcomes, disclosed rather than
+counted. Every structurally determinate functional pass in both baselines
+contains the declared raw-asynchronous-reset pattern (`REF-RDC-001`). These
+are taskpack-conditional detection counts over three unseeded samples per
+task, not model rankings or defect-rate estimates.
+
 ## Community submissions
 
 No community submission has been accepted yet. The first validated

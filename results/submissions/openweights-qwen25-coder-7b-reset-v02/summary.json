@@ -1,0 +1,93 @@
+{
+  "by_model": {
+    "openweights-qwen25-coder-7b-reset-v02": {
+      "candidates": 22,
+      "functional_pass": 8,
+      "gap_members": 8
+    }
+  },
+  "by_task": {
+    "reset_config": {
+      "candidates": 2,
+      "functional_pass": 0,
+      "gap_members": 0
+    },
+    "reset_counter": {
+      "candidates": 3,
+      "functional_pass": 1,
+      "gap_members": 1
+    },
+    "reset_credits": {
+      "candidates": 3,
+      "functional_pass": 2,
+      "gap_members": 2
+    },
+    "reset_events": {
+      "candidates": 3,
+      "functional_pass": 1,
+      "gap_members": 1
+    },
+    "reset_fsm": {
+      "candidates": 3,
+      "functional_pass": 0,
+      "gap_members": 0
+    },
+    "reset_status": {
+      "candidates": 2,
+      "functional_pass": 2,
+      "gap_members": 2
+    },
+    "reset_timer": {
+      "candidates": 3,
+      "functional_pass": 0,
+      "gap_members": 0
+    },
+    "reset_watchdog": {
+      "candidates": 3,
+      "functional_pass": 2,
+      "gap_members": 2
+    }
+  },
+  "detected_gap_fraction": 1.0,
+  "functional_pass": 8,
+  "gap_members": 8,
+  "kind": "generation_reports",
+  "outcomes": [
+    {
+      "count": 2,
+      "functional": "compile_error",
+      "gap_member": false,
+      "structural": "fail"
+    },
+    {
+      "count": 2,
+      "functional": "compile_error",
+      "gap_member": false,
+      "structural": "tool_error"
+    },
+    {
+      "count": 7,
+      "functional": "fail",
+      "gap_member": false,
+      "structural": "fail"
+    },
+    {
+      "count": 3,
+      "functional": "fail",
+      "gap_member": false,
+      "structural": "tool_error"
+    },
+    {
+      "count": 8,
+      "functional": "pass",
+      "gap_member": true,
+      "structural": "fail"
+    }
+  ],
+  "report_count": 22,
+  "rules": {
+    "REF-RDC-001": 26
+  },
+  "schema_version": "1.0",
+  "structurally_determinate_functional_pass": 8
+}

@@ -1,0 +1,48 @@
+{
+  "candidate_id": "reset_counter",
+  "functional": {
+    "commands": [
+      [
+        "iverilog",
+        "-g2012",
+        "-o",
+        "${SVGAP_BUILD}/sim.vvp",
+        "design.sv",
+        "/tasks/reset_counter/tb.sv"
+      ],
+      [
+        "vvp",
+        "${SVGAP_BUILD}/sim.vvp"
+      ]
+    ],
+    "evidence": {},
+    "imported_from": null,
+    "returncodes": [
+      0,
+      1
+    ],
+    "status": "fail",
+    "stderr": "design.sv:11 warning: Synthesis wants the sensitivity list expressions for 'negedge sync_arst_n' to be a single bit.\n\n",
+    "stdout": "\nFATAL: /tasks/reset_counter/tb.sv:9: reset did not assert asynchronously\n       Time: 93  Scope: tb\n",
+    "tool_versions": {
+      "iverilog": "Icarus Verilog version 14.0 (devel) (s20251012-184-ge4c424726-dirty)",
+      "vvp": "Icarus Verilog runtime version 14.0 (devel) (s20251012-184-ge4c424726-dirty)"
+    }
+  },
+  "gap_member": false,
+  "generated_at": "2026-07-05T07:40:58.437186+00:00",
+  "manifest": "/output/qwen2.5-coder-7b--sample-03/reset_counter/manifest.toml",
+  "schema_version": "1.0",
+  "structural": {
+    "backend": "reference-yosys",
+    "backend_version": "0.1",
+    "diagnostics": [
+      "/output/qwen2.5-coder-7b--sample-03/reset_counter/design.sv:11: ERROR: Found posedge/negedge event on a signal that is not 1 bit wide!"
+    ],
+    "findings": [],
+    "status": "tool_error",
+    "tool_versions": {
+      "yosys": "Yosys 0.64+199 (git sha1 bfc09777e-dirty, aarch64-linux-gnu-g++ 11.4.0-1ubuntu1~22.04 -fPIC -O3)"
+    }
+  }
+}

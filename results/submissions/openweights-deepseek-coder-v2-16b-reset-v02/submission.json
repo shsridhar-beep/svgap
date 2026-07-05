@@ -1,0 +1,73 @@
+{
+  "artifacts": {
+    "evidence": [
+      "evidence/001-reset_config.json",
+      "evidence/002-reset_counter.json",
+      "evidence/003-reset_credits.json",
+      "evidence/004-reset_events.json",
+      "evidence/005-reset_fsm.json",
+      "evidence/006-reset_status.json",
+      "evidence/007-reset_timer.json",
+      "evidence/008-reset_watchdog.json",
+      "evidence/009-reset_config.json",
+      "evidence/010-reset_counter.json",
+      "evidence/011-reset_credits.json",
+      "evidence/012-reset_events.json",
+      "evidence/013-reset_fsm.json",
+      "evidence/014-reset_status.json",
+      "evidence/015-reset_timer.json",
+      "evidence/016-reset_config.json",
+      "evidence/017-reset_counter.json",
+      "evidence/018-reset_credits.json",
+      "evidence/019-reset_events.json",
+      "evidence/020-reset_fsm.json",
+      "evidence/021-reset_status.json",
+      "evidence/022-reset_timer.json"
+    ],
+    "summary": "summary.json"
+  },
+  "claim_boundary": "This profile describes submitted digital RTL evidence under configured functional and structural checks. It is not silicon signoff, a population estimate, or a general model ranking.",
+  "configuration": {
+    "comparative_eligible": true,
+    "label": "deepseek-coder-v2-16b",
+    "model_id": "deepseek-coder-v2:16b",
+    "provenance_level": "public",
+    "provider": "ollama"
+  },
+  "contributor": "Shraddha Sridhar",
+  "created_at": "2026-07-05T07:41:30.081697+00:00",
+  "digests": {
+    "evidence/001-reset_config.json": "5a228f4de24c0e004a9a9e1e2ae2f160913f7217f13c633e635f7e9107a13066",
+    "evidence/002-reset_counter.json": "7e2e23efd1769d3cad0ba65eccbf9ab3f830664274e1b0d9bfa2e20c5b8d0d75",
+    "evidence/003-reset_credits.json": "088285e126f4de666ff03866a8f11d71015333254fbd88507b1130aaa4a40612",
+    "evidence/004-reset_events.json": "916597343f44c2f88b09000542b68dfcd69c47ae58edb9e847858b95296a7fbe",
+    "evidence/005-reset_fsm.json": "33b8a8885d1b51def541a7c5a422b21d0d8b920204319f2d2e184c77bd5ff871",
+    "evidence/006-reset_status.json": "28adcaeca1b026b4b92b2597d11c7bb14ea353bf9d46ff2a9598b329a230f4d1",
+    "evidence/007-reset_timer.json": "fc790facbe93dc520a924fe3f3bcc0325e471017dd710ca1a4facd31c6f442d4",
+    "evidence/008-reset_watchdog.json": "b8373e816f6dce00fffc40f6b64307fd9c1b21b58e70774f131a0ea97488e075",
+    "evidence/009-reset_config.json": "919cd34458267102308028a690755be3a5ded6a201ae54a3fa064c1c5b2fd40f",
+    "evidence/010-reset_counter.json": "9ea586b577f203b5a21424d36f4230f1b13c5cbf70ba3fa49a08cce6b0b7ed4e",
+    "evidence/011-reset_credits.json": "70d8b85c7f664bd31e10d9ace3027c3d2cdd29230f236b3f16760553ceeceb7f",
+    "evidence/012-reset_events.json": "1d8273493deb35657d9bad15fd972d973a84ee7f63129f8efa630562311885ed",
+    "evidence/013-reset_fsm.json": "2b964030739a2afa87176c0a90d99a3a3437e2a94a4f38856a51a50fe4bd8548",
+    "evidence/014-reset_status.json": "56023dfd8448a37b4b8acfed5c78627984f786091f8d1bc109810dd3b9bcb674",
+    "evidence/015-reset_timer.json": "b61e957a1eb3b89d4ea8f7c45db8b85bb3b6dd016cffd0b2d2a349859ee6fee4",
+    "evidence/016-reset_config.json": "ab7491b7ab5b509622ecb29391441d90bb48a9bb5903d20767bf4642decbb374",
+    "evidence/017-reset_counter.json": "10508de17ca0299a00e258ef52d4fbb409601a8be050b78a33d3f9bfe0e13ac9",
+    "evidence/018-reset_credits.json": "7c3d6aa7eba0b29491dee081ac519e5460a26355069d94bb2a0159110073efae",
+    "evidence/019-reset_events.json": "19c89de6eb0498195e495a321ecf79d7fa1822b37eee1b5873ddad0dcb6c1e43",
+    "evidence/020-reset_fsm.json": "92eb56dfa29667cad62e4e4ab5691810d6820d93dea47a415edeb62f64ad51a1",
+    "evidence/021-reset_status.json": "91299f87074817242dbe8a4fe36a9466fd861fec8efb0267f6eb570e4ffe4d44",
+    "evidence/022-reset_timer.json": "fa63713b17896f3cf78620bb4042c297fbeb5e178032182aa97a827a369f53da",
+    "summary.json": "d4ab50cbcbf92aeb3facb508ccf641078fea53147449d34351bb38d50e1f5cd6"
+  },
+  "license": "Apache-2.0",
+  "schema_version": "1.0",
+  "submission_id": "openweights-deepseek-coder-v2-16b-reset-v02",
+  "taskpack": {
+    "id": "reset-replication",
+    "version": "0.2"
+  },
+  "title": "DeepSeek-Coder-V2-16B open-weights reset-release generation profile",
+  "track": "generation"
+}
