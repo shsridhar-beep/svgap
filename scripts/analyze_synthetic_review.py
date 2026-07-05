@@ -16,7 +16,7 @@ DEFAULT_OUTPUT = ROOT / "reports/generated/synthetic-review-v0.1-summary.json"
 TARGET_MAPPING = ROOT / "reports/generated/reset-replication-v0.3-review-mapping.json"
 CALIBRATION_MAPPING = ROOT / "reports/generated/synthetic-calibration-v0.1-mapping.json"
 REVIEWERS = (
-    "openai-reviewer-a",
+    "openai-frontier-b",
     "gpt-5.5",
     "claude-fable-5",
     "claude-haiku-4-5",

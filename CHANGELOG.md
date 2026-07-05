@@ -5,7 +5,7 @@ versioning once the manifest and report contracts reach public v0.1.
 
 ## Unreleased
 
-## 0.3.0-alpha.1 — 2026-07-04
+## 0.3.0-alpha.1 — 2026-07-05
 
 ### Added
 

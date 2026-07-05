@@ -1,511 +1,511 @@
 {
-  "candidate_count": 72,
-  "candidates": [
-    {
-      "bundle_digest": "sha256:a7a49add56257d4e0e3db0206682422d3ab5f7963e6f0c73149edc0b3c9c1e04",
-      "functional": "pass",
-      "run_id": "claude-opus-4-8--sample-01",
-      "structural": "pass",
-      "task_id": "reset_config"
-    },
-    {
-      "bundle_digest": "sha256:fdc211537c517fd127b493207b0900aa7b52a087e5c3b199e14281929f601bb6",
-      "functional": "pass",
-      "run_id": "claude-opus-4-8--sample-01",
-      "structural": "fail",
-      "task_id": "reset_counter"
-    },
-    {
-      "bundle_digest": "sha256:cbddd3019f1a3647388f950eb881c3e0540f7d3798bc878c6b52b4731efcd439",
-      "functional": "pass",
-      "run_id": "claude-opus-4-8--sample-01",
-      "structural": "pass",
-      "task_id": "reset_credits"
-    },
-    {
-      "bundle_digest": "sha256:8dfda94022488e238993bfa895206838397c9dfd3e7a5fb77146486d8d2e8726",
-      "functional": "pass",
-      "run_id": "claude-opus-4-8--sample-01",
-      "structural": "pass",
-      "task_id": "reset_events"
-    },
-    {
-      "bundle_digest": "sha256:61f7e8551f0216b6d2b21bcd1484b8c87fd194b39339509fe4de60461ed1a8bb",
-      "functional": "compile_error",
-      "run_id": "claude-opus-4-8--sample-01",
-      "structural": "pass",
-      "task_id": "reset_fsm"
-    },
-    {
-      "bundle_digest": "sha256:88051be9518205142b06afffad90f1d4f58b14bc40b9a8e9950ed96c8a54bed1",
-      "functional": "fail",
-      "run_id": "claude-opus-4-8--sample-01",
-      "structural": "pass",
-      "task_id": "reset_status"
-    },
-    {
-      "bundle_digest": "sha256:705d36e976c88382d2cb8b52d3dd30499e79f396fc530f0f37b913bd485c2c84",
-      "functional": "fail",
-      "run_id": "claude-opus-4-8--sample-01",
-      "structural": "pass",
-      "task_id": "reset_timer"
-    },
-    {
-      "bundle_digest": "sha256:940c8976575511cd3e7023712aaa2f32c6b663028f9f654df36a2ae3a8b85e23",
-      "functional": "pass",
-      "run_id": "claude-opus-4-8--sample-01",
-      "structural": "pass",
-      "task_id": "reset_watchdog"
-    },
-    {
-      "bundle_digest": "sha256:2b8eae6abaf7b7761f0e332d898fb374092f1201972a3a950ff55ec92e5d48bf",
-      "functional": "pass",
-      "run_id": "claude-opus-4-8--sample-02",
-      "structural": "pass",
-      "task_id": "reset_config"
-    },
-    {
-      "bundle_digest": "sha256:e722ca4abe56f450936b6b5a7a59148e19c1908bf15cde43fda77492caec4ca7",
-      "functional": "pass",
-      "run_id": "claude-opus-4-8--sample-02",
-      "structural": "pass",
-      "task_id": "reset_counter"
-    },
-    {
-      "bundle_digest": "sha256:d49f3889a2057d30be5e24dedbc3a5182c5ade5e18d42cf64c9717392a1a3fb0",
-      "functional": "pass",
-      "run_id": "claude-opus-4-8--sample-02",
-      "structural": "pass",
-      "task_id": "reset_credits"
-    },
-    {
-      "bundle_digest": "sha256:a13fe1c7fc6569c4ad9a083e8609975fff19f90a3f81f7e5c64a52e6135b3dc9",
-      "functional": "pass",
-      "run_id": "claude-opus-4-8--sample-02",
-      "structural": "pass",
-      "task_id": "reset_events"
-    },
-    {
-      "bundle_digest": "sha256:53cdc282f3cdf8641c0fab5f3a0f8d52e5693bf3f73f5080401a3061b3070a97",
-      "functional": "compile_error",
-      "run_id": "claude-opus-4-8--sample-02",
-      "structural": "pass",
-      "task_id": "reset_fsm"
-    },
-    {
-      "bundle_digest": "sha256:d001e8b3f7c5ef063a00a840792d7f77bc88135f21faa863c5ba4a704f8b3a11",
-      "functional": "pass",
-      "run_id": "claude-opus-4-8--sample-02",
-      "structural": "pass",
-      "task_id": "reset_status"
-    },
-    {
-      "bundle_digest": "sha256:7187ae6993a663a598a3fb3c8204d76cf55673468b4d10326ce2dc1217363141",
-      "functional": "fail",
-      "run_id": "claude-opus-4-8--sample-02",
-      "structural": "pass",
-      "task_id": "reset_timer"
-    },
-    {
-      "bundle_digest": "sha256:b7ec1c514ba3e2ff379783f8cfbf35baf7069b6e9d7f03d41134bb5cd6f5bdba",
-      "functional": "pass",
-      "run_id": "claude-opus-4-8--sample-02",
-      "structural": "pass",
-      "task_id": "reset_watchdog"
-    },
-    {
-      "bundle_digest": "sha256:e1540089ab9a31e604f6d111895bb73a26f86ed178cd6ccc906bdb2e10dae3eb",
-      "functional": "pass",
-      "run_id": "claude-opus-4-8--sample-03",
-      "structural": "pass",
-      "task_id": "reset_config"
-    },
-    {
-      "bundle_digest": "sha256:b4827320309ed5afae74815fb75fd42c5ecc38e8cb6604a53b296f0d86fc2742",
-      "functional": "pass",
-      "run_id": "claude-opus-4-8--sample-03",
-      "structural": "pass",
-      "task_id": "reset_counter"
-    },
-    {
-      "bundle_digest": "sha256:1d6580e722f4c772c1726c2f2a6edcceefca3aadd68fdd6342c3c9e94d1e92aa",
-      "functional": "pass",
-      "run_id": "claude-opus-4-8--sample-03",
-      "structural": "pass",
-      "task_id": "reset_credits"
-    },
-    {
-      "bundle_digest": "sha256:3ddda952bae8c7a10081011d670d59c3a7a12dbd5c76ca606af67cfd9472a5e7",
-      "functional": "pass",
-      "run_id": "claude-opus-4-8--sample-03",
-      "structural": "pass",
-      "task_id": "reset_events"
-    },
-    {
-      "bundle_digest": "sha256:15efd9223206e1846c699976ee63ead188757cb436bd7ad2ba97d71df7665811",
-      "functional": "compile_error",
-      "run_id": "claude-opus-4-8--sample-03",
-      "structural": "pass",
-      "task_id": "reset_fsm"
-    },
-    {
-      "bundle_digest": "sha256:9e84aff1c84325f7f4866439ffb2fcfb4af20273a84e3ac2afdb101dea65a02c",
-      "functional": "pass",
-      "run_id": "claude-opus-4-8--sample-03",
-      "structural": "pass",
-      "task_id": "reset_status"
-    },
-    {
-      "bundle_digest": "sha256:d43fdd97df9c4a1c0a6ef5bdfa76ce17a385adcb66b4e424cbeeac4c93210a90",
-      "functional": "fail",
-      "run_id": "claude-opus-4-8--sample-03",
-      "structural": "pass",
-      "task_id": "reset_timer"
-    },
-    {
-      "bundle_digest": "sha256:352c9f676051bac8cd916bf86f6d2cde213474a7fcf2ca92c6109237b17d1e4a",
-      "functional": "pass",
-      "run_id": "claude-opus-4-8--sample-03",
-      "structural": "pass",
-      "task_id": "reset_watchdog"
-    },
-    {
-      "bundle_digest": "sha256:758fd8722036adde10ea59a9824e09e371ae9533fce4f1bbef1da736859b9986",
-      "functional": "pass",
-      "run_id": "claude-sonnet-5--sample-01",
-      "structural": "pass",
-      "task_id": "reset_config"
-    },
-    {
-      "bundle_digest": "sha256:4bd172f51ea44b016f1f480f5d4dd09d84a80673f262721f01076513d80ec428",
-      "functional": "pass",
-      "run_id": "claude-sonnet-5--sample-01",
-      "structural": "fail",
-      "task_id": "reset_counter"
-    },
-    {
-      "bundle_digest": "sha256:2b28d7e42140af3bbdec5a615b37af535a57a92bfca1a4a7147f6ed854db5db9",
-      "functional": "pass",
-      "run_id": "claude-sonnet-5--sample-01",
-      "structural": "fail",
-      "task_id": "reset_credits"
-    },
-    {
-      "bundle_digest": "sha256:a7eee2f303369688d4f8ed9510f6dafbd8267ce6d93ab6c34d0915f421f39322",
-      "functional": "pass",
-      "run_id": "claude-sonnet-5--sample-01",
-      "structural": "pass",
-      "task_id": "reset_events"
-    },
-    {
-      "bundle_digest": "sha256:7f571a208780eaaffa05ee7bd7316dfc7b3c03a2747efb164c31a5630961ff60",
-      "functional": "compile_error",
-      "run_id": "claude-sonnet-5--sample-01",
-      "structural": "pass",
-      "task_id": "reset_fsm"
-    },
-    {
-      "bundle_digest": "sha256:975ddce0cb4f9eded731b361f5a4c098774b59b4935dfc32b9b00139a0af5c60",
-      "functional": "pass",
-      "run_id": "claude-sonnet-5--sample-01",
-      "structural": "fail",
-      "task_id": "reset_status"
-    },
-    {
-      "bundle_digest": "sha256:99a4ee7562653d80a4342d95e6b13ccff313a237073775771ce7812ffb9e460c",
-      "functional": "fail",
-      "run_id": "claude-sonnet-5--sample-01",
-      "structural": "pass",
-      "task_id": "reset_timer"
-    },
-    {
-      "bundle_digest": "sha256:1e42d558dc4c1ced7ecf5cc08bea932d003f57755e7e42856d8da6ba6e60cfa8",
-      "functional": "pass",
-      "run_id": "claude-sonnet-5--sample-01",
-      "structural": "pass",
-      "task_id": "reset_watchdog"
-    },
-    {
-      "bundle_digest": "sha256:82db5bb89e9c7276ed4c5e7367733b32af079ec19a7d44a5204e5b0f069dd377",
-      "functional": "pass",
-      "run_id": "claude-sonnet-5--sample-02",
-      "structural": "pass",
-      "task_id": "reset_config"
-    },
-    {
-      "bundle_digest": "sha256:245108fa54421d75130ee42f08158f1527881b0fb18429d99d992c6b0c833f45",
-      "functional": "pass",
-      "run_id": "claude-sonnet-5--sample-02",
-      "structural": "fail",
-      "task_id": "reset_counter"
-    },
-    {
-      "bundle_digest": "sha256:74b17884d08608970846be1126a6ebade4f9df250c3e8757c2c3a31f3eddcbd0",
-      "functional": "pass",
-      "run_id": "claude-sonnet-5--sample-02",
-      "structural": "fail",
-      "task_id": "reset_credits"
-    },
-    {
-      "bundle_digest": "sha256:de2a9d2b9f75c7d5e0833f5b56748273b1760ba22dc8686aa398dccf054bc8d5",
-      "functional": "pass",
-      "run_id": "claude-sonnet-5--sample-02",
-      "structural": "pass",
-      "task_id": "reset_events"
-    },
-    {
-      "bundle_digest": "sha256:d424cd8499e6ae405290cfee5d05103624860dbfce468aa073605e39a2ccd246",
-      "functional": "compile_error",
-      "run_id": "claude-sonnet-5--sample-02",
-      "structural": "pass",
-      "task_id": "reset_fsm"
-    },
-    {
-      "bundle_digest": "sha256:ab5d86a984c862a47c225115480dcda4a9abb815798377d8a7889153ce74ea8d",
-      "functional": "pass",
-      "run_id": "claude-sonnet-5--sample-02",
-      "structural": "pass",
-      "task_id": "reset_status"
-    },
-    {
-      "bundle_digest": "sha256:90245cc78ebe812172db3d1c1b7ebf86f78ba85a5df1ec375ccdac8689d3b80f",
-      "functional": "pass",
-      "run_id": "claude-sonnet-5--sample-02",
-      "structural": "pass",
-      "task_id": "reset_timer"
-    },
-    {
-      "bundle_digest": "sha256:0c94c0b86639e7fc5196e27f9beb36b429bbc68a5fe0c1aa1c43a8351670f425",
-      "functional": "pass",
-      "run_id": "claude-sonnet-5--sample-02",
-      "structural": "pass",
-      "task_id": "reset_watchdog"
-    },
-    {
-      "bundle_digest": "sha256:f241acce069fd7d2a4edf7f3806633926b68f32d9648bbccd1f9e2a453811bd7",
-      "functional": "pass",
-      "run_id": "claude-sonnet-5--sample-03",
-      "structural": "pass",
-      "task_id": "reset_config"
-    },
-    {
-      "bundle_digest": "sha256:fde741178dd5bf610987b8e94997ad927a769a6f17a51f048d63a35df6107a72",
-      "functional": "pass",
-      "run_id": "claude-sonnet-5--sample-03",
-      "structural": "pass",
-      "task_id": "reset_counter"
-    },
-    {
-      "bundle_digest": "sha256:3a15cdd1eeca6ce4a328edcfaaeff8d191d65e08295843247b18c0ea07a9b8b1",
-      "functional": "pass",
-      "run_id": "claude-sonnet-5--sample-03",
-      "structural": "pass",
-      "task_id": "reset_credits"
-    },
-    {
-      "bundle_digest": "sha256:c5b86c02de01008dc66345d16bd836245a6139bbca5319399a480e079233bd73",
-      "functional": "pass",
-      "run_id": "claude-sonnet-5--sample-03",
-      "structural": "pass",
-      "task_id": "reset_events"
-    },
-    {
-      "bundle_digest": "sha256:76fc6938431d59e829c7b8ded9882a658fe0bc9e6e4fb1a81190bd96825350cb",
-      "functional": "compile_error",
-      "run_id": "claude-sonnet-5--sample-03",
-      "structural": "fail",
-      "task_id": "reset_fsm"
-    },
-    {
-      "bundle_digest": "sha256:27bf7283c1a736f74941de56a76477414df78fc8f2eef7c412b2f13391a409ea",
-      "functional": "pass",
-      "run_id": "claude-sonnet-5--sample-03",
-      "structural": "fail",
-      "task_id": "reset_status"
-    },
-    {
-      "bundle_digest": "sha256:86b1a7174fdc23e88e0f08f73686f17683e21075e473be3c58de02e976a315e3",
-      "functional": "fail",
-      "run_id": "claude-sonnet-5--sample-03",
-      "structural": "pass",
-      "task_id": "reset_timer"
-    },
-    {
-      "bundle_digest": "sha256:68ff1ce77445adc9687aa33eaa225fe7c7fa259f384c7c9662011187c6e26765",
-      "functional": "pass",
-      "run_id": "claude-sonnet-5--sample-03",
-      "structural": "fail",
-      "task_id": "reset_watchdog"
-    },
-    {
-      "bundle_digest": "sha256:24261f75f500aec4fd25c37c903bf1c2e4c83073e8c9cf9d61280bb5d1e72bbf",
-      "functional": "pass",
-      "run_id": "openai-frontier-a--sample-01",
-      "structural": "pass",
-      "task_id": "reset_config"
-    },
-    {
-      "bundle_digest": "sha256:95e856ce455aba03bcf8ecd1044046066669060d0477c8b0d2d40e7beb4f13b7",
-      "functional": "pass",
-      "run_id": "openai-frontier-a--sample-01",
-      "structural": "fail",
-      "task_id": "reset_counter"
-    },
-    {
-      "bundle_digest": "sha256:cbf895c92e08dece1946af86e1cc8399e846d663eb013f6f63722b0e6ba1b5f4",
-      "functional": "pass",
-      "run_id": "openai-frontier-a--sample-01",
-      "structural": "pass",
-      "task_id": "reset_credits"
-    },
-    {
-      "bundle_digest": "sha256:0d60d5557908de4c1f055811775f109905d9fabe92fc066cef274454bbffbb4d",
-      "functional": "pass",
-      "run_id": "openai-frontier-a--sample-01",
-      "structural": "pass",
-      "task_id": "reset_events"
-    },
-    {
-      "bundle_digest": "sha256:885c29be44014389864534fd4f8261fdf5d96a25ab3db04254d059201af8456e",
-      "functional": "pass",
-      "run_id": "openai-frontier-a--sample-01",
-      "structural": "fail",
-      "task_id": "reset_fsm"
-    },
-    {
-      "bundle_digest": "sha256:94c4e1c1bd71ed84d8110b62500f024c7a6747a75ed1bb76f10f2243b27192ea",
-      "functional": "pass",
-      "run_id": "openai-frontier-a--sample-01",
-      "structural": "pass",
-      "task_id": "reset_status"
-    },
-    {
-      "bundle_digest": "sha256:b909161b88197d03da84f39aefa353adb3b3f33cf90773a799083e3bcebfa524",
-      "functional": "fail",
-      "run_id": "openai-frontier-a--sample-01",
-      "structural": "pass",
-      "task_id": "reset_timer"
-    },
-    {
-      "bundle_digest": "sha256:a8e8e2603988f945d41d5a7fe2fc4c46a4d76303914d73f986c069a0fff65cfd",
-      "functional": "pass",
-      "run_id": "openai-frontier-a--sample-01",
-      "structural": "pass",
-      "task_id": "reset_watchdog"
-    },
-    {
-      "bundle_digest": "sha256:439f335418365283cde728c411d5721a7a5ed215458ebd8262c9c29eb2bbb96b",
-      "functional": "pass",
-      "run_id": "openai-frontier-a--sample-02",
-      "structural": "pass",
-      "task_id": "reset_config"
-    },
-    {
-      "bundle_digest": "sha256:f4a8dade3ee5942d318dca3fc16235849b6224e1315224fcbe26e8925246ed03",
-      "functional": "pass",
-      "run_id": "openai-frontier-a--sample-02",
-      "structural": "fail",
-      "task_id": "reset_counter"
-    },
-    {
-      "bundle_digest": "sha256:d5173b00447db130279e100512e63e0667a5d9156524c918af86dc6c432a1e10",
-      "functional": "pass",
-      "run_id": "openai-frontier-a--sample-02",
-      "structural": "fail",
-      "task_id": "reset_credits"
-    },
-    {
-      "bundle_digest": "sha256:df789173fa70aa71c87afdf0bbdfd419736ab298f9440bbc4aa559446df99724",
-      "functional": "pass",
-      "run_id": "openai-frontier-a--sample-02",
-      "structural": "pass",
-      "task_id": "reset_events"
-    },
-    {
-      "bundle_digest": "sha256:0ecb47811423b6e2655a82b7c2d3a59158122c81e1ee42f4689b577b12a7ebe2",
-      "functional": "pass",
-      "run_id": "openai-frontier-a--sample-02",
-      "structural": "pass",
-      "task_id": "reset_fsm"
-    },
-    {
-      "bundle_digest": "sha256:1912827be3f3b8d75a07cd4ffef1011178d353b904f1a14522a887d5c106541b",
-      "functional": "pass",
-      "run_id": "openai-frontier-a--sample-02",
-      "structural": "pass",
-      "task_id": "reset_status"
-    },
-    {
-      "bundle_digest": "sha256:182cf8007466efc3ce2f54239b98ba06ba1274d9dba206b23d63883dc8966c78",
-      "functional": "fail",
-      "run_id": "openai-frontier-a--sample-02",
-      "structural": "pass",
-      "task_id": "reset_timer"
-    },
-    {
-      "bundle_digest": "sha256:ca7ffb9bf4901994837a182c051bf923cfdd7b2fbfa8192b3aceba39c574d88c",
-      "functional": "pass",
-      "run_id": "openai-frontier-a--sample-02",
-      "structural": "fail",
-      "task_id": "reset_watchdog"
-    },
-    {
-      "bundle_digest": "sha256:01a9e359b9246fe8cccd1f3c622dbb1e7ffaa0823529b4a9498ef7a9ffe84d2b",
-      "functional": "pass",
-      "run_id": "openai-frontier-a--sample-03",
-      "structural": "pass",
-      "task_id": "reset_config"
-    },
-    {
-      "bundle_digest": "sha256:55bfbee847d85603c80fd634ab6d0d1e4c1d6c9d652d7ea019bba8ea20f69eef",
-      "functional": "pass",
-      "run_id": "openai-frontier-a--sample-03",
-      "structural": "fail",
-      "task_id": "reset_counter"
-    },
-    {
-      "bundle_digest": "sha256:d069be1543d5fbbd852b30941625f5bca3b63d51cb92f81348af2f0eb5452150",
-      "functional": "pass",
-      "run_id": "openai-frontier-a--sample-03",
-      "structural": "pass",
-      "task_id": "reset_credits"
-    },
-    {
-      "bundle_digest": "sha256:c099171d31846ef24f6089c54967bbdffb7b01e2d775b872572cd6b98d429874",
-      "functional": "pass",
-      "run_id": "openai-frontier-a--sample-03",
-      "structural": "pass",
-      "task_id": "reset_events"
-    },
-    {
-      "bundle_digest": "sha256:b2c4c5b125bcbbeda92db1f2168e8e2e9007b4e397ac37f31c90ddd9389b3bb0",
-      "functional": "pass",
-      "run_id": "openai-frontier-a--sample-03",
-      "structural": "pass",
-      "task_id": "reset_fsm"
-    },
-    {
-      "bundle_digest": "sha256:b4b4333dfc22a7a43b01612ee43e0ded30e5f48c50c98b36e1e1938febbca2a8",
-      "functional": "pass",
-      "run_id": "openai-frontier-a--sample-03",
-      "structural": "pass",
-      "task_id": "reset_status"
-    },
-    {
-      "bundle_digest": "sha256:e771d3a036e2e195c39594418e0e8063d12b59999ced856de3b8677d1bac9cbc",
-      "functional": "fail",
-      "run_id": "openai-frontier-a--sample-03",
-      "structural": "pass",
-      "task_id": "reset_timer"
-    },
-    {
-      "bundle_digest": "sha256:b63e2402c380d9791e5b80cb361479ec5a8ba03b5cec5a475891411d7e437419",
-      "functional": "pass",
-      "run_id": "openai-frontier-a--sample-03",
-      "structural": "pass",
-      "task_id": "reset_watchdog"
-    }
-  ],
-  "evaluator_source_digest": "sha256:74cf2615141d8f619a5abd5922a03003612e33fa5f9a63d09fbfe62ce42406fa",
-  "schema_version": "1.0"
+ "candidate_count": 72,
+ "candidates": [
+  {
+   "bundle_digest": "sha256:a7a49add56257d4e0e3db0206682422d3ab5f7963e6f0c73149edc0b3c9c1e04",
+   "functional": "pass",
+   "run_id": "claude-opus-4-8--sample-01",
+   "structural": "pass",
+   "task_id": "reset_config"
+  },
+  {
+   "bundle_digest": "sha256:fdc211537c517fd127b493207b0900aa7b52a087e5c3b199e14281929f601bb6",
+   "functional": "pass",
+   "run_id": "claude-opus-4-8--sample-01",
+   "structural": "fail",
+   "task_id": "reset_counter"
+  },
+  {
+   "bundle_digest": "sha256:cbddd3019f1a3647388f950eb881c3e0540f7d3798bc878c6b52b4731efcd439",
+   "functional": "pass",
+   "run_id": "claude-opus-4-8--sample-01",
+   "structural": "pass",
+   "task_id": "reset_credits"
+  },
+  {
+   "bundle_digest": "sha256:8dfda94022488e238993bfa895206838397c9dfd3e7a5fb77146486d8d2e8726",
+   "functional": "pass",
+   "run_id": "claude-opus-4-8--sample-01",
+   "structural": "pass",
+   "task_id": "reset_events"
+  },
+  {
+   "bundle_digest": "sha256:61f7e8551f0216b6d2b21bcd1484b8c87fd194b39339509fe4de60461ed1a8bb",
+   "functional": "compile_error",
+   "run_id": "claude-opus-4-8--sample-01",
+   "structural": "pass",
+   "task_id": "reset_fsm"
+  },
+  {
+   "bundle_digest": "sha256:88051be9518205142b06afffad90f1d4f58b14bc40b9a8e9950ed96c8a54bed1",
+   "functional": "fail",
+   "run_id": "claude-opus-4-8--sample-01",
+   "structural": "pass",
+   "task_id": "reset_status"
+  },
+  {
+   "bundle_digest": "sha256:705d36e976c88382d2cb8b52d3dd30499e79f396fc530f0f37b913bd485c2c84",
+   "functional": "fail",
+   "run_id": "claude-opus-4-8--sample-01",
+   "structural": "pass",
+   "task_id": "reset_timer"
+  },
+  {
+   "bundle_digest": "sha256:940c8976575511cd3e7023712aaa2f32c6b663028f9f654df36a2ae3a8b85e23",
+   "functional": "pass",
+   "run_id": "claude-opus-4-8--sample-01",
+   "structural": "pass",
+   "task_id": "reset_watchdog"
+  },
+  {
+   "bundle_digest": "sha256:2b8eae6abaf7b7761f0e332d898fb374092f1201972a3a950ff55ec92e5d48bf",
+   "functional": "pass",
+   "run_id": "claude-opus-4-8--sample-02",
+   "structural": "pass",
+   "task_id": "reset_config"
+  },
+  {
+   "bundle_digest": "sha256:e722ca4abe56f450936b6b5a7a59148e19c1908bf15cde43fda77492caec4ca7",
+   "functional": "pass",
+   "run_id": "claude-opus-4-8--sample-02",
+   "structural": "pass",
+   "task_id": "reset_counter"
+  },
+  {
+   "bundle_digest": "sha256:d49f3889a2057d30be5e24dedbc3a5182c5ade5e18d42cf64c9717392a1a3fb0",
+   "functional": "pass",
+   "run_id": "claude-opus-4-8--sample-02",
+   "structural": "pass",
+   "task_id": "reset_credits"
+  },
+  {
+   "bundle_digest": "sha256:a13fe1c7fc6569c4ad9a083e8609975fff19f90a3f81f7e5c64a52e6135b3dc9",
+   "functional": "pass",
+   "run_id": "claude-opus-4-8--sample-02",
+   "structural": "pass",
+   "task_id": "reset_events"
+  },
+  {
+   "bundle_digest": "sha256:53cdc282f3cdf8641c0fab5f3a0f8d52e5693bf3f73f5080401a3061b3070a97",
+   "functional": "compile_error",
+   "run_id": "claude-opus-4-8--sample-02",
+   "structural": "pass",
+   "task_id": "reset_fsm"
+  },
+  {
+   "bundle_digest": "sha256:d001e8b3f7c5ef063a00a840792d7f77bc88135f21faa863c5ba4a704f8b3a11",
+   "functional": "pass",
+   "run_id": "claude-opus-4-8--sample-02",
+   "structural": "pass",
+   "task_id": "reset_status"
+  },
+  {
+   "bundle_digest": "sha256:7187ae6993a663a598a3fb3c8204d76cf55673468b4d10326ce2dc1217363141",
+   "functional": "fail",
+   "run_id": "claude-opus-4-8--sample-02",
+   "structural": "pass",
+   "task_id": "reset_timer"
+  },
+  {
+   "bundle_digest": "sha256:b7ec1c514ba3e2ff379783f8cfbf35baf7069b6e9d7f03d41134bb5cd6f5bdba",
+   "functional": "pass",
+   "run_id": "claude-opus-4-8--sample-02",
+   "structural": "pass",
+   "task_id": "reset_watchdog"
+  },
+  {
+   "bundle_digest": "sha256:e1540089ab9a31e604f6d111895bb73a26f86ed178cd6ccc906bdb2e10dae3eb",
+   "functional": "pass",
+   "run_id": "claude-opus-4-8--sample-03",
+   "structural": "pass",
+   "task_id": "reset_config"
+  },
+  {
+   "bundle_digest": "sha256:b4827320309ed5afae74815fb75fd42c5ecc38e8cb6604a53b296f0d86fc2742",
+   "functional": "pass",
+   "run_id": "claude-opus-4-8--sample-03",
+   "structural": "pass",
+   "task_id": "reset_counter"
+  },
+  {
+   "bundle_digest": "sha256:1d6580e722f4c772c1726c2f2a6edcceefca3aadd68fdd6342c3c9e94d1e92aa",
+   "functional": "pass",
+   "run_id": "claude-opus-4-8--sample-03",
+   "structural": "pass",
+   "task_id": "reset_credits"
+  },
+  {
+   "bundle_digest": "sha256:3ddda952bae8c7a10081011d670d59c3a7a12dbd5c76ca606af67cfd9472a5e7",
+   "functional": "pass",
+   "run_id": "claude-opus-4-8--sample-03",
+   "structural": "pass",
+   "task_id": "reset_events"
+  },
+  {
+   "bundle_digest": "sha256:15efd9223206e1846c699976ee63ead188757cb436bd7ad2ba97d71df7665811",
+   "functional": "compile_error",
+   "run_id": "claude-opus-4-8--sample-03",
+   "structural": "pass",
+   "task_id": "reset_fsm"
+  },
+  {
+   "bundle_digest": "sha256:9e84aff1c84325f7f4866439ffb2fcfb4af20273a84e3ac2afdb101dea65a02c",
+   "functional": "pass",
+   "run_id": "claude-opus-4-8--sample-03",
+   "structural": "pass",
+   "task_id": "reset_status"
+  },
+  {
+   "bundle_digest": "sha256:d43fdd97df9c4a1c0a6ef5bdfa76ce17a385adcb66b4e424cbeeac4c93210a90",
+   "functional": "fail",
+   "run_id": "claude-opus-4-8--sample-03",
+   "structural": "pass",
+   "task_id": "reset_timer"
+  },
+  {
+   "bundle_digest": "sha256:352c9f676051bac8cd916bf86f6d2cde213474a7fcf2ca92c6109237b17d1e4a",
+   "functional": "pass",
+   "run_id": "claude-opus-4-8--sample-03",
+   "structural": "pass",
+   "task_id": "reset_watchdog"
+  },
+  {
+   "bundle_digest": "sha256:758fd8722036adde10ea59a9824e09e371ae9533fce4f1bbef1da736859b9986",
+   "functional": "pass",
+   "run_id": "claude-sonnet-5--sample-01",
+   "structural": "pass",
+   "task_id": "reset_config"
+  },
+  {
+   "bundle_digest": "sha256:4bd172f51ea44b016f1f480f5d4dd09d84a80673f262721f01076513d80ec428",
+   "functional": "pass",
+   "run_id": "claude-sonnet-5--sample-01",
+   "structural": "fail",
+   "task_id": "reset_counter"
+  },
+  {
+   "bundle_digest": "sha256:2b28d7e42140af3bbdec5a615b37af535a57a92bfca1a4a7147f6ed854db5db9",
+   "functional": "pass",
+   "run_id": "claude-sonnet-5--sample-01",
+   "structural": "fail",
+   "task_id": "reset_credits"
+  },
+  {
+   "bundle_digest": "sha256:a7eee2f303369688d4f8ed9510f6dafbd8267ce6d93ab6c34d0915f421f39322",
+   "functional": "pass",
+   "run_id": "claude-sonnet-5--sample-01",
+   "structural": "pass",
+   "task_id": "reset_events"
+  },
+  {
+   "bundle_digest": "sha256:7f571a208780eaaffa05ee7bd7316dfc7b3c03a2747efb164c31a5630961ff60",
+   "functional": "compile_error",
+   "run_id": "claude-sonnet-5--sample-01",
+   "structural": "pass",
+   "task_id": "reset_fsm"
+  },
+  {
+   "bundle_digest": "sha256:975ddce0cb4f9eded731b361f5a4c098774b59b4935dfc32b9b00139a0af5c60",
+   "functional": "pass",
+   "run_id": "claude-sonnet-5--sample-01",
+   "structural": "fail",
+   "task_id": "reset_status"
+  },
+  {
+   "bundle_digest": "sha256:99a4ee7562653d80a4342d95e6b13ccff313a237073775771ce7812ffb9e460c",
+   "functional": "fail",
+   "run_id": "claude-sonnet-5--sample-01",
+   "structural": "pass",
+   "task_id": "reset_timer"
+  },
+  {
+   "bundle_digest": "sha256:1e42d558dc4c1ced7ecf5cc08bea932d003f57755e7e42856d8da6ba6e60cfa8",
+   "functional": "pass",
+   "run_id": "claude-sonnet-5--sample-01",
+   "structural": "pass",
+   "task_id": "reset_watchdog"
+  },
+  {
+   "bundle_digest": "sha256:82db5bb89e9c7276ed4c5e7367733b32af079ec19a7d44a5204e5b0f069dd377",
+   "functional": "pass",
+   "run_id": "claude-sonnet-5--sample-02",
+   "structural": "pass",
+   "task_id": "reset_config"
+  },
+  {
+   "bundle_digest": "sha256:245108fa54421d75130ee42f08158f1527881b0fb18429d99d992c6b0c833f45",
+   "functional": "pass",
+   "run_id": "claude-sonnet-5--sample-02",
+   "structural": "fail",
+   "task_id": "reset_counter"
+  },
+  {
+   "bundle_digest": "sha256:74b17884d08608970846be1126a6ebade4f9df250c3e8757c2c3a31f3eddcbd0",
+   "functional": "pass",
+   "run_id": "claude-sonnet-5--sample-02",
+   "structural": "fail",
+   "task_id": "reset_credits"
+  },
+  {
+   "bundle_digest": "sha256:de2a9d2b9f75c7d5e0833f5b56748273b1760ba22dc8686aa398dccf054bc8d5",
+   "functional": "pass",
+   "run_id": "claude-sonnet-5--sample-02",
+   "structural": "pass",
+   "task_id": "reset_events"
+  },
+  {
+   "bundle_digest": "sha256:d424cd8499e6ae405290cfee5d05103624860dbfce468aa073605e39a2ccd246",
+   "functional": "compile_error",
+   "run_id": "claude-sonnet-5--sample-02",
+   "structural": "pass",
+   "task_id": "reset_fsm"
+  },
+  {
+   "bundle_digest": "sha256:ab5d86a984c862a47c225115480dcda4a9abb815798377d8a7889153ce74ea8d",
+   "functional": "pass",
+   "run_id": "claude-sonnet-5--sample-02",
+   "structural": "pass",
+   "task_id": "reset_status"
+  },
+  {
+   "bundle_digest": "sha256:90245cc78ebe812172db3d1c1b7ebf86f78ba85a5df1ec375ccdac8689d3b80f",
+   "functional": "pass",
+   "run_id": "claude-sonnet-5--sample-02",
+   "structural": "pass",
+   "task_id": "reset_timer"
+  },
+  {
+   "bundle_digest": "sha256:0c94c0b86639e7fc5196e27f9beb36b429bbc68a5fe0c1aa1c43a8351670f425",
+   "functional": "pass",
+   "run_id": "claude-sonnet-5--sample-02",
+   "structural": "pass",
+   "task_id": "reset_watchdog"
+  },
+  {
+   "bundle_digest": "sha256:f241acce069fd7d2a4edf7f3806633926b68f32d9648bbccd1f9e2a453811bd7",
+   "functional": "pass",
+   "run_id": "claude-sonnet-5--sample-03",
+   "structural": "pass",
+   "task_id": "reset_config"
+  },
+  {
+   "bundle_digest": "sha256:fde741178dd5bf610987b8e94997ad927a769a6f17a51f048d63a35df6107a72",
+   "functional": "pass",
+   "run_id": "claude-sonnet-5--sample-03",
+   "structural": "pass",
+   "task_id": "reset_counter"
+  },
+  {
+   "bundle_digest": "sha256:3a15cdd1eeca6ce4a328edcfaaeff8d191d65e08295843247b18c0ea07a9b8b1",
+   "functional": "pass",
+   "run_id": "claude-sonnet-5--sample-03",
+   "structural": "pass",
+   "task_id": "reset_credits"
+  },
+  {
+   "bundle_digest": "sha256:c5b86c02de01008dc66345d16bd836245a6139bbca5319399a480e079233bd73",
+   "functional": "pass",
+   "run_id": "claude-sonnet-5--sample-03",
+   "structural": "pass",
+   "task_id": "reset_events"
+  },
+  {
+   "bundle_digest": "sha256:76fc6938431d59e829c7b8ded9882a658fe0bc9e6e4fb1a81190bd96825350cb",
+   "functional": "compile_error",
+   "run_id": "claude-sonnet-5--sample-03",
+   "structural": "fail",
+   "task_id": "reset_fsm"
+  },
+  {
+   "bundle_digest": "sha256:27bf7283c1a736f74941de56a76477414df78fc8f2eef7c412b2f13391a409ea",
+   "functional": "pass",
+   "run_id": "claude-sonnet-5--sample-03",
+   "structural": "fail",
+   "task_id": "reset_status"
+  },
+  {
+   "bundle_digest": "sha256:86b1a7174fdc23e88e0f08f73686f17683e21075e473be3c58de02e976a315e3",
+   "functional": "fail",
+   "run_id": "claude-sonnet-5--sample-03",
+   "structural": "pass",
+   "task_id": "reset_timer"
+  },
+  {
+   "bundle_digest": "sha256:68ff1ce77445adc9687aa33eaa225fe7c7fa259f384c7c9662011187c6e26765",
+   "functional": "pass",
+   "run_id": "claude-sonnet-5--sample-03",
+   "structural": "fail",
+   "task_id": "reset_watchdog"
+  },
+  {
+   "bundle_digest": "sha256:e02ce29cdafc22049478397e962e47f9b4977358d0ea8f75f939b8efc9d3f216",
+   "functional": "pass",
+   "run_id": "openai-frontier-a--sample-01",
+   "structural": "pass",
+   "task_id": "reset_config"
+  },
+  {
+   "bundle_digest": "sha256:21f520804d30b82ded29bae86c895eeac5be667a42c6f9f42f8fb48717cf5f57",
+   "functional": "pass",
+   "run_id": "openai-frontier-a--sample-01",
+   "structural": "fail",
+   "task_id": "reset_counter"
+  },
+  {
+   "bundle_digest": "sha256:dbc271b29469e87ce471ffdf049659f3727d0a717a56c4d60692883fba8b3f5a",
+   "functional": "pass",
+   "run_id": "openai-frontier-a--sample-01",
+   "structural": "pass",
+   "task_id": "reset_credits"
+  },
+  {
+   "bundle_digest": "sha256:b5b3c10f1be8d8ae369e75365343c0daf4019bca43726a75e4d2ce1a146bf347",
+   "functional": "pass",
+   "run_id": "openai-frontier-a--sample-01",
+   "structural": "pass",
+   "task_id": "reset_events"
+  },
+  {
+   "bundle_digest": "sha256:c4bcadaaa965f509f174a613594778490467d3ac1f5d415f6bfbffbf923bdfca",
+   "functional": "pass",
+   "run_id": "openai-frontier-a--sample-01",
+   "structural": "fail",
+   "task_id": "reset_fsm"
+  },
+  {
+   "bundle_digest": "sha256:90848932ddd7819b9f86109f2c95f05be5303463debc317250d5941e39d23d55",
+   "functional": "pass",
+   "run_id": "openai-frontier-a--sample-01",
+   "structural": "pass",
+   "task_id": "reset_status"
+  },
+  {
+   "bundle_digest": "sha256:4178ebab789252694dd0b45ef810722c915fffc3d2893086ecfe7233f006493c",
+   "functional": "fail",
+   "run_id": "openai-frontier-a--sample-01",
+   "structural": "pass",
+   "task_id": "reset_timer"
+  },
+  {
+   "bundle_digest": "sha256:13a09aaebedab9f7ca17ece82b14f0090273c464822436db5aff7f3ee1767ff7",
+   "functional": "pass",
+   "run_id": "openai-frontier-a--sample-01",
+   "structural": "pass",
+   "task_id": "reset_watchdog"
+  },
+  {
+   "bundle_digest": "sha256:31347ccb6b12d97db5a19e443d9252cfa1528a4782756cf6bf7a94ca45d701aa",
+   "functional": "pass",
+   "run_id": "openai-frontier-a--sample-02",
+   "structural": "pass",
+   "task_id": "reset_config"
+  },
+  {
+   "bundle_digest": "sha256:95890090256b6d82cfcf41225d8420a92bca3df8aea6b823f01f0c6edbaba928",
+   "functional": "pass",
+   "run_id": "openai-frontier-a--sample-02",
+   "structural": "fail",
+   "task_id": "reset_counter"
+  },
+  {
+   "bundle_digest": "sha256:19ecb9986bdacaad7cccc72c70b2bcbee6ee39b872620062dff408d004341188",
+   "functional": "pass",
+   "run_id": "openai-frontier-a--sample-02",
+   "structural": "fail",
+   "task_id": "reset_credits"
+  },
+  {
+   "bundle_digest": "sha256:450dc17674d97e75130d6a5562cace22ba52626796cf9b2d755ea92f2d8b9a79",
+   "functional": "pass",
+   "run_id": "openai-frontier-a--sample-02",
+   "structural": "pass",
+   "task_id": "reset_events"
+  },
+  {
+   "bundle_digest": "sha256:f633ffcbc923360ac1e501b9731c4fe7b9020aac87339697b1acfe46d954a507",
+   "functional": "pass",
+   "run_id": "openai-frontier-a--sample-02",
+   "structural": "pass",
+   "task_id": "reset_fsm"
+  },
+  {
+   "bundle_digest": "sha256:768d1060f48e99f7777cf8afa93866653c46f397e08ccfa74438c7b05279ddee",
+   "functional": "pass",
+   "run_id": "openai-frontier-a--sample-02",
+   "structural": "pass",
+   "task_id": "reset_status"
+  },
+  {
+   "bundle_digest": "sha256:9147428f3709f52c75ed09a4cd524441d8cefea8dcd4a3a2b403ec285a5727a5",
+   "functional": "fail",
+   "run_id": "openai-frontier-a--sample-02",
+   "structural": "pass",
+   "task_id": "reset_timer"
+  },
+  {
+   "bundle_digest": "sha256:59fd513307740ec758b22f99bf7cbbf1042821a0fbcd9763880e7919c7360ede",
+   "functional": "pass",
+   "run_id": "openai-frontier-a--sample-02",
+   "structural": "fail",
+   "task_id": "reset_watchdog"
+  },
+  {
+   "bundle_digest": "sha256:7adb964158da5085e5929aa9e4a4f2bc42e05692520ac8d6d028b2b062a55714",
+   "functional": "pass",
+   "run_id": "openai-frontier-a--sample-03",
+   "structural": "pass",
+   "task_id": "reset_config"
+  },
+  {
+   "bundle_digest": "sha256:53fed8345fa1878d7260cf913c9c5e09294d854344f951c2f8cb6274e265ab9b",
+   "functional": "pass",
+   "run_id": "openai-frontier-a--sample-03",
+   "structural": "fail",
+   "task_id": "reset_counter"
+  },
+  {
+   "bundle_digest": "sha256:c59d9a0409ae94b9245cd7dc054c8a8270c99f2ef70ee4f415a9e2ad960aaad2",
+   "functional": "pass",
+   "run_id": "openai-frontier-a--sample-03",
+   "structural": "pass",
+   "task_id": "reset_credits"
+  },
+  {
+   "bundle_digest": "sha256:0d256b19800d05d0a69871d5d1441e6824e98244522332cab13831a46bc73196",
+   "functional": "pass",
+   "run_id": "openai-frontier-a--sample-03",
+   "structural": "pass",
+   "task_id": "reset_events"
+  },
+  {
+   "bundle_digest": "sha256:7cd2cc7a060870c8583889e5db7d76ba95a6c88a11e3ffb96e618d17368dd390",
+   "functional": "pass",
+   "run_id": "openai-frontier-a--sample-03",
+   "structural": "pass",
+   "task_id": "reset_fsm"
+  },
+  {
+   "bundle_digest": "sha256:ee6884b1db4a8eaacfe881c47b2f9fadb86320495b605c66dc758992ab7e630a",
+   "functional": "pass",
+   "run_id": "openai-frontier-a--sample-03",
+   "structural": "pass",
+   "task_id": "reset_status"
+  },
+  {
+   "bundle_digest": "sha256:9c89735ab86e605c6a59d8eb22f6a7b1e968388431cb42f02e92c73b55f1c34e",
+   "functional": "fail",
+   "run_id": "openai-frontier-a--sample-03",
+   "structural": "pass",
+   "task_id": "reset_timer"
+  },
+  {
+   "bundle_digest": "sha256:236e9933510e99d13aa0ffca1c5b4627f5371db49befb7ea9e3a6b0fae952b67",
+   "functional": "pass",
+   "run_id": "openai-frontier-a--sample-03",
+   "structural": "pass",
+   "task_id": "reset_watchdog"
+  }
+ ],
+ "evaluator_source_digest": "sha256:74cf2615141d8f619a5abd5922a03003612e33fa5f9a63d09fbfe62ce42406fa",
+ "schema_version": "1.0"
 }

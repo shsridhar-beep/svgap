@@ -1,16 +1,16 @@
 {
-  "candidate_bundle_digest": "sha256:1912827be3f3b8d75a07cd4ffef1011178d353b904f1a14522a887d5c106541b",
-  "evaluator_source_digest": "sha256:74cf2615141d8f619a5abd5922a03003612e33fa5f9a63d09fbfe62ce42406fa",
-  "files": {
-    "design.sv": "58cc8a562620b79aab5c30343b665e18fe3fd68c1114fcab3a6b040945887141",
-    "generation.json": "3425dc196e68c13c1d8fa1452d9d6d9cd24584ccd30f2a5b5c95dd473ba3e292",
-    "manifest.toml": "e6b6c2d1ad98b7da52fb217d419aaeed0e26564635ff4e01c80cd67b01732dc3",
-    "prompt.md": "236a52e175c2e33ee3aafd03639175fb237207522a72bfaafa1b5305f02c0a5d",
-    "report.json": "b48cf48b142a70e81eaea5c499cfcc16e62530b1394237d51106aeeadea2d663",
-    "task.toml": "74e389f67b1b673843e9d25fc8a0d42ddde20d28153c89a1bcacb9ba17b6379e",
-    "tb.sv": "8896934e63512453c6dc410b77011a3f02d66a58d9b0f9b266c0fb27e657c95c"
-  },
-  "run_id": "openai-frontier-a--sample-02",
-  "schema_version": "2.0",
-  "task_id": "reset_status"
+ "candidate_bundle_digest": "sha256:768d1060f48e99f7777cf8afa93866653c46f397e08ccfa74438c7b05279ddee",
+ "evaluator_source_digest": "sha256:74cf2615141d8f619a5abd5922a03003612e33fa5f9a63d09fbfe62ce42406fa",
+ "files": {
+  "design.sv": "58cc8a562620b79aab5c30343b665e18fe3fd68c1114fcab3a6b040945887141",
+  "generation.json": "b19d87cc2e2e01336e35b414b70410ff21d0fac5695cfe58f2248cb4401bd3a5",
+  "manifest.toml": "e6b6c2d1ad98b7da52fb217d419aaeed0e26564635ff4e01c80cd67b01732dc3",
+  "prompt.md": "236a52e175c2e33ee3aafd03639175fb237207522a72bfaafa1b5305f02c0a5d",
+  "report.json": "b48cf48b142a70e81eaea5c499cfcc16e62530b1394237d51106aeeadea2d663",
+  "task.toml": "74e389f67b1b673843e9d25fc8a0d42ddde20d28153c89a1bcacb9ba17b6379e",
+  "tb.sv": "8896934e63512453c6dc410b77011a3f02d66a58d9b0f9b266c0fb27e657c95c"
+ },
+ "run_id": "openai-frontier-a--sample-02",
+ "schema_version": "2.0",
+ "task_id": "reset_status"
 }

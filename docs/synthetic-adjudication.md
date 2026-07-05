@@ -7,7 +7,11 @@ outputs as expert ground truth, SV-Gap runs a blinded synthetic panel.
 ## Frozen design
 
 - Four reviewer configurations not used to generate the candidate RTL:
-  OpenAI Reviewer A, GPT-5.5, Claude Fable 5, and Claude Haiku 4.5.
+  openai-frontier-b, GPT-5.5, Claude Fable 5, and Claude Haiku 4.5.
+  `openai-frontier-*` labels are stable configuration aliases whose exact
+  provider model identifiers are withheld and recorded privately;
+  `openai-frontier-a` (a generator) and `openai-frontier-b` (a reviewer) are
+  distinct configurations.
 - Two isolated, stateless repeats per configuration.
 - Seventy-two target candidates plus 12 hidden calibration controls (six
   positive and six negative) in every repeat.

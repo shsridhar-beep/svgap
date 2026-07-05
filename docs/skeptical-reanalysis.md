@@ -1,8 +1,8 @@
-# OpenAI Frontier A maximum-reasoning reanalysis
+# Frontier-model maximum-reasoning reanalysis
 
 Audit date: 2026-07-02
 
-A read-only OpenAI Frontier A review was run with maximum reasoning effort over the
+A read-only automated review (configuration `openai-frontier-a`) was run with maximum reasoning effort over the
 repository, 98 stored candidate reports, available Yosys netlists, benchmark
 audit artifacts, and the blinded review packet. This is an automated skeptical
 review, not independent expert adjudication.

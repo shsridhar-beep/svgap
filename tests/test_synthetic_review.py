@@ -12,7 +12,7 @@ from scripts.export_public_artifacts import make_portable_report
 class SyntheticReviewTests(TestCase):
     def test_codex_effort_accounts_for_gpt_55_interface(self) -> None:
         self.assertEqual(codex_effort("gpt-5.5"), "xhigh")
-        self.assertEqual(codex_effort("openai-reviewer-a"), "max")
+        self.assertEqual(codex_effort("openai-frontier-b"), "max")
 
     def test_parse_line_numbers_expands_short_ranges(self) -> None:
         self.assertEqual(

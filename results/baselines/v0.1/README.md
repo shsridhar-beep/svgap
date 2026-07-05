@@ -7,7 +7,7 @@ claiming a model ranking or population estimate.
 
 - **Generation** reuses the immutable 72-call reset-release artifact across
   three archived model configurations.
-- **Diagnosis** gives the same normalized evidence case to OpenAI Frontier A and
+- **Diagnosis** gives the same normalized evidence case to openai-frontier-a and
   GPT-5.4 with xhigh reasoning and no tools.
 - **Repair** gives both configurations the same unsafe reset-release module,
   without the safe reference, and evaluates the normalized returned RTL.
@@ -25,3 +25,5 @@ python scripts/verify_result_registry.py
 
 Interpret profiles, not an aggregate winner. A challenge pass remains bounded
 by the configured functional and structural evidence and is not silicon signoff.
+
+`openai-frontier-a` is a stable configuration alias; the exact provider model identifier is withheld and recorded privately.

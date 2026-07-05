@@ -57,8 +57,7 @@ Both implementations satisfy the supplied functional test. Declared
 reset-release intent separates them structurally. Preserve the complete
 reproducer with `svgap demo --output demo-output`.
 
-The same workflow is available in the open-tool container after the v0.3
-release:
+The same workflow is available in the open-tool container:
 
 ```bash
 docker run --rm ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.1 demo
@@ -235,7 +234,7 @@ results. See [GOVERNANCE.md](GOVERNANCE.md), [SECURITY.md](SECURITY.md), and
 [SUPPORT.md](SUPPORT.md).
 
 Cite the exact archived version used. The
-[v0.2.0-alpha.1 DOI](https://doi.org/10.5281/zenodo.21198939) identifies the
+[v0.3.0-alpha.1 DOI](https://doi.org/10.5281/zenodo.21199446) identifies the
 current archived research release; the
 [concept DOI](https://doi.org/10.5281/zenodo.21198938) resolves to the latest
 GitHub-integrated version.

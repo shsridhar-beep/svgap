@@ -10,8 +10,8 @@ controls. It is synthetic review, not independent human CDC/RDC adjudication.
 
 | Repeat panel | Correct | Accuracy |
 |---|---:|---:|
-| openai-reviewer-a/repeat-01 | 12/12 | 1.000 |
-| openai-reviewer-a/repeat-02 | 12/12 | 1.000 |
+| openai-frontier-b/repeat-01 | 12/12 | 1.000 |
+| openai-frontier-b/repeat-02 | 12/12 | 1.000 |
 | gpt-5.5/repeat-01 | 12/12 | 1.000 |
 | gpt-5.5/repeat-02 | 12/12 | 1.000 |
 | claude-fable-5/repeat-01 | 12/12 | 1.000 |
@@ -23,7 +23,7 @@ controls. It is synthetic review, not independent human CDC/RDC adjudication.
 
 | Reviewer configuration | Exact agreement | Rate | Cohen kappa |
 |---|---:|---:|---:|
-| openai-reviewer-a | 72/72 | 1.000 | 1.000 |
+| openai-frontier-b | 72/72 | 1.000 | 1.000 |
 | gpt-5.5 | 72/72 | 1.000 | 1.000 |
 | claude-fable-5 | 72/72 | 1.000 | 1.000 |
 | claude-haiku-4-5 | 71/72 | 0.986 | 0.957 |

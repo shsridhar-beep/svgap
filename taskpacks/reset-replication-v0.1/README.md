@@ -29,3 +29,5 @@ not treated as 72 independent task replications.
 The preregistered failing rule is `REF-RDC-001`. Every emitted failure will be
 manually checked against the normalized RTL. The reference oracle is narrow and
 the result is not a silicon-failure or population-prevalence estimate.
+
+`openai-frontier-a` is a stable configuration alias; the exact provider model identifier is withheld and recorded privately.

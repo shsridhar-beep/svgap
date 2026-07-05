@@ -1,16 +1,16 @@
 {
-  "candidate_bundle_digest": "sha256:55bfbee847d85603c80fd634ab6d0d1e4c1d6c9d652d7ea019bba8ea20f69eef",
-  "evaluator_source_digest": "sha256:74cf2615141d8f619a5abd5922a03003612e33fa5f9a63d09fbfe62ce42406fa",
-  "files": {
-    "design.sv": "35f2138e8731c683046ba8d5f8ed453083d63ef4b6a4288ea75b7875af2f4190",
-    "generation.json": "b2f6a41c577233bfc22ef9dce71a47ac2613486d221d1a3e2ebcf2b1ab01447e",
-    "manifest.toml": "20c2866121c632ed317742ce03490740335b8bb57389c102e3f1195ecf3b6680",
-    "prompt.md": "dfa6c83b723805d05068089da7343fcbb5b7a42012fa52bf0133ac51608b68ac",
-    "report.json": "ce211c407faef93a7605bb90bf795689e85a313eb780f53d8efde129d0a575f7",
-    "task.toml": "ebe32ef7c003573b067e90bb4ecb3204ecb339fb80e4904188249a110c2a59be",
-    "tb.sv": "bce485d0369e21ce36824f8a5c392b7dbfed8a0f83039ef91a8522753a92330b"
-  },
-  "run_id": "openai-frontier-a--sample-03",
-  "schema_version": "2.0",
-  "task_id": "reset_counter"
+ "candidate_bundle_digest": "sha256:53fed8345fa1878d7260cf913c9c5e09294d854344f951c2f8cb6274e265ab9b",
+ "evaluator_source_digest": "sha256:74cf2615141d8f619a5abd5922a03003612e33fa5f9a63d09fbfe62ce42406fa",
+ "files": {
+  "design.sv": "35f2138e8731c683046ba8d5f8ed453083d63ef4b6a4288ea75b7875af2f4190",
+  "generation.json": "dbb02bc39d6010339449aa8ff5fc5acfd3228edb9d4cef860c201c3ac0b89979",
+  "manifest.toml": "20c2866121c632ed317742ce03490740335b8bb57389c102e3f1195ecf3b6680",
+  "prompt.md": "dfa6c83b723805d05068089da7343fcbb5b7a42012fa52bf0133ac51608b68ac",
+  "report.json": "ce211c407faef93a7605bb90bf795689e85a313eb780f53d8efde129d0a575f7",
+  "task.toml": "ebe32ef7c003573b067e90bb4ecb3204ecb339fb80e4904188249a110c2a59be",
+  "tb.sv": "bce485d0369e21ce36824f8a5c392b7dbfed8a0f83039ef91a8522753a92330b"
+ },
+ "run_id": "openai-frontier-a--sample-03",
+ "schema_version": "2.0",
+ "task_id": "reset_counter"
 }

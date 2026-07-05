@@ -1,13 +1,13 @@
 # Public release readiness
 
-Audit date: 2026-07-02
+Audit date: 2026-07-05
 
 ## Ready
 
 - Apache-2.0 license, notice, and third-party inventory are present.
 - The quickstart, limitations, security warning, contribution guide, and conduct
   policy are present.
-- Forty-three tests pass with Yosys 0.66 and Icarus Verilog 13.0, including
+- Sixty-five tests pass with Yosys 0.66 and Icarus Verilog 13.0, including
   adversarial oracle and JSON Schema checks.
 - A wheel builds and installs successfully in a clean temporary environment.
 - The controlled witnesses, 508-task benchmark audit, exploratory pilot, and
@@ -23,10 +23,9 @@ Audit date: 2026-07-02
   reported as synthetic robustness evidence, not human validation.
 - A deterministic 72-candidate bundle is versioned at
   `artifacts/reset-replication-v0.1`; manifest SHA-256 is
-  `6a5205559bbe1640784236e3d5fcf412dc4b3899a5c7f90dc6e1abf486fbe6d7`.
-- Seven scoped issues exist; the SARIF/HTML and reset-v0.2 issues were delivered
-  in v0.2, while five contributor-facing issues remain open under the v0.3
-  community-adoption milestone. See [starter-issues.md](starter-issues.md).
+  `e523a03b604864d276b35d88d097c45f0a17ed3f9650bd2c3dcb9a9d4ea0f132`.
+- Ten scoped issues are open, including five bounded `good first issue` entry
+  points for demo, registry, documentation, and oracle-review contributions.
 - The public repository is `https://github.com/shsridhar-beep/svgap`. Release
   `v0.1.0-alpha.1` is tagged, published on GitHub, and archived at Zenodo
   (`doi:10.5281/zenodo.21152349`). Its standalone historical concept DOI is
@@ -34,6 +33,8 @@ Audit date: 2026-07-02
 - GitHub integration begins with `v0.2.0-alpha.1`. Its assigned version DOI is
   `10.5281/zenodo.21198939`, and canonical concept DOI
   `10.5281/zenodo.21198938` identifies this and future integrated releases.
+- Release `v0.3.0-alpha.1` was archived under version DOI
+  `10.5281/zenodo.21199446`; this value was recorded after API verification.
 - Author identity, affiliation, ORCID, and contact are recorded in
   `CITATION.cff`.
 - Publication of normalized generated RTL is authorized by the project author.
@@ -63,8 +64,8 @@ robustness check, not a substitute; see
 Current blinded packet: `review_packets/reset-replication-v0.3.zip`, SHA-256
 `942bcfc09d3aeafc834f64bdae69c07f08243351c332e36018d10077762655b9`.
 
-No package-registry publication is part of this milestone; installation is
-from source or the tagged archive.
+PyPI publication uses GitHub OIDC trusted publishing through the protected
+`pypi` environment; no long-lived package-registry token is stored.
 
 ## v0.2 alpha released
 
@@ -89,3 +90,28 @@ branch deletion are disabled. Zenodo ingested the republished prerelease after
 the repository integration was enabled and assigned version DOI
 `10.5281/zenodo.21198939`; the value above was recorded after public API
 verification rather than inferred from record numbering.
+
+## v0.3 adoption alpha released
+
+- `svgap demo` produces the controlled functional-pass/structural-gap witness
+  from a source install, wheel, PyPI install, or the open-tool container.
+- The documentation site is deployed at
+  `https://shsridhar-beep.github.io/svgap/`, with a bring-your-own-RTL tutorial
+  and audience-specific contribution paths.
+- The schema-validated public result registry carries generation, diagnosis,
+  and repair profiles without converting them into a model leaderboard.
+- The first exploratory diagnosis/repair baseline demonstrates distinct
+  epistemic and repair failure modes across two configurations from one
+  provider; it is not a comparative model study.
+- Five bounded good-first issues and three seeded Discussions provide public
+  entry points for new users and collaborators.
+- PyPI trusted publishing, GitHub release assets, the multi-architecture GHCR
+  image, Pages deployment, and Zenodo ingestion all completed successfully.
+
+Tag `v0.3.0-alpha.1` was published from tested commit `d52ac85`. The GitHub
+release carries the wheel, source distribution, schemas, v0.1 generation
+artifact, v0.2 taskpack, public baseline registry and evidence archive, and
+SHA-256 manifest. The container manifest digest is
+`sha256:632bb0a1a4bbeb7a4f1ac1917bf8edd24f4b9937ea5d2ee4977b0a50d8952d28`.
+Zenodo assigned version DOI `10.5281/zenodo.21199446` under canonical concept
+DOI `10.5281/zenodo.21198938`.
