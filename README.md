@@ -3,7 +3,7 @@
 [![CI](https://github.com/shsridhar-beep/svgap/actions/workflows/ci.yml/badge.svg)](https://github.com/shsridhar-beep/svgap/actions/workflows/ci.yml)
 [![Documentation](https://github.com/shsridhar-beep/svgap/actions/workflows/docs.yml/badge.svg)](https://shsridhar-beep.github.io/svgap/)
 [![PyPI](https://img.shields.io/pypi/v/svgap.svg)](https://pypi.org/project/svgap/)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21199886.svg)](https://doi.org/10.5281/zenodo.21199886)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21201211.svg)](https://doi.org/10.5281/zenodo.21201211)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
 
 **Make the gap between “passes the benchmark” and “reviewable by a chip-design
@@ -275,7 +275,7 @@ SV-Gap is an independent open-source research project. It is not an NVIDIA
 product or an official statement by NVIDIA.
 
 Cite the exact GitHub release used. The independently fetched and scanned
-archive for the prior `v0.3.0-alpha.2` release is available at
-[doi:10.5281/zenodo.21199886](https://doi.org/10.5281/zenodo.21199886).
+archive for `v0.3.0-alpha.3` is available at
+[doi:10.5281/zenodo.21201211](https://doi.org/10.5281/zenodo.21201211).
 
 Apache-2.0. External tools and imported datasets retain their own licenses.

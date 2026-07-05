@@ -114,7 +114,7 @@ The container manifest digest is
 PyPI `0.3.0a2` and Zenodo DOI `10.5281/zenodo.21199886` carry the sanitized
 release. Superseded pre-redaction package and archival versions were deleted.
 
-## v0.3.0-alpha.3 release candidate
+## v0.3.0-alpha.3 released
 
 - Any model harness can generate through a stdin/stdout command contract.
 - Credentialed generation can be separated from network-disabled, disposable
@@ -133,6 +133,15 @@ release. Superseded pre-redaction package and archival versions were deleted.
 
 The complete 81-test suite, registry verification, documentation link checker,
 strict MkDocs build, deterministic-bundle regression, diagnosis/repair smoke
-runs, and clean wheel install pass locally. GitHub, PyPI, GHCR, Pages, and
-Zenodo publication remain to be verified after the release tag is pushed. The
-version-specific Zenodo DOI must be recorded only after ingestion.
+runs, clean wheel install, GitHub Actions matrix, container quickstart, and
+Pages deployment pass. GitHub Release, PyPI `0.3.0a3`, and the multi-architecture
+GHCR image are published. The container manifest digest is
+`sha256:609e9f2c5b797c7a81f25c7617968e83708307075f30c8da3b1c7a57130b836a`.
+
+Zenodo ingested the tagged source as DOI `10.5281/zenodo.21201211`. An
+independently downloaded copy matched Zenodo's published MD5 and had zero
+matches for the withheld identifier patterns or local home paths. The PyPI and
+GitHub wheels have identical extracted contents; future releases publish one
+preserved build artifact to both destinations so their outer archive hashes
+also agree. The corrected GitHub `SHA256SUMS` asset verifies directly against a
+flat release download.

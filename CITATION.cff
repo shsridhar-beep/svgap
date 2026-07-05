@@ -12,4 +12,5 @@ authors:
     affiliation: "NVIDIA"
     orcid: "https://orcid.org/0009-0009-8522-5033"
 repository-code: "https://github.com/shsridhar-beep/svgap"
-url: "https://github.com/shsridhar-beep/svgap/releases/tag/v0.3.0-alpha.3"
+doi: "10.5281/zenodo.21201211"
+url: "https://doi.org/10.5281/zenodo.21201211"
