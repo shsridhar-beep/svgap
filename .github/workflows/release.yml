@@ -29,7 +29,7 @@ jobs:
           git archive --format=tar.gz --prefix=reset-taskpack-v0.2/ -o dist/reset-taskpack-v0.2.tar.gz HEAD:taskpacks/reset-replication-v0.2
           git archive --format=tar.gz --prefix=svgap-baselines-v0.1/ -o dist/svgap-baselines-v0.1.tar.gz HEAD:results
           cp schemas/report-v1.json schemas/functional-result-v1.json schemas/result-registry-v1.json schemas/submission-v1.json dist/
-          sha256sum dist/* > dist/SHA256SUMS
+          (cd dist && sha256sum * > SHA256SUMS)
       - name: Create prerelease with assets
         env:
           GH_TOKEN: ${{ github.token }}
