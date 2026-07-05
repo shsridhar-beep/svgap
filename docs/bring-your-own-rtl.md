@@ -2,6 +2,8 @@
 
 This tutorial adds SV-Gap to an existing digital RTL evaluation without asking
 SV-Gap to infer design intent or replace the functional oracle you already use.
+On Ubuntu or Debian, install the open RTL tools and run `svgap doctor` first;
+see [Linux install and doctor checks](linux-install-and-doctor.md).
 
 ## 1. Start from the evaluated source
 

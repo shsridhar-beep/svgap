@@ -19,6 +19,7 @@ nav:
   - Home: index.md
   - Get started:
       - Bring your own RTL: bring-your-own-rtl.md
+      - Linux install and doctor: linux-install-and-doctor.md
       - Existing benchmarks: integrating-existing-benchmarks.md
       - CI and container: ci-and-container.md
   - Research:
