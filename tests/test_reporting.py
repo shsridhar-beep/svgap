@@ -9,7 +9,7 @@ class ReportingTests(TestCase):
         self.report = {
             "schema_version": "1.0",
             "candidate_id": "candidate-1",
-            "manifest": "manifest.toml",
+            "manifest": "example-model--sample-01/task/manifest.toml",
             "functional": {"status": "pass"},
             "structural": {
                 "status": "fail",
@@ -43,3 +43,4 @@ class ReportingTests(TestCase):
         self.assertNotIn("<script>", output)
         self.assertIn("&lt;script&gt;", output)
         self.assertIn("candidate-1", output)
+        self.assertIn("example-model--sample-01", output)

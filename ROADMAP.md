@@ -35,8 +35,15 @@
 
 ## v0.3 — contributor ecosystem
 
+- immutable public result submissions and generated evidence-profile pages
+- packaged reset-release taskpack discovery plus smoke/full study commands
+- packaged generation, diagnosis, and repair collaboration workflows
+- public Python evaluation API
+- one-command result-registry and profile synchronization
+
+## v0.3 follow-ons
+
 - public backend compatibility matrix
-- taskpack registry and discovery
 - waiver and expert-adjudication records
 - multiple independently maintained backends and taskpacks
 

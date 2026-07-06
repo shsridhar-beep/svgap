@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "svgap"
-version = "0.3.0a3"
+version = "0.3.0a4"
 description = "Production-readiness evaluation for AI-generated RTL"
 readme = "README.md"
 requires-python = ">=3.11"

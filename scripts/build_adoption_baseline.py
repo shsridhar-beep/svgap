@@ -114,7 +114,9 @@ def main() -> int:
     rendered = json.dumps(build_registry(), indent=2, sort_keys=True) + "\n"
     if args.check:
         if not args.output.exists() or args.output.read_text(encoding="utf-8") != rendered:
-            raise SystemExit(f"registry is stale: run {Path(__file__).name}")
+            raise SystemExit(
+                "registry is stale: run python scripts/sync_results.py and commit the output"
+            )
         return 0
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(rendered, encoding="utf-8")

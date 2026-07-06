@@ -15,11 +15,11 @@ reason for failure legible. Example submissions and deliberately small synthetic
 reports demonstrate the contract; they are not model-performance results.
 
 ```bash
-svgap challenge-score challenges/v0.1/generation/task.json \
+svgap challenge score challenges/v0.1/generation/task.json \
   challenges/v0.1/generation/example-submission.json --json
-svgap challenge-score challenges/v0.1/diagnosis/task.json \
+svgap challenge score challenges/v0.1/diagnosis/task.json \
   challenges/v0.1/diagnosis/example-submission.json --json
-svgap challenge-score challenges/v0.1/repair/task.json \
+svgap challenge score challenges/v0.1/repair/task.json \
   challenges/v0.1/repair/example-submission.json --json
 ```
 
@@ -31,13 +31,13 @@ evidence. A passing profile is not silicon signoff.
 Commands receive the frozen prompt on stdin and return the response on stdout:
 
 ```bash
-python scripts/run_challenge_command.py diagnosis \
+svgap challenge run diagnosis \
   --command "python3 my_generate.py" \
   --label my-model-a \
   --run-id diagnosis-01 \
   --output reports/generated/diagnosis-01
 
-python scripts/run_challenge_command.py repair \
+svgap challenge run repair \
   --command "python3 my_generate.py" \
   --label my-model-a \
   --run-id repair-01 \

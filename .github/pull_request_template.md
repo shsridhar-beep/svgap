@@ -8,6 +8,8 @@ Describe the evaluation contract, rule, task, backend, or documentation change.
 - [ ] New rules include paired passing and failing fixtures.
 - [ ] `unknown` and `tool_error` remain distinct from `pass`.
 - [ ] Tool versions, licenses, and known limitations are documented.
+- [ ] Result submissions ran `python scripts/sync_results.py` and include the
+      regenerated registry and evidence-profile pages.
 - [ ] No credentials, confidential constraints, proprietary RTL, or raw provider
       transcripts are included.
 

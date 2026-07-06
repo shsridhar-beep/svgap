@@ -1,0 +1,2 @@
+recursive-include taskpacks/reset-replication-v0.2 *
+recursive-include challenges/v0.1 *

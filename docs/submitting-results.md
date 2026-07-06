@@ -38,7 +38,7 @@ svgap submission init reports/generated/my-study/*/*/report.json \
 ```
 
 For diagnosis or repair, pass one or more `result.json` files produced by
-`svgap challenge-score` or `scripts/run_challenge_command.py`, and set
+`svgap challenge score` or `svgap challenge run`, and set
 `--track diagnosis` or `--track repair`. The result's track and public model
 label must match the submission metadata. SV-Gap preserves per-check outcomes
 instead of coercing them into generation statistics.
@@ -79,9 +79,20 @@ user-home paths, and common internal endpoints.
 ## Open the contribution
 
 Open a pull request containing only the new directory under
-`results/submissions/`. CI validates the submission and regenerates the public
-registry and static evidence profile. Accepted directories are immutable;
+`results/submissions/`. CI validates the submission and checks the generated
+public registry and static evidence profile. Accepted directories are immutable;
 corrections use a new submission identifier and link to the superseded record.
+
+Before opening the pull request, synchronize the checked-in registry and pages
+with one command from a source checkout:
+
+```bash
+python scripts/sync_results.py
+```
+
+Commit the generated `results/registry-v1.json`, `docs/results.md`, and profile
+page together with the submission. CI prints the same command if these files
+are stale.
 
 Acceptance confirms that the submitted artifacts satisfy the public contract,
 hashes, configured checks, and project scope. It does not endorse the model,

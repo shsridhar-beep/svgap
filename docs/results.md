@@ -27,7 +27,7 @@ and provenance level.
 | `gpt-5.4` | `pass` | 7 | 7 |
 | `openai-frontier-a` | `fail` | 5 | 7 |
 
-## Community submissions
+## Public evidence submissions
 
 | Submission | Track | Configuration | Provenance | Contributor |
 |---|---|---|---|---|

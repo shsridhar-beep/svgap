@@ -41,7 +41,7 @@ Install Python 3.11+, Yosys, and Icarus Verilog. On macOS:
 ```bash
 brew install yosys icarus-verilog
 python3 -m venv .venv
-.venv/bin/python -m pip install svgap==0.3.0a3
+.venv/bin/python -m pip install svgap==0.3.0a4
 .venv/bin/svgap demo
 ```
 
@@ -85,7 +85,7 @@ defect-rate estimate or silicon signoff.
 The same workflow is available in the open-tool container:
 
 ```bash
-docker run --rm ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.3 demo
+docker run --rm ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.4 demo
 ```
 
 ## Use SV-Gap on your own RTL
@@ -140,6 +140,20 @@ To run any model you control — an internal checkpoint, an API endpoint, or a
 local runtime — through a full taskpack with no provider CLI, follow
 [evaluate your model](docs/evaluate-your-model.md): your generator reads a
 prompt on stdin and prints a response; the harness does the rest.
+
+Start with one packaged task and one sample; no source checkout is required:
+
+```bash
+svgap study run reset-release-v0.2 \
+  --command "python3 my_generate.py" \
+  --label my-model-a \
+  --smoke \
+  --output my-first-svgap-study
+```
+
+The command writes a portable report, deterministic study summary, evidence
+file list, and static HTML profile. Replace `--smoke` with `--full` for the
+frozen eight-task, three-sample protocol.
 
 ## Current evidence
 
@@ -236,7 +250,7 @@ See [methodology](docs/methodology.md), [architecture](docs/architecture.md), an
 ### From PyPI
 
 ```bash
-python3 -m pip install svgap==0.3.0a3
+python3 -m pip install svgap==0.3.0a4
 svgap doctor
 ```
 
@@ -252,7 +266,7 @@ python3 -m venv .venv
 
 ### GitHub Actions
 
-Use the reusable action in [`.github/actions/svgap`](.github/actions/svgap) to
+Use the reusable action defined in [`action.yml`](action.yml) to
 attach normalized structural evidence to an existing RTL pipeline.
 
 ### Requirements

@@ -55,6 +55,7 @@ model results. The example reports are synthetic contract fixtures. All current
 workflows are limited to digital RTL and configured open-source evidence, and a
 passing profile is not silicon signoff.
 
-Run the public diagnosis and repair starters through any stdin/stdout model
-harness with `scripts/run_challenge_command.py`; see the
+Run the packaged diagnosis and repair starters through any stdin/stdout model
+harness with `svgap challenge run diagnosis` or
+`svgap challenge run repair`; see the
 [challenge README](https://github.com/shsridhar-beep/svgap/tree/main/challenges/v0.1).

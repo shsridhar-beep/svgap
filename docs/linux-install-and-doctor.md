@@ -8,7 +8,7 @@ sudo apt-get update
 sudo apt-get install -y python3 python3-venv python3-pip yosys iverilog
 python3 -m venv .venv
 . .venv/bin/activate
-python -m pip install svgap==0.3.0a3
+python -m pip install svgap==0.3.0a4
 svgap doctor
 ```
 
@@ -20,7 +20,7 @@ same open RTL packages:
   with:
     python-version: "3.12"
 - run: sudo apt-get update && sudo apt-get install -y iverilog yosys
-- run: python -m pip install svgap==0.3.0a3
+- run: python -m pip install svgap==0.3.0a4
 - run: svgap doctor
 ```
 
@@ -67,7 +67,7 @@ If the host is not Ubuntu/Debian, the system package names differ, or the local
 EDA packages are too old for a reproducible run, use the open-tool container:
 
 ```bash
-docker run --rm ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.3 doctor
+docker run --rm ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.4 doctor
 ```
 
 The container bundles SV-Gap with the pinned open-source toolchain used by the

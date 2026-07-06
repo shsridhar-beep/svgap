@@ -80,7 +80,7 @@ from inspect_ai.solver import generate
 
 import svgap
 
-TASK_ROOT = Path("taskpacks/reset-replication-v0.2/tasks")
+TASK_ROOT = svgap.taskpack_root("reset-release-v0.2") / "tasks"
 OUTPUT = Path("reports/generated/inspect-study")
 
 

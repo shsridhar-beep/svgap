@@ -55,8 +55,10 @@ class PilotTests(TestCase):
                     with TemporaryDirectory() as directory:
                         run = Path(directory)
                         shutil.copy2(task_dir / f"reference-{variant}.sv", run / "design.sv")
+                        shutil.copy2(task_dir / "tb.sv", run / "task-testbench.sv")
                         (run / "manifest.toml").write_text(
-                            render_manifest(task, task_dir), encoding="utf-8"
+                            render_manifest(task, task_dir, testbench="task-testbench.sv"),
+                            encoding="utf-8",
                         )
                         manifest = load_manifest(run / "manifest.toml")
                         self.assertEqual(run_functional(manifest).status, "pass")

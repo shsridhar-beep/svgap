@@ -14,6 +14,7 @@ from pathlib import Path
 
 from svgap.backends.registry import BackendError, discover_backends, load_backend
 from svgap.challenge import ChallengeError, score_challenge
+from svgap.challenge_runner import ChallengeRunError, run_challenge
 from svgap.audit import audit_benchmark, write_audit
 from svgap.adjudication import (
     InstrumenterUnavailable,
@@ -43,7 +44,9 @@ from svgap.onboarding import manifest_readiness, render_manifest_draft
 from svgap.pilot import materialize_candidate
 from svgap.provenance import canonical_file_set_digest
 from svgap.reporting import build_html, dumps_sarif
+from svgap.resources import ResourceError, TASKPACKS, taskpack_metadata
 from svgap.study import summarize_reports
+from svgap.study_runner import StudyError, evaluate_saved_responses, run_study
 from svgap.submission import (
     SubmissionError,
     bundle_submission,
@@ -64,6 +67,70 @@ def build_parser() -> argparse.ArgumentParser:
     )
     demo.add_argument("--output", type=Path, help="preserve demo sources, reports, and summary")
     demo.add_argument("--json", action="store_true", help="print the demo summary as JSON")
+    taskpack = subparsers.add_parser(
+        "taskpack", help="list and inspect packaged frozen taskpacks"
+    )
+    taskpack_commands = taskpack.add_subparsers(dest="taskpack_command", required=True)
+    taskpack_commands.add_parser("list", help="list installed taskpacks")
+    taskpack_show = taskpack_commands.add_parser("show", help="show taskpack metadata")
+    taskpack_show.add_argument("taskpack")
+    taskpack_path = taskpack_commands.add_parser("path", help="print the installed taskpack path")
+    taskpack_path.add_argument("taskpack")
+    study = subparsers.add_parser(
+        "study", help="run a provider-neutral model generation study"
+    )
+    study_commands = study.add_subparsers(dest="study_command", required=True)
+    study_run = study_commands.add_parser(
+        "run", help="generate and evaluate a smoke or frozen full study"
+    )
+    study_run.add_argument("taskpack")
+    study_run.add_argument(
+        "--command",
+        required=True,
+        dest="generator_command",
+        help="reads prompt on stdin; writes response",
+    )
+    study_run.add_argument("--label", required=True, help="stable public configuration label")
+    study_run.add_argument("--interface-label", default="custom-command")
+    mode = study_run.add_mutually_exclusive_group()
+    mode.add_argument("--smoke", action="store_true", help="one task and one sample (default)")
+    mode.add_argument("--full", action="store_true", help="all frozen tasks and three samples")
+    study_run.add_argument("--task", action="append", dest="tasks", help="expert task override; repeatable")
+    study_run.add_argument("--samples", type=int, help="expert sample-count override")
+    study_run.add_argument("--generate-only", action="store_true")
+    study_run.add_argument(
+        "--generation-config",
+        type=Path,
+        help="public JSON object containing decoding and harness parameters",
+    )
+    study_run.add_argument("--output", required=True, type=Path)
+    study_evaluate = study_commands.add_parser(
+        "evaluate-saved", help="evaluate responses generated in a separate trust domain"
+    )
+    study_evaluate.add_argument("taskpack")
+    study_evaluate.add_argument("--responses", required=True, type=Path)
+    study_evaluate.add_argument("--output", required=True, type=Path)
+    challenge_group = subparsers.add_parser(
+        "challenge", help="run or score packaged generation, diagnosis, and repair challenges"
+    )
+    challenge_commands = challenge_group.add_subparsers(
+        dest="challenge_command", required=True
+    )
+    challenge_run = challenge_commands.add_parser(
+        "run", help="run a packaged diagnosis or repair starter"
+    )
+    challenge_run.add_argument("track", choices=("diagnosis", "repair"))
+    challenge_run.add_argument("--command", required=True, dest="generator_command")
+    challenge_run.add_argument("--label", required=True)
+    challenge_run.add_argument("--run-id", required=True)
+    challenge_run.add_argument("--output", required=True, type=Path)
+    challenge_score = challenge_commands.add_parser(
+        "score", help="score a challenge submission"
+    )
+    challenge_score.add_argument("task", type=Path)
+    challenge_score.add_argument("submission", type=Path)
+    challenge_score.add_argument("--output", type=Path)
+    challenge_score.add_argument("--json", action="store_true")
     initialize = subparsers.add_parser(
         "init", help="create a manifest draft without inferring design intent"
     )
@@ -231,6 +298,95 @@ def main(argv: list[str] | None = None) -> int:
         return doctor()
     if args.command == "demo":
         return run_demo_command(args.output, args.json)
+    if args.command == "taskpack":
+        try:
+            if args.taskpack_command == "list":
+                for identifier in TASKPACKS:
+                    metadata = taskpack_metadata(identifier)
+                    print(
+                        f"{identifier}\t{len(metadata['tasks'])} tasks\t"
+                        f"{metadata['canonical_digest']}"
+                    )
+                return 0
+            metadata = taskpack_metadata(args.taskpack)
+            if args.taskpack_command == "path":
+                print(metadata["path"])
+            else:
+                print(json.dumps(metadata, indent=2, sort_keys=True))
+            return 0
+        except ResourceError as exc:
+            print(f"taskpack error: {exc}", file=sys.stderr)
+            return 2
+    if args.command == "study":
+        try:
+            if args.study_command == "run":
+                generation_config = None
+                if args.generation_config:
+                    generation_config = json.loads(
+                        args.generation_config.read_text(encoding="utf-8")
+                    )
+                    if not isinstance(generation_config, dict):
+                        raise StudyError("generation config must be a JSON object")
+                result = run_study(
+                    args.taskpack,
+                    command=args.generator_command,
+                    label=args.label,
+                    interface_label=args.interface_label,
+                    output=args.output,
+                    full=args.full,
+                    tasks=args.tasks,
+                    samples=args.samples,
+                    generate_only=args.generate_only,
+                    generation_config=generation_config,
+                )
+            else:
+                result = evaluate_saved_responses(
+                    args.taskpack, responses=args.responses, output=args.output
+                )
+        except (
+            OSError,
+            json.JSONDecodeError,
+            ResourceError,
+            StudyError,
+            subprocess.SubprocessError,
+        ) as exc:
+            print(f"study failed: {exc}", file=sys.stderr)
+            return 2
+        for key in ("mode", "report_count", "functional_pass", "gap_members", "responses", "summary", "profile", "evidence"):
+            if key in result:
+                print(f"{key:16}{result[key]}")
+        if result.get("failures"):
+            print(f"failures        {len(result['failures'])}", file=sys.stderr)
+            return 2
+        if not args.study_command == "run" or not args.generate_only:
+            print("next            use the evidence paths with `svgap submission init`")
+        return 0
+    if args.command == "challenge":
+        try:
+            if args.challenge_command == "run":
+                result = run_challenge(
+                    args.track,
+                    command=args.generator_command,
+                    label=args.label,
+                    run_id=args.run_id,
+                    output=args.output,
+                )
+            else:
+                result = score_challenge(args.task, args.submission)
+                payload = json.dumps(result, indent=2, sort_keys=True) + "\n"
+                if args.output:
+                    args.output.parent.mkdir(parents=True, exist_ok=True)
+                    args.output.write_text(payload, encoding="utf-8")
+                if args.json or not args.output:
+                    print(payload, end="")
+            if args.challenge_command == "run":
+                print(f"track           {result['track']}")
+                print(f"overall         {result['overall']}")
+                print(f"result          {args.output.resolve() / 'result.json'}")
+            return 0 if result["overall"] == "pass" else 1
+        except (OSError, ValueError, ChallengeError, ChallengeRunError, subprocess.SubprocessError) as exc:
+            print(f"challenge failed: {exc}", file=sys.stderr)
+            return 2
     if args.command == "init":
         output = args.output.resolve()
         source = args.source.resolve()

@@ -6,6 +6,7 @@ build/
 dist/
 *.egg-info/
 reports/generated/
+reports/evaluated/
 review_packets/
 release_staging/
 examples/**/build/

@@ -55,6 +55,8 @@ def materialize_candidate(
     prompt_path = task_dir / "prompt.md"
     task_path = task_dir / "task.toml"
     testbench_path = (task_dir / str(task["testbench"])).resolve()
+    portable_testbench = run_dir / "task-testbench.sv"
+    shutil.copy2(testbench_path, portable_testbench)
     evaluator_paths = sorted((Path(__file__).resolve().parent).rglob("*.py"))
     task_inputs = {
         "prompt.md": hashlib.sha256(prompt_path.read_bytes()).hexdigest(),
@@ -78,7 +80,7 @@ def materialize_candidate(
         "raw_response_sha256": hashlib.sha256(raw.encode()).hexdigest(),
         "design_sha256": hashlib.sha256(design.encode()).hexdigest(),
     }
-    manifest_payload = render_manifest(task, task_dir)
+    manifest_payload = render_manifest(task, task_dir, testbench="task-testbench.sv")
     (run_dir / "manifest.toml").write_text(manifest_payload, encoding="utf-8")
     metadata["manifest_sha256"] = hashlib.sha256(manifest_payload.encode()).hexdigest()
     (run_dir / "provenance.json").write_text(
@@ -87,8 +89,10 @@ def materialize_candidate(
     return run_dir / "manifest.toml"
 
 
-def render_manifest(task: dict[str, Any], task_dir: Path) -> str:
-    testbench = (task_dir / str(task["testbench"])).resolve()
+def render_manifest(
+    task: dict[str, Any], task_dir: Path, *, testbench: str | Path | None = None
+) -> str:
+    testbench = testbench or (task_dir / str(task["testbench"])).resolve()
     lines = [
         'schema_version = "1.0"',
         f'candidate_id = {toml_string(str(task["id"]))}',

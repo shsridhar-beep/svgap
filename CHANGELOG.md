@@ -5,6 +5,29 @@ versioning once the manifest and report contracts reach public v0.1.
 
 ## Unreleased
 
+## 0.3.0-alpha.4 — 2026-07-06
+
+### Added
+
+- Installed-wheel `svgap study run` smoke and frozen full protocols over the
+  packaged reset-release v0.2 taskpack.
+- Credential-separated `svgap study evaluate-saved`, packaged taskpack
+  discovery, and packaged diagnosis/repair challenge runners.
+- Portable study summaries, evidence-file lists, static HTML profiles, and
+  public generation-configuration metadata.
+- Two reproducible open-weights baseline submissions and generated citable
+  profile pages.
+- Public Python evaluation API and taskpack resource discovery.
+
+### Changed
+
+- Candidate testbenches are copied into the run directory so reports and
+  submission evidence do not retain workstation or installation paths.
+- Result-submission PRs have one synchronization command and actionable CI
+  guidance for generated registry/profile files.
+- Current CI, container, action, model-study, and package documentation is
+  coherent with alpha.4.
+
 ### Added
 
 - Public Python API: `svgap.evaluate(manifest)` returns the layered

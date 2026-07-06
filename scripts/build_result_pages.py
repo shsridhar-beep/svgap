@@ -53,7 +53,7 @@ def render_index(registry: dict[str, object]) -> str:
     lines.extend(
         [
             "",
-            "## Community submissions",
+            "## Public evidence submissions",
             "",
         ]
     )
@@ -76,7 +76,7 @@ def render_index(registry: dict[str, object]) -> str:
     else:
         lines.extend(
             [
-                "No community submission has been accepted yet. The first validated",
+                "No public submission has been accepted yet. The first validated",
                 "generation, diagnosis, repair, failure, or abstention profile is",
                 "welcome; see [Submit a result](submitting-results.md).",
             ]
@@ -189,7 +189,10 @@ def main() -> int:
         ]
         stale.extend(sorted(existing_profiles - expected_profiles))
         if stale:
-            raise SystemExit("result pages are stale: " + ", ".join(str(path) for path in stale))
+            raise SystemExit(
+                "result pages are stale: run python scripts/sync_results.py and commit "
+                "the output; stale: " + ", ".join(str(path) for path in stale)
+            )
         print("result pages current")
         return 0
     PROFILE_DIR.mkdir(parents=True, exist_ok=True)

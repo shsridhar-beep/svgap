@@ -46,6 +46,15 @@ jobs:
           python-version: "3.12"
       - run: python -m pip install build
       - run: python -m build
+      - name: Verify installed-wheel research surface
+        run: |
+          python -m venv /tmp/svgap-wheel
+          /tmp/svgap-wheel/bin/python -m pip install dist/*.whl
+          cd /tmp
+          /tmp/svgap-wheel/bin/svgap taskpack list
+          /tmp/svgap-wheel/bin/svgap study run --help
+          /tmp/svgap-wheel/bin/svgap challenge run --help
+          /tmp/svgap-wheel/bin/python -c 'import svgap; assert callable(svgap.evaluate); assert len(svgap.taskpack_metadata("reset-release-v0.2")["tasks"]) == 8'
       - uses: actions/upload-artifact@v6
         with:
           name: python-distributions
@@ -65,4 +74,6 @@ jobs:
           load: true
           tags: svgap:ci
       - name: Exercise container quickstart
-        run: docker run --rm -v "$PWD:/work" svgap:ci check examples/reset_release/unsafe/manifest.toml || test $? -eq 1
+        run: |
+          docker run --rm -v "$PWD:/work" svgap:ci check examples/reset_release/unsafe/manifest.toml || test $? -eq 1
+          docker run --rm svgap:ci taskpack list

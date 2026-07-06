@@ -45,7 +45,7 @@ jobs:
             --repo "$GITHUB_REPOSITORY" \
             --prerelease \
             --title "SV-Gap $GITHUB_REF_NAME" \
-            --notes-file docs/release-notes-v0.3.0-alpha.3.md
+            --notes-file docs/release-notes-v0.3.0-alpha.4.md
 
   pypi:
     needs: [assets, container]

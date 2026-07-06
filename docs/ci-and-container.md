@@ -10,8 +10,8 @@ extraction. The image uses Python `3.12.10` on Debian Bookworm.
 Build and run:
 
 ```bash
-docker build -t svgap:0.2.0-alpha.1 .
-docker run --rm -v "$PWD:/work" svgap:0.2.0-alpha.1 \
+docker build -t svgap:0.3.0-alpha.4 .
+docker run --rm -v "$PWD:/work" svgap:0.3.0-alpha.4 \
   check examples/level_crossing/unsafe/manifest.toml
 ```
 
@@ -22,7 +22,7 @@ replay.
 
 ## Reusable GitHub Action
 
-After the v0.2 tag is published, a downstream repository can use:
+A downstream repository can use the current prerelease action:
 
 ```yaml
 permissions:
@@ -33,7 +33,7 @@ steps:
   - uses: actions/setup-python@v6
     with:
       python-version: "3.12"
-  - uses: shsridhar-beep/svgap@v0.2.0-alpha.1
+  - uses: shsridhar-beep/svgap@v0.3.0-alpha.4
     with:
       manifest: path/to/manifest.toml
       report: path/to/build/report.json

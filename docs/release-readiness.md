@@ -145,3 +145,26 @@ GitHub wheels have identical extracted contents; future releases publish one
 preserved build artifact to both destinations so their outer archive hashes
 also agree. The corrected GitHub `SHA256SUMS` asset verifies directly against a
 flat release download.
+
+## v0.3.0-alpha.4 release candidate
+
+- The frozen reset-release v0.2 taskpack and diagnosis/repair challenge assets
+  ship inside the wheel.
+- `svgap study run ... --smoke` runs one task and one sample; `--full` selects
+  the frozen eight-task, three-sample protocol.
+- Credentialed generation and credential-free evaluation are separable through
+  `svgap study evaluate-saved` without mounting repository task directories.
+- Study runs write portable reports, a deterministic summary, an evidence-file
+  list, and a static HTML profile.
+- `svgap.evaluate`, taskpack discovery, and model-response materialization are
+  available as public Python APIs.
+- Two deterministic open-weights submissions seed the generated registry and
+  profile pages as supporting demonstrations, not independent replications.
+- Submission contributors can synchronize the checked-in registry and pages
+  with `python scripts/sync_results.py` before opening a pull request.
+
+The complete 94-test suite, strict documentation build, installed-wheel taskpack
+discovery, installed-wheel smoke study, installed-wheel diagnosis challenge,
+portable-path scan, result-registry regeneration, and deterministic submission
+bundle reproduction pass locally. GitHub, PyPI, GHCR, Pages, and Zenodo
+publication remain to be verified after the alpha.4 tag is pushed.

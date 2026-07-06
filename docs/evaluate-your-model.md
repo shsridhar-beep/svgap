@@ -47,19 +47,22 @@ response = client.chat.completions.create(
 print(response.choices[0].message.content)
 ```
 
-Then run the reset-release taskpack (eight tasks, three samples each):
+Start with the packaged smoke protocol: one calibrated task and one sample.
+No source checkout is required:
 
 ```bash
-.venv/bin/python scripts/run_generation_pilot.py command \
+svgap study run reset-release-v0.2 \
   --command "python3 my_generate.py" \
   --label my-model-a \
   --interface-label "my-lab-harness 1.0" \
-  --task-root taskpacks/reset-replication-v0.2/tasks \
-  --tasks reset_config reset_counter reset_credits reset_events \
-          reset_fsm reset_status reset_timer reset_watchdog \
-  --samples 3 \
+  --smoke \
   --output reports/generated/my-model-study
 ```
+
+The output includes `study-summary.json`, `evidence-profile.html`, and
+`evidence-files.txt`. Replace `--smoke` with `--full` to run the frozen eight
+tasks with three samples each. Use `svgap taskpack show reset-release-v0.2` to
+inspect the exact task list and canonical digest before a claim-bearing run.
 
 Environment variables (API keys, endpoints) pass through to your command.
 The prompt is never placed on the command line, and the recorded provenance
@@ -74,14 +77,11 @@ Generate responses in the credentialed host environment without invoking any
 EDA tool:
 
 ```bash
-.venv/bin/python scripts/run_generation_pilot.py command \
+svgap study run reset-release-v0.2 \
   --command "python3 my_generate.py" \
   --label my-model-a \
   --interface-label "my-lab-harness 1.0" \
-  --task-root taskpacks/reset-replication-v0.2/tasks \
-  --tasks reset_config reset_counter reset_credits reset_events \
-          reset_fsm reset_status reset_timer reset_watchdog \
-  --samples 3 \
+  --full \
   --generate-only \
   --output reports/generated/my-model-study
 ```
@@ -103,13 +103,10 @@ docker run --rm \
   --cpus 2 \
   --tmpfs /tmp:rw,nosuid,size=512m \
   -v "$PWD/reports/generated/my-model-study/_responses:/responses:ro" \
-  -v "$PWD/taskpacks/reset-replication-v0.2/tasks:/tasks:ro" \
   -v "$PWD/reports/evaluated/my-model-study:/output:rw" \
-  --entrypoint python \
-  ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.3 \
-  /opt/svgap/scripts/evaluate_saved_responses.py \
+  ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.4 \
+  study evaluate-saved reset-release-v0.2 \
   --responses /responses \
-  --task-root /tasks \
   --output /output
 ```
 
@@ -122,7 +119,7 @@ organization's approved isolation controls for hostile-input evaluation.
 If generation already happened elsewhere, score each saved response directly:
 
 ```bash
-svgap pilot taskpacks/reset-replication-v0.2/tasks/reset_counter \
+svgap pilot "$(svgap taskpack path reset-release-v0.2)/tasks/reset_counter" \
   response.txt --model my-model-a --run-id my-model-a--sample-01 \
   --output reports/generated/my-model-study
 ```
