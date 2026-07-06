@@ -32,5 +32,14 @@ credential-free container path for unreviewed outputs. Profiles are bounded by
 the declared taskpack and open checker; they are not silicon signoff, population
 estimates, or general model rankings.
 
-The version-specific archival DOI will be recorded after Zenodo ingests the
-tagged release.
+## Release artifacts
+
+- GitHub: `v0.3.0-alpha.4`
+- PyPI: `svgap==0.3.0a4`
+- Container: `ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.4`
+- Container manifest: `sha256:6e29400d4c673b47bee22d7550887674e8d1b28c9edc714e5e528c119d869e21`
+- Zenodo: [doi:10.5281/zenodo.21223430](https://doi.org/10.5281/zenodo.21223430)
+
+The GitHub and PyPI wheels are byte-identical. The independently downloaded
+Zenodo archive matched its published MD5 and passed the public identifier and
+local-path scan.

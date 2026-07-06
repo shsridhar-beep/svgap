@@ -1,13 +1,13 @@
 # Public release readiness
 
-Audit date: 2026-07-05
+Audit date: 2026-07-06
 
 ## Ready
 
 - Apache-2.0 license, notice, and third-party inventory are present.
 - The quickstart, limitations, security warning, contribution guide, and conduct
   policy are present.
-- Eighty-one tests pass with Yosys 0.66 and Icarus Verilog 13.0, including
+- Ninety-four tests pass with Yosys 0.66 and Icarus Verilog 13.0, including
   adversarial oracle and JSON Schema checks.
 - A wheel builds and installs successfully in a clean temporary environment.
 - The controlled witnesses, 508-task benchmark audit, exploratory pilot, and
@@ -27,7 +27,7 @@ Audit date: 2026-07-05
 - Ten scoped issues are open, including five bounded `good first issue` entry
   points for demo, registry, documentation, and oracle-review contributions.
 - The public repository is `https://github.com/shsridhar-beep/svgap`. Releases
-  `v0.1.0-alpha.1` through `v0.3.0-alpha.2` were rebuilt from rewritten,
+  `v0.1.0-alpha.1` through `v0.3.0-alpha.4` were built from the public,
   identifier-sanitized tags.
 - The pre-redaction Zenodo version deposits were deleted. The replacement
   `v0.3.0-alpha.2` archive is published at DOI
@@ -146,7 +146,7 @@ preserved build artifact to both destinations so their outer archive hashes
 also agree. The corrected GitHub `SHA256SUMS` asset verifies directly against a
 flat release download.
 
-## v0.3.0-alpha.4 release candidate
+## v0.3.0-alpha.4 released
 
 - The frozen reset-release v0.2 taskpack and diagnosis/repair challenge assets
   ship inside the wheel.
@@ -166,5 +166,20 @@ flat release download.
 The complete 94-test suite, strict documentation build, installed-wheel taskpack
 discovery, installed-wheel smoke study, installed-wheel diagnosis challenge,
 portable-path scan, result-registry regeneration, and deterministic submission
-bundle reproduction pass locally. GitHub, PyPI, GHCR, Pages, and Zenodo
-publication remain to be verified after the alpha.4 tag is pushed.
+bundle reproduction pass locally and in the applicable GitHub Actions gates.
+
+Tag `v0.3.0-alpha.4` was published from tested commit `e976f73`. GitHub Release,
+PyPI `0.3.0a4`, the multi-architecture GHCR image, Pages, and Zenodo ingestion
+completed successfully. The PyPI and GitHub wheels are byte-identical at
+`sha256:9bb40b0156bb1b475de63ef6df8dd5d133f47286ddf8ce468ebc9a613e56be91`.
+The container manifest digest is
+`sha256:6e29400d4c673b47bee22d7550887674e8d1b28c9edc714e5e528c119d869e21`.
+
+Zenodo ingested the tagged source as DOI `10.5281/zenodo.21223430`. An
+independently downloaded archive matched Zenodo's published MD5
+`70bc253c26e3a204478c87686be62a8b` and had zero matches for the withheld exact
+identifier patterns or local user home paths. A fresh environment installed
+the PyPI wheel, discovered the frozen taskpack at canonical digest
+`sha256:b63acd8845b555ebb0b2ddd5085b70737befdee295b6e68789749494cf3e20e8`,
+and completed the one-task smoke study with functional pass and no structural
+gap member for the calibrated safe reference.
