@@ -1,7 +1,7 @@
 [dataset]
 name = "svgap/svgap-reset-release"
-description = "Paired functional and structural evidence for generated reset-release RTL"
-keywords = [ "systemverilog", "rtl", "eda", "reset", "structural-validity",]
+description = "Can RTL agents pass simulation while violating reset-release structure? Eight SystemVerilog tasks measure the gap."
+keywords = [ "systemverilog", "rtl", "chip-design", "agent-evaluation", "reset-domain-crossing", "structural-validity",]
 [[dataset.authors]]
 name = "Shraddha Sridhar"
 email = "shsridhar@nvidia.com"
