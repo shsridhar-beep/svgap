@@ -3,6 +3,7 @@ from __future__ import annotations
 from datetime import datetime, timezone
 import gzip
 import hashlib
+from importlib import resources
 import json
 from pathlib import Path
 import re
@@ -233,7 +234,7 @@ def validate_submission(
 
 def initialize_submission_from_harbor(
     job_dir: Path,
-    dataset: Path,
+    dataset: Path | str,
     output: Path,
     *,
     submission_id: str,
@@ -247,33 +248,10 @@ def initialize_submission_from_harbor(
     attestation: str | None = None,
 ) -> dict[str, Any]:
     job_dir = job_dir.resolve()
-    dataset_root = dataset.resolve()
-    if dataset_root.is_file():
-        dataset_manifest_path = dataset_root
-        dataset_root = dataset_root.parent
-    else:
-        dataset_manifest_path = dataset_root / "dataset.toml"
     job = _load_json(job_dir / "result.json", "Harbor job result")
-    dataset_manifest = _load_toml(dataset_manifest_path, "Harbor dataset manifest")
-    release = _load_json(dataset_root / "provenance.json", "Harbor provenance")
-    _validate_harbor_provenance(release)
-
-    dataset_info = dataset_manifest.get("dataset")
-    entries = dataset_manifest.get("tasks")
-    if not isinstance(dataset_info, dict) or not isinstance(entries, list):
-        raise SubmissionError("invalid Harbor dataset manifest")
-    if dataset_info.get("name") != release["dataset"]:
-        raise SubmissionError("Harbor dataset and release provenance disagree")
-    expected_digests = {
-        entry.get("name"): entry.get("digest")
-        for entry in entries
-        if isinstance(entry, dict)
-    }
-    if not expected_digests or not all(
-        isinstance(name, str) and isinstance(digest, str)
-        for name, digest in expected_digests.items()
-    ):
-        raise SubmissionError("Harbor dataset task entries are invalid")
+    dataset_name, expected_digests, release, dataset_root = (
+        _resolve_harbor_dataset(dataset)
+    )
 
     trial_dirs = sorted(
         path
@@ -304,9 +282,10 @@ def initialize_submission_from_harbor(
             raise SubmissionError(f"Harbor task digest mismatch: {task_name}")
         task_digests[task_name] = locked_digest
 
-        task_slug = task_name.split("/", 1)[-1]
-        task_root = dataset_root / task_slug
-        _validate_harbor_task(task_root, task_name, release)
+        if dataset_root is not None:
+            task_slug = task_name.split("/", 1)[-1]
+            task_root = dataset_root / task_slug
+            _validate_harbor_task(task_root, task_name, release)
 
         report_path = _single_artifact(trial_dir, "svgap-report.json")
         verdict_path = _single_artifact(trial_dir, "harbor-verdict.json")
@@ -344,7 +323,7 @@ def initialize_submission_from_harbor(
         "job_id": job.get("id"),
         "agent": agent_name,
         "model": inferred_model,
-        "dataset": dataset_info.get("name"),
+        "dataset": dataset_name,
         "task_digests": dict(sorted(task_digests.items())),
         "taskpack_digest": release["source_taskpack"]["canonical_digest"],
         "svgap_version": release["svgap_version"],
@@ -368,6 +347,78 @@ def initialize_submission_from_harbor(
         attestation=attestation,
         source=source,
     )
+
+
+def _resolve_harbor_dataset(
+    dataset: Path | str,
+) -> tuple[str, dict[str, str], dict[str, Any], Path | None]:
+    candidate = Path(dataset)
+    if candidate.exists() or isinstance(dataset, Path):
+        dataset_root = candidate.resolve()
+        if dataset_root.is_file():
+            dataset_manifest_path = dataset_root
+            dataset_root = dataset_root.parent
+        else:
+            dataset_manifest_path = dataset_root / "dataset.toml"
+        dataset_manifest = _load_toml(
+            dataset_manifest_path, "Harbor dataset manifest"
+        )
+        release = _load_json(dataset_root / "provenance.json", "Harbor provenance")
+        dataset_info = dataset_manifest.get("dataset")
+        entries = dataset_manifest.get("tasks")
+    else:
+        reference = str(dataset)
+        profiles = {
+            "svgap/svgap-reset-release@0.2": "svgap-reset-release-0.2.json",
+        }
+        profile_name = profiles.get(reference)
+        if profile_name is None:
+            raise SubmissionError(
+                "unsupported Harbor dataset reference; use a pinned published "
+                "reference such as svgap/svgap-reset-release@0.2 or a local "
+                "dataset path"
+            )
+        try:
+            profile_text = (
+                resources.files("svgap")
+                .joinpath("harbor_profiles", profile_name)
+                .read_text(encoding="utf-8")
+            )
+            profile = json.loads(profile_text)
+        except (OSError, json.JSONDecodeError) as exc:
+            raise SubmissionError(
+                f"cannot read trusted Harbor dataset profile: {exc}"
+            ) from exc
+        if profile.get("schema_version") != "1.0":
+            raise SubmissionError("unsupported trusted Harbor dataset profile")
+        if profile.get("registry_reference") != reference:
+            raise SubmissionError("trusted Harbor dataset profile identity mismatch")
+        dataset_info = profile.get("dataset")
+        entries = profile.get("tasks")
+        release = profile.get("provenance")
+        dataset_root = None
+
+    if not isinstance(release, dict):
+        raise SubmissionError("invalid Harbor release provenance")
+    _validate_harbor_provenance(release)
+    if not isinstance(dataset_info, dict) or not isinstance(entries, list):
+        raise SubmissionError("invalid Harbor dataset manifest")
+    dataset_name = dataset_info.get("name")
+    if dataset_name != release["dataset"]:
+        raise SubmissionError("Harbor dataset and release provenance disagree")
+    expected_digests = {
+        entry.get("name"): entry.get("digest")
+        for entry in entries
+        if isinstance(entry, dict)
+    }
+    if not expected_digests or not all(
+        isinstance(name, str)
+        and isinstance(digest, str)
+        and re.fullmatch(r"sha256:[a-f0-9]{64}", digest) is not None
+        for name, digest in expected_digests.items()
+    ):
+        raise SubmissionError("Harbor dataset task entries are invalid")
+    return dataset_name, expected_digests, release, dataset_root
 
 
 def bundle_submission(root: Path, output: Path, *, denylist: Path | None = None) -> str:

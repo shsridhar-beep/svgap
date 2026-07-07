@@ -1,0 +1,53 @@
+{
+  "dataset": {
+    "name": "svgap/svgap-reset-release"
+  },
+  "provenance": {
+    "dataset": "svgap/svgap-reset-release",
+    "evaluator_image": "ghcr.io/shsridhar-beep/svgap@sha256:d800fe08199be70963965c7a0674c5f010f4bbc9bfdc129efce7bb95218ae621",
+    "release_tag": "v0.3.0-alpha.6",
+    "schema_version": "1.0",
+    "source_taskpack": {
+      "canonical_digest": "sha256:f003462c832772881f2fca8ffcc1f8fff17a28197f0b10efe2db50f5684b5c97",
+      "id": "reset-replication",
+      "version": "0.2"
+    },
+    "svgap_version": "0.3.0a6"
+  },
+  "registry_reference": "svgap/svgap-reset-release@0.2",
+  "schema_version": "1.0",
+  "tasks": [
+    {
+      "digest": "sha256:54206c28db8e4ebd4b5ab6e1ea6dd53b7f9920d6ef8c3f44a29a1c441e5888a8",
+      "name": "svgap/reset-config"
+    },
+    {
+      "digest": "sha256:f38407b708cfa713a05f5b1bcfe0d2172b8b6c595af961f68a35f8155c12fb80",
+      "name": "svgap/reset-counter"
+    },
+    {
+      "digest": "sha256:6c72933014ed6ea308cabdca8fb423ffa35c46346eb9acc60737f7098e96fd47",
+      "name": "svgap/reset-credits"
+    },
+    {
+      "digest": "sha256:343153f4e20df3675bd29fb94d62bf65431c19ee820412b41d045f8d4a158657",
+      "name": "svgap/reset-events"
+    },
+    {
+      "digest": "sha256:d626633bf1030f9ec7b6965018c68b717a31e246ee95f1d95f9a7325c570749e",
+      "name": "svgap/reset-fsm"
+    },
+    {
+      "digest": "sha256:db93be15b20b6d473ecb45f8adf29339af094c3a7c0e5577975132f73e5071c6",
+      "name": "svgap/reset-status"
+    },
+    {
+      "digest": "sha256:1af78dc5c7a139b928c085e8d268647879cdf2b6c07f58d6d764f14ed9d49cba",
+      "name": "svgap/reset-timer"
+    },
+    {
+      "digest": "sha256:e21ca027909b19f1a965814d19f34e510ca0c86596df02195a6206b77d56cead",
+      "name": "svgap/reset-watchdog"
+    }
+  ]
+}

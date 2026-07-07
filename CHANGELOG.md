@@ -5,6 +5,24 @@ versioning once the manifest and report contracts reach public v0.1.
 
 ## Unreleased
 
+## 0.3.0-alpha.7 - 2026-07-06
+
+### Added
+
+- Trusted metadata for importing complete jobs from the pinned public Harbor
+  dataset without a local repository checkout.
+
+### Changed
+
+- The Harbor dataset page now explains the experiment in test-first language,
+  reports the first public run, and invites replication, critique, and new
+  evidence from general agent-evaluation researchers.
+- Harbor result submissions accept the public dataset identifier
+  `svgap/svgap-reset-release@0.2` while retaining digest and report-agreement
+  checks.
+- Maintainer rebuild and publication operations moved from the public dataset
+  page to a repository guide.
+
 ## 0.3.0-alpha.6 - 2026-07-06
 
 ### Added
@@ -143,7 +161,7 @@ versioning once the manifest and report contracts reach public v0.1.
 - Strict report contract plus SARIF and static HTML export.
 - Reset-release taskpack v0.2 with corrected timer intent and calibrated safe/
   unsafe references for all eight tasks.
-- Pinned OSS CAD Suite container, reusable GitHub Action, Python 3.11–3.13 CI,
+- Pinned OSS CAD Suite container, reusable GitHub Action, Python 3.11-3.13 CI,
   release automation, governance, support, and community launch materials.
 
 ### Changed

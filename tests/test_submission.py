@@ -204,6 +204,63 @@ class SubmissionTests(TestCase):
                     contributor="Example Researcher",
                 )
 
+    def test_from_harbor_accepts_pinned_public_dataset_reference(self) -> None:
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            job = self.harbor_public_job_fixture(root)
+            output = root / "submission"
+            manifest = initialize_submission_from_harbor(
+                job,
+                "svgap/svgap-reset-release@0.2",
+                output,
+                submission_id="harbor-public-generation-01",
+                title="Harbor public generation profile",
+                provenance_level="public",
+                contributor="Example Researcher",
+            )
+            validate_submission(output)
+            self.assertEqual(
+                manifest["source"]["dataset"], "svgap/svgap-reset-release"
+            )
+            self.assertEqual(len(manifest["source"]["task_digests"]), 8)
+            self.assertEqual(len(manifest["artifacts"]["evidence"]), 8)
+
+    def test_from_harbor_public_reference_rejects_task_drift(self) -> None:
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            job = self.harbor_public_job_fixture(root)
+            lock_path = next(job.glob("trial-*/lock.json"))
+            lock = json.loads(lock_path.read_text())
+            lock["task"]["digest"] = "sha256:" + "f" * 64
+            lock_path.write_text(json.dumps(lock), encoding="utf-8")
+            with self.assertRaisesRegex(SubmissionError, "task digest mismatch"):
+                initialize_submission_from_harbor(
+                    job,
+                    "svgap/svgap-reset-release@0.2",
+                    root / "submission",
+                    submission_id="harbor-public-generation-01",
+                    title="Harbor public generation profile",
+                    provenance_level="public",
+                    contributor="Example Researcher",
+                )
+
+    def test_from_harbor_rejects_unpinned_public_dataset_reference(self) -> None:
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            job = root / "job"
+            job.mkdir()
+            (job / "result.json").write_text(json.dumps({"id": "job-1"}))
+            with self.assertRaisesRegex(SubmissionError, "pinned published"):
+                initialize_submission_from_harbor(
+                    job,
+                    "svgap/svgap-reset-release",
+                    root / "submission",
+                    submission_id="harbor-public-generation-01",
+                    title="Harbor public generation profile",
+                    provenance_level="public",
+                    contributor="Example Researcher",
+                )
+
     def harbor_fixture(self, root: Path) -> tuple[Path, Path]:
         digest = "sha256:" + "a" * 64
         image = "example.invalid/svgap@sha256:" + "b" * 64
@@ -244,10 +301,31 @@ class SubmissionTests(TestCase):
         )
 
         job = root / "job"
-        trial = job / "trial-example"
+        job.mkdir()
+        (job / "result.json").write_text(json.dumps({"id": "job-1"}))
+        self.write_harbor_trial(job, "svgap/example", digest, "example")
+        return job, dataset
+
+    def harbor_public_job_fixture(self, root: Path) -> Path:
+        profile = json.loads(
+            (ROOT / "src/svgap/harbor_profiles/svgap-reset-release-0.2.json")
+            .read_text(encoding="utf-8")
+        )
+        job = root / "job"
+        job.mkdir()
+        (job / "result.json").write_text(json.dumps({"id": "job-public-1"}))
+        for index, task in enumerate(profile["tasks"], start=1):
+            self.write_harbor_trial(
+                job, task["name"], task["digest"], f"{index:02d}"
+            )
+        return job
+
+    def write_harbor_trial(
+        self, job: Path, task_name: str, digest: str, suffix: str
+    ) -> None:
+        trial = job / f"trial-{suffix}"
         artifacts = trial / "artifacts" / "logs" / "artifacts"
         artifacts.mkdir(parents=True)
-        (job / "result.json").write_text(json.dumps({"id": "job-1"}))
         (trial / "lock.json").write_text(
             json.dumps({"task": {"digest": digest}}), encoding="utf-8"
         )
@@ -262,7 +340,7 @@ class SubmissionTests(TestCase):
         (trial / "result.json").write_text(
             json.dumps(
                 {
-                    "task_name": "svgap/example",
+                    "task_name": task_name,
                     "exception_info": None,
                     "agent_info": {
                         "name": "codex",
@@ -290,4 +368,3 @@ class SubmissionTests(TestCase):
             ),
             encoding="utf-8",
         )
-        return job, dataset

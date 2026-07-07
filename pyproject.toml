@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "svgap"
-version = "0.3.0a6"
+version = "0.3.0a7"
 description = "Production-evidence profiles for AI-generated digital RTL"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -37,7 +37,11 @@ reference-yosys = "svgap.backends.reference_yosys:ReferenceYosysBackend"
 where = ["src"]
 
 [tool.setuptools.package-data]
-svgap = ["demo_assets/**/*.sv", "demo_assets/**/*.toml"]
+svgap = [
+  "demo_assets/**/*.sv",
+  "demo_assets/**/*.toml",
+  "harbor_profiles/*.json",
+]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]

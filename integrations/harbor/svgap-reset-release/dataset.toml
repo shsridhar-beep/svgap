@@ -1,6 +1,6 @@
 [dataset]
 name = "svgap/svgap-reset-release"
-description = "Can RTL agents pass simulation while violating reset-release structure? Eight SystemVerilog tasks measure the gap."
+description = "Some RTL agents pass every test but still wire reset incorrectly. Eight SystemVerilog tasks expose that hidden failure."
 keywords = [ "systemverilog", "rtl", "chip-design", "agent-evaluation", "reset-domain-crossing", "structural-validity",]
 [[dataset.authors]]
 name = "Shraddha Sridhar"

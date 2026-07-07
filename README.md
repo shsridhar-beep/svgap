@@ -88,7 +88,7 @@ large image pull depends on network speed; the demo itself runs in
 under two minutes once the image is cached:
 
 ```bash
-docker run --rm ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.6 demo
+docker run --rm ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.7 demo
 ```
 
 For a native macOS installation:
@@ -96,7 +96,7 @@ For a native macOS installation:
 ```bash
 brew install yosys icarus-verilog
 python3 -m venv .venv
-.venv/bin/python -m pip install svgap==0.3.0a6
+.venv/bin/python -m pip install svgap==0.3.0a7
 .venv/bin/svgap doctor
 .venv/bin/svgap study quickstart --output my-first-svgap-study
 ```

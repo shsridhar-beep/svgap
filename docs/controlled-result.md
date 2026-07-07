@@ -47,7 +47,7 @@ pull is large and depends on network speed; execution is quick once
 the image is cached:
 
 ```bash
-docker run --rm ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.6 demo
+docker run --rm ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.7 demo
 ```
 
 To regenerate all four controlled witness pairs from a source checkout after

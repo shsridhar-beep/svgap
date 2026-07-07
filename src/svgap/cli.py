@@ -322,7 +322,11 @@ def build_parser() -> argparse.ArgumentParser:
         help="create a validated submission directory from a complete Harbor job",
     )
     submission_harbor.add_argument("job", type=Path)
-    submission_harbor.add_argument("--dataset", required=True, type=Path)
+    submission_harbor.add_argument(
+        "--dataset",
+        required=True,
+        help="pinned Harbor reference or local dataset path",
+    )
     submission_harbor.add_argument("--id", required=True, dest="submission_id")
     submission_harbor.add_argument("--title", required=True)
     submission_harbor.add_argument("--configuration-label")
@@ -787,7 +791,7 @@ def doctor() -> int:
         else:
             print(f"  No native installation recipe is maintained for {system or 'this platform'}.")
         print("Or use the pinned container with no host EDA installation:")
-        print("  docker run --rm ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.6 doctor")
+        print("  docker run --rm ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.7 doctor")
         print("Docs: https://shsridhar-beep.github.io/svgap/linux-install-and-doctor/")
     return 1 if missing_tools or backend_errors else 0
 
