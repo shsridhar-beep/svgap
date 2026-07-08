@@ -86,5 +86,7 @@ class Manifest:
     asynchronous_groups: list[list[str]]
     resets: list[ResetIntent]
     crossings: list[CrossingIntent]
+    power_on: Literal["unspecified", "reset_required"]
+    init_attributes_are_power_on: bool
     backend: str
     report_path: Path

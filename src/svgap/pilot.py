@@ -109,6 +109,12 @@ def render_manifest(
         "[intent]",
         "asynchronous_groups = " + toml_array(task.get("asynchronous_groups", [])),
     ]
+    if "power_on" in task:
+        lines.append(f'power_on = {toml_string(str(task["power_on"]))}')
+        lines.append(
+            "init_attributes_are_power_on = "
+            + ("true" if bool(task.get("init_attributes_are_power_on", False)) else "false")
+        )
     for clock in task.get("clocks", []):
         lines.extend(
             [

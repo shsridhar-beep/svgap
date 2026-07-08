@@ -50,6 +50,8 @@ relationships. It is intentionally limited to controlled structural shapes:
   declared Gray-code protocol and a recognizable XOR-based source transform;
 - `REF-RDC-001`: raw asynchronous reset on unmarked state when the manifest
   requires synchronous deassertion.
+- `REF-XPROP-001`: un-reset state reaches a module output when the manifest
+  declares that operational state requires reset coverage at power-on.
 
 These rules demonstrate the evaluation contract. They are not a signoff rule
 deck. External backends may provide much broader coverage without changing the

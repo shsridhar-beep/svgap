@@ -95,10 +95,9 @@ at the branch in question).
 - Extends the structural validity argument from timing-domain hazards
   (CDC/RDC) to value-domain hazards (X), demonstrating the gap is a property
   of the oracle class, not a quirk of clock-domain analysis.
-- The prior-art search
-  ([prior-art-and-positioning.md](prior-art-and-positioning.md)) found no
-  X-propagation or metastability-parametric evaluation of LLM-generated RTL;
-  both categories extend the novelty surface rather than servicing it.
+- Both categories test whether the same evaluation contract applies beyond
+  clock and reset crossings. They do not by themselves establish novelty or
+  prevalence.
 - Neither category changes the primary metric; both plug into the existing
   gap definition, report schema, and abstention semantics.
 

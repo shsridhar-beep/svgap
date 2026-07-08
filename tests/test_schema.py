@@ -20,14 +20,14 @@ class SchemaTests(TestCase):
         schema = json.loads((ROOT / "schemas/report-v1.json").read_text(encoding="utf-8"))
         validator = Draft202012Validator(schema, format_checker=FormatChecker())
         manifests = sorted(ROOT.glob("examples/*/*/manifest.toml"))
-        self.assertEqual(len(manifests), 8)
+        self.assertEqual(len(manifests), 10)
         for path in manifests:
             with self.subTest(manifest=path):
                 with redirect_stdout(io.StringIO()):
                     exit_code = check(path, False, False)
                 self.assertIn(exit_code, (0, 1))
         reports = sorted(ROOT.glob("examples/*/*/build/report.json"))
-        self.assertEqual(len(reports), 8)
+        self.assertEqual(len(reports), 10)
         for path in reports:
             with self.subTest(path=path):
                 validator.validate(json.loads(path.read_text(encoding="utf-8")))

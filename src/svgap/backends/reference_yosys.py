@@ -20,13 +20,14 @@ class SeqCell:
     q_bits: tuple[int | str, ...]
     arst_bits: tuple[int | str, ...]
     attributes: dict[str, Any]
+    srst_bits: tuple[int | str, ...] = ()
 
 
 class ReferenceYosysBackend:
     """Small, auditable structural oracle for controlled research fixtures."""
 
     name = "reference-yosys"
-    version = "0.1"
+    version = "0.2"
 
     def check(self, manifest: Manifest) -> CheckResult:
         tool_versions = {"yosys": yosys_version()}
@@ -151,6 +152,7 @@ class ReferenceYosysBackend:
                         q_bits=tuple(connections.get("Q", ())),
                         arst_bits=tuple(connections.get("ARST", ())),
                         attributes=cell.get("attributes", {}),
+                        srst_bits=tuple(connections.get("SRST", ())),
                     )
                 )
             else:
@@ -174,6 +176,18 @@ class ReferenceYosysBackend:
 
         seq_by_q_bit = {bit: cell for cell in seq for bit in cell.q_bits}
         recognized_reset_sync_bits = reset_synchronizer_bits(seq, reset_by_bit)
+        output_bits = {
+            bit
+            for data in module.get("ports", {}).values()
+            if data.get("direction") == "output"
+            for bit in data.get("bits", ())
+        }
+        initialized_bits = {
+            bit
+            for data in netnames.values()
+            if "init" in data.get("attributes", {})
+            for bit in data.get("bits", ())
+        }
         seq_d_consumers: dict[int | str, list[SeqCell]] = defaultdict(list)
         for cell in seq:
             for bit in cell.d_bits:
@@ -251,6 +265,49 @@ class ReferenceYosysBackend:
                     )
                 )
 
+        if manifest.power_on == "reset_required":
+            if not manifest.resets:
+                diagnostics.append(
+                    "power-on intent requires reset coverage but no reset was declared"
+                )
+            for cell in seq:
+                if cell.arst_bits or cell.srst_bits:
+                    continue
+                if set(cell.q_bits) & recognized_reset_sync_bits:
+                    continue
+                if (
+                    manifest.init_attributes_are_power_on
+                    and set(cell.q_bits) <= initialized_bits
+                ):
+                    continue
+                reached = reachable_outputs(
+                    cell.q_bits, output_bits, comb_outputs_by_input
+                )
+                if not reached:
+                    continue
+                findings.append(
+                    Finding(
+                        rule_id="REF-XPROP-001",
+                        severity="error",
+                        message=(
+                            "un-reset operational state reaches a module output although "
+                            "declared power-on intent requires reset coverage"
+                        ),
+                        evidence={
+                            "cell": cell.name,
+                            "clock": cell.clock_name,
+                            "output_signals": sorted(
+                                {
+                                    name
+                                    for bit in reached
+                                    for name in names_by_bit.get(bit, ())
+                                    if bit in output_bits
+                                }
+                            ),
+                            "source_location": source_location(cell, manifest),
+                        },
+                    )
+                )
         for cell in seq:
             for reset_bit in cell.arst_bits:
                 reset = reset_by_bit.get(reset_bit)
@@ -368,6 +425,28 @@ def same_domain_successors(
             if cell_type in ("$mux", "$pmux")
         )
     return list(found.values())
+
+
+def reachable_outputs(
+    start_bits: Iterable[int | str],
+    output_bits: set[int | str],
+    comb_outputs_by_input: dict[int | str, list[tuple[int | str, str]]],
+) -> set[int | str]:
+    """Return module outputs in the forward combinational cone of state bits."""
+    reached: set[int | str] = set()
+    frontier = list(start_bits)
+    visited: set[int | str] = set()
+    while frontier:
+        bit = frontier.pop()
+        if bit in visited or isinstance(bit, str):
+            continue
+        visited.add(bit)
+        if bit in output_bits:
+            reached.add(bit)
+        frontier.extend(
+            output_bit for output_bit, _cell_type in comb_outputs_by_input.get(bit, ())
+        )
+    return reached
 
 
 def are_asynchronous(source: str, destination: str, groups: list[list[str]]) -> bool:

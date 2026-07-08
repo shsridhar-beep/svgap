@@ -14,6 +14,24 @@ class ManifestTests(TestCase):
         self.assertEqual(manifest.top, "level_crossing")
         self.assertEqual([clock.name for clock in manifest.clocks], ["source", "destination"])
         self.assertEqual(manifest.asynchronous_groups, [["source"], ["destination"]])
+        self.assertEqual(manifest.power_on, "unspecified")
+        self.assertFalse(manifest.init_attributes_are_power_on)
+
+    def test_power_on_intent_is_loaded(self) -> None:
+        manifest = load_manifest(ROOT / "examples/power_on_x/safe/manifest.toml")
+        self.assertEqual(manifest.power_on, "reset_required")
+        self.assertFalse(manifest.init_attributes_are_power_on)
+
+    def test_invalid_power_on_intent_is_rejected(self) -> None:
+        source = (ROOT / "examples/power_on_x/safe/manifest.toml").read_text()
+        source = source.replace('power_on = "reset_required"', 'power_on = "magic"')
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root / "manifest.toml"
+            path.write_text(source, encoding="utf-8")
+            (root / "design.sv").write_text("module power_on_x; endmodule\n")
+            with self.assertRaises(ManifestError):
+                load_manifest(path)
 
     def test_report_cannot_escape_manifest_directory(self) -> None:
         source = (ROOT / "examples/level_crossing/safe/manifest.toml").read_text()

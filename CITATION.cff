@@ -2,8 +2,8 @@ cff-version: 1.2.0
 message: "If you use SV-Gap, cite the repository release and accompanying technical report."
 title: "SV-Gap: Structural-validity evaluation for AI-generated RTL"
 type: software
-version: 0.3.0-alpha.8
-date-released: 2026-07-06
+version: 0.3.0-alpha.9
+date-released: 2026-07-08
 license: Apache-2.0
 authors:
   - family-names: "Sridhar"
@@ -12,4 +12,4 @@ authors:
     affiliation: "NVIDIA"
     orcid: "https://orcid.org/0009-0009-8522-5033"
 repository-code: "https://github.com/shsridhar-beep/svgap"
-url: "https://github.com/shsridhar-beep/svgap/releases/tag/v0.3.0-alpha.8"
+url: "https://github.com/shsridhar-beep/svgap/releases/tag/v0.3.0-alpha.9"

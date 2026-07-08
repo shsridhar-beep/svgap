@@ -1,10 +1,10 @@
 # Controlled structural-validity result
 
-Run date: 2026-07-02
+Run date: 2026-07-07
 
 Toolchain:
 
-- SV-Gap reference oracle 0.1
+- SV-Gap reference oracle 0.2
 - Yosys 0.66
 - Icarus Verilog 13.0
 
@@ -14,9 +14,10 @@ Toolchain:
 | Combinational source crossing | pass | fail (`REF-CDC-002`) | pass | pass |
 | Multi-bit counter crossing | pass | fail (`REF-CDC-003`) | pass | pass |
 | Asynchronous reset release | pass | fail (`REF-RDC-001`) | pass | pass |
+| Un-reset power-on state | pass | fail (`REF-XPROP-001`) | pass | pass |
 
-Across the eight deliberately balanced candidates, all eight pass their
-functional simulation and four fail the configured structural oracle. The CLI
+Across the ten deliberately balanced candidates, all ten pass their
+functional simulation and five fail the configured structural oracle. The CLI
 therefore reports a structural-validity gap of `0.500`.
 
 **Interpretation:** `0.500` is a harness-validation result created by the paired
@@ -47,10 +48,10 @@ pull is large and depends on network speed; execution is quick once
 the image is cached:
 
 ```bash
-docker run --rm ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.8 demo
+docker run --rm ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.9 demo
 ```
 
-To regenerate all four controlled witness pairs from a source checkout after
+To regenerate all five controlled witness pairs from a source checkout after
 installing the documented open-source prerequisites:
 
 ```bash

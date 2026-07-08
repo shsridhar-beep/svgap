@@ -28,12 +28,14 @@ or RDC analysis requires declared clock and reset relationships.
                        PASS          FAIL
 ```
 
-Four controlled witness families instantiate this construction: a stable
+Five controlled witness families instantiate this construction: a stable
 single-bit crossing, combinational logic before synchronization, an incoherent
-multi-bit crossing, and asynchronous reset release. In every family, both
+multi-bit crossing, asynchronous reset release, and un-reset power-on state.
+In every family, both
 members pass the supplied functional simulation while the configured structural
-rule separates them. The deliberately balanced `4/8` result validates the
-measurement harness; it is not a defect-rate estimate.
+rule separates them. The power-on pair is hidden by nominal X-optimistic control
+semantics. The deliberately balanced `5/10` result validates the measurement
+harness; it is not a defect-rate estimate.
 
 ## Why this is a trust problem
 
@@ -63,6 +65,12 @@ intent for the reference audit, and no recognizable native CDC/RDC scoring
 artifact. These are heuristic inventory counts, not a validated census. Their
 role in the existential argument is diagnostic: current task formats frequently
 do not expose the metadata needed for this production question.
+
+A separate power-on inventory over the same 508 tasks detects 373 sequential
+tasks and 253 with a reset-like input. Only 28 state comprehensive state-reset
+intent, and no harness contains recognizable scoring
+that perturbs unknown internal initial state. This second detector is also a
+descriptive heuristic, not a validated census.
 
 ## Generated-RTL demonstration
 

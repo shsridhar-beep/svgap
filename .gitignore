@@ -14,3 +14,4 @@ results/**/build/
 site/
 .playwright-cli/
 .harbor-jobs/
+/paper/

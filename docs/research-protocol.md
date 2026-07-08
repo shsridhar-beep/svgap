@@ -20,6 +20,7 @@ interface and functional testbench:
 | Derived control | Combinational logic before sync | Registered source then two stages | REF-CDC-002 |
 | Counter bus | Independent binary-bit synchronization | Registered Gray code and decode | REF-CDC-003 |
 | Reset release | Raw async deassertion at state | Async assert, sync deassert | REF-RDC-001 |
+| Power-on state | Un-reset mode state reaches an output | Reset covers the mode state | REF-XPROP-001 |
 
 Passing these witnesses demonstrates oracle non-identifiability under the
 supplied simulations. It does not estimate the prevalence of defects in model

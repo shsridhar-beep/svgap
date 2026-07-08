@@ -1,0 +1,1322 @@
+{
+  "schema_version": "1.0",
+  "summary": {
+    "benchmark": "rtllm",
+    "comprehensive_reset_coverage_required": 0,
+    "functional_oracle": 50,
+    "intent_sufficient_for_ref_xprop_001": 0,
+    "manual_review": 2,
+    "native_unknown_initial_state_scoring": 0,
+    "power_on_or_initial_state_language_explicit": 2,
+    "reset_behavior_specified": 29,
+    "reset_exposed": 29,
+    "sequential_tasks": 38,
+    "source_revision": "41b26896e33b536940116a975626455eed3de65e",
+    "tasks": 50,
+    "uninitialized_state_prohibited": 0
+  },
+  "tasks": [
+    {
+      "clock_ports": [
+        "clk"
+      ],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst_n",
+        "specification states reset behavior"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst_n",
+        "valid_in"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": true,
+      "reset_exposed": true,
+      "reset_ports": [
+        "rst_n"
+      ],
+      "sequential_task": true,
+      "specification": "Arithmetic/Accumulator/accu/design_description.txt",
+      "task_id": "Arithmetic/Accumulator/accu",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "Cin"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": false,
+      "reset_exposed": false,
+      "reset_ports": [],
+      "sequential_task": false,
+      "specification": "Arithmetic/Adder/adder_16bit/design_description.txt",
+      "task_id": "Arithmetic/Adder/adder_16bit",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": false,
+      "reset_exposed": false,
+      "reset_ports": [],
+      "sequential_task": false,
+      "specification": "Arithmetic/Adder/adder_32bit/design_description.txt",
+      "task_id": "Arithmetic/Adder/adder_32bit",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "cin"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": false,
+      "reset_exposed": false,
+      "reset_ports": [],
+      "sequential_task": false,
+      "specification": "Arithmetic/Adder/adder_8bit/design_description.txt",
+      "task_id": "Arithmetic/Adder/adder_8bit",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "Cin"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": false,
+      "reset_exposed": false,
+      "reset_ports": [],
+      "sequential_task": false,
+      "specification": "Arithmetic/Adder/adder_bcd/design_description.txt",
+      "task_id": "Arithmetic/Adder/adder_bcd",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [
+        "clk"
+      ],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst_n",
+        "specification states reset behavior"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst_n",
+        "i_en",
+        "adda",
+        "addb"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": true,
+      "reset_exposed": true,
+      "reset_ports": [
+        "rst_n"
+      ],
+      "sequential_task": true,
+      "specification": "Arithmetic/Adder/adder_pipe_64bit/design_description.txt",
+      "task_id": "Arithmetic/Adder/adder_pipe_64bit",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": false,
+      "reset_exposed": false,
+      "reset_ports": [],
+      "sequential_task": false,
+      "specification": "Arithmetic/Comparator/comparator_3bit/design_description.txt",
+      "task_id": "Arithmetic/Comparator/comparator_3bit",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": false,
+      "reset_exposed": false,
+      "reset_ports": [],
+      "sequential_task": false,
+      "specification": "Arithmetic/Comparator/comparator_4bit/design_description.txt",
+      "task_id": "Arithmetic/Comparator/comparator_4bit",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "A",
+        "B"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": false,
+      "reset_exposed": false,
+      "reset_ports": [],
+      "sequential_task": false,
+      "specification": "Arithmetic/Divider/div_16bit/design_description.txt",
+      "task_id": "Arithmetic/Divider/div_16bit",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [
+        "clk"
+      ],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst",
+        "specification states reset behavior"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst",
+        "sign",
+        "dividend",
+        "divisor",
+        "opn_valid"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": true,
+      "reset_exposed": true,
+      "reset_ports": [
+        "rst"
+      ],
+      "sequential_task": true,
+      "specification": "Arithmetic/Divider/radix2_div/design_description.txt",
+      "task_id": "Arithmetic/Divider/radix2_div",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [
+        "clk"
+      ],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst_n",
+        "specification states reset behavior"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst_n",
+        "start",
+        "ain",
+        "bin"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": true,
+      "reset_exposed": true,
+      "reset_ports": [
+        "rst_n"
+      ],
+      "sequential_task": true,
+      "specification": "Arithmetic/Multiplier/multi_16bit/design_description.txt",
+      "task_id": "Arithmetic/Multiplier/multi_16bit",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": false,
+      "reset_exposed": false,
+      "reset_ports": [],
+      "sequential_task": false,
+      "specification": "Arithmetic/Multiplier/multi_8bit/design_description.txt",
+      "task_id": "Arithmetic/Multiplier/multi_8bit",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [
+        "clk"
+      ],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset",
+        "specification states reset behavior"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset",
+        "a",
+        "b"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": true,
+      "reset_exposed": true,
+      "reset_ports": [
+        "reset"
+      ],
+      "sequential_task": true,
+      "specification": "Arithmetic/Multiplier/multi_booth_8bit/design_description.txt",
+      "task_id": "Arithmetic/Multiplier/multi_booth_8bit",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [
+        "clk"
+      ],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst_n",
+        "specification states reset behavior"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst_n",
+        "mul_a",
+        "mul_b"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": true,
+      "reset_exposed": true,
+      "reset_ports": [
+        "rst_n"
+      ],
+      "sequential_task": true,
+      "specification": "Arithmetic/Multiplier/multi_pipe_4bit/design_description.txt",
+      "task_id": "Arithmetic/Multiplier/multi_pipe_4bit",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [
+        "clk"
+      ],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst_n",
+        "specification states reset behavior"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst_n",
+        "mul_en_in",
+        "mul_a",
+        "mul_b"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": true,
+      "reset_exposed": true,
+      "reset_ports": [
+        "rst_n"
+      ],
+      "sequential_task": true,
+      "specification": "Arithmetic/Multiplier/multi_pipe_8bit/design_description.txt",
+      "task_id": "Arithmetic/Multiplier/multi_pipe_8bit",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": false,
+      "reset_exposed": false,
+      "reset_ports": [],
+      "sequential_task": true,
+      "specification": "Arithmetic/Other/fixed_point_adder/design_description.txt",
+      "task_id": "Arithmetic/Other/fixed_point_adder",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": false,
+      "reset_exposed": false,
+      "reset_ports": [],
+      "sequential_task": true,
+      "specification": "Arithmetic/Other/fixed_point_substractor/design_description.txt",
+      "task_id": "Arithmetic/Other/fixed_point_substractor",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": false,
+      "reset_exposed": false,
+      "reset_ports": [],
+      "sequential_task": true,
+      "specification": "Arithmetic/Other/float_multi/design_description.txt",
+      "task_id": "Arithmetic/Other/float_multi",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": false,
+      "reset_exposed": false,
+      "reset_ports": [],
+      "sequential_task": false,
+      "specification": "Arithmetic/Substractor/sub_64bit/design_description.txt",
+      "task_id": "Arithmetic/Substractor/sub_64bit",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "ports"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": false,
+      "reset_exposed": false,
+      "reset_ports": [],
+      "sequential_task": true,
+      "specification": "Control/Counter/JC_counter/design_description.txt",
+      "task_id": "Control/Counter/JC_counter",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [
+        "clk"
+      ],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst_n",
+        "specification states reset behavior"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "rst_n",
+        "clk",
+        "valid_count"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": true,
+      "reset_exposed": true,
+      "reset_ports": [
+        "rst_n"
+      ],
+      "sequential_task": true,
+      "specification": "Control/Counter/counter_12/design_description.txt",
+      "task_id": "Control/Counter/counter_12",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [
+        "clk"
+      ],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset",
+        "specification states reset behavior",
+        "specification uses explicit power-on or initial-state language"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": true,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": true,
+      "reset_behavior_specified": true,
+      "reset_exposed": true,
+      "reset_ports": [
+        "reset"
+      ],
+      "sequential_task": true,
+      "specification": "Control/Counter/ring_counter/design_description.txt",
+      "task_id": "Control/Counter/ring_counter",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [
+        "clk"
+      ],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset",
+        "specification states reset behavior"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset",
+        "up_down"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": true,
+      "reset_exposed": true,
+      "reset_ports": [
+        "reset"
+      ],
+      "sequential_task": true,
+      "specification": "Control/Counter/up_down_counter/design_description.txt",
+      "task_id": "Control/Counter/up_down_counter",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [
+        "CLK"
+      ],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [
+        "clock ports: CLK",
+        "reset ports: RST",
+        "specification states reset behavior"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "IN",
+        "CLK",
+        "RST"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": true,
+      "reset_exposed": true,
+      "reset_ports": [
+        "RST"
+      ],
+      "sequential_task": true,
+      "specification": "Control/Finite State Machine/fsm/design_description.txt",
+      "task_id": "Control/Finite State Machine/fsm",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [
+        "clk"
+      ],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: reset_n",
+        "specification states reset behavior"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "reset_n",
+        "data_in"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": true,
+      "reset_exposed": true,
+      "reset_ports": [
+        "reset_n"
+      ],
+      "sequential_task": true,
+      "specification": "Control/Finite State Machine/sequence_detector/design_description.txt",
+      "task_id": "Control/Finite State Machine/sequence_detector",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [
+        "wclk",
+        "rclk"
+      ],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [
+        "clock ports: wclk, rclk",
+        "reset ports: wrstn, rrstn",
+        "specification states reset behavior"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "wclk",
+        "rclk",
+        "wrstn",
+        "rrstn",
+        "winc",
+        "rinc",
+        "wdata"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": true,
+      "reset_exposed": true,
+      "reset_ports": [
+        "wrstn",
+        "rrstn"
+      ],
+      "sequential_task": true,
+      "specification": "Memory/FIFO/asyn_fifo/design_description.txt",
+      "task_id": "Memory/FIFO/asyn_fifo",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [
+        "Clk"
+      ],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [
+        "clock ports: Clk",
+        "reset ports: Rst",
+        "specification states reset behavior"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "RW",
+        "EN",
+        "Rst",
+        "Clk"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": true,
+      "reset_exposed": true,
+      "reset_ports": [
+        "Rst"
+      ],
+      "sequential_task": true,
+      "specification": "Memory/LIFO/LIFObuffer/design_description.txt",
+      "task_id": "Memory/LIFO/LIFObuffer",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [
+        "clk"
+      ],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst",
+        "specification states reset behavior"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": true,
+      "reset_exposed": true,
+      "reset_ports": [
+        "rst"
+      ],
+      "sequential_task": true,
+      "specification": "Memory/Shifter/LFSR/design_description.txt",
+      "task_id": "Memory/Shifter/LFSR",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": false,
+      "reset_exposed": false,
+      "reset_ports": [],
+      "sequential_task": false,
+      "specification": "Memory/Shifter/barrel_shifter/design_description.txt",
+      "task_id": "Memory/Shifter/barrel_shifter",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [
+        "clk"
+      ],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [
+        "clock ports: clk"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "d"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": false,
+      "reset_exposed": false,
+      "reset_ports": [],
+      "sequential_task": true,
+      "specification": "Memory/Shifter/right_shifter/design_description.txt",
+      "task_id": "Memory/Shifter/right_shifter",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [
+        "CLK_in"
+      ],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [
+        "clock ports: CLK_in",
+        "reset ports: RST",
+        "specification states reset behavior"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "CLK_in",
+        "RST"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": true,
+      "reset_exposed": true,
+      "reset_ports": [
+        "RST"
+      ],
+      "sequential_task": true,
+      "specification": "Miscellaneous/Frequency divider/freq_div/design_description.txt",
+      "task_id": "Miscellaneous/Frequency divider/freq_div",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [
+        "clk"
+      ],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst_n",
+        "specification states reset behavior"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst_n"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": true,
+      "reset_exposed": true,
+      "reset_ports": [
+        "rst_n"
+      ],
+      "sequential_task": true,
+      "specification": "Miscellaneous/Frequency divider/freq_divbyeven/design_description.txt",
+      "task_id": "Miscellaneous/Frequency divider/freq_divbyeven",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [
+        "clk"
+      ],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst_n",
+        "specification states reset behavior"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst_n"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": true,
+      "reset_exposed": true,
+      "reset_ports": [
+        "rst_n"
+      ],
+      "sequential_task": true,
+      "specification": "Miscellaneous/Frequency divider/freq_divbyfrac/design_description.txt",
+      "task_id": "Miscellaneous/Frequency divider/freq_divbyfrac",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [
+        "clk"
+      ],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst_n",
+        "specification states reset behavior"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst_n"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": true,
+      "reset_exposed": true,
+      "reset_ports": [
+        "rst_n"
+      ],
+      "sequential_task": true,
+      "specification": "Miscellaneous/Frequency divider/freq_divbyodd/design_description.txt",
+      "task_id": "Miscellaneous/Frequency divider/freq_divbyodd",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [
+        "CLK"
+      ],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [
+        "clock ports: CLK",
+        "reset ports: RST",
+        "specification states reset behavior"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "CLK",
+        "RST"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": true,
+      "reset_exposed": true,
+      "reset_ports": [
+        "RST"
+      ],
+      "sequential_task": true,
+      "specification": "Miscellaneous/Others/calendar/design_description.txt",
+      "task_id": "Miscellaneous/Others/calendar",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [
+        "clk"
+      ],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst_n",
+        "specification states reset behavior"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst_n",
+        "a"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": true,
+      "reset_exposed": true,
+      "reset_ports": [
+        "rst_n"
+      ],
+      "sequential_task": true,
+      "specification": "Miscellaneous/Others/edge_detect/design_description.txt",
+      "task_id": "Miscellaneous/Others/edge_detect",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [
+        "clk"
+      ],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst_n",
+        "specification states reset behavior"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst_n",
+        "d"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": true,
+      "reset_exposed": true,
+      "reset_ports": [
+        "rst_n"
+      ],
+      "sequential_task": true,
+      "specification": "Miscellaneous/Others/parallel2serial/design_description.txt",
+      "task_id": "Miscellaneous/Others/parallel2serial",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [
+        "specification uses explicit power-on or initial-state language"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "ports"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": true,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": true,
+      "reset_behavior_specified": false,
+      "reset_exposed": false,
+      "reset_ports": [],
+      "sequential_task": true,
+      "specification": "Miscellaneous/Others/pulse_detect/design_description.txt",
+      "task_id": "Miscellaneous/Others/pulse_detect",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [
+        "clk"
+      ],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst_n",
+        "specification states reset behavior"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst_n",
+        "din_serial",
+        "din_valid"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": true,
+      "reset_exposed": true,
+      "reset_ports": [
+        "rst_n"
+      ],
+      "sequential_task": true,
+      "specification": "Miscellaneous/Others/serial2parallel/design_description.txt",
+      "task_id": "Miscellaneous/Others/serial2parallel",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [
+        "clk_a",
+        "clk_b"
+      ],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [
+        "clock ports: clk_a, clk_b",
+        "reset ports: arstn, brstn",
+        "specification states reset behavior"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk_a",
+        "clk_b",
+        "arstn",
+        "brstn",
+        "data_in",
+        "data_en"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": true,
+      "reset_exposed": true,
+      "reset_ports": [
+        "arstn",
+        "brstn"
+      ],
+      "sequential_task": true,
+      "specification": "Miscellaneous/Others/synchronizer/design_description.txt",
+      "task_id": "Miscellaneous/Others/synchronizer",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": false,
+      "reset_exposed": false,
+      "reset_ports": [],
+      "sequential_task": true,
+      "specification": "Miscellaneous/Others/traffic_light/design_description.txt",
+      "task_id": "Miscellaneous/Others/traffic_light",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [
+        "clk"
+      ],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst_n",
+        "specification states reset behavior"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst_n",
+        "valid_in",
+        "data_in"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": true,
+      "reset_exposed": true,
+      "reset_ports": [
+        "rst_n"
+      ],
+      "sequential_task": true,
+      "specification": "Miscellaneous/Others/width_8to16/design_description.txt",
+      "task_id": "Miscellaneous/Others/width_8to16",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [
+        "clk"
+      ],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst_n",
+        "specification states reset behavior"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst_n",
+        "write_en",
+        "write_addr",
+        "write_data",
+        "read_en",
+        "read_addr"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": true,
+      "reset_exposed": true,
+      "reset_ports": [
+        "rst_n"
+      ],
+      "sequential_task": true,
+      "specification": "Miscellaneous/RISC-V/RAM/design_description.txt",
+      "task_id": "Miscellaneous/RISC-V/RAM",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": false,
+      "reset_exposed": false,
+      "reset_ports": [],
+      "sequential_task": false,
+      "specification": "Miscellaneous/RISC-V/ROM/design_description.txt",
+      "task_id": "Miscellaneous/RISC-V/ROM",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [
+        "a",
+        "b",
+        "aluc"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": false,
+      "reset_exposed": false,
+      "reset_ports": [],
+      "sequential_task": true,
+      "specification": "Miscellaneous/RISC-V/alu/design_description.txt",
+      "task_id": "Miscellaneous/RISC-V/alu",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [],
+      "functional_oracle": true,
+      "input_ports": [],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": false,
+      "reset_exposed": false,
+      "reset_ports": [],
+      "sequential_task": false,
+      "specification": "Miscellaneous/RISC-V/clkgenerator/design_description.txt",
+      "task_id": "Miscellaneous/RISC-V/clkgenerator",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [
+        "clk"
+      ],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst",
+        "specification states reset behavior"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": true,
+      "reset_exposed": true,
+      "reset_ports": [
+        "rst"
+      ],
+      "sequential_task": true,
+      "specification": "Miscellaneous/RISC-V/instr_reg/design_description.txt",
+      "task_id": "Miscellaneous/RISC-V/instr_reg",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [
+        "clk"
+      ],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst",
+        "specification states reset behavior"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst",
+        "a",
+        "b"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": true,
+      "reset_exposed": true,
+      "reset_ports": [
+        "rst"
+      ],
+      "sequential_task": true,
+      "specification": "Miscellaneous/RISC-V/pe/design_description.txt",
+      "task_id": "Miscellaneous/RISC-V/pe",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [
+        "clk"
+      ],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [
+        "clock ports: clk",
+        "reset ports: rst_n",
+        "specification states reset behavior"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk",
+        "rst_n"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": true,
+      "reset_exposed": true,
+      "reset_ports": [
+        "rst_n"
+      ],
+      "sequential_task": true,
+      "specification": "Miscellaneous/Signal generation/signal_generator/design_description.txt",
+      "task_id": "Miscellaneous/Signal generation/signal_generator",
+      "uninitialized_state_prohibited": false
+    },
+    {
+      "clock_ports": [
+        "clk"
+      ],
+      "comprehensive_reset_coverage_required": false,
+      "evidence": [
+        "clock ports: clk"
+      ],
+      "functional_oracle": true,
+      "input_ports": [
+        "clk"
+      ],
+      "intent_sufficient_for_ref_xprop_001": false,
+      "manual_review": false,
+      "native_unknown_initial_state_scoring": false,
+      "power_on_or_initial_state_language_explicit": false,
+      "reset_behavior_specified": false,
+      "reset_exposed": false,
+      "reset_ports": [],
+      "sequential_task": true,
+      "specification": "Miscellaneous/Signal generation/square_wave/design_description.txt",
+      "task_id": "Miscellaneous/Signal generation/square_wave",
+      "uninitialized_state_prohibited": false
+    }
+  ]
+}

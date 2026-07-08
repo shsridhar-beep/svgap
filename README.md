@@ -50,7 +50,7 @@ or silicon signoff.
 | Surface | Current support | Boundary |
 |---|---|---|
 | Domain | AI-generated digital RTL | Analog and mixed-signal design are out of scope |
-| Initial properties | Documented CDC/RDC structural patterns | Not comprehensive CDC/RDC signoff |
+| Initial properties | Documented CDC/RDC and power-on reset-coverage patterns | Not comprehensive structural signoff |
 | Research tracks | Generation, diagnosis, and repair | Profiles remain multidimensional; no scalar leaderboard |
 | Functional evidence | Executed commands or digest-bound imported results | Evidence quality remains visible |
 | Structural backend | Narrow open Yosys reference backend | Backend `pass` means no configured finding, not a true negative |
@@ -89,7 +89,7 @@ large image pull depends on network speed; the demo itself runs in
 under two minutes once the image is cached:
 
 ```bash
-docker run --rm ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.8 demo
+docker run --rm ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.9 demo
 ```
 
 For a native macOS installation:
@@ -97,7 +97,7 @@ For a native macOS installation:
 ```bash
 brew install yosys icarus-verilog
 python3 -m venv .venv
-.venv/bin/python -m pip install svgap==0.3.0a8
+.venv/bin/python -m pip install svgap==0.3.0a9
 .venv/bin/svgap doctor
 .venv/bin/svgap study quickstart --output my-first-svgap-study
 ```
@@ -136,18 +136,21 @@ manifest and imported-result path. Python integrations can call
 
 ## Current evidence
 
-- Four controlled CDC/RDC witness pairs have identical functional outcomes and
+- Five controlled witness pairs have identical functional outcomes and
   different configured structural outcomes.
 - A frozen 72-call reset-release study contains 57 functional passes; at least
   14 contain the declared raw-reset pattern.
 - A heuristic inventory covers 508 public RTL-generation tasks across
   VerilogEval, RTLLM, and CVDP.
+- A separate audit of those 508 tasks inventories stated power-on intent and
+  recognizable unknown-initial-state scoring.
 - Two reproducible open-weights profiles demonstrate the public submission
   path; they are maintainer-produced anchors, not independent replications.
 
 [Controlled result](https://shsridhar-beep.github.io/svgap/controlled-result/) ·
 [Reset result](https://shsridhar-beep.github.io/svgap/reset-replication-result/) ·
 [Benchmark audit](https://shsridhar-beep.github.io/svgap/benchmark-audit/) ·
+[Power-on audit](https://shsridhar-beep.github.io/svgap/power-on-benchmark-audit/) ·
 [Evidence profiles](https://shsridhar-beep.github.io/svgap/results/) ·
 [Compact research note](https://shsridhar-beep.github.io/svgap/compact-research-note/)
 

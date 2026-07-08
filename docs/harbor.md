@@ -60,7 +60,7 @@ Harbor job, or open a result pull request.
 ## 4. Preserve a complete result
 
 ```bash
-pip install "svgap>=0.3.0a8"
+pip install "svgap>=0.3.0a9"
 
 svgap submission from-harbor jobs/svgap-agent/JOB_DIRECTORY \
   --dataset svgap/svgap-reset-release@0.2 \
@@ -89,4 +89,3 @@ publication checks, and pull-request instructions.
 
 The public dataset is a narrow mechanism experiment. It is not silicon
 signoff, a population estimate, or a model ranking.
-

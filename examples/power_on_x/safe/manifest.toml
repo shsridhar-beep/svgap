@@ -1,0 +1,27 @@
+schema_version = "1.0"
+candidate_id = "power-on-x-safe"
+[design]
+top = "power_on_x"
+sources = ["design.sv"]
+[functional]
+commands = [
+  ["iverilog", "-g2012", "-o", "${SVGAP_BUILD}/sim.vvp", "design.sv", "../tb.sv"],
+  ["vvp", "${SVGAP_BUILD}/sim.vvp"],
+]
+[structural]
+backend = "reference-yosys"
+[intent]
+asynchronous_groups = []
+power_on = "reset_required"
+init_attributes_are_power_on = false
+[[intent.clocks]]
+name = "core"
+port = "clk"
+[[intent.resets]]
+name = "power_on_reset"
+port = "rst_n"
+active = "low"
+assertion = "async"
+deassertion = "async"
+[output]
+report = "build/report.json"

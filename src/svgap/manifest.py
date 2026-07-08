@@ -104,6 +104,14 @@ def load_manifest(path: str | Path) -> Manifest:
         for crossing in crossings
     ):
         raise ManifestError("intent crossing protocol is unsupported")
+    power_on = intent.get("power_on", "unspecified")
+    if power_on not in ("unspecified", "reset_required"):
+        raise ManifestError(
+            "intent.power_on must be 'unspecified' or 'reset_required'"
+        )
+    init_attributes_are_power_on = intent.get("init_attributes_are_power_on", False)
+    if not isinstance(init_attributes_are_power_on, bool):
+        raise ManifestError("intent.init_attributes_are_power_on must be a boolean")
     groups = intent.get("asynchronous_groups", [])
     if not isinstance(groups, list) or any(
         not isinstance(group, list)
@@ -140,6 +148,8 @@ def load_manifest(path: str | Path) -> Manifest:
         asynchronous_groups=[list(group) for group in groups],
         resets=resets,
         crossings=crossings,
+        power_on=power_on,
+        init_attributes_are_power_on=init_attributes_are_power_on,
         backend=str(structural.get("backend", "reference-yosys")),
         report_path=report_path,
     )

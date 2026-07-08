@@ -1,0 +1,157 @@
+task_id,specification,input_ports,clock_ports,reset_ports,sequential_task,reset_exposed,reset_behavior_specified,power_on_or_initial_state_language_explicit,uninitialized_state_prohibited,comprehensive_reset_coverage_required,native_unknown_initial_state_scoring,intent_sufficient_for_ref_xprop_001,functional_oracle,manual_review,evidence
+Prob001_zero,dataset_spec-to-rtl/Prob001_zero_prompt.txt,(),(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob002_m2014_q4i,dataset_spec-to-rtl/Prob002_m2014_q4i_prompt.txt,(),(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob003_step_one,dataset_spec-to-rtl/Prob003_step_one_prompt.txt,(),(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob004_vector2,dataset_spec-to-rtl/Prob004_vector2_prompt.txt,"('in',)",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob005_notgate,dataset_spec-to-rtl/Prob005_notgate_prompt.txt,"('in',)",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob006_vectorr,dataset_spec-to-rtl/Prob006_vectorr_prompt.txt,"('in',)",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob007_wire,dataset_spec-to-rtl/Prob007_wire_prompt.txt,"('in',)",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob008_m2014_q4h,dataset_spec-to-rtl/Prob008_m2014_q4h_prompt.txt,"('in',)",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob009_popcount3,dataset_spec-to-rtl/Prob009_popcount3_prompt.txt,"('in',)",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob010_mt2015_q4a,dataset_spec-to-rtl/Prob010_mt2015_q4a_prompt.txt,"('x', 'y')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob011_norgate,dataset_spec-to-rtl/Prob011_norgate_prompt.txt,"('a', 'b')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob012_xnorgate,dataset_spec-to-rtl/Prob012_xnorgate_prompt.txt,"('a', 'b')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob013_m2014_q4e,dataset_spec-to-rtl/Prob013_m2014_q4e_prompt.txt,"('in1', 'in2')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob014_andgate,dataset_spec-to-rtl/Prob014_andgate_prompt.txt,"('a', 'b')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob015_vector1,dataset_spec-to-rtl/Prob015_vector1_prompt.txt,"('in',)",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob016_m2014_q4j,dataset_spec-to-rtl/Prob016_m2014_q4j_prompt.txt,"('x', 'y')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob017_mux2to1v,dataset_spec-to-rtl/Prob017_mux2to1v_prompt.txt,"('a', 'b', 'sel')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob018_mux256to1,dataset_spec-to-rtl/Prob018_mux256to1_prompt.txt,"('in', 'sel')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob019_m2014_q4f,dataset_spec-to-rtl/Prob019_m2014_q4f_prompt.txt,"('in1', 'in2')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob020_mt2015_eq2,dataset_spec-to-rtl/Prob020_mt2015_eq2_prompt.txt,"('A', 'B')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob021_mux256to1v,dataset_spec-to-rtl/Prob021_mux256to1v_prompt.txt,"('in', 'sel')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob022_mux2to1,dataset_spec-to-rtl/Prob022_mux2to1_prompt.txt,"('a', 'b', 'sel')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob023_vector100r,dataset_spec-to-rtl/Prob023_vector100r_prompt.txt,"('in',)",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob024_hadd,dataset_spec-to-rtl/Prob024_hadd_prompt.txt,"('a', 'b')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob025_reduction,dataset_spec-to-rtl/Prob025_reduction_prompt.txt,"('in',)",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob026_alwaysblock1,dataset_spec-to-rtl/Prob026_alwaysblock1_prompt.txt,"('a', 'b')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob027_fadd,dataset_spec-to-rtl/Prob027_fadd_prompt.txt,"('a', 'b', 'cin')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob028_m2014_q4a,dataset_spec-to-rtl/Prob028_m2014_q4a_prompt.txt,"('d', 'ena')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob029_m2014_q4g,dataset_spec-to-rtl/Prob029_m2014_q4g_prompt.txt,"('in1', 'in2', 'in3')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob030_popcount255,dataset_spec-to-rtl/Prob030_popcount255_prompt.txt,"('in',)",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob031_dff,dataset_spec-to-rtl/Prob031_dff_prompt.txt,"('clk', 'd', 'q')","('clk',)",(),True,False,False,False,False,False,False,False,True,False,"('clock ports: clk',)"
+Prob032_vector0,dataset_spec-to-rtl/Prob032_vector0_prompt.txt,"('vec',)",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob033_ece241_2014_q1c,dataset_spec-to-rtl/Prob033_ece241_2014_q1c_prompt.txt,"('a', 'b')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob034_dff8,dataset_spec-to-rtl/Prob034_dff8_prompt.txt,"('clk', 'd')","('clk',)",(),True,False,False,False,False,False,False,False,True,False,"('clock ports: clk',)"
+Prob035_count1to10,dataset_spec-to-rtl/Prob035_count1to10_prompt.txt,"('clk', 'reset')","('clk',)","('reset',)",True,True,True,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: reset', 'specification states reset behavior')"
+Prob036_ringer,dataset_spec-to-rtl/Prob036_ringer_prompt.txt,"('ring', 'vibrate_mode')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob037_review2015_count1k,dataset_spec-to-rtl/Prob037_review2015_count1k_prompt.txt,"('clk', 'reset')","('clk',)","('reset',)",True,True,True,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: reset', 'specification states reset behavior')"
+Prob038_count15,dataset_spec-to-rtl/Prob038_count15_prompt.txt,"('clk', 'reset')","('clk',)","('reset',)",True,True,True,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: reset', 'specification states reset behavior')"
+Prob039_always_if,dataset_spec-to-rtl/Prob039_always_if_prompt.txt,"('a', 'b', 'sel_b1', 'sel_b2')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob040_count10,dataset_spec-to-rtl/Prob040_count10_prompt.txt,"('clk', 'reset')","('clk',)","('reset',)",True,True,True,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: reset', 'specification states reset behavior')"
+Prob041_dff8r,dataset_spec-to-rtl/Prob041_dff8r_prompt.txt,"('clk', 'reset', 'd')","('clk',)","('reset',)",True,True,True,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: reset', 'specification states reset behavior')"
+Prob042_vector4,dataset_spec-to-rtl/Prob042_vector4_prompt.txt,"('in',)",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob043_vector5,dataset_spec-to-rtl/Prob043_vector5_prompt.txt,"('a', 'b', 'c', 'd', 'e')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob044_vectorgates,dataset_spec-to-rtl/Prob044_vectorgates_prompt.txt,"('a', 'b')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob045_edgedetect2,dataset_spec-to-rtl/Prob045_edgedetect2_prompt.txt,"('clk', 'in')","('clk',)",(),True,False,False,False,False,False,False,False,True,False,"('clock ports: clk',)"
+Prob046_dff8p,dataset_spec-to-rtl/Prob046_dff8p_prompt.txt,"('clk', 'reset', 'd')","('clk',)","('reset',)",True,True,True,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: reset', 'specification states reset behavior')"
+Prob047_dff8ar,dataset_spec-to-rtl/Prob047_dff8ar_prompt.txt,"('clk', 'areset', 'd')","('clk',)","('areset',)",True,True,True,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: areset', 'specification states reset behavior')"
+Prob048_m2014_q4c,dataset_spec-to-rtl/Prob048_m2014_q4c_prompt.txt,"('clk', 'd', 'r')","('clk',)",(),True,False,False,False,False,False,False,False,True,False,"('clock ports: clk',)"
+Prob049_m2014_q4b,dataset_spec-to-rtl/Prob049_m2014_q4b_prompt.txt,"('clk', 'ar', 'd')","('clk',)",(),True,False,False,False,False,False,False,False,True,False,"('clock ports: clk',)"
+Prob050_kmap1,dataset_spec-to-rtl/Prob050_kmap1_prompt.txt,"('a', 'b', 'c')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob051_gates4,dataset_spec-to-rtl/Prob051_gates4_prompt.txt,"('in',)",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob052_gates100,dataset_spec-to-rtl/Prob052_gates100_prompt.txt,"('in',)",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob053_m2014_q4d,dataset_spec-to-rtl/Prob053_m2014_q4d_prompt.txt,"('clk', 'in')","('clk',)",(),True,False,False,False,False,False,False,False,True,False,"('clock ports: clk',)"
+Prob054_edgedetect,dataset_spec-to-rtl/Prob054_edgedetect_prompt.txt,"('clk', 'in')","('clk',)",(),True,False,False,False,False,False,False,False,True,False,"('clock ports: clk',)"
+Prob055_conditional,dataset_spec-to-rtl/Prob055_conditional_prompt.txt,"('a', 'b', 'c', 'd')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob056_ece241_2013_q7,dataset_spec-to-rtl/Prob056_ece241_2013_q7_prompt.txt,"('clk', 'j', 'k')","('clk',)",(),True,False,False,False,False,False,False,False,True,False,"('clock ports: clk',)"
+Prob057_kmap2,dataset_spec-to-rtl/Prob057_kmap2_prompt.txt,"('a', 'b', 'c', 'd')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob058_alwaysblock2,dataset_spec-to-rtl/Prob058_alwaysblock2_prompt.txt,"('clk', 'a', 'b')","('clk',)",(),True,False,False,False,False,False,False,False,True,False,"('clock ports: clk',)"
+Prob059_wire4,dataset_spec-to-rtl/Prob059_wire4_prompt.txt,"('a', 'b', 'c')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob060_m2014_q4k,dataset_spec-to-rtl/Prob060_m2014_q4k_prompt.txt,"('clk', 'resetn', 'in')","('clk',)",(),True,False,False,False,False,False,False,False,True,False,"('clock ports: clk',)"
+Prob061_2014_q4a,dataset_spec-to-rtl/Prob061_2014_q4a_prompt.txt,"('clk', 'w', 'R', 'E', 'L')","('clk',)",(),True,False,False,False,False,False,False,False,True,False,"('clock ports: clk',)"
+Prob062_bugs_mux2,dataset_spec-to-rtl/Prob062_bugs_mux2_prompt.txt,"('sel', 'a', 'b')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob063_review2015_shiftcount,dataset_spec-to-rtl/Prob063_review2015_shiftcount_prompt.txt,"('clk', 'shift_ena', 'count_ena', 'data')","('clk',)",(),True,False,False,False,False,False,False,False,True,False,"('clock ports: clk',)"
+Prob064_vector3,dataset_spec-to-rtl/Prob064_vector3_prompt.txt,"('a', 'b', 'c', 'd', 'e', 'f')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob065_7420,dataset_spec-to-rtl/Prob065_7420_prompt.txt,"('p1a', 'p1b', 'p1c', 'p1d', 'p2a', 'p2b', 'p2c', 'p2d')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob066_edgecapture,dataset_spec-to-rtl/Prob066_edgecapture_prompt.txt,"('clk', 'reset', 'in')","('clk',)","('reset',)",True,True,True,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: reset', 'specification states reset behavior')"
+Prob067_countslow,dataset_spec-to-rtl/Prob067_countslow_prompt.txt,"('clk', 'reset', 'slowena')","('clk',)","('reset',)",True,True,True,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: reset', 'specification states reset behavior')"
+Prob068_countbcd,dataset_spec-to-rtl/Prob068_countbcd_prompt.txt,"('clk', 'reset')","('clk',)","('reset',)",True,True,False,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: reset')"
+Prob069_truthtable1,dataset_spec-to-rtl/Prob069_truthtable1_prompt.txt,"('x3', 'x2', 'x1')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob070_ece241_2013_q2,dataset_spec-to-rtl/Prob070_ece241_2013_q2_prompt.txt,"('a', 'b', 'c', 'd')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob071_always_casez,dataset_spec-to-rtl/Prob071_always_casez_prompt.txt,"('in',)",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob072_thermostat,dataset_spec-to-rtl/Prob072_thermostat_prompt.txt,"('mode', 'too_cold', 'too_hot', 'fan_on')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob073_dff16e,dataset_spec-to-rtl/Prob073_dff16e_prompt.txt,"('clk', 'resetn', 'byteena', 'd')","('clk',)",(),True,False,False,False,False,False,False,False,True,False,"('clock ports: clk',)"
+Prob074_ece241_2014_q4,dataset_spec-to-rtl/Prob074_ece241_2014_q4_prompt.txt,"('clk', 'x')","('clk',)",(),True,False,False,False,False,False,False,False,True,False,"('clock ports: clk',)"
+Prob075_counter_2bc,dataset_spec-to-rtl/Prob075_counter_2bc_prompt.txt,"('clk', 'areset', 'train_valid', 'train_taken')","('clk',)","('areset',)",True,True,False,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: areset')"
+Prob076_always_case,dataset_spec-to-rtl/Prob076_always_case_prompt.txt,"('sel', 'data0', 'data1', 'data2', 'data3', 'data4', 'data5')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob077_wire_decl,dataset_spec-to-rtl/Prob077_wire_decl_prompt.txt,"('a', 'b', 'c', 'd')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob078_dualedge,dataset_spec-to-rtl/Prob078_dualedge_prompt.txt,"('clk', 'd')","('clk',)",(),True,False,False,False,False,False,False,False,True,False,"('clock ports: clk',)"
+Prob079_fsm3onehot,dataset_spec-to-rtl/Prob079_fsm3onehot_prompt.txt,"('in', 'state')",(),(),True,False,False,False,False,False,False,False,True,False,()
+Prob080_timer,dataset_spec-to-rtl/Prob080_timer_prompt.txt,"('clk', 'load', 'data')","('clk',)",(),True,False,False,False,False,False,False,False,True,False,"('clock ports: clk',)"
+Prob081_7458,dataset_spec-to-rtl/Prob081_7458_prompt.txt,"('p1a', 'p1b', 'p1c', 'p1d', 'p1e', 'p1f', 'p2a', 'p2b', 'p2c', 'p2d')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob082_lfsr32,dataset_spec-to-rtl/Prob082_lfsr32_prompt.txt,"('clk', 'reset')","('clk',)","('reset',)",True,True,True,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: reset', 'specification states reset behavior')"
+Prob083_mt2015_q4b,dataset_spec-to-rtl/Prob083_mt2015_q4b_prompt.txt,"('x', 'y')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob084_ece241_2013_q12,dataset_spec-to-rtl/Prob084_ece241_2013_q12_prompt.txt,"('clk', 'enable', 'S', 'A', 'B', 'C')","('clk',)",(),True,False,False,False,False,False,False,False,True,False,"('clock ports: clk',)"
+Prob085_shift4,dataset_spec-to-rtl/Prob085_shift4_prompt.txt,"('clk', 'areset', 'load', 'ena', 'data')","('clk',)","('areset',)",True,True,False,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: areset')"
+Prob086_lfsr5,dataset_spec-to-rtl/Prob086_lfsr5_prompt.txt,"('clk', 'reset')","('clk',)","('reset',)",True,True,False,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: reset')"
+Prob087_gates,dataset_spec-to-rtl/Prob087_gates_prompt.txt,"('a', 'b')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob088_ece241_2014_q5b,dataset_spec-to-rtl/Prob088_ece241_2014_q5b_prompt.txt,"('clk', 'areset', 'x')","('clk',)","('areset',)",True,True,False,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: areset')"
+Prob089_ece241_2014_q5a,dataset_spec-to-rtl/Prob089_ece241_2014_q5a_prompt.txt,"('clk', 'areset', 'x')","('clk',)","('areset',)",True,True,True,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: areset', 'specification states reset behavior')"
+Prob090_circuit1,dataset_spec-to-rtl/Prob090_circuit1_prompt.txt,"('a', 'b')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob091_2012_q2b,dataset_spec-to-rtl/Prob091_2012_q2b_prompt.txt,"('y', 'w')",(),(),True,False,False,False,False,False,False,False,True,False,()
+Prob092_gatesv100,dataset_spec-to-rtl/Prob092_gatesv100_prompt.txt,"('in',)",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob093_ece241_2014_q3,dataset_spec-to-rtl/Prob093_ece241_2014_q3_prompt.txt,"('c', 'd')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob094_gatesv,dataset_spec-to-rtl/Prob094_gatesv_prompt.txt,"('in',)",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob095_review2015_fsmshift,dataset_spec-to-rtl/Prob095_review2015_fsmshift_prompt.txt,"('clk', 'reset')","('clk',)","('reset',)",True,True,False,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: reset')"
+Prob096_review2015_fsmseq,dataset_spec-to-rtl/Prob096_review2015_fsmseq_prompt.txt,"('clk', 'reset', 'data')","('clk',)","('reset',)",True,True,False,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: reset')"
+Prob097_mux9to1v,dataset_spec-to-rtl/Prob097_mux9to1v_prompt.txt,"('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'sel')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob098_circuit7,dataset_spec-to-rtl/Prob098_circuit7_prompt.txt,"('clk', 'a')","('clk',)",(),True,False,False,False,False,False,False,False,True,False,"('clock ports: clk',)"
+Prob099_m2014_q6c,dataset_spec-to-rtl/Prob099_m2014_q6c_prompt.txt,"('y', 'w')",(),(),True,False,False,False,False,False,False,False,True,False,()
+Prob100_fsm3comb,dataset_spec-to-rtl/Prob100_fsm3comb_prompt.txt,"('in', 'state')",(),(),True,False,False,False,False,False,False,False,True,False,()
+Prob101_circuit4,dataset_spec-to-rtl/Prob101_circuit4_prompt.txt,"('a', 'b', 'c', 'd')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob102_circuit3,dataset_spec-to-rtl/Prob102_circuit3_prompt.txt,"('a', 'b', 'c', 'd')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob103_circuit2,dataset_spec-to-rtl/Prob103_circuit2_prompt.txt,"('a', 'b', 'c', 'd')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob104_mt2015_muxdff,dataset_spec-to-rtl/Prob104_mt2015_muxdff_prompt.txt,"('r', 'L', 'clk')","('clk',)",(),True,False,False,False,False,False,False,False,True,False,"('clock ports: clk',)"
+Prob105_rotate100,dataset_spec-to-rtl/Prob105_rotate100_prompt.txt,"('clk', 'load', 'ena', 'data')","('clk',)",(),True,False,False,False,False,False,False,False,True,False,"('clock ports: clk',)"
+Prob106_always_nolatches,dataset_spec-to-rtl/Prob106_always_nolatches_prompt.txt,"('scancode',)",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob107_fsm1s,dataset_spec-to-rtl/Prob107_fsm1s_prompt.txt,"('clk', 'reset', 'in')","('clk',)","('reset',)",True,True,True,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: reset', 'specification states reset behavior')"
+Prob108_rule90,dataset_spec-to-rtl/Prob108_rule90_prompt.txt,"('clk', 'load', 'data')","('clk',)",(),True,False,False,False,False,False,False,False,True,False,"('clock ports: clk',)"
+Prob109_fsm1,dataset_spec-to-rtl/Prob109_fsm1_prompt.txt,"('clk', 'areset', 'in')","('clk',)","('areset',)",True,True,True,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: areset', 'specification states reset behavior')"
+Prob110_fsm2,dataset_spec-to-rtl/Prob110_fsm2_prompt.txt,"('clk', 'areset', 'j', 'k')","('clk',)","('areset',)",True,True,True,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: areset', 'specification states reset behavior')"
+Prob111_fsm2s,dataset_spec-to-rtl/Prob111_fsm2s_prompt.txt,"('clk', 'reset', 'j', 'k')","('clk',)","('reset',)",True,True,True,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: reset', 'specification states reset behavior')"
+Prob112_always_case2,dataset_spec-to-rtl/Prob112_always_case2_prompt.txt,"('in',)",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob113_2012_q1g,dataset_spec-to-rtl/Prob113_2012_q1g_prompt.txt,"('x',)",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob114_bugs_case,dataset_spec-to-rtl/Prob114_bugs_case_prompt.txt,"('code',)",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob115_shift18,dataset_spec-to-rtl/Prob115_shift18_prompt.txt,"('clk', 'load', 'ena', 'amount', 'data')","('clk',)",(),True,False,False,False,False,False,False,False,True,False,"('clock ports: clk',)"
+Prob116_m2014_q3,dataset_spec-to-rtl/Prob116_m2014_q3_prompt.txt,"('x',)",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob117_circuit9,dataset_spec-to-rtl/Prob117_circuit9_prompt.txt,"('clk', 'a')","('clk',)",(),True,False,False,False,False,False,False,False,True,False,"('clock ports: clk',)"
+Prob118_history_shift,dataset_spec-to-rtl/Prob118_history_shift_prompt.txt,"('clk', 'areset', 'predict_valid', 'predict_taken', 'train_mispredicted', 'train_taken', 'train_history')","('clk',)","('areset',)",True,True,False,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: areset')"
+Prob119_fsm3,dataset_spec-to-rtl/Prob119_fsm3_prompt.txt,"('clk', 'areset', 'in')","('clk',)","('areset',)",True,True,True,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: areset', 'specification states reset behavior')"
+Prob120_fsm3s,dataset_spec-to-rtl/Prob120_fsm3s_prompt.txt,"('clk', 'reset', 'in')","('clk',)","('reset',)",True,True,True,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: reset', 'specification states reset behavior')"
+Prob121_2014_q3bfsm,dataset_spec-to-rtl/Prob121_2014_q3bfsm_prompt.txt,"('clk', 'reset', 'x')","('clk',)","('reset',)",True,True,True,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: reset', 'specification states reset behavior')"
+Prob122_kmap4,dataset_spec-to-rtl/Prob122_kmap4_prompt.txt,"('a', 'b', 'c', 'd')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob123_bugs_addsubz,dataset_spec-to-rtl/Prob123_bugs_addsubz_prompt.txt,"('do_sub', 'a', 'b')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob124_rule110,dataset_spec-to-rtl/Prob124_rule110_prompt.txt,"('clk', 'load', 'data')","('clk',)",(),True,False,False,False,False,False,False,False,True,False,"('clock ports: clk',)"
+Prob125_kmap3,dataset_spec-to-rtl/Prob125_kmap3_prompt.txt,"('a', 'b', 'c', 'd')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob126_circuit6,dataset_spec-to-rtl/Prob126_circuit6_prompt.txt,"('a',)",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob127_lemmings1,dataset_spec-to-rtl/Prob127_lemmings1_prompt.txt,"('clk', 'areset', 'bump_left', 'bump_right')","('clk',)","('areset',)",True,True,False,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: areset')"
+Prob128_fsm_ps2,dataset_spec-to-rtl/Prob128_fsm_ps2_prompt.txt,"('clk', 'reset', 'in')","('clk',)","('reset',)",True,True,True,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: reset', 'specification states reset behavior')"
+Prob129_ece241_2013_q8,dataset_spec-to-rtl/Prob129_ece241_2013_q8_prompt.txt,"('clk', 'aresetn', 'x')","('clk',)",(),True,False,False,False,False,False,False,False,True,False,"('clock ports: clk',)"
+Prob130_circuit5,dataset_spec-to-rtl/Prob130_circuit5_prompt.txt,"('a', 'b', 'c', 'd', 'e')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob131_mt2015_q4,dataset_spec-to-rtl/Prob131_mt2015_q4_prompt.txt,"('x', 'y')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob132_always_if2,dataset_spec-to-rtl/Prob132_always_if2_prompt.txt,"('cpu_overheated', 'arrived', 'gas_tank_empty')",(),(),False,False,False,False,False,False,False,False,True,False,()
+Prob133_2014_q3fsm,dataset_spec-to-rtl/Prob133_2014_q3fsm_prompt.txt,"('clk', 'reset', 's', 'w')","('clk',)","('reset',)",True,True,True,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: reset', 'specification states reset behavior')"
+Prob134_2014_q3c,dataset_spec-to-rtl/Prob134_2014_q3c_prompt.txt,"('clk', 'x', 'y')","('clk',)",(),True,False,False,False,False,False,False,False,True,False,"('clock ports: clk',)"
+Prob135_m2014_q6b,dataset_spec-to-rtl/Prob135_m2014_q6b_prompt.txt,"('y', 'w')",(),(),True,False,False,False,False,False,False,False,True,False,()
+Prob136_m2014_q6,dataset_spec-to-rtl/Prob136_m2014_q6_prompt.txt,"('clk', 'reset', 'w')","('clk',)","('reset',)",True,True,False,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: reset')"
+Prob137_fsm_serial,dataset_spec-to-rtl/Prob137_fsm_serial_prompt.txt,"('clk', 'reset', 'in')","('clk',)","('reset',)",True,True,False,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: reset')"
+Prob138_2012_q2fsm,dataset_spec-to-rtl/Prob138_2012_q2fsm_prompt.txt,"('clk', 'reset', 'w')","('clk',)","('reset',)",True,True,True,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: reset', 'specification states reset behavior')"
+Prob139_2013_q2bfsm,dataset_spec-to-rtl/Prob139_2013_q2bfsm_prompt.txt,"('clk', 'resetn', 'x', 'y')","('clk',)",(),True,False,False,False,False,False,False,False,True,False,"('clock ports: clk',)"
+Prob140_fsm_hdlc,dataset_spec-to-rtl/Prob140_fsm_hdlc_prompt.txt,"('clk', 'reset', 'in')","('clk',)","('reset',)",True,True,True,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: reset', 'specification states reset behavior')"
+Prob141_count_clock,dataset_spec-to-rtl/Prob141_count_clock_prompt.txt,"('clk', 'reset', 'ena')","('clk',)","('reset',)",True,True,True,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: reset', 'specification states reset behavior')"
+Prob142_lemmings2,dataset_spec-to-rtl/Prob142_lemmings2_prompt.txt,"('clk', 'areset', 'bump_left', 'bump_right', 'ground')","('clk',)","('areset',)",True,True,False,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: areset')"
+Prob143_fsm_onehot,dataset_spec-to-rtl/Prob143_fsm_onehot_prompt.txt,"('in', 'state')",(),(),True,False,False,False,False,False,False,False,True,False,()
+Prob144_conwaylife,dataset_spec-to-rtl/Prob144_conwaylife_prompt.txt,"('clk', 'load', 'data')","('clk',)",(),True,False,False,False,False,False,False,False,True,False,"('clock ports: clk',)"
+Prob145_circuit8,dataset_spec-to-rtl/Prob145_circuit8_prompt.txt,"('clock', 'a')","('clock',)",(),True,False,False,False,False,False,False,False,True,False,"('clock ports: clock',)"
+Prob146_fsm_serialdata,dataset_spec-to-rtl/Prob146_fsm_serialdata_prompt.txt,"('clk', 'in', 'reset')","('clk',)","('reset',)",True,True,False,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: reset')"
+Prob147_circuit10,dataset_spec-to-rtl/Prob147_circuit10_prompt.txt,"('clk', 'a', 'b')","('clk',)",(),True,False,False,False,False,False,False,False,True,False,"('clock ports: clk',)"
+Prob148_2013_q2afsm,dataset_spec-to-rtl/Prob148_2013_q2afsm_prompt.txt,"('clk', 'resetn', 'r')","('clk',)",(),True,False,False,False,False,False,False,False,True,False,"('clock ports: clk',)"
+Prob149_ece241_2013_q4,dataset_spec-to-rtl/Prob149_ece241_2013_q4_prompt.txt,"('clk', 'reset', 's')","('clk',)","('reset',)",True,True,True,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: reset', 'specification states reset behavior')"
+Prob150_review2015_fsmonehot,dataset_spec-to-rtl/Prob150_review2015_fsmonehot_prompt.txt,"('d', 'done_counting', 'ack', 'state')",(),(),True,False,False,False,False,False,False,False,True,False,()
+Prob151_review2015_fsm,dataset_spec-to-rtl/Prob151_review2015_fsm_prompt.txt,"('clk', 'reset', 'data', 'done_counting', 'ack')","('clk',)","('reset',)",True,True,True,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: reset', 'specification states reset behavior')"
+Prob152_lemmings3,dataset_spec-to-rtl/Prob152_lemmings3_prompt.txt,"('clk', 'areset', 'bump_left', 'bump_right', 'ground', 'dig')","('clk',)","('areset',)",True,True,False,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: areset')"
+Prob153_gshare,dataset_spec-to-rtl/Prob153_gshare_prompt.txt,"('clk', 'areset', 'predict_valid', 'predict_pc', 'train_valid', 'train_taken', 'train_mispredicted', 'train_history', 'train_pc')","('clk',)","('areset',)",True,True,True,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: areset', 'specification states reset behavior')"
+Prob154_fsm_ps2data,dataset_spec-to-rtl/Prob154_fsm_ps2data_prompt.txt,"('clk', 'reset', 'in')","('clk',)","('reset',)",True,True,False,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: reset')"
+Prob155_lemmings4,dataset_spec-to-rtl/Prob155_lemmings4_prompt.txt,"('clk', 'areset', 'bump_left', 'bump_right', 'ground', 'dig')","('clk',)","('areset',)",True,True,False,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: areset')"
+Prob156_review2015_fancytimer,dataset_spec-to-rtl/Prob156_review2015_fancytimer_prompt.txt,"('clk', 'reset', 'data', 'ack')","('clk',)","('reset',)",True,True,True,False,False,False,False,False,True,False,"('clock ports: clk', 'reset ports: reset', 'specification states reset behavior')"

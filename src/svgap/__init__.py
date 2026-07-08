@@ -23,7 +23,7 @@ from svgap.resources import taskpack_metadata, taskpack_root
 from svgap.study import summarize_reports
 from svgap.validation import ReportValidationError, validate_report_payload
 
-__version__ = "0.3.0a8"
+__version__ = "0.3.0a9"
 
 __all__ = [
     "BackendError",

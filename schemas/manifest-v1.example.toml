@@ -16,6 +16,8 @@ backend = "reference-yosys"
 
 [intent]
 asynchronous_groups = [["source"], ["destination"]]
+power_on = "unspecified"
+init_attributes_are_power_on = false
 
 [[intent.clocks]]
 name = "source"

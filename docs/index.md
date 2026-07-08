@@ -70,5 +70,6 @@ defect-rate estimate or silicon signoff.
 - [Controlled result](controlled-result.md)
 - [Reset-release result](reset-replication-result.md)
 - [Benchmark audit](benchmark-audit.md)
+- [Power-on and unknown-state benchmark audit](power-on-benchmark-audit.md)
 - [Methodology](methodology.md)
 - [Limitations](limitations.md)

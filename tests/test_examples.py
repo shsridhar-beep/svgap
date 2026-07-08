@@ -2,6 +2,7 @@ from pathlib import Path
 from unittest import TestCase, skipUnless
 import shutil
 import json
+import subprocess
 
 from svgap.backends.reference_yosys import (
     ReferenceYosysBackend,
@@ -26,6 +27,7 @@ class ExampleTests(TestCase):
             "comb_crossing": "REF-CDC-002",
             "gray_counter": "REF-CDC-003",
             "reset_release": "REF-RDC-001",
+            "power_on_x": "REF-XPROP-001",
         }
         for family, expected_rule in expected_rules.items():
             with self.subTest(family=family, variant="unsafe"):
@@ -110,3 +112,49 @@ class ExampleTests(TestCase):
         result = ReferenceYosysBackend()._analyze(manifest, netlist)
         self.assertEqual(result.status, "fail")
         self.assertIn("REF-RDC-001", {finding.rule_id for finding in result.findings})
+
+    def test_power_on_rule_reports_output_evidence(self) -> None:
+        manifest = load_manifest(ROOT / "examples/power_on_x/unsafe/manifest.toml")
+        result = ReferenceYosysBackend().check(manifest)
+        finding = next(item for item in result.findings if item.rule_id == "REF-XPROP-001")
+        self.assertIn("data_out", finding.evidence["output_signals"])
+
+    def test_power_on_rule_abstains_without_declared_reset(self) -> None:
+        manifest = load_manifest(ROOT / "examples/power_on_x/unsafe/manifest.toml")
+        manifest.resets.clear()
+        result = ReferenceYosysBackend().check(manifest)
+        self.assertEqual(result.status, "unknown")
+        self.assertIn("no reset was declared", " ".join(result.diagnostics))
+
+    def test_power_on_rule_is_disabled_when_intent_is_unspecified(self) -> None:
+        manifest = load_manifest(ROOT / "examples/power_on_x/unsafe/manifest.toml")
+        manifest.power_on = "unspecified"
+        result = ReferenceYosysBackend().check(manifest)
+        self.assertEqual(result.status, "pass", result)
+
+    def test_power_on_perturbation_separates_witnesses(self) -> None:
+        root = ROOT / "examples/power_on_x"
+        for variant, expected in (("safe", "0"), ("unsafe", "1")):
+            with self.subTest(variant=variant):
+                output = root / variant / "build/perturb.vvp"
+                output.parent.mkdir(exist_ok=True)
+                compile_result = subprocess.run(
+                    [
+                        "iverilog",
+                        "-g2012",
+                        f"-Ptb.EXPECTED=1'b{expected}",
+                        "-o",
+                        str(output),
+                        str(root / variant / "design.sv"),
+                        str(root / "perturbation_tb.sv"),
+                    ],
+                    capture_output=True,
+                    text=True,
+                    check=False,
+                )
+                self.assertEqual(compile_result.returncode, 0, compile_result.stderr)
+                run_result = subprocess.run(
+                    ["vvp", str(output)], capture_output=True, text=True, check=False
+                )
+                self.assertEqual(run_result.returncode, 0, run_result.stderr)
+                self.assertIn("PERTURBATION_PASS", run_result.stdout)

@@ -808,7 +808,7 @@ def doctor() -> int:
         version = subprocess.run(
             ["yosys", "-V"], capture_output=True, text=True, check=False
         ).stdout.strip()
-        print(f"backend    reference-yosys 0.1 ({version})")
+        print(f"backend    reference-yosys 0.2 ({version})")
     backends, backend_errors = discover_backends()
     print(f"backends   {', '.join(sorted(backends))}")
     for name, error in sorted(backend_errors.items()):
@@ -828,7 +828,7 @@ def doctor() -> int:
         else:
             print(f"  No native installation recipe is maintained for {system or 'this platform'}.")
         print("Or use the pinned container with no host EDA installation:")
-        print("  docker run --rm ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.8 doctor")
+        print("  docker run --rm ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.9 doctor")
         print("Docs: https://shsridhar-beep.github.io/svgap/linux-install-and-doctor/")
     return 1 if missing_tools or backend_errors else 0
 
