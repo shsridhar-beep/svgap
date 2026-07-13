@@ -15,6 +15,7 @@ classifiers = [
   "Programming Language :: Python :: 3",
   "Topic :: Scientific/Engineering :: Electronic Design Automation (EDA)",
 ]
+dependencies = ["najaeda>=0.7.12"]
 
 [project.urls]
 Repository = "https://github.com/shsridhar-beep/svgap"
@@ -32,6 +33,7 @@ svgap = "svgap.cli:main"
 
 [project.entry-points."svgap.backends"]
 reference-yosys = "svgap.backends.reference_yosys:ReferenceYosysBackend"
+reference-naja = "svgap.backends.reference_naja:ReferenceNajaBackend"
 
 [tool.setuptools.packages.find]
 where = ["src"]
