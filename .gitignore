@@ -5,6 +5,10 @@ __pycache__/
 build/
 dist/
 *.egg-info/
+# najaeda writes these to the current working directory during slang
+# elaboration (reference-naja backend and its tests / harness).
+naja_perf.log
+naja_sv_diagnostics.log
 reports/generated/
 reports/evaluated/
 review_packets/

@@ -11,3 +11,12 @@ class BackendRegistryTests(TestCase):
     def test_unknown_backend_has_actionable_error(self) -> None:
         with self.assertRaisesRegex(BackendError, "available"):
             load_backend("missing-backend")
+
+    def test_reference_naja_backend_is_discoverable(self) -> None:
+        # Capability probe for the najaeda structural backend: it registers via
+        # the svgap.backends entry point and loads to its own instance.
+        self.assertIn("reference-naja", available_backends())
+        backend = load_backend("reference-naja")
+        self.assertEqual(backend.name, "reference-naja")
+        self.assertEqual(type(backend).__name__, "ReferenceNajaBackend")
+        self.assertTrue(callable(getattr(backend, "check", None)))

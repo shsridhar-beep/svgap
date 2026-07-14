@@ -276,7 +276,7 @@ def _trace_sequential_sources(
             if transparent:
                 found.append((source, path))
             else:
-                found.append((source, ((_inst_segment(inst), model.getName()), *path)))
+                found.append((source, ((_inst_segment(inst), model), *path)))
     return found
 
 
@@ -304,7 +304,7 @@ def _same_domain_successors(
             if consumer is not None and consumer.inst != reg.inst and consumer.clock_name == reg.clock_name:
                 found[consumer.label] = consumer
                 continue
-            if model.isAssign() or model.getName().startswith("naja_mux"):
+            if model.isAssign() or model.isMux():
                 for out_it in inst.getInstTerms():
                     if out_it.getDirection() == DIR_OUTPUT:
                         out_net = out_it.getNet()
@@ -336,10 +336,6 @@ def _cone_types(net, visited: FrozenSet[Any]) -> set:
     return types
 
 
-def _is_mux(model_name: str) -> bool:
-    return model_name.startswith("naja_mux")
-
-
 # ---------------------------------------------------------------------------
 # Backend
 # ---------------------------------------------------------------------------
@@ -352,6 +348,14 @@ class ReferenceNajaBackend:
     Known naja-specific modeling gaps vs. the Yosys reference, all confirmed
     empirically against svgap's own example fixtures (najaeda 0.7.11):
 
+    * Reset-synchronizer recognition covers both the scalar two-flop form and
+      the wide packed-vector form (`logic [1:0] reset_sync; ...`), which naja
+      lowers as one multi-bit `..._dffrn__wN` instance. `_reset_synchronizer_regs`
+      recognizes the wide form by resolving each D bit through `assign` glue and
+      matching a bit-0 inactive constant plus a strict shift chain, the ported
+      analog of Yosys's "one wide vector-shift $adff cell" fallback. (Before
+      this was ported the wide form produced 18 REF-RDC-001 false positives on
+      the frozen reset artifact; see docs/cross-oracle-naja-result.md.)
     * Synchronous-reset polarity: `if (!rst_n)` lowers, via slang, to an
       explicit `not_1` gate feeding a `naja_muxN` select pin. Yosys's `proc`
       pass instead folds the polarity into which mux input is the reset
@@ -369,10 +373,10 @@ class ReferenceNajaBackend:
       XNOR from each other for naja's *generic* N-ary gate family, since the
       C++ `SNLTruthTable` stores these via a `GenericType` tag rather than
       an explicit bit mask. XOR identification below uses `SNLDesign.isXor()`
-      instead, which naja resolves from that tag directly. Mux has no
-      equivalent `isMux()`, so it still falls back to naja's stable NLDB0
-      primitive naming (`naja_mux2`, ...), the same kind of cell-type-string
-      identity Yosys's `$mux` check already relies on.
+      instead, which naja resolves from that tag directly. Mux identification
+      uses `SNLDesign.isMux()` (najaeda >= 0.7.13); earlier versions had no
+      such accessor and this backend instead matched naja's stable NLDB0
+      primitive naming (`naja_mux2`, ...).
     """
 
     name = "reference-naja"
@@ -495,7 +499,7 @@ class ReferenceNajaBackend:
                 )
                 continue
             hazardous_comb = sorted(
-                label for label, model_name in item["comb"] if not _is_mux(model_name)
+                label for label, model in item["comb"] if not model.isMux()
             )
             if hazardous_comb:
                 evidence["combinational_cells"] = hazardous_comb
@@ -619,15 +623,67 @@ def _declared_coherent_protocol(manifest: Manifest, source: SeqReg, second_stage
     return False
 
 
+def _resolve_assign_source(net):
+    """Follow single-input `assign` glue backward to the underlying source
+    net (or constant net) it aliases. naja lowers a continuous net alias
+    (`wire x = y;`, and the per-bit wiring of a packed-vector assignment) to
+    an explicit `assign` leaf instance, so a wide register's D bit is not the
+    constant/Q net directly but an `assign` output aliasing it. Yosys has no
+    such cell and its reset-synchronizer matcher sees the resolved bits
+    directly; resolving here reproduces that view. Returns the original net
+    unchanged when it is a primary input, a constant, or driven by real
+    logic (anything other than a single-input `assign`)."""
+    seen: set = set()
+    cur = net
+    while cur is not None and cur not in seen:
+        seen.add(cur)
+        driver = _driving_inst_term(cur)
+        if driver is None:
+            return cur
+        inst = driver.getInstance()
+        if not inst.getModel().isAssign():
+            return cur
+        inputs = _input_nets(inst)
+        if len(inputs) != 1:
+            return cur
+        cur = inputs[0]
+    return cur
+
+
 def _reset_synchronizer_regs(seq_regs: list[SeqReg], reset_by_net: dict) -> set:
-    """Recognize a conventional two-flop asynchronous-assert reset
-    synchronizer: a single-bit first stage whose D is tied to the reset's
-    *inactive* constant value, feeding a single-bit second stage's D
-    directly (no combinational logic in between), both sharing the same
-    async reset net. Mirrors reset_synchronizer_bits(); the Yosys reference's
-    extra "one wide vector-shift $adff cell" fallback has no analog here --
-    naja lowers explicit multi-flop reset synchronizers as separate scalar
-    instances in every fixture observed, so it is not ported.
+    """Recognize a conventional asynchronous-assert reset synchronizer in
+    either of the two forms naja emits, mirroring reset_synchronizer_bits():
+
+    * Scalar two-flop form: a single-bit first stage whose D is tied to the
+      reset's *inactive* constant value, feeding a single-bit second stage's D
+      directly (no combinational logic in between), both sharing the same async
+      reset net. This is how svgap's own example fixtures -- written as separate
+      named scalar flops -- lower.
+
+    * Wide single-instance form (the ported analog of Yosys's "one wide
+      vector-shift $adff cell" fallback): a single multi-bit sequential
+      instance whose bit 0 D loads the reset's inactive constant and whose
+      every higher bit D is the previous bit's Q (a shift chain), under one
+      shared async reset net. naja lowers a packed-vector synchronizer
+      (`logic [1:0] reset_sync; reset_sync <= {reset_sync[0], 1'b1};`) as one
+      `..._dffrn__wN` instance rather than N scalar flops; each D bit reaches
+      its constant/Q source through a transparent `assign` alias, so the D
+      nets are resolved via `_resolve_assign_source` before the constant/shift
+      test (this reproduces Yosys's resolved-bit view -- Yosys has no `assign`
+      cell). Downstream registers reset on an internal Q bit of this register
+      (e.g. `reset_sync[1]`) rather than the raw declared reset, so they carry
+      no declared-reset async pin and are never candidates for REF-RDC-001.
+
+      Before this form was ported the wide synchronizer's own register was
+      flagged under REF-RDC-001: on the frozen 72-candidate reset artifact that
+      was 18 false positives (one model configuration's packed-vector coding
+      style) and cross-oracle agreement of 54/72; see
+      docs/cross-oracle-naja-result.md.
+
+    Over-acceptance is bounded by matching the exact Yosys structural test: an
+    ordinary wide async-reset *data* register fails both the constant-at-bit-0
+    and the strict shift-chain checks (its D bits resolve to external data, not
+    to the inactive constant or prior Q bits), so it is still flagged.
 
     Evaluated (najaeda 0.7.12) and rejected: strengthening this via the new
     model-level `SNLDesign.getAsyncResetTerms()`/`getSyncResetTerms()`/etc.
@@ -644,6 +700,36 @@ def _reset_synchronizer_regs(seq_regs: list[SeqReg], reset_by_net: dict) -> set:
     is not adopted here."""
     recognized: set = set()
     by_qnet = {q: reg for reg in seq_regs for q in reg.q_nets}
+
+    # Wide single-instance form: one multi-bit register, bit 0 loads the
+    # inactive constant, every higher bit shifts the previous bit's Q, under a
+    # single shared async reset. Mirrors the Yosys wide vector-shift fallback:
+    # d_bits[0] == inactive and d_bits[1:] == q_bits[:-1] (over assign-resolved
+    # D nets).
+    for cell in seq_regs:
+        if (
+            len(cell.q_nets) < 2
+            or len(cell.d_nets) != len(cell.q_nets)
+            or cell.reset_net is None
+        ):
+            continue
+        reset = reset_by_net.get(cell.reset_net)
+        if reset is None:
+            continue
+        arst_nets = {n for _bit, n in _bit_terms_by_role(cell.inst, "AsyncReset") if n is not None}
+        if len(arst_nets) != 1:
+            continue
+        resolved = [_resolve_assign_source(d) for d in cell.d_nets]
+        injection = resolved[0]
+        if injection is None:
+            continue
+        inactive_ok = injection.isConstant1() if reset.active == "low" else injection.isConstant0()
+        if not inactive_ok:
+            continue
+        if not all(resolved[i] == cell.q_nets[i - 1] for i in range(1, len(cell.q_nets))):
+            continue
+        recognized.add(cell.inst)
+
     for second in seq_regs:
         if len(second.q_nets) != 1 or len(second.d_nets) != 1 or second.reset_net is None:
             continue
