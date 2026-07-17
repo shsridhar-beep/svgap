@@ -23,7 +23,7 @@ RUN apt-get update \
 ENV PATH="/opt/oss-cad-suite/bin:${PATH}"
 WORKDIR /opt/svgap
 COPY . .
-RUN python -m pip install --no-cache-dir . \
+RUN python -m pip install --no-cache-dir ".[naja]" \
     && svgap doctor
 
 WORKDIR /work

@@ -14,7 +14,12 @@ import tomllib
 from tempfile import TemporaryDirectory
 from pathlib import Path
 
-from svgap.backends.registry import BackendError, discover_backends, load_backend
+from svgap.backends.registry import (
+    BackendError,
+    discover_backends,
+    load_backend,
+    unavailable_backends,
+)
 from svgap.challenge import ChallengeError, score_challenge
 from svgap.challenge_runner import ChallengeRunError, run_challenge
 from svgap.audit import audit_benchmark, write_audit
@@ -811,6 +816,8 @@ def doctor() -> int:
         print(f"backend    reference-yosys 0.2 ({version})")
     backends, backend_errors = discover_backends()
     print(f"backends   {', '.join(sorted(backends))}")
+    for name, hint in sorted(unavailable_backends().items()):
+        print(f"optional   {name}: {hint}")
     for name, error in sorted(backend_errors.items()):
         print(f"plugin     {name}: {error}")
     if missing_tools:

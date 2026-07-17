@@ -36,6 +36,29 @@ class DoctorRemediationTests(TestCase):
         self.assertEqual(code, 1)
         self.assertIn("Docker Desktop or WSL2", output)
 
+    def test_unavailable_optional_backend_is_informational_not_a_failure(self) -> None:
+        # A backend whose optional extra is not installed prints an install
+        # hint but must not fail doctor: the default install is healthy.
+        output = io.StringIO()
+        with (
+            patch("svgap.cli.shutil.which", side_effect=lambda tool: f"/tools/{tool}"),
+            patch("svgap.cli.subprocess.run") as run,
+            patch(
+                "svgap.cli.discover_backends",
+                return_value=({"reference-yosys": object()}, {}),
+            ),
+            patch(
+                "svgap.cli.unavailable_backends",
+                return_value={"reference-naja": "install it with: pip install 'svgap[naja]'"},
+            ),
+            patch("sys.stdout", output),
+        ):
+            run.return_value.stdout = "Yosys 0.66"
+            code = doctor()
+        self.assertEqual(code, 0)
+        self.assertIn("optional   reference-naja", output.getvalue())
+        self.assertIn("pip install 'svgap[naja]'", output.getvalue())
+
     def test_plugin_error_remains_a_failure_when_tools_exist(self) -> None:
         output = io.StringIO()
         with (

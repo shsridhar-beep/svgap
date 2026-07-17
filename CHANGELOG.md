@@ -17,9 +17,14 @@ versioning once the manifest and report contracts reach public v0.1.
   [docs/cross-oracle-naja-result.md](docs/cross-oracle-naja-result.md), including
   a najaeda-accepts / Yosys-rejects result for SystemVerilog function `return`.
 - najaeda added to [THIRD_PARTY.md](THIRD_PARTY.md) (Apache-2.0), and a
-  `reference-naja` backend doc covering license, pip-only install, source
-  locations, supported rules (REF-XPROP-001 excluded), the no-timeout gap, and
-  known false-positive/false-negative classes.
+  `reference-naja` backend doc covering license, the opt-in install, source
+  locations, supported rules (REF-XPROP-001 abstains as `unknown`), the
+  no-timeout gap, and known false-positive/false-negative classes.
+- The `reference-naja` backend is packaged as the optional `naja` extra
+  (`pip install "svgap[naja]"`, supported range `najaeda>=0.7.16,<0.8`); the
+  default install is unchanged. `svgap doctor` reports an uninstalled optional
+  backend with its install command without failing, and `load_backend` raises
+  the same actionable hint.
 
 ### Fixed
 

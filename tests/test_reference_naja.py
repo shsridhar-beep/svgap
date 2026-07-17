@@ -1,9 +1,11 @@
 """Acceptance tests for the najaeda-backed structural oracle.
 
 These mirror the ExampleTests contract in test_examples.py but drive
-ReferenceNajaBackend directly. The backend is a pure-Python, structural-only
-checker built on najaeda's bundled slang frontend (no Yosys/Icarus binaries),
-so none of these need the HAS_TOOLS gate that test_examples.py uses.
+ReferenceNajaBackend directly. The backend is an in-process, structural-only
+checker built on najaeda's bundled slang frontend (no separately installed
+Yosys/Icarus binaries), so none of these need the HAS_TOOLS gate that
+test_examples.py uses. They do need the optional naja extra; without it the
+module import below raises and the whole file is reported as skipped.
 """
 
 from __future__ import annotations
@@ -13,9 +15,14 @@ import tempfile
 from dataclasses import asdict
 from datetime import datetime, timezone
 from pathlib import Path
-from unittest import TestCase, skipUnless
+from unittest import SkipTest, TestCase, skipUnless
 
-from svgap.backends.reference_naja import ReferenceNajaBackend
+from svgap.backends.base import BackendUnavailable
+
+try:
+    from svgap.backends.reference_naja import ReferenceNajaBackend
+except BackendUnavailable as exc:  # the optional naja extra is not installed
+    raise SkipTest(f"reference-naja backend is unavailable: {exc}") from exc
 from svgap.manifest import load_manifest
 from svgap.model import CrossingIntent, EvaluationReport, FunctionalResult, Manifest
 from svgap.validation import validate_report_payload

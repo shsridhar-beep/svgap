@@ -8,9 +8,18 @@ from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 from typing import Any, FrozenSet, Optional, Tuple
 
-from najaeda import naja
-
+from svgap.backends.base import BackendUnavailable
 from svgap.model import CheckResult, Finding, Manifest
+
+try:
+    from najaeda import naja
+except ModuleNotFoundError as exc:
+    if exc.name != "najaeda":
+        raise
+    raise BackendUnavailable(
+        "the reference-naja backend needs the optional najaeda dependency; "
+        "install it with: pip install 'svgap[naja]'"
+    ) from exc
 
 # ---------------------------------------------------------------------------
 # Raw naja load boundary (mirrors naja-scope's src/naja_scope/loader.py).

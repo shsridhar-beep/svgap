@@ -25,23 +25,39 @@ is listed in
 
 ## Install requirements
 
-This is the practical differentiator from `reference-yosys`. `reference-naja`
-needs **no external binary**: najaeda is a pure `pip install` dependency
-(floored at `najaeda>=0.7.13` in `pyproject.toml`) and bundles its own slang
-SystemVerilog frontend and SNL netlist engine. There is no Yosys and no Icarus
-Verilog in this backend's path.
+The backend is opt-in. It is packaged as the optional `naja` extra:
+
+```sh
+pip install "svgap[naja]"
+```
+
+The default `pip install svgap` is unchanged and does not pull najaeda. When
+the extra is absent, `svgap doctor` reports `reference-naja` as an optional
+backend with the install command (without failing), and selecting the backend
+in a manifest produces the same actionable error instead of a crash.
+
+The practical differentiator from `reference-yosys` is *in-process operation
+with no separately installed executable*: there is no Yosys and no Icarus
+Verilog in this backend's path. najaeda is not a pure-Python package, though;
+it distributes platform-specific compiled wheels bundling its native slang
+SystemVerilog frontend and SNL netlist engine.
 
 - `reference-yosys` shells out to the `yosys` executable and, for functional
   checks, `iverilog`/`vvp`; those are external system packages.
 - `reference-naja` runs entirely in-process against `from najaeda import naja`.
 
-Installing SV-Gap installs najaeda, so `svgap doctor` lists `reference-naja`
-with no further setup. (Functional simulation is unaffected and still uses
-Icarus; this backend only replaces the *structural* oracle.)
+Wheels for najaeda 0.7.16 cover Linux x86_64/aarch64 (manylinux 2.28), macOS
+arm64, and Windows x86_64; other platforms need a source build of Naja.
+(Functional simulation is unaffected and still uses Icarus; this backend only
+replaces the *structural* oracle.)
 
-The version floor is `0.7.13` specifically because the backend uses
-`SNLDesign.isMux()`, added in that release, instead of an earlier
-`naja_mux*` name-prefix heuristic.
+The supported version range is `najaeda>=0.7.16,<0.8`. The backend uses
+`SNLDesign.isMux()` (added in 0.7.13) instead of an earlier `naja_mux*`
+name-prefix heuristic, and relies on 0.7.16 side-effect defaults (no
+performance report unless `NAJA_PERF` is set, `diagnostics_report_path`
+honored as given). najaeda is pre-1.0, so minor releases may move the API;
+the ceiling is deliberate. Each result records the exact najaeda version in
+`tool_versions` provenance.
 
 ## Source-location behavior
 
