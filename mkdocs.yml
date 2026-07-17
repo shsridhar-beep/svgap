@@ -33,6 +33,7 @@ nav:
       - Evaluate your model: evaluate-your-model.md
       - Controlled result: controlled-result.md
       - Reset-release result: reset-replication-result.md
+      - Cross-oracle naja result: cross-oracle-naja-result.md
       - Benchmark audit: benchmark-audit.md
       - Power-on benchmark audit: power-on-benchmark-audit.md
       - RTL designer review protocol: rtl-designer-review-protocol.md
@@ -42,6 +43,7 @@ nav:
       - Architecture: architecture.md
       - Python API: python-api.md
       - Backend SDK: backend-sdk.md
+      - Reference naja backend: reference-naja-backend.md
       - Adjudication scaffold: adjudication-scaffold.md
       - Scope boundary: scope-boundary.md
   - Community:

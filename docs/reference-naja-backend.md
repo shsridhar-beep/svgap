@@ -20,7 +20,8 @@ classes.
 The backend depends on **najaeda** (the Python distribution of the
 [Naja](https://github.com/najaeda/naja) SNL/EDA project), which is
 **Apache-2.0**. This is compatible with SV-Gap's own Apache-2.0 license. najaeda
-is listed in [THIRD_PARTY.md](../THIRD_PARTY.md).
+is listed in
+[THIRD_PARTY.md](https://github.com/shsridhar-beep/svgap/blob/main/THIRD_PARTY.md).
 
 ## Install requirements
 
