@@ -38,6 +38,7 @@ nav:
       - Power-on benchmark audit: power-on-benchmark-audit.md
       - RTL designer review protocol: rtl-designer-review-protocol.md
       - Independent review result: independent-review-result.md
+      - Power-on prevalence protocol: power-on-prevalence-protocol.md
       - Methodology: methodology.md
       - Limitations: limitations.md
   - Extend:
