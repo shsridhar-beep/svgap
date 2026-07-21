@@ -10,6 +10,13 @@ with:
 backend = "reference-naja"
 ```
 
+The backend builds on [najaeda](https://github.com/najaeda/naja), the Python
+API of the open-source Naja EDA project, which provides structured-netlist
+(SNL) infrastructure for post-synthesis flow development and interoperates
+with Yosys- and OpenROAD-based flows. The upstream project is maintained
+independently and is worth a visit if you work at the netlist layer; this
+page documents only the SV-Gap side of the backend.
+
 This page documents what [docs/backend-sdk.md](backend-sdk.md) requires of any
 contributed backend: license, install requirements, source-location behavior,
 supported rules, timeout behavior, and known false-positive / false-negative

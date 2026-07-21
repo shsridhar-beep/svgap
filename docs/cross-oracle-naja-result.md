@@ -151,7 +151,11 @@ it is reproducible from the description above.
 
 This is a scope-overlap agreement measurement on one frozen taskpack. It is not
 a claim that the two backends are interchangeable in general, that 100% is their
-asymptotic agreement, or that reference-naja is signoff-grade. It does establish
+asymptotic agreement, or that reference-naja is signoff-grade. Agreement with
+the frozen verdicts is compatibility; it is neither independent validation of
+reference-yosys nor production truth. The frontend-capability evidence issue #1
+asks for (function-return and enum-syntax fixtures) stays open follow-up work
+outside this comparison. It does establish
 that on this taskpack they agree exactly, and that the modeling difference that
 had separated them is understood down to the netlist and resolved rather than
 merely characterized.
