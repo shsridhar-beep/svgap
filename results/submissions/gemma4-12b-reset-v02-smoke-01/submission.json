@@ -1,0 +1,30 @@
+{
+  "artifacts": {
+    "evidence": [
+      "evidence/001-reset_counter.json"
+    ],
+    "summary": "summary.json"
+  },
+  "claim_boundary": "This profile describes submitted digital RTL evidence under configured functional and structural checks. It is not silicon signoff, a population estimate, or a general model ranking.",
+  "configuration": {
+    "comparative_eligible": true,
+    "label": "gemma4-12b-mlx",
+    "model_id": "gemma4:12b-mlx",
+    "provenance_level": "public"
+  },
+  "contributor": "Siddhanth Kalyanaraman (@sidbu546)",
+  "created_at": "2026-07-22T05:22:39.914915+00:00",
+  "digests": {
+    "evidence/001-reset_counter.json": "175750066500685bc046278322b25c149c855133a9ed4af1b1415e562d1b6b4a",
+    "summary.json": "c71e76cf9cf6ab0eed4a11ff070946200fa61a08ee2819e72d50723faeb388b9"
+  },
+  "license": "Apache-2.0",
+  "schema_version": "1.0",
+  "submission_id": "gemma4-12b-reset-v02-smoke-01",
+  "taskpack": {
+    "id": "reset-replication",
+    "version": "0.2"
+  },
+  "title": "Gemma 4 12B MLX reset-release v0.2 smoke profile",
+  "track": "generation"
+}
