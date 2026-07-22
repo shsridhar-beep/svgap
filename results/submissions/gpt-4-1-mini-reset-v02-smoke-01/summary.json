@@ -1,0 +1,34 @@
+{
+  "by_model": {
+    "gpt-4-1-mini-reset-v02-smoke-01": {
+      "candidates": 1,
+      "functional_pass": 0,
+      "gap_members": 0
+    }
+  },
+  "by_task": {
+    "reset_counter": {
+      "candidates": 1,
+      "functional_pass": 0,
+      "gap_members": 0
+    }
+  },
+  "detected_gap_fraction": null,
+  "functional_pass": 0,
+  "gap_members": 0,
+  "kind": "generation_reports",
+  "outcomes": [
+    {
+      "count": 1,
+      "functional": "fail",
+      "gap_member": false,
+      "structural": "fail"
+    }
+  ],
+  "report_count": 1,
+  "rules": {
+    "REF-RDC-001": 1
+  },
+  "schema_version": "1.0",
+  "structurally_determinate_functional_pass": 0
+}

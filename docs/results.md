@@ -39,6 +39,7 @@ or go straight to [submitting results](submitting-results.md).
 |---|---|---|---|---|
 | [Codex gpt-5.5 reset-release generation profile](result-profiles/codex-gpt-5.5-reset-v02-01.md) | `generation` | `gpt-5.5` | `public` | Shraddha Sridhar |
 | [Gemma 4 12B MLX reset-release v0.2 smoke profile](result-profiles/gemma4-12b-reset-v02-smoke-01.md) | `generation` | `gemma4-12b-mlx` | `public` | Siddhanth Kalyanaraman (@sidbu546) |
+| [GPT-4.1 mini reset-release v0.2 smoke profile](result-profiles/gpt-4-1-mini-reset-v02-smoke-01.md) | `generation` | `gpt-4.1-mini` | `public` | Siddhanth Kalyanaraman (@sidbu546) |
 | [DeepSeek-Coder-V2-16B open-weights reset-release generation profile](result-profiles/openweights-deepseek-coder-v2-16b-reset-v02.md) | `generation` | `deepseek-coder-v2-16b` | `public` | Shraddha Sridhar |
 | [Qwen2.5-Coder-7B open-weights reset-release generation profile](result-profiles/openweights-qwen25-coder-7b-reset-v02.md) | `generation` | `qwen2.5-coder-7b` | `public` | Shraddha Sridhar |
 
