@@ -20,6 +20,10 @@ real-world identity.
   structural backend ([PR #21](https://github.com/shsridhar-beep/svgap/pull/21)).
   Christophe is a maintainer of [najaeda/naja](https://github.com/najaeda/naja),
   the upstream project this backend depends on.
+- [Siddhanth Kalyanaraman](https://github.com/sidbu546) - the Gemma 4 12B and
+  GPT-4.1 mini reset-release smoke evidence profiles
+  ([PR #23](https://github.com/shsridhar-beep/svgap/pull/23),
+  [PR #24](https://github.com/shsridhar-beep/svgap/pull/24)).
 
 GitHub handles in this section identify the accounts credited by the accepted
 commit history. Unless separately stated, the project does not claim to have
