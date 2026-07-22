@@ -1,0 +1,58 @@
+{
+  "candidate_id": "reset_counter",
+  "functional": {
+    "commands": [
+      [
+        "iverilog",
+        "-g2012",
+        "-o",
+        "${SVGAP_BUILD}/sim.vvp",
+        "design.sv",
+        "task-testbench.sv"
+      ],
+      [
+        "vvp",
+        "${SVGAP_BUILD}/sim.vvp"
+      ]
+    ],
+    "evidence": {},
+    "imported_from": null,
+    "returncodes": [
+      0,
+      1
+    ],
+    "status": "fail",
+    "stderr": "\n",
+    "stdout": "\nFATAL: task-testbench.sv:9: reset did not assert asynchronously\n       Time: 93  Scope: tb\n",
+    "tool_versions": {
+      "iverilog": "Icarus Verilog version 13.0 (stable) (v13_0)",
+      "vvp": "Icarus Verilog runtime version 13.0 (stable) (v13_0)"
+    }
+  },
+  "gap_member": false,
+  "generated_at": "2026-07-22T05:02:58.371458+00:00",
+  "manifest": "gpt-4.1-mini--sample-01/reset_counter/manifest.toml",
+  "schema_version": "1.0",
+  "structural": {
+    "backend": "reference-yosys",
+    "backend_version": "0.2",
+    "diagnostics": [],
+    "findings": [
+      {
+        "evidence": {
+          "cell": "$procdff$16",
+          "clock": "core",
+          "reset": "external_reset",
+          "source_location": "design.sv:7.5-12.8"
+        },
+        "message": "raw asynchronous reset reaches an unmarked state element although synchronous deassertion is required",
+        "rule_id": "REF-RDC-001",
+        "severity": "error"
+      }
+    ],
+    "status": "fail",
+    "tool_versions": {
+      "yosys": "Yosys 0.67+post (git sha1 b8e7da6f40ae8f552c116bf6c359b07c6533e159, Release, AppleClang clang++ 21.0.0.21000099)"
+    }
+  }
+}

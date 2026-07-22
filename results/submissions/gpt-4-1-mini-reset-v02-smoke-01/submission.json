@@ -1,0 +1,30 @@
+{
+  "artifacts": {
+    "evidence": [
+      "evidence/001-reset_counter.json"
+    ],
+    "summary": "summary.json"
+  },
+  "claim_boundary": "This profile describes submitted digital RTL evidence under configured functional and structural checks. It is not silicon signoff, a population estimate, or a general model ranking.",
+  "configuration": {
+    "comparative_eligible": true,
+    "label": "gpt-4.1-mini",
+    "model_id": "gpt-4.1-mini",
+    "provenance_level": "public"
+  },
+  "contributor": "Siddhanth Kalyanaraman (@sidbu546)",
+  "created_at": "2026-07-22T05:23:15.746947+00:00",
+  "digests": {
+    "evidence/001-reset_counter.json": "fd6d0de7606f3d63016cb05fd6f2ff3610763af01fe1a5eaf622b09191d2da0d",
+    "summary.json": "54b36a3f9212c0377230dee15e29c198c1dab4407ae58fa9976f81c2f3b9f267"
+  },
+  "license": "Apache-2.0",
+  "schema_version": "1.0",
+  "submission_id": "gpt-4-1-mini-reset-v02-smoke-01",
+  "taskpack": {
+    "id": "reset-replication",
+    "version": "0.2"
+  },
+  "title": "GPT-4.1 mini reset-release v0.2 smoke profile",
+  "track": "generation"
+}
