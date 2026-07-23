@@ -88,6 +88,26 @@ This is one run, not a model ranking or an estimate of how often the problem
 occurs. We are publishing it because the two failures are concrete examples
 of a broader eval question worth testing across more agents and task families.
 
+## Independent checks and community submissions
+
+Two forms of outside evidence now sit alongside that first run.
+
+An independent RTL designer reviewed the frozen study blind, under a
+[hash-locked protocol](https://shsridhar-beep.github.io/svgap/independent-review-result/?utm_source=harbor_hub&utm_medium=dataset&utm_campaign=reset_release_02).
+He judged all five controlled witness pairs to support their stated rule and
+all three blinded candidates concordant with the frozen oracle, and his
+technical qualifiers are preserved verbatim. A second, independently built
+structural oracle agrees with the reference oracle on every candidate in the
+frozen corpus.
+
+Community submissions have also begun. The first two external results, one
+open-weights model and one hosted model, arrived through the same run-and-import
+path and are live on the
+[results table](https://shsridhar-beep.github.io/svgap/results/?utm_source=harbor_hub&utm_medium=dataset&utm_campaign=reset_release_02).
+One is a gap member whose design passed the tests and failed the wiring rule,
+and the other is an honest functional failure. Both show the contribution path
+on this page working from run to reviewed evidence.
+
 ## Reading Harbor's metric names
 
 | Harbor metric | Plain-language meaning |
@@ -143,7 +163,10 @@ reviewed evidence and the limits on what each result can support. Uploading a
 job to Harbor Hub is optional and is not required to contribute.
 
 Other useful contributions include counterexamples, critiques of the reset
-rule, new task ideas, and reviews of the open evaluation method. See
+rule, new task ideas, and reviews of the open evaluation method. If you want to
+help shape the rule itself, the open
+[RFC on a structural intent contract](https://github.com/shsridhar-beep/svgap/discussions/20)
+is where that design is being worked out in the open. See
 [how to submit results](https://shsridhar-beep.github.io/svgap/submitting-results/)
 or start a discussion in the
 [SV-Gap repository](https://github.com/shsridhar-beep/svgap/discussions).
