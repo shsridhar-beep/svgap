@@ -6,6 +6,7 @@ from importlib.resources import files
 from pathlib import Path
 from typing import Any
 
+from svgap.enums import DemoScenario
 
 ASSET_NAMES = (
     "tb.sv",
@@ -20,13 +21,15 @@ class DemoError(RuntimeError):
     pass
 
 
-def materialize_demo(destination: Path) -> Path:
+def materialize_demo(destination: Path, scenario: DemoScenario = DemoScenario.RESET_RELEASE) -> Path:
     destination = destination.resolve()
     if destination.exists() and not destination.is_dir():
         raise DemoError(f"demo output path is not a directory: {destination}")
     if destination.exists() and any(destination.iterdir()):
         raise DemoError(f"demo output directory is not empty: {destination}")
-    root = files("svgap").joinpath("demo_assets")
+
+    scenario_dir_path = scenario.value.replace("-", "_")
+    root = files("svgap").joinpath("demo_assets", scenario_dir_path)
     for relative in ASSET_NAMES:
         source = root.joinpath(relative)
         target = destination / relative

@@ -14,6 +14,7 @@ import tomllib
 from tempfile import TemporaryDirectory
 from pathlib import Path
 
+from svgap.enums import DemoScenario
 from svgap.backends.registry import (
     BackendError,
     discover_backends,
@@ -118,6 +119,12 @@ def build_parser() -> argparse.ArgumentParser:
     )
     demo.add_argument("--output", type=Path, help="preserve demo sources, reports, and summary")
     demo.add_argument("--json", action="store_true", help="print the demo summary as JSON")
+    demo.add_argument(
+      "--scenario",
+      choices=[e.value for e in DemoScenario],
+      default=DemoScenario.RESET_RELEASE,
+      help="select the controlled demo scenario",
+  )
     taskpack = subparsers.add_parser(
         "taskpack", help="list and inspect packaged frozen taskpacks"
     )
@@ -392,7 +399,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "doctor":
         return doctor()
     if args.command == "demo":
-        return run_demo_command(args.output, args.json)
+        return run_demo_command(args.output, args.json, args.scenario)
     if args.command == "taskpack":
         try:
             if args.taskpack_command == "list":
@@ -840,22 +847,23 @@ def doctor() -> int:
     return 1 if missing_tools or backend_errors else 0
 
 
-def run_demo_command(output: Path | None, print_json: bool) -> int:
+def run_demo_command(output: Path | None, print_json: bool, scenario_str: str) -> int:
     try:
         require_demo_tools()
+        scenario: DemoScenario = DemoScenario(scenario_str)
         if output is None:
             with TemporaryDirectory(prefix="svgap-demo-") as directory:
-                return _execute_demo(Path(directory), None, print_json)
-        root = materialize_demo(output)
-        return _execute_demo(root, root, print_json)
+                return _execute_demo(Path(directory), None, print_json, scenario)
+        root = materialize_demo(output, scenario)
+        return _execute_demo(root, root, print_json, scenario)
     except (DemoError, OSError, json.JSONDecodeError, ReportValidationError) as exc:
         print(f"demo failed: {exc}", file=sys.stderr)
         return 2
 
 
-def _execute_demo(root: Path, preserved_output: Path | None, print_json: bool) -> int:
+def _execute_demo(root: Path, preserved_output: Path | None, print_json: bool, scenario: DemoScenario) -> int:
     if preserved_output is None:
-        materialize_demo(root)
+        materialize_demo(root, scenario)
     with redirect_stdout(io.StringIO()):
         safe_code = check(root / "safe/manifest.toml", False, False)
         unsafe_code = check(root / "unsafe/manifest.toml", False, False)
