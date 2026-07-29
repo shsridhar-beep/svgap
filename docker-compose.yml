@@ -1,0 +1,17 @@
+#compose for dev setup
+services:
+  svgap-dev:
+    image: ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.9
+    container_name: svgap_dev_container
+    working_dir: /workspace
+    
+    volumes:
+      - .:/workspace
+      
+    # Passes the local user ID and group ID to the container.
+    # This prevents the frustrating "permission denied" errors on the host 
+    # when the container generates new files (like logs or build artifacts).
+    user: "${UID:-1000}:${GID:-1000}"
+    
+    # Run container in background indefinitely
+    entrypoint: ["sleep", "infinity"]
