@@ -873,7 +873,7 @@ def _execute_demo(root: Path, preserved_output: Path | None, print_json: bool, s
     unsafe_report = validate_report_payload(
         json.loads((root / "unsafe/build/report.json").read_text(encoding="utf-8"))
     )
-    summary = build_demo_summary(safe_report, unsafe_report)
+    summary = build_demo_summary(safe_report, unsafe_report, scenario)
     if safe_code != 0 or unsafe_code != 1:
         summary["status"] = "fail"
     if preserved_output is not None:

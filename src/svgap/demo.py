@@ -47,18 +47,23 @@ def require_demo_tools() -> None:
 
 
 def build_demo_summary(
-    safe_report: dict[str, Any], unsafe_report: dict[str, Any]
+    safe_report: dict[str, Any], unsafe_report: dict[str, Any], scenario: DemoScenario
 ) -> dict[str, Any]:
     safe_findings = [item["rule_id"] for item in safe_report["structural"]["findings"]]
     unsafe_findings = [
         item["rule_id"] for item in unsafe_report["structural"]["findings"]
     ]
+    def resolveRule(scenario: DemoScenario) -> str:
+       match scenario:
+           case DemoScenario.RESET_RELEASE: return"REF-RDC-001"
+           case DemoScenario.COMB_CROSSING: return "REF-CDC-002"
+
     expected = (
         safe_report["functional"]["status"] == "pass"
         and unsafe_report["functional"]["status"] == "pass"
         and safe_report["structural"]["status"] == "pass"
         and unsafe_report["structural"]["status"] == "fail"
-        and "REF-RDC-001" in unsafe_findings
+        and resolveRule(scenario) in unsafe_findings
     )
     return {
         "schema_version": "1.0",
