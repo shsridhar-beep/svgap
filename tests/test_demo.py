@@ -35,6 +35,40 @@ class DemoTests(TestCase):
         self.assertIn("unsafe     pass", output)
         self.assertIn("REF-RDC-001", output)
 
+    def test_demo_is_a_successful_explanation_of_comb_crossing_rule(self)-> None:
+        stream = io.StringIO()
+        with redirect_stdout(stream):
+            code = main(["demo", "--scenario", "comb-crossing"])
+        self.assertEqual(code, 0)
+        output = stream.getvalue()
+        self.assertIn("same functional result", output)
+        self.assertIn("safe       pass", output)
+        self.assertIn("unsafe     pass", output)
+        self.assertIn("REF-CDC-002", output)
+        
+    def test_demo_works_with_explicit_reset_release_scenario(self)-> None:
+        stream = io.StringIO()
+        with redirect_stdout(stream):
+            code = main(["demo", "--scenario", "reset-release"])
+        self.assertEqual(code, 0)
+        output = stream.getvalue()
+        self.assertIn("same functional result", output)
+        self.assertIn("safe       pass", output)
+        self.assertIn("unsafe     pass", output)
+        self.assertIn("REF-RDC-001", output)
+
+    def test_demo_explicit_reset_release_is_same_as_default_fallback_scenario(self) -> None:
+        stream1= io.StringIO()
+        with redirect_stdout(stream1):
+            code1 = main(["demo", "--scenario", "reset-release"])
+        self.assertEqual(code1, 0)
+        stream2 = io.StringIO()
+        with redirect_stdout(stream2):
+            code2 = main(["demo"])
+        self.maxDiff = None
+        self.assertEqual(code2, 0)
+        self.assertEqual(stream1.getvalue(), stream2.getvalue())
+
     def test_demo_can_preserve_machine_readable_artifacts(self) -> None:
         with TemporaryDirectory() as directory:
             output = Path(directory) / "demo"
