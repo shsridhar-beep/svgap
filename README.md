@@ -98,6 +98,9 @@ under two minutes once the image is cached:
 docker run --rm ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.9 demo
 ```
 
+```bash
+docker run --rm ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.9 demo -- scenario comb-crossing
+```
 For a native macOS installation:
 
 ```bash
