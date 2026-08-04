@@ -6,6 +6,7 @@ from importlib.resources import files
 from pathlib import Path
 from typing import Any
 
+from svgap.enums import DemoScenario
 
 ASSET_NAMES = (
     "tb.sv",
@@ -20,13 +21,15 @@ class DemoError(RuntimeError):
     pass
 
 
-def materialize_demo(destination: Path) -> Path:
+def materialize_demo(destination: Path, scenario: DemoScenario = DemoScenario.RESET_RELEASE) -> Path:
     destination = destination.resolve()
     if destination.exists() and not destination.is_dir():
         raise DemoError(f"demo output path is not a directory: {destination}")
     if destination.exists() and any(destination.iterdir()):
         raise DemoError(f"demo output directory is not empty: {destination}")
-    root = files("svgap").joinpath("demo_assets")
+
+    scenario_dir_path = scenario.value.replace("-", "_")
+    root = files("svgap").joinpath("demo_assets", scenario_dir_path)
     for relative in ASSET_NAMES:
         source = root.joinpath(relative)
         target = destination / relative
@@ -44,18 +47,23 @@ def require_demo_tools() -> None:
 
 
 def build_demo_summary(
-    safe_report: dict[str, Any], unsafe_report: dict[str, Any]
+    safe_report: dict[str, Any], unsafe_report: dict[str, Any], scenario: DemoScenario
 ) -> dict[str, Any]:
     safe_findings = [item["rule_id"] for item in safe_report["structural"]["findings"]]
     unsafe_findings = [
         item["rule_id"] for item in unsafe_report["structural"]["findings"]
     ]
+    def resolveRule(scenario: DemoScenario) -> str:
+       match scenario:
+           case DemoScenario.RESET_RELEASE: return"REF-RDC-001"
+           case DemoScenario.COMB_CROSSING: return "REF-CDC-002"
+
     expected = (
         safe_report["functional"]["status"] == "pass"
         and unsafe_report["functional"]["status"] == "pass"
         and safe_report["structural"]["status"] == "pass"
         and unsafe_report["structural"]["status"] == "fail"
-        and "REF-RDC-001" in unsafe_findings
+        and resolveRule(scenario) in unsafe_findings
     )
     return {
         "schema_version": "1.0",
