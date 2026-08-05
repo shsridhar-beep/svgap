@@ -5,6 +5,7 @@
 [![PyPI](https://img.shields.io/pypi/v/svgap.svg?cacheSeconds=300)](https://pypi.org/project/svgap/)
 [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.21198938-blue.svg)](https://doi.org/10.5281/zenodo.21198938)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](https://github.com/shsridhar-beep/svgap/blob/main/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/shsridhar-beep/svgap?style=flat&logo=github&label=Star)](https://github.com/shsridhar-beep/svgap/stargazers)
 
 **Make the gap between “passes the benchmark” and “reviewable by a chip-design
 team” explicit.**
@@ -34,6 +35,7 @@ production questions are answered, failed, or still unknown.
 | Evaluate one model or agent | [Run the packaged smoke study](https://shsridhar-beep.github.io/svgap/evaluate-your-model/) | about 10 minutes after prerequisites |
 | Run or report the Harbor experiment | [Use the eight-task Harbor path](https://shsridhar-beep.github.io/svgap/harbor/) | 2 minutes to report; run time varies |
 | Scope a qualification experiment | [Request a research call](https://github.com/shsridhar-beep/svgap/issues/new?template=collaboration.yml) or [email the maintainer](mailto:shsridhar@nvidia.com?subject=SV-Gap%20research%20call) | 30 minutes |
+| Contribute a small improvement | [Pick a good first issue](https://github.com/shsridhar-beep/svgap/labels/good%20first%20issue) | 30–45 minutes |
 
 Do not send proprietary RTL or confidential constraints through GitHub or
 email. A public or synthetic artifact is enough for the first experiment.
