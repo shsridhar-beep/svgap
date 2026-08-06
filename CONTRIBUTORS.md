@@ -29,6 +29,9 @@ real-world identity.
   ([PR #26](https://github.com/shsridhar-beep/svgap/pull/26)) and the Docker
   development environment
   ([PR #27](https://github.com/shsridhar-beep/svgap/pull/27)).
+- [Renji](https://github.com/waterlemonnn) - the annotated intent-manifest
+  documentation example
+  ([PR #33](https://github.com/shsridhar-beep/svgap/pull/33)).
 
 GitHub handles in this section identify the accounts credited by the accepted
 commit history. Unless separately stated, the project does not claim to have
