@@ -26,7 +26,9 @@ real-world identity.
   [PR #24](https://github.com/shsridhar-beep/svgap/pull/24)).
 - [madhu2000u](https://github.com/madhu2000u) - the combinational-crossing
   demo scenario for `svgap demo`
-  ([PR #26](https://github.com/shsridhar-beep/svgap/pull/26)).
+  ([PR #26](https://github.com/shsridhar-beep/svgap/pull/26)) and the Docker
+  development environment
+  ([PR #27](https://github.com/shsridhar-beep/svgap/pull/27)).
 
 GitHub handles in this section identify the accounts credited by the accepted
 commit history. Unless separately stated, the project does not claim to have
