@@ -24,6 +24,60 @@ the manifest directory. Clock relationships are never inferred as asynchronous
 merely because two clock names differ; the evaluator must declare asynchronous
 groups explicitly.
 
+## Annotated intent-manifest example
+
+This is the manifest the demo's `reset_release` safe design ships with
+(`src/svgap/demo_assets/reset_release/safe/manifest.toml`), reduced to the
+fields the current loader (`src/svgap/manifest.py`) requires and annotated
+one line per field. It is a companion to the unannotated
+[`schemas/manifest-v1.example.toml`](https://github.com/shsridhar-beep/svgap/blob/main/schemas/manifest-v1.example.toml)
+and to the open [intent-contract RFC](https://github.com/shsridhar-beep/svgap/discussions/20),
+which asks whether this contract expresses the production questions
+reviewers actually need answered.
+
+```toml
+schema_version = "1.0"       # manifest format version; the loader rejects anything else
+candidate_id = "demo-reset-release-safe"  # identifies this candidate in the report and gap membership
+
+[design]
+top = "reset_release"        # top module name; must be a valid Verilog identifier
+sources = ["design.sv"]      # RTL sources, relative to this manifest, checked to exist
+
+[functional]
+commands = [
+  ["iverilog", "-g2012", "-o", "${SVGAP_BUILD}/sim.vvp", "design.sv", "../tb.sv"],
+  ["vvp", "${SVGAP_BUILD}/sim.vvp"],
+]                             # functional oracle commands, run inside a candidate-local build dir
+
+[structural]
+backend = "reference-yosys"  # checker backend that evaluates the declared intent
+
+[intent]
+asynchronous_groups = []     # explicit async clock groups; never inferred from clock names
+
+[[intent.clocks]]
+name = "core"                # intent-local clock name, referenced by resets/crossings
+port = "clk"                 # RTL port this clock name binds to
+
+[[intent.resets]]
+name = "power_on_reset"      # intent-local reset name
+port = "arst_n"               # RTL port this reset binds to
+active = "low"                # reset is asserted when this port is driven low
+assertion = "async"           # the reset can assert without a clock edge
+deassertion = "sync"          # release must be synchronized; this is what REF-RDC-001 checks
+
+[output]
+report = "build/report.json" # where `svgap check` writes the normalized report
+```
+
+Every field above maps directly to a field `load_manifest` in
+`src/svgap/manifest.py` accepts; nothing here is aspirational syntax.
+
+This example only establishes that the manifest's declared reset-release
+intent is legible and checkable — a structural pass built from it is still
+bounded evidence, not a signoff claim. See the
+[scope boundary](scope-boundary.md) for what SV-Gap does and does not claim.
+
 ## Backend boundary
 
 A backend implements one operation:
