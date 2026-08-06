@@ -1,7 +1,8 @@
-#compose for dev setup
+#This service is used for development and testing purposes only
+#This is not the way to run svgap. Check README.md for instructions on how to run svgap. 
 services:
   svgap-dev:
-    image: ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.9
+    build: .
     container_name: svgap_dev_container
     working_dir: /workspace
     

@@ -104,6 +104,7 @@ python -m pip install -e ".[dev]"
 # Now you can use the svgap command witin container and run tests as normal.
 svgap doctor
 svgap demo
+which svgap #should return the path that is within the activated virtual env
 .venv/bin/python -m unittest discover -s tests -v
 ```
 
