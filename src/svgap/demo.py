@@ -57,6 +57,7 @@ def build_demo_summary(
        match scenario:
            case DemoScenario.RESET_RELEASE: return"REF-RDC-001"
            case DemoScenario.COMB_CROSSING: return "REF-CDC-002"
+           case DemoScenario.POWER_ON: return "REF-XPROP-001"
 
     expected = (
         safe_report["functional"]["status"] == "pass"
