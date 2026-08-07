@@ -22,6 +22,7 @@ nav:
       - Evaluate your model: evaluate-your-model.md
       - Bring your own RTL: bring-your-own-rtl.md
       - Linux install and doctor: linux-install-and-doctor.md
+      - Troubleshooting: troubleshooting.md
       - Existing benchmarks: integrating-existing-benchmarks.md
       - CI and container: ci-and-container.md
       - Submit a result: submitting-results.md
