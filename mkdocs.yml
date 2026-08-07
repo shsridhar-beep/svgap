@@ -53,6 +53,7 @@ nav:
       - Research pulse: community-pulse.md
       - Collaborate: collaboration-rfc.md
       - Design-partner workflow: design-partner-workflow.md
+      - Disputed-finding fixtures: disputed-finding-fixtures.md
       - Experiment contract: experiment-contract-template.md
 
 markdown_extensions:

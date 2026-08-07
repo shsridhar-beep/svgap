@@ -58,8 +58,10 @@ Good first contributions include:
 
 The project is backend- and evidence-neutral: a contribution may challenge the
 reference oracle. See [GOVERNANCE.md](GOVERNANCE.md), the
-[backend SDK](docs/backend-sdk.md), and the
-[existing-benchmark recipe](docs/integrating-existing-benchmarks.md).
+[backend SDK](docs/backend-sdk.md), the
+[existing-benchmark recipe](docs/integrating-existing-benchmarks.md), and
+[disputed-finding fixtures](docs/disputed-finding-fixtures.md) for how to
+file a reproducible disagreement.
 
 ## Development setup
 
