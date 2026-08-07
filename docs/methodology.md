@@ -52,4 +52,6 @@ The built-in oracle exists to make the evaluation contract executable and to
 support controlled research fixtures. Every rule must have paired positive and
 negative fixtures, a stable identifier, source evidence where available, and a
 plain-language limitation statement. Broader or signoff-grade analysis belongs
-in independently versioned checker backends.
+in independently versioned checker backends. See the
+[finding ID reference](finding-id-reference.md) for what each stable
+identifier detects.
