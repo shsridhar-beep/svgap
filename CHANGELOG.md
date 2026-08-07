@@ -5,6 +5,14 @@ versioning once the manifest and report contracts reach public v0.1.
 
 ## Unreleased
 
+### Added
+
+- Disputed-finding regression fixture template
+  (`examples/disputed_finding_template`) with an `expected-finding.json`
+  contract and a test proving a recorded dispute never silently converts a
+  checker `fail`/`unknown` into a `pass`. See
+  [docs/disputed-finding-fixtures.md](docs/disputed-finding-fixtures.md).
+
 ## 0.3.0-alpha.11 - 2026-07-20
 
 ### Added
