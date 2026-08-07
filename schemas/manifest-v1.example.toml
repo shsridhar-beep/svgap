@@ -33,6 +33,7 @@ port = "src_rst_n"
 active = "low"
 assertion = "async"
 deassertion = "sync"
+clock = "source"
 
 [[intent.crossings]]
 source = "status_src"

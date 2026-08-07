@@ -64,6 +64,7 @@ class ResetIntent:
     active: Literal["high", "low"]
     assertion: Literal["async", "sync"]
     deassertion: Literal["async", "sync"]
+    clock: str | None = None
 
 
 @dataclass(frozen=True)
