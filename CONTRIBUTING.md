@@ -84,6 +84,10 @@ You can use this setup compared to above if you do not want to modify your host 
 
 The container will have all tools and software such as Yosys, IVerilog etc ready for dev and testing.
 
+`make dev-up`, `make dev-shell`, and `make dev-test` wrap the steps below into
+one command each: bring the container up, open a shell inside it, or install
+the editable venv and run the test suite non-interactively.
+
 ```bash
 docker compose up -d
 
