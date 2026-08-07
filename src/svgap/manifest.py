@@ -99,6 +99,12 @@ def load_manifest(path: str | Path) -> Manifest:
         raise ManifestError("intent reset assertion must be 'async' or 'sync'")
     if any(reset.deassertion not in ("async", "sync") for reset in resets):
         raise ManifestError("intent reset deassertion must be 'async' or 'sync'")
+    clock_names = {clock.name for clock in clocks}
+    for reset in resets:
+        if reset.clock is not None and reset.clock not in clock_names:
+            raise ManifestError(
+                f"intent reset {reset.name!r} references undeclared clock {reset.clock!r}"
+            )
     if any(
         crossing.protocol not in ("single_bit", "gray", "handshake", "unspecified")
         for crossing in crossings

@@ -65,6 +65,7 @@ port = "arst_n"               # RTL port this reset binds to
 active = "low"                # reset is asserted when this port is driven low
 assertion = "async"           # the reset can assert without a clock edge
 deassertion = "sync"          # release must be synchronized; this is what REF-RDC-001 checks
+clock = "core"                # optional; if set, must name a declared intent.clocks entry
 
 [output]
 report = "build/report.json" # where `svgap check` writes the normalized report

@@ -76,6 +76,58 @@ class ManifestTests(TestCase):
             with self.assertRaises(ManifestError):
                 load_manifest(path)
 
+    def test_reset_missing_port_is_rejected(self) -> None:
+        source = (ROOT / "examples/reset_release/safe/manifest.toml").read_text()
+        source = source.replace('port = "arst_n"\n', "")
+        with TemporaryDirectory() as directory:
+            path = Path(directory) / "manifest.toml"
+            path.write_text(source, encoding="utf-8")
+            (Path(directory) / "design.sv").write_text("module reset_release; endmodule\n")
+            with self.assertRaises(ManifestError):
+                load_manifest(path)
+
+    def test_reset_unknown_assertion_is_rejected(self) -> None:
+        source = (ROOT / "examples/reset_release/safe/manifest.toml").read_text()
+        source = source.replace('assertion = "async"', 'assertion = "eventually"')
+        with TemporaryDirectory() as directory:
+            path = Path(directory) / "manifest.toml"
+            path.write_text(source, encoding="utf-8")
+            (Path(directory) / "design.sv").write_text("module reset_release; endmodule\n")
+            with self.assertRaises(ManifestError):
+                load_manifest(path)
+
+    def test_reset_unknown_deassertion_is_rejected(self) -> None:
+        source = (ROOT / "examples/reset_release/safe/manifest.toml").read_text()
+        source = source.replace('deassertion = "sync"', 'deassertion = "eventually"')
+        with TemporaryDirectory() as directory:
+            path = Path(directory) / "manifest.toml"
+            path.write_text(source, encoding="utf-8")
+            (Path(directory) / "design.sv").write_text("module reset_release; endmodule\n")
+            with self.assertRaises(ManifestError):
+                load_manifest(path)
+
+    def test_reset_referencing_undeclared_clock_is_rejected(self) -> None:
+        source = (ROOT / "examples/reset_release/safe/manifest.toml").read_text()
+        source = source.replace(
+            'deassertion = "sync"\n', 'deassertion = "sync"\nclock = "no_such_clock"\n'
+        )
+        with TemporaryDirectory() as directory:
+            path = Path(directory) / "manifest.toml"
+            path.write_text(source, encoding="utf-8")
+            (Path(directory) / "design.sv").write_text("module reset_release; endmodule\n")
+            with self.assertRaises(ManifestError):
+                load_manifest(path)
+
+    def test_reset_referencing_declared_clock_loads(self) -> None:
+        source = (ROOT / "examples/reset_release/safe/manifest.toml").read_text()
+        source = source.replace('deassertion = "sync"\n', 'deassertion = "sync"\nclock = "core"\n')
+        with TemporaryDirectory() as directory:
+            path = Path(directory) / "manifest.toml"
+            path.write_text(source, encoding="utf-8")
+            (Path(directory) / "design.sv").write_text("module reset_release; endmodule\n")
+            manifest = load_manifest(path)
+            self.assertEqual(manifest.resets[0].clock, "core")
+
     def test_functional_import_and_commands_are_mutually_exclusive(self) -> None:
         source = (ROOT / "examples/level_crossing/safe/manifest.toml").read_text()
         source = source.replace(
