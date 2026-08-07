@@ -1,0 +1,18 @@
+#This service is used for development and testing purposes only
+#This is not the way to run svgap. Check README.md for instructions on how to run svgap. 
+services:
+  svgap-dev:
+    build: .
+    container_name: svgap_dev_container
+    working_dir: /workspace
+    
+    volumes:
+      - .:/workspace
+      
+    # Passes the local user ID and group ID to the container.
+    # This prevents the frustrating "permission denied" errors on the host 
+    # when the container generates new files (like logs or build artifacts).
+    user: "${UID:-1000}:${GID:-1000}"
+    
+    # Run container in background indefinitely
+    entrypoint: ["sleep", "infinity"]

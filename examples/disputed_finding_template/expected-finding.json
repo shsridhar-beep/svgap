@@ -1,0 +1,10 @@
+{
+  "rule_id": "REF-CDC-003",
+  "checker_status": "fail",
+  "disposition": "disputed",
+  "claim": "PLACEHOLDER: state why you believe this finding is a false positive or false negative. Cite the specific structural evidence (netlist cells, signal names) or functional trace that the reference checker is missing or misreading, not just a general disagreement.",
+  "reproducer": {
+    "status": "placeholder",
+    "note": "design.sv/tb.sv/manifest.toml here are a synthetic binary-bus crossing, not a real disputed design. To file an actual disagreement, replace these three files with a minimized, non-confidential reproducer distilled from the design you are disputing, keep rule_id pointed at the finding you disagree with, and update claim with your specific reasoning. See docs/disputed-finding-fixtures.md."
+  }
+}

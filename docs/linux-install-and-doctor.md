@@ -66,6 +66,10 @@ svgap doctor
 When all required tools are present, `doctor` also prints the configured
 `reference-yosys` backend with the detected Yosys version.
 
+For copy-paste remediation of each `doctor` failure, including an
+unsupported or outdated tool version, see
+[Troubleshooting `svgap doctor`](troubleshooting.md).
+
 ## Container fallback
 
 If the host is not Ubuntu/Debian, the system package names differ, or the local

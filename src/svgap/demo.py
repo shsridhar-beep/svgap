@@ -57,6 +57,7 @@ def build_demo_summary(
        match scenario:
            case DemoScenario.RESET_RELEASE: return"REF-RDC-001"
            case DemoScenario.COMB_CROSSING: return "REF-CDC-002"
+           case DemoScenario.POWER_ON: return "REF-XPROP-001"
 
     expected = (
         safe_report["functional"]["status"] == "pass"
@@ -118,3 +119,19 @@ def write_demo_summary(summary: dict[str, Any], destination: Path) -> Path:
     path = destination / "summary.json"
     path.write_text(json.dumps(summary, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     return path
+
+
+def render_all_demo_summary(summaries: dict[str, dict[str, Any]], status: str, output: Path | None) -> str:
+    lines = [
+        "SV-Gap demo - all scenarios",
+        "",
+        "scenario         safe        unsafe      status",
+    ]
+    for name, summary in summaries.items():
+        safe = summary["safe"]["structural"]
+        unsafe = summary["unsafe"]["structural"]
+        lines.append(f"{name:<16} {safe:<10}  {unsafe:<10}  {summary['status']}")
+    lines.extend(["", f"overall: {status}"])
+    if output is not None:
+        lines.extend(["", f"Artifacts: {output.resolve()}"])
+    return "\n".join(lines) + "\n"

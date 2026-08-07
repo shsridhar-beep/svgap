@@ -1,4 +1,4 @@
-.PHONY: doctor test examples verify-artifacts calibrate-v02 sync-results
+.PHONY: doctor test examples verify-artifacts calibrate-v02 sync-results dev-up dev-shell dev-test
 
 doctor:
 	PYTHONPATH=src python3 -m svgap doctor
@@ -17,3 +17,12 @@ calibrate-v02:
 
 sync-results:
 	PYTHONPATH=src python3 scripts/sync_results.py
+
+dev-up:
+	docker compose up -d
+
+dev-shell:
+	docker compose exec svgap-dev bash
+
+dev-test:
+	docker compose exec svgap-dev bash -c "test -d .venv || python -m venv .venv; .venv/bin/python -m pip install -e '.[dev]' -q && .venv/bin/python -m unittest discover -s tests -v"

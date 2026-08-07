@@ -1,44 +1,22 @@
 schema_version = "1.0"
-candidate_id = "example-candidate"
-
+candidate_id = "disputed-finding-template"
 [design]
-top = "example_top"
+top = "disputed_finding_template"
 sources = ["design.sv"]
-
 [functional]
 commands = [
   ["iverilog", "-g2012", "-o", "${SVGAP_BUILD}/sim.vvp", "design.sv", "tb.sv"],
   ["vvp", "${SVGAP_BUILD}/sim.vvp"],
 ]
-
 [structural]
 backend = "reference-yosys"
-
 [intent]
 asynchronous_groups = [["source"], ["destination"]]
-power_on = "unspecified"
-init_attributes_are_power_on = false
-
 [[intent.clocks]]
 name = "source"
 port = "src_clk"
-
 [[intent.clocks]]
 name = "destination"
 port = "dst_clk"
-
-[[intent.resets]]
-name = "source_reset"
-port = "src_rst_n"
-active = "low"
-assertion = "async"
-deassertion = "sync"
-clock = "source"
-
-[[intent.crossings]]
-source = "status_src"
-destination = "status_dst"
-protocol = "single_bit"
-
 [output]
 report = "build/report.json"

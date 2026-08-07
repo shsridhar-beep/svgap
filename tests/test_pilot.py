@@ -6,7 +6,7 @@ import shutil
 
 from svgap.backends.reference_yosys import ReferenceYosysBackend
 from svgap.functional import run_functional
-from svgap.manifest import load_manifest
+from svgap.manifest import ManifestError, load_manifest
 from svgap.pilot import extract_systemverilog, load_task, materialize_candidate, render_manifest
 from svgap.provenance import canonical_tree_digest
 
@@ -69,6 +69,47 @@ class PilotTests(TestCase):
                                 "REF-RDC-001",
                                 {finding.rule_id for finding in result.findings},
                             )
+
+    def test_every_packaged_taskpack_manifest_is_valid(self) -> None:
+        taskpacks_root = ROOT / "taskpacks"
+        pack_dirs = sorted(path for path in taskpacks_root.iterdir() if (path / "tasks").is_dir())
+        self.assertTrue(pack_dirs)
+        for pack_dir in pack_dirs:
+            task_dirs = sorted(path for path in (pack_dir / "tasks").iterdir() if path.is_dir())
+            self.assertTrue(task_dirs)
+            for task_dir in task_dirs:
+                with self.subTest(taskpack=pack_dir.name, task=task_dir.name):
+                    task = load_task(task_dir)
+                    with TemporaryDirectory() as directory:
+                        run = Path(directory)
+                        (run / "design.sv").write_text(
+                            f'module {task["top"]}; endmodule\n', encoding="utf-8"
+                        )
+                        manifest_path = run / "manifest.toml"
+                        manifest_path.write_text(
+                            render_manifest(task, task_dir), encoding="utf-8"
+                        )
+                        try:
+                            manifest = load_manifest(manifest_path)
+                        except ManifestError as exc:
+                            self.fail(
+                                f"taskpack {pack_dir.name!r} task {task_dir.name!r} "
+                                f"produced an invalid manifest: {exc}"
+                            )
+                        self.assertEqual(manifest.candidate_id, task["id"])
+
+    def test_broken_taskpack_manifest_fails_with_clear_message(self) -> None:
+        task_dir = ROOT / "taskpacks/reset-replication-v0.2/tasks/reset_config"
+        task = dict(load_task(task_dir))
+        task["resets"] = [{**task["resets"][0], "active": "sideways"}]
+        with TemporaryDirectory() as directory:
+            run = Path(directory)
+            (run / "design.sv").write_text(f'module {task["top"]}; endmodule\n', encoding="utf-8")
+            manifest_path = run / "manifest.toml"
+            manifest_path.write_text(render_manifest(task, task_dir), encoding="utf-8")
+            with self.assertRaises(ManifestError) as failure:
+                load_manifest(manifest_path)
+            self.assertIn("active", str(failure.exception))
 
     def test_reset_v02_digest_is_stable(self) -> None:
         pack = ROOT / "taskpacks/reset-replication-v0.2"

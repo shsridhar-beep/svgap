@@ -46,6 +46,17 @@ class DemoTests(TestCase):
         self.assertIn("unsafe     pass", output)
         self.assertIn("REF-CDC-002", output)
         
+    def test_demo_is_a_successful_explanation_of_power_on_rule(self) -> None:
+        stream = io.StringIO()
+        with redirect_stdout(stream):
+            code = main(["demo", "--scenario", "power-on"])
+        self.assertEqual(code, 0)
+        output = stream.getvalue()
+        self.assertIn("same functional result", output)
+        self.assertIn("safe       pass", output)
+        self.assertIn("unsafe     pass", output)
+        self.assertIn("REF-XPROP-001", output)
+
     def test_demo_works_with_explicit_reset_release_scenario(self)-> None:
         stream = io.StringIO()
         with redirect_stdout(stream):
@@ -68,6 +79,27 @@ class DemoTests(TestCase):
         self.maxDiff = None
         self.assertEqual(code2, 0)
         self.assertEqual(stream1.getvalue(), stream2.getvalue())
+
+    def test_demo_scenario_all_runs_every_scenario(self) -> None:
+        stream = io.StringIO()
+        with redirect_stdout(stream):
+            code = main(["demo", "--scenario", "all"])
+        self.assertEqual(code, 0)
+        output = stream.getvalue()
+        self.assertIn("reset-release", output)
+        self.assertIn("comb-crossing", output)
+        self.assertIn("overall: pass", output)
+
+    def test_demo_scenario_all_json_reports_each_scenario(self) -> None:
+        stream = io.StringIO()
+        with redirect_stdout(stream):
+            code = main(["demo", "--scenario", "all", "--json"])
+        self.assertEqual(code, 0)
+        summary = json.loads(stream.getvalue())
+        self.assertEqual(summary["status"], "pass")
+        self.assertEqual(set(summary["scenarios"]), {"reset-release", "comb-crossing"})
+        self.assertEqual(summary["scenarios"]["reset-release"]["status"], "pass")
+        self.assertEqual(summary["scenarios"]["comb-crossing"]["status"], "pass")
 
     def test_demo_can_preserve_machine_readable_artifacts(self) -> None:
         with TemporaryDirectory() as directory:

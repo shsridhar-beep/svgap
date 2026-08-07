@@ -58,8 +58,10 @@ Good first contributions include:
 
 The project is backend- and evidence-neutral: a contribution may challenge the
 reference oracle. See [GOVERNANCE.md](GOVERNANCE.md), the
-[backend SDK](docs/backend-sdk.md), and the
-[existing-benchmark recipe](docs/integrating-existing-benchmarks.md).
+[backend SDK](docs/backend-sdk.md), the
+[existing-benchmark recipe](docs/integrating-existing-benchmarks.md), and
+[disputed-finding fixtures](docs/disputed-finding-fixtures.md) for how to
+file a reproducible disagreement.
 
 ## Development setup
 
@@ -75,6 +77,42 @@ python3 -m venv .venv
 Pull requests run the same suite on GitHub Actions. Keep generated reports,
 provider transcripts, blinded mappings, and credentials out of commits; the
 repository `.gitignore` excludes the standard local locations.
+
+## Docker Development Environment Setup
+
+You can use this setup compared to above if you do not want to modify your host system.
+
+The container will have all tools and software such as Yosys, IVerilog etc ready for dev and testing.
+
+`make dev-up`, `make dev-shell`, and `make dev-test` wrap the steps below into
+one command each: bring the container up, open a shell inside it, or install
+the editable venv and run the test suite non-interactively.
+
+```bash
+docker compose up -d
+
+#Get into the container. This would take you into the /workspace directory where you'll see the contents
+#of the repo from host.
+docker compose exec svgap-dev bash
+
+#If you type in `which svgap` you'd find it in the system installation dir (/sr/local/bin/svgap)which
+#points to the src during container build at /opt/svgap. We do not want to modify this for dev and testing.
+#So do the following from within the container from the /workspace dir for a first time/fresh repo download
+#you can use any name for the env, but make sure it is inside .venv so that it is gitignored.
+python -m venv .venv
+
+#Activate the venv(from within container)
+source .venv/bin/activate
+
+# Install dependencies for dev and keep it editable so you can test your changes. (from within container)
+python -m pip install -e ".[dev]"
+
+# Now you can use the svgap command witin container and run tests as normal.
+svgap doctor
+svgap demo
+which svgap #should return the path that is within the activated virtual env
+.venv/bin/python -m unittest discover -s tests -v
+```
 
 ## Evaluation changes
 
