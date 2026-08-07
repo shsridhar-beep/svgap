@@ -13,6 +13,7 @@ import sys
 import tomllib
 from tempfile import TemporaryDirectory
 from pathlib import Path
+from typing import Any
 
 from svgap.enums import DemoScenario
 from svgap.backends.registry import (
@@ -41,6 +42,7 @@ from svgap.demo import (
     DemoError,
     build_demo_summary,
     materialize_demo,
+    render_all_demo_summary,
     render_demo_summary,
     require_demo_tools,
     write_demo_summary,
@@ -121,9 +123,9 @@ def build_parser() -> argparse.ArgumentParser:
     demo.add_argument("--json", action="store_true", help="print the demo summary as JSON")
     demo.add_argument(
       "--scenario",
-      choices=[e.value for e in DemoScenario],
+      choices=[e.value for e in DemoScenario] + ["all"],
       default=DemoScenario.RESET_RELEASE,
-      help="select the controlled demo scenario",
+      help="select the controlled demo scenario, or 'all' to run every scenario",
   )
     taskpack = subparsers.add_parser(
         "taskpack", help="list and inspect packaged frozen taskpacks"
@@ -850,6 +852,8 @@ def doctor() -> int:
 def run_demo_command(output: Path | None, print_json: bool, scenario_str: str) -> int:
     try:
         require_demo_tools()
+        if scenario_str == "all":
+            return _execute_all_demos(output, print_json)
         scenario: DemoScenario = DemoScenario(scenario_str)
         if output is None:
             with TemporaryDirectory(prefix="svgap-demo-") as directory:
@@ -861,7 +865,7 @@ def run_demo_command(output: Path | None, print_json: bool, scenario_str: str) -
         return 2
 
 
-def _execute_demo(root: Path, preserved_output: Path | None, print_json: bool, scenario: DemoScenario) -> int:
+def _compute_demo_summary(root: Path, preserved_output: Path | None, scenario: DemoScenario) -> dict[str, Any]:
     if preserved_output is None:
         materialize_demo(root, scenario)
     with redirect_stdout(io.StringIO()):
@@ -878,11 +882,39 @@ def _execute_demo(root: Path, preserved_output: Path | None, print_json: bool, s
         summary["status"] = "fail"
     if preserved_output is not None:
         write_demo_summary(summary, root)
+    return summary
+
+
+def _execute_demo(root: Path, preserved_output: Path | None, print_json: bool, scenario: DemoScenario) -> int:
+    summary = _compute_demo_summary(root, preserved_output, scenario)
     if print_json:
         print(json.dumps(summary, indent=2, sort_keys=True))
     else:
         print(render_demo_summary(summary, preserved_output), end="")
     return 0 if summary["status"] == "pass" else 1
+
+
+def _execute_all_demos(output: Path | None, print_json: bool) -> int:
+    summaries: dict[str, dict[str, Any]] = {}
+    for scenario in DemoScenario:
+        if output is None:
+            with TemporaryDirectory(prefix="svgap-demo-") as directory:
+                summaries[scenario.value] = _compute_demo_summary(Path(directory), None, scenario)
+        else:
+            root = materialize_demo(output / scenario.value.replace("-", "_"), scenario)
+            summaries[scenario.value] = _compute_demo_summary(root, root, scenario)
+    status = "pass" if all(summary["status"] == "pass" for summary in summaries.values()) else "fail"
+    if print_json:
+        print(
+            json.dumps(
+                {"schema_version": "1.0", "status": status, "scenarios": summaries},
+                indent=2,
+                sort_keys=True,
+            )
+        )
+    else:
+        print(render_all_demo_summary(summaries, status, output), end="")
+    return 0 if status == "pass" else 1
 
 
 def check(
