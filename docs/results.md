@@ -3,9 +3,7 @@
 SV-Gap publishes multidimensional evidence profiles, not a scalar
 leaderboard. Functional failures, structural failures, unknowns, and tool
 errors remain visible. Every profile is bounded by its taskpack, evaluator,
-and provenance level. Structural failures carry a finding ID such as
-`REF-CDC-001`; see the [finding ID reference](finding-id-reference.md) for
-what each one detects.
+and provenance level.
 
 ## Frozen generation baseline
 
