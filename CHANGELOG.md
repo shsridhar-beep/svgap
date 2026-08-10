@@ -12,6 +12,9 @@ versioning once the manifest and report contracts reach public v0.1.
   contract and a test proving a recorded dispute never silently converts a
   checker `fail`/`unknown` into a `pass`. See
   [docs/disputed-finding-fixtures.md](docs/disputed-finding-fixtures.md).
+- `cdc-crossing` demo scenario (`svgap demo --scenario cdc-crossing`), pairing
+  a gray-coded multi-bit bus crossing with declared coherence intent against a
+  binary bus synchronized bit-by-bit, distinguished by `REF-CDC-003`.
 
 ## 0.3.0-alpha.11 - 2026-07-20
 
