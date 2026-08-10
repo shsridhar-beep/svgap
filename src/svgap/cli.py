@@ -15,7 +15,7 @@ from tempfile import TemporaryDirectory
 from pathlib import Path
 from typing import Any
 
-from svgap.enums import DemoScenario
+from svgap.enums import DEMO_SCENARIO_DESCRIPTIONS, DemoScenario
 from svgap.backends.registry import (
     BackendError,
     discover_backends,
@@ -123,9 +123,10 @@ def build_parser() -> argparse.ArgumentParser:
     demo.add_argument("--json", action="store_true", help="print the demo summary as JSON")
     demo.add_argument(
       "--scenario",
-      choices=[e.value for e in DemoScenario] + ["all"],
+      choices=[e.value for e in DemoScenario] + ["all", "list"],
       default=DemoScenario.RESET_RELEASE,
-      help="select the controlled demo scenario, or 'all' to run every scenario",
+      help="select the controlled demo scenario, 'all' to run every scenario, "
+      "or 'list' to show the available scenarios",
   )
     taskpack = subparsers.add_parser(
         "taskpack", help="list and inspect packaged frozen taskpacks"
@@ -850,6 +851,10 @@ def doctor() -> int:
 
 
 def run_demo_command(output: Path | None, print_json: bool, scenario_str: str) -> int:
+    if scenario_str == "list":
+        for scenario in DemoScenario:
+            print(f"{scenario.value:<15} {DEMO_SCENARIO_DESCRIPTIONS[scenario]}")
+        return 0
     try:
         require_demo_tools()
         if scenario_str == "all":
