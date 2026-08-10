@@ -10,6 +10,7 @@ from unittest import TestCase, skipUnless
 
 from svgap.cli import main
 from svgap.demo import DemoError, materialize_demo
+from svgap.enums import DemoScenario
 
 
 HAS_TOOLS = all(shutil.which(tool) for tool in ("yosys", "iverilog", "vvp"))
@@ -97,9 +98,11 @@ class DemoTests(TestCase):
         self.assertEqual(code, 0)
         summary = json.loads(stream.getvalue())
         self.assertEqual(summary["status"], "pass")
-        self.assertEqual(set(summary["scenarios"]), {"reset-release", "comb-crossing"})
-        self.assertEqual(summary["scenarios"]["reset-release"]["status"], "pass")
-        self.assertEqual(summary["scenarios"]["comb-crossing"]["status"], "pass")
+        self.assertEqual(
+            set(summary["scenarios"]), {scenario.value for scenario in DemoScenario}
+        )
+        for scenario_summary in summary["scenarios"].values():
+            self.assertEqual(scenario_summary["status"], "pass")
 
     def test_demo_can_preserve_machine_readable_artifacts(self) -> None:
         with TemporaryDirectory() as directory:
