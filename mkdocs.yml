@@ -45,6 +45,7 @@ nav:
       - Limitations: limitations.md
   - Extend:
       - Architecture: architecture.md
+      - Finding ID reference: finding-id-reference.md
       - Python API: python-api.md
       - Backend SDK: backend-sdk.md
       - Reference naja backend: reference-naja-backend.md

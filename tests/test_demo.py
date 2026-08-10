@@ -87,8 +87,8 @@ class DemoTests(TestCase):
             code = main(["demo", "--scenario", "all"])
         self.assertEqual(code, 0)
         output = stream.getvalue()
-        self.assertIn("reset-release", output)
-        self.assertIn("comb-crossing", output)
+        for scenario in DemoScenario:
+            self.assertIn(scenario.value, output)
         self.assertIn("overall: pass", output)
 
     def test_demo_scenario_all_json_reports_each_scenario(self) -> None:
