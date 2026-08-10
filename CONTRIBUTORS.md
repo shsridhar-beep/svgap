@@ -29,19 +29,13 @@ real-world identity.
   ([PR #26](https://github.com/shsridhar-beep/svgap/pull/26)) and the Docker
   development environment
   ([PR #27](https://github.com/shsridhar-beep/svgap/pull/27)).
-- [Renji](https://github.com/waterlemonnn) - a broad set of demo, test, and
-  documentation contributions: the annotated intent-manifest example
-  ([PR #33](https://github.com/shsridhar-beep/svgap/pull/33)), the
-  `--scenario all` command and the power-on demo scenario
-  ([PR #42](https://github.com/shsridhar-beep/svgap/pull/42),
-  [PR #49](https://github.com/shsridhar-beep/svgap/pull/49)), taskpack-manifest,
-  malformed-manifest, and disputed-finding test coverage
-  ([PR #44](https://github.com/shsridhar-beep/svgap/pull/44),
-  [PR #50](https://github.com/shsridhar-beep/svgap/pull/50),
-  [PR #48](https://github.com/shsridhar-beep/svgap/pull/48)), the troubleshooting
-  and doctor guide ([PR #45](https://github.com/shsridhar-beep/svgap/pull/45)),
-  and Makefile targets for the docker development flow
-  ([PR #46](https://github.com/shsridhar-beep/svgap/pull/46)).
+- [Renji](https://github.com/waterlemonnn) - a broad body of demo, CLI,
+  test, and documentation work: the demo scenarios and tooling (annotated
+  intent-manifest example, `--scenario all`, `--scenario list`, and the
+  power-on and cdc-crossing scenarios), test coverage (taskpack-manifest,
+  malformed-manifest, disputed-finding, and result-registry negative
+  fixtures), the troubleshooting and doctor guide, the finding-ID reference
+  table, and Makefile targets for the docker development flow (PRs [#31](https://github.com/shsridhar-beep/svgap/pull/31), [#32](https://github.com/shsridhar-beep/svgap/pull/32), [#33](https://github.com/shsridhar-beep/svgap/pull/33), [#42](https://github.com/shsridhar-beep/svgap/pull/42), [#43](https://github.com/shsridhar-beep/svgap/pull/43), [#44](https://github.com/shsridhar-beep/svgap/pull/44), [#45](https://github.com/shsridhar-beep/svgap/pull/45), [#46](https://github.com/shsridhar-beep/svgap/pull/46), [#47](https://github.com/shsridhar-beep/svgap/pull/47), [#48](https://github.com/shsridhar-beep/svgap/pull/48), [#49](https://github.com/shsridhar-beep/svgap/pull/49), [#50](https://github.com/shsridhar-beep/svgap/pull/50)).
 
 GitHub handles in this section identify the accounts credited by the accepted
 commit history. Unless separately stated, the project does not claim to have
