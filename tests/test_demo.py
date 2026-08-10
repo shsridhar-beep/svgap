@@ -116,3 +116,15 @@ class DemoTests(TestCase):
             self.assertEqual(summary["unsafe"]["structural"], "fail")
             self.assertTrue((output / "safe/build/report.json").is_file())
             self.assertTrue((output / "unsafe/build/report.json").is_file())
+
+
+class DemoScenarioListTests(TestCase):
+    def test_demo_scenario_list_does_not_require_demo_tools(self) -> None:
+        stream = io.StringIO()
+        with redirect_stdout(stream):
+            code = main(["demo", "--scenario", "list"])
+        self.assertEqual(code, 0)
+        output = stream.getvalue()
+        self.assertIn("reset-release", output)
+        self.assertIn("comb-crossing", output)
+        self.assertIn("power-on", output)
