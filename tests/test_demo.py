@@ -109,9 +109,11 @@ class DemoTests(TestCase):
         self.assertEqual(code, 0)
         summary = json.loads(stream.getvalue())
         self.assertEqual(summary["status"], "pass")
-        self.assertEqual(set(summary["scenarios"]), {scenario.value for scenario in DemoScenario})
-        for scenario in DemoScenario:
-            self.assertEqual(summary["scenarios"][scenario.value]["status"], "pass")
+        self.assertEqual(
+            set(summary["scenarios"]), {scenario.value for scenario in DemoScenario}
+        )
+        for scenario_summary in summary["scenarios"].values():
+            self.assertEqual(scenario_summary["status"], "pass")
 
     def test_demo_can_preserve_machine_readable_artifacts(self) -> None:
         with TemporaryDirectory() as directory:
