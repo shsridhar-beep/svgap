@@ -1,0 +1,14 @@
+%Warning-DECLFILENAME: design.sv:1:8: Filename 'design' does not match MODULE name: 'reset_status'
+    1 | module reset_status(
+      |        ^~~~~~~~~~~~
+                       ... For warning description see https://verilator.org/warn/DECLFILENAME?v=5.050
+                       ... Use "/* verilator lint_off DECLFILENAME */" and lint_on around source to disable this message.
+%Warning-SYNCASYNCNET: design.sv:9:17: Signal flopped as both synchronous and async: 'reset_status.rst_sync'
+                       design.sv:19:14: ... Location of async usage
+   19 |         if (!rst_sync[1])
+      |              ^~~~~~~~
+                       design.sv:15:26: ... Location of sync usage
+   15 |             rst_sync <= {rst_sync[0], 1'b1};
+      |                          ^~~~~~~~
+                       ... For warning description see https://verilator.org/warn/SYNCASYNCNET?v=5.050
+                       ... Use "/* verilator lint_off SYNCASYNCNET */" and lint_on around source to disable this message.

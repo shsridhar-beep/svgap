@@ -1,0 +1,5 @@
+%Warning-DECLFILENAME: design.sv:1:8: Filename 'design' does not match MODULE name: 'reset_timer'
+    1 | module reset_timer (
+      |        ^~~~~~~~~~~
+                       ... For warning description see https://verilator.org/warn/DECLFILENAME?v=5.050
+                       ... Use "/* verilator lint_off DECLFILENAME */" and lint_on around source to disable this message.

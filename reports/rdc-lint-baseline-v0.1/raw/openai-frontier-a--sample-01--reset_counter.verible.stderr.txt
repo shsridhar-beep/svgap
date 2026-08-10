@@ -1,0 +1,2 @@
+design.sv:1:8-20: Declared module does not match the first dot-delimited component of file name: "design" [Style: file-names] [module-filename]
+design.sv:16:37: Binary literal 8'b1 has less digits than expected for 8 bits. [Style: number-literals] [undersized-binary-literal]

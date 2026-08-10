@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0",
+  "study": "rdc-lint-baseline-v0.1",
+  "reviewed_at": "2026-08-06",
+  "review_scope": "Every unique parsed diagnostic class and all automated RDC-specific positives",
+  "automated_rdc_specific_positives": 0,
+  "diagnostic_classes": [
+    {
+      "tool": "verilator",
+      "code": "DECLFILENAME",
+      "gap_candidates": 14,
+      "control_candidates": 43,
+      "classification": "not_rdc_detection",
+      "rationale": "The standardized artifact filename design.sv does not match each task-specific top-module name. This is unrelated to reset connectivity or release behavior."
+    },
+    {
+      "tool": "verilator",
+      "code": "SYNCASYNCNET",
+      "gap_candidates": 0,
+      "control_candidates": 15,
+      "classification": "not_rdc_detection",
+      "rationale": "The warning identifies reset_sync or rst_sync as used in both synchronous and asynchronous contexts. It appears only in structural-pass comparators and points to the recognized synchronized-reset path, not to raw-reset bypass of ordinary state."
+    },
+    {
+      "tool": "verible",
+      "code": "module-filename",
+      "gap_candidates": 14,
+      "control_candidates": 43,
+      "classification": "not_rdc_detection",
+      "rationale": "The standardized artifact filename design.sv does not match each task-specific top-module name. This is a file-naming style rule."
+    },
+    {
+      "tool": "verible",
+      "code": "undersized-binary-literal",
+      "gap_candidates": 3,
+      "control_candidates": 0,
+      "classification": "not_rdc_detection",
+      "rationale": "Three reset_counter candidates use 8'b1 instead of an explicitly zero-padded eight-digit literal. The value is well-defined and the style finding does not identify reset release or synchronizer bypass."
+    }
+  ],
+  "primary_endpoint": {
+    "verilator_rdc_specific_detection": "0/14",
+    "verible_rdc_specific_detection": "0/14",
+    "union_rdc_specific_detection": "0/14"
+  }
+}

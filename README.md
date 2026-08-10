@@ -151,6 +151,8 @@ manifest and imported-result path. Python integrations can call
   different configured structural outcomes.
 - A frozen 72-call reset-release study contains 57 functional passes; at least
   14 contain the declared raw-reset pattern.
+- Default Verilator and Verible lint configurations emit no RDC-specific
+  diagnostic for any of those 14 functionally passing reset-gap candidates.
 - A heuristic inventory covers 508 public RTL-generation tasks across
   VerilogEval, RTLLM, and CVDP.
 - A separate audit of those 508 tasks inventories stated power-on intent and
@@ -160,6 +162,7 @@ manifest and imported-result path. Python integrations can call
 
 [Controlled result](https://shsridhar-beep.github.io/svgap/controlled-result/) ·
 [Reset result](https://shsridhar-beep.github.io/svgap/reset-replication-result/) ·
+[RTL lint baseline](https://shsridhar-beep.github.io/svgap/rdc-lint-baseline-result/) ·
 [Benchmark audit](https://shsridhar-beep.github.io/svgap/benchmark-audit/) ·
 [Power-on audit](https://shsridhar-beep.github.io/svgap/power-on-benchmark-audit/) ·
 [Evidence profiles](https://shsridhar-beep.github.io/svgap/results/) ·

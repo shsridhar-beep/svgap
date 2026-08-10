@@ -1,0 +1,14 @@
+%Warning-DECLFILENAME: design.sv:1:8: Filename 'design' does not match MODULE name: 'reset_config'
+    1 | module reset_config (
+      |        ^~~~~~~~~~~~
+                       ... For warning description see https://verilator.org/warn/DECLFILENAME?v=5.050
+                       ... Use "/* verilator lint_off DECLFILENAME */" and lint_on around source to disable this message.
+%Warning-SYNCASYNCNET: design.sv:9:17: Signal flopped as both synchronous and async: 'reset_config.reset_sync'
+                       design.sv:9:17: ... Location of async usage
+    9 |     logic [1:0] reset_sync;
+      |                 ^~~~~~~~~~
+                       design.sv:16:28: ... Location of sync usage
+   16 |             reset_sync <= {reset_sync[0], 1'b1};
+      |                            ^~~~~~~~~~
+                       ... For warning description see https://verilator.org/warn/SYNCASYNCNET?v=5.050
+                       ... Use "/* verilator lint_off SYNCASYNCNET */" and lint_on around source to disable this message.

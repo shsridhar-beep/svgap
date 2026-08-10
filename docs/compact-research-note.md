@@ -117,6 +117,8 @@ contract, not the completeness of one backend.
 - Public benchmark inventory: `reports/audits/`
 - Reset taskpack: `taskpacks/reset-replication-v0.1/`
 - Generated candidates: `artifacts/reset-replication-v0.1/`
+- Ordinary RTL lint baseline: `docs/rdc-lint-baseline-result.md` and
+  `reports/rdc-lint-baseline-v0.1/`
 - Result and limitations: `docs/reset-replication-result.md` and
   `docs/limitations.md`
 - Machine-readable contracts: `schemas/`

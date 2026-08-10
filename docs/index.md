@@ -73,6 +73,7 @@ defect-rate estimate or silicon signoff.
 - [Compact research note](compact-research-note.md)
 - [Controlled result](controlled-result.md)
 - [Reset-release result](reset-replication-result.md)
+- [Ordinary RTL lint baseline](rdc-lint-baseline-result.md)
 - [Benchmark audit](benchmark-audit.md)
 - [Power-on and unknown-state benchmark audit](power-on-benchmark-audit.md)
 - [Methodology](methodology.md)
