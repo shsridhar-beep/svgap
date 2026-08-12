@@ -84,7 +84,6 @@ jobs:
       - uses: actions/checkout@v6
       - name: Build and start dev container
         run: |
-          export UID=$(id -u) GID=$(id -g)
           docker compose up -d
       
       - name: Smoke test dev container setup
