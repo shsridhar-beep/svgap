@@ -77,3 +77,29 @@ jobs:
         run: |
           docker run --rm -v "$PWD:/work" svgap:ci check examples/reset_release/unsafe/manifest.toml || test $? -eq 1
           docker run --rm svgap:ci taskpack list
+
+  dev-container:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Build and start dev container
+        run: |
+          export UID=$(id -u) GID=$(id -g)
+          docker compose up -d
+      
+      - name: Smoke test dev container setup
+        run: |
+          docker compose exec -T svgap-dev bash -c '
+            set -euo pipefail
+            cd /workspace
+            python -m venv .venv
+            .venv/bin/python -m pip install -e ".[dev]" -q
+            .venv/bin/svgap doctor
+            source /workspace/.venv/bin/activate
+            test "$(command -v svgap)" = "/workspace/.venv/bin/svgap"
+            .venv/bin/svgap demo
+          '
+
+      - name: Tear down
+        if: always()
+        run: docker compose down -v
