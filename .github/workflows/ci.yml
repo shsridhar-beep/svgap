@@ -93,7 +93,9 @@ jobs:
             set -euo pipefail
             cd /workspace
             python -m venv .venv
+            chmod -R u+rwx .venv
             .venv/bin/python -m pip install -e ".[dev]" -q
+            chmod -R u+x .venv/bin/*
             .venv/bin/svgap doctor
             source /workspace/.venv/bin/activate
             test "$(command -v svgap)" = "/workspace/.venv/bin/svgap"
