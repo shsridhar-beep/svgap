@@ -92,6 +92,7 @@ jobs:
             set -euo pipefail
             cd /workspace
             python -m venv .venv
+            chmod -R u+rwx .venv
             .venv/bin/python -m pip install -e ".[dev]" -q
             .venv/bin/svgap doctor
             source /workspace/.venv/bin/activate
