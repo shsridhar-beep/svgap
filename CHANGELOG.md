@@ -5,16 +5,51 @@ versioning once the manifest and report contracts reach public v0.1.
 
 ## Unreleased
 
+## 0.3.0-alpha.12 - 2026-08-17
+
+This release is community-driven. It gathers contributions from three external
+contributors across demo scenarios, CLI tooling, test coverage, documentation,
+and developer tooling, alongside the first external registry submissions and a
+new ordinary-lint baseline study.
+
 ### Added
 
-- Disputed-finding regression fixture template
-  (`examples/disputed_finding_template`) with an `expected-finding.json`
-  contract and a test proving a recorded dispute never silently converts a
-  checker `fail`/`unknown` into a `pass`. See
-  [docs/disputed-finding-fixtures.md](docs/disputed-finding-fixtures.md).
-- `cdc-crossing` demo scenario (`svgap demo --scenario cdc-crossing`), pairing
-  a gray-coded multi-bit bus crossing with declared coherence intent against a
-  binary bus synchronized bit-by-bit, distinguished by `REF-CDC-003`.
+- Demo scenarios beyond reset-release, selectable with `svgap demo --scenario`:
+  `comb-crossing` (`REF-CDC-002`), `power-on` (`REF-XPROP-001`), and
+  `cdc-crossing` (`REF-CDC-003`, a gray-coded multi-bit bus crossing with
+  declared coherence intent against a binary bus synchronized bit-by-bit).
+- `svgap demo --scenario all` runs every scenario in sequence, and
+  `svgap demo --scenario list` prints the available scenarios and their
+  descriptions without requiring the demo tools.
+- Ordinary RTL lint baseline study: default Verilator and Verible
+  configurations emit no RDC-specific diagnostic for any of the 14 functionally
+  passing reset-gap candidates, and the same holds across the 43 structural-pass
+  comparators. See
+  [docs/rdc-lint-baseline-result.md](docs/rdc-lint-baseline-result.md) and
+  `reports/rdc-lint-baseline-v0.1/`.
+- First external registry submissions: Gemma 4 12B and GPT-4.1 mini
+  reset-release smoke evidence profiles.
+- Docker development environment via `docker-compose.yml`, plus Makefile targets
+  for the docker development flow.
+- Documentation: an annotated intent-manifest example, a finding-ID reference
+  table, and a troubleshooting and doctor guide.
+- Test coverage: packaged-taskpack manifest validation, malformed
+  intent-manifest negative fixtures, a disputed-finding regression fixture
+  template (`examples/disputed_finding_template`) that proves a recorded dispute
+  never silently converts a checker `fail` or `unknown` into a `pass`, and
+  result-registry schema negative fixtures.
+- A README star badge and a good-first-issue onboarding row.
+
+### Fixed
+
+- The `svgap demo --scenario all` JSON test derives the expected scenario set
+  from the `DemoScenario` enum, so adding a scenario no longer requires updating
+  a hardcoded assertion.
+
+### Thanks
+
+External contributions in this release came from @sidbu546, @madhu2000u, and
+@waterlemonnn. See [CONTRIBUTORS.md](CONTRIBUTORS.md).
 
 ## 0.3.0-alpha.11 - 2026-07-20
 
