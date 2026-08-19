@@ -90,3 +90,13 @@ coverage relative to these two ordinary open-source lint baselines on this
 taskpack. It does **not** establish that all lint tools miss the condition.
 Commercial lint decks and dedicated CDC/RDC signoff tools are outside this
 study, as are tuned rule configurations and other reset task families.
+
+## How the result is represented in SV-Gap
+
+Schema v2 can now run `lint-verilator` or `lint-verible` as an explicit
+`oracle_class = "lint"`. The backend coverage metadata records this frozen
+0/14 calibration boundary. Lint diagnostics stay tool-attributed
+(`LINT-VERILATOR-*` or `LINT-VERIBLE-*`) and do not become `REF-RDC-*`
+findings. The recommended profile sets `contributes_to_gap = false`, retaining
+the lint result beside structural evidence without allowing it to redefine the
+structural-gap metric.

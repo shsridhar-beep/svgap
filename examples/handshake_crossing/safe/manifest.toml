@@ -1,0 +1,25 @@
+schema_version = "1.0"
+candidate_id = "handshake-crossing-safe"
+[design]
+top = "handshake_crossing"
+sources = ["design.sv"]
+[functional]
+commands = [["iverilog", "-g2012", "-o", "${SVGAP_BUILD}/sim.vvp", "design.sv", "../tb.sv"], ["vvp", "${SVGAP_BUILD}/sim.vvp"]]
+[structural]
+backend = "reference-yosys"
+[intent]
+asynchronous_groups = [["source"], ["destination"]]
+[[intent.clocks]]
+name = "source"
+port = "src_clk"
+[[intent.clocks]]
+name = "destination"
+port = "dst_clk"
+[[intent.crossings]]
+source = "src_request"
+destination = "request_sync"
+protocol = "handshake"
+return_source = "dst_ack"
+return_destination = "ack_sync"
+[output]
+report = "build/report.json"

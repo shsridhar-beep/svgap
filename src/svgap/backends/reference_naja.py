@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any, FrozenSet, Optional, Tuple
 
 from svgap.backends.base import BackendUnavailable
-from svgap.model import CheckResult, Finding, Manifest
+from svgap.model import CheckResult, Finding, Manifest, OracleConfig
 
 # naja writes naja_perf.log into the caller's working directory when NAJA_PERF
 # is set; an unset or empty value disables it. Backend runs must not create
@@ -465,6 +465,33 @@ def _cone_types(net, visited: FrozenSet[Any]) -> set:
 # ---------------------------------------------------------------------------
 
 
+def _unsupported_intent_features(manifest: Manifest) -> list[str]:
+    features: list[str] = []
+    if any(crossing.min_sync_stages is not None for crossing in manifest.crossings):
+        features.append("metastability-depth")
+    protocols = sorted(
+        {
+            crossing.protocol
+            for crossing in manifest.crossings
+            if crossing.protocol not in {"single_bit", "gray", "unspecified"}
+        }
+    )
+    features.extend(f"cdc-{protocol}" for protocol in protocols)
+    if manifest.cdc_reconvergence != "unspecified":
+        features.append("cdc-reconvergence")
+    if manifest.independent_reset_groups:
+        features.append("independent-reset-domains")
+    if any(reset.allow_combination is not None for reset in manifest.resets):
+        features.append("reset-combination-policy")
+    if manifest.state_requirements:
+        features.append("selective-reset")
+    if manifest.x_policy != "unspecified":
+        features.append("x-control-policy")
+    if manifest.memory_power_on != "unspecified":
+        features.append("memory-power-on")
+    return features
+
+
 class ReferenceNajaBackend:
     """Structural oracle equivalent to ReferenceYosysBackend, built on raw
     naja (`from najaeda import naja`) instead of shelling out to Yosys.
@@ -504,7 +531,7 @@ class ReferenceNajaBackend:
     """
 
     name = "reference-naja"
-    version = "0.1"
+    version = "0.2"
 
     def check(self, manifest: Manifest) -> CheckResult:
         tool_versions = {"najaeda": _najaeda_version()}
@@ -541,12 +568,38 @@ class ReferenceNajaBackend:
                 tool_versions=tool_versions,
             )
 
+    def coverage(
+        self, manifest: Manifest, oracle: OracleConfig | None = None
+    ) -> dict[str, Any]:
+        unsupported = _unsupported_intent_features(manifest)
+        return {
+            "class": "structural",
+            "rules": [
+                "REF-CDC-001",
+                "REF-CDC-002",
+                "REF-CDC-003",
+                "REF-RDC-001",
+                "REF-XPROP-001",
+                "REF-NAJA-FRONTEND-001",
+            ],
+            "unsupported_intent_features": unsupported,
+            "abstains_on_unsupported_intent": True,
+            "reference_only": True,
+            "signoff_grade": False,
+        }
+
     def _analyze(self, manifest: Manifest, design) -> CheckResult:
         diagnostics: list[str] = []
         findings: list[Finding] = []
 
         if not manifest.clocks and not manifest.resets:
             diagnostics.append("no clock or reset intent was declared")
+        unsupported = _unsupported_intent_features(manifest)
+        if unsupported:
+            diagnostics.append(
+                "reference-naja abstains on unsupported intent features: "
+                + ", ".join(unsupported)
+            )
         declared_clock_names = {clock.name for clock in manifest.clocks}
         grouped_clock_names = {
             name for group in manifest.asynchronous_groups for name in group

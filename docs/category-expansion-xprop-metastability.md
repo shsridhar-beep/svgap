@@ -1,118 +1,69 @@
-# Category expansion: X-optimism and metastability
+# Category expansion: X propagation and metastability containment
 
-Status: design, not yet implemented. Extends the reference oracle from four
-rules to six, following the reference-oracle policy: every rule ships with
-paired positive/negative fixtures, a stable identifier, and a limitation
-statement.
+Status: implemented in `reference-yosys` with paired controlled fixtures.
+`reference-naja` does not implement the expanded rules and returns `unknown`
+when their intent fields are present.
 
-## Why these two
+## Implemented X rules
 
-Both are production-relevant properties invisible in kind to the functional
-oracle, for two different reasons:
+- `REF-XPROP-001` checks output-reachable operational state when
+  `power_on = "reset_required"`.
+- `REF-XPROP-002` retains source-level constructs that Yosys lowering would
+  otherwise erase: `casex`, `casez`, wildcard equality, and incomplete plain
+  `case` control flow under `x_policy = "strict"`.
+- `REF-XPROP-003` binds named state to a required reset and optional reset value.
+- `REF-XPROP-004` checks declared deterministic memory power-on intent against
+  complete, constant Yosys `$meminit` coverage.
 
-- **X-optimism:** four-state simulation resolves ambiguity deterministically
-  (`if` on X takes the else branch; X'd state is silently flushed), so a
-  testbench can accept a design whose power-up behavior in silicon is
-  undefined. The oracle is not under-sampling the property; its semantics
-  erase it.
-- **Metastability:** no digital tool models the physical phenomenon, and this
-  project must not claim to. It is operationalized the way signoff practice
-  operationalizes it - declared parametric structural requirements
-  (synchronizer depth) plus the perturbation semantics of
-  [perturbation-adjudication.md](perturbation-adjudication.md). The physical
-  phenomenon itself remains explicitly out of scope, consistent with
-  [limitations.md](limitations.md).
-
-## New rules
-
-### REF-XPROP-001 - un-reset operational state
-
-When the manifest declares `power_on = "reset_required"`, flag any operational
-state element with no recognized reset connection (any polarity, sync or
-async) whose output cone reaches a module output or a control input (mux
-select, enable, branch condition) of other state.
-
-- Synchronizer-exempt flops follow the existing exemption model.
-- FPGA-style `initial`/init attributes do not count as reset unless the
-  manifest declares `init_attributes_are_power_on = true`; the default models
-  an ASIC target where init attributes are not silicon power-on state.
-- Evidence: cell name and one witness cone path.
-- Limitation: cone walking over the elaborated netlist can miss source intent
-  Yosys transforms away; a clean result is not an X-safety proof.
-
-A second rule (X-masking control constructs: wildcard/incomplete case
-optimism) is recorded as a candidate `REF-XPROP-002` but intentionally not in
-scope until 001 has fixtures and field results.
-
-### REF-META-001 - declared synchronizer depth
-
-When the manifest declares `min_sync_stages = N` for an asynchronous crossing
-(default 2 when the crossing is declared without a depth), flag any recognized
-synchronizer chain on that crossing with depth `< N`.
-
-- Purely parametric: the rule checks structure against declared intent. It
-  computes no MTBF and makes no frequency- or technology-based claim. MTBF
-  arithmetic from evaluator-declared parameters is a possible reporting-only
-  extension and is deliberately excluded from the rule.
-- Distinct from `REF-CDC-001`, which fires when no second stage exists at all.
-  `REF-META-001` fires when a synchronizer exists but is shallower than the
-  declared requirement (e.g., declared 3-stage for a fast-clock crossing,
-  implemented 2-stage).
-- Evidence: chain cells and measured depth vs declared depth.
-- Limitation: depth recognition inherits the synchronizer-recognition
-  heuristics; unrecognized synchronizer topologies report `unknown`, not pass.
-
-## Manifest extensions
+Example intent:
 
 ```toml
 [intent]
-power_on = "reset_required"            # enables REF-XPROP-001
-init_attributes_are_power_on = false   # default
+power_on = "reset_required"
+x_policy = "strict"
+memory_power_on = "initialized_or_reset"
 
-[[crossings]]
-# existing fields ...
-min_sync_stages = 3                    # enables REF-META-001 above default
+[[intent.state_requirements]]
+signal = "mode"
+reset = "core_reset"
+value = "01"
 ```
 
-Absent declarations mean the rules return `unknown` for the affected scope,
-never a silent pass - the same abstention contract as the existing rules.
+The source scan in `REF-XPROP-002` removes comments and string contents before
+tokenizing case constructs. It is intentionally not a complete SystemVerilog
+semantic analysis. `REF-XPROP-004` recognizes complete static initialization;
+the `initialized_or_reset` intent name reserves the broader contract, but
+procedural memory scrub/reset recognition remains a documented gap.
 
-## Witness pairs
+## Implemented metastability-depth rule
 
-| Family | Unsafe shape | Safe reference shape | Primary rule |
+`REF-META-001` compares a recognized destination register-chain depth with the
+explicit `min_sync_stages` on the matching crossing:
+
+```toml
+[[intent.crossings]]
+source = "status_src"
+destination = "status_dst"
+protocol = "single_bit"
+min_sync_stages = 3
+```
+
+This rule is parametric. It does not model analog metastability, compute MTBF,
+or infer a sufficient depth from clock frequency and technology data. A
+two-stage chain under a declared three-stage requirement fails; the paired safe
+fixture has three stages. `REF-CDC-001` remains distinct: it identifies the
+absence of a recognized second stage.
+
+## Controlled witnesses
+
+| Family | Unsafe member | Safe member | Rule |
 |---|---|---|---|
-| Power-on X | Un-reset mode register controlling output logic; testbench passes because simulation X-optimism resolves the branch deterministically | Reset covers the mode register | REF-XPROP-001 |
-| Synchronizer depth | Two-stage synchronizer where the manifest declares three stages required | Three destination stages | REF-META-001 |
+| `power_on_x` | Output-reachable state lacks reset | State is reset | `REF-XPROP-001` |
+| `x_control_masking` | `casex` masks unknown selector values | Plain `case` includes `default` | `REF-XPROP-002` |
+| `selective_reset` | Only part of named state receives the required value | Entire state receives it | `REF-XPROP-003` |
+| `uninitialized_memory` | Memory has no static initialization | Every word has constant initialization | `REF-XPROP-004` |
+| `synchronizer_depth` | Two stages under a three-stage requirement | Three stages | `REF-META-001` |
 
-Both pairs must satisfy the controlled-witness contract: identical interface,
-identical functional testbench, both members pass functional simulation, the
-structural oracle separates them. The power-on X pair additionally documents
-which simulator X-semantics the functional pass depends on (Icarus X handling
-at the branch in question).
-
-## What this adds to the research claims
-
-- Extends the structural validity argument from timing-domain hazards
-  (CDC/RDC) to value-domain hazards (X), demonstrating the gap is a property
-  of the oracle class, not a quirk of clock-domain analysis.
-- Both categories test whether the same evaluation contract applies beyond
-  clock and reset crossings. They do not by themselves establish novelty or
-  prevalence.
-- Neither category changes the primary metric; both plug into the existing
-  gap definition, report schema, and abstention semantics.
-
-## Sequencing
-
-1. `REF-XPROP-001` + power-on X witness pair (new fixtures, oracle rule,
-   tests).
-2. Power-on randomization adjudication for `REF-XPROP-001`: per-seed random
-   initialization of un-reset state, reusing the golden-trace observer from
-   [perturbation-adjudication.md](perturbation-adjudication.md). This gives
-   the X category machine adjudication from day one.
-3. `REF-META-001` + depth witness pair (rule reuses synchronizer recognition).
-   Note: this rule is parametric permanently; depth adequacy is not
-   injection-adjudicable (see the generalization section of the perturbation
-   design).
-4. X-prop generation taskpack (prompts requiring declared power-on behavior)
-   - only after the rules are calibrated on witnesses, mirroring the
-   reset-release sequence: witnesses first, audit second, generation third.
+Each pair has the same interface and testbench. Both variants pass functional
+simulation; only the unsafe member triggers its primary rule. That establishes
+detector behavior on controlled shapes, not prevalence or silicon defect rate.

@@ -1,0 +1,25 @@
+schema_version = "1.0"
+candidate_id = "async-fifo-shape-unsafe"
+[design]
+top = "async_fifo_shape"
+sources = ["design.sv"]
+[functional]
+commands = [["iverilog", "-g2012", "-o", "${SVGAP_BUILD}/sim.vvp", "design.sv", "../tb.sv"], ["vvp", "${SVGAP_BUILD}/sim.vvp"]]
+[structural]
+backend = "reference-yosys"
+[intent]
+asynchronous_groups = [["write"], ["read"]]
+[[intent.clocks]]
+name = "write"
+port = "wr_clk"
+[[intent.clocks]]
+name = "read"
+port = "rd_clk"
+[[intent.crossings]]
+source = "wr_gray"
+destination = "wr_gray_sync"
+protocol = "async_fifo"
+return_source = "rd_gray"
+return_destination = "rd_gray_sync"
+[output]
+report = "build/report.json"

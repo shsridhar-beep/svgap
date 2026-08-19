@@ -4,6 +4,8 @@ from importlib.metadata import entry_points
 from typing import Callable
 
 from svgap.backends.base import BackendUnavailable, CheckerBackend
+from svgap.backends.lint_verible import VeribleLintBackend
+from svgap.backends.lint_verilator import VerilatorLintBackend
 from svgap.backends.reference_yosys import ReferenceYosysBackend
 
 
@@ -17,6 +19,8 @@ class BackendError(ValueError):
 def _discover() -> tuple[dict[str, BackendFactory], dict[str, str], dict[str, str]]:
     factories: dict[str, BackendFactory] = {
         ReferenceYosysBackend.name: ReferenceYosysBackend,
+        VerilatorLintBackend.name: VerilatorLintBackend,
+        VeribleLintBackend.name: VeribleLintBackend,
     }
     errors: dict[str, str] = {}
     unavailable: dict[str, str] = {}
@@ -65,14 +69,14 @@ def available_backends() -> dict[str, BackendFactory]:
 def load_backend(name: str) -> CheckerBackend:
     factories, errors, unavailable = _discover()
     if name in unavailable:
-        raise BackendError(f"cannot load structural backend {name!r}: {unavailable[name]}")
+        raise BackendError(f"cannot load checker backend {name!r}: {unavailable[name]}")
     if name in errors:
-        raise BackendError(f"cannot load structural backend {name!r}: {errors[name]}")
+        raise BackendError(f"cannot load checker backend {name!r}: {errors[name]}")
     try:
         factory = factories[name]
     except KeyError as exc:
         choices = ", ".join(sorted(factories)) or "none"
-        raise BackendError(f"unsupported structural backend {name!r}; available: {choices}") from exc
+        raise BackendError(f"unsupported checker backend {name!r}; available: {choices}") from exc
     backend = factory()
     if getattr(backend, "name", None) != name or not callable(
         getattr(backend, "check", None)

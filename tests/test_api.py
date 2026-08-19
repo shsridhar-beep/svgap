@@ -1,10 +1,12 @@
 import shutil
+import json
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from unittest import TestCase, skipUnless
 
 import svgap
 from svgap.demo import materialize_demo
+from svgap.validation import validate_report_payload
 
 
 HAS_TOOLS = all(shutil.which(tool) for tool in ("yosys", "iverilog", "vvp"))
@@ -40,6 +42,13 @@ class EvaluateTests(TestCase):
         self.assertEqual(report.structural.status, "pass")
         self.assertFalse(report.gap_member)
 
+    def test_legacy_programmatic_manifest_without_oracles_still_evaluates(self) -> None:
+        manifest = svgap.load_manifest(self.root / "safe/manifest.toml")
+        manifest.oracles.clear()
+        report = svgap.evaluate(manifest, write_report=False)
+        self.assertEqual(report.schema_version, "1.0")
+        self.assertEqual(report.structural.status, "pass")
+
     def test_write_report_false_leaves_no_file(self) -> None:
         report = svgap.evaluate(
             self.root / "unsafe/manifest.toml", write_report=False
@@ -68,3 +77,20 @@ class EvaluateTests(TestCase):
     def test_manifest_error_raises(self) -> None:
         with self.assertRaises(svgap.ManifestError):
             svgap.evaluate(self.root / "does-not-exist.toml")
+
+    def test_schema_v2_preserves_structural_and_lint_as_separate_evidence(self) -> None:
+        root = Path(__file__).resolve().parents[1]
+        report = svgap.evaluate(
+            root / "examples/synchronizer_depth/unsafe/manifest.toml",
+            write_report=False,
+        )
+        self.assertEqual(report.schema_version, "2.0")
+        self.assertEqual(report.structural.status, "fail")
+        self.assertEqual(
+            [item.oracle_class for item in report.oracle_results],
+            ["structural", "lint"],
+        )
+        self.assertTrue(report.gap_member)
+        payload = json.loads(json.dumps(report.to_dict()))
+        self.assertNotIn("structural", payload)
+        self.assertIs(validate_report_payload(payload), payload)

@@ -9,6 +9,41 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class ManifestTests(TestCase):
+    def test_schema_v2_loads_ordered_oracle_profile(self) -> None:
+        manifest = load_manifest(
+            ROOT / "examples/synchronizer_depth/safe/manifest.toml"
+        )
+        self.assertEqual(manifest.schema_version, "2.0")
+        self.assertEqual(
+            [(item.oracle_id, item.oracle_class) for item in manifest.oracles],
+            [("structure", "structural"), ("ordinary-lint", "lint")],
+        )
+        self.assertFalse(manifest.oracles[1].contributes_to_gap)
+        self.assertFalse(manifest.oracles[1].required)
+
+    def test_v1_structural_table_maps_to_compatibility_oracle(self) -> None:
+        manifest = load_manifest(ROOT / "examples/level_crossing/safe/manifest.toml")
+        self.assertEqual(len(manifest.oracles), 1)
+        self.assertEqual(manifest.oracles[0].oracle_class, "structural")
+        self.assertEqual(manifest.oracles[0].backend, manifest.backend)
+
+    def test_handshake_requires_return_path_intent(self) -> None:
+        source = (
+            ROOT / "examples/handshake_crossing/safe/manifest.toml"
+        ).read_text(encoding="utf-8")
+        source = source.replace('return_source = "dst_ack"\n', "").replace(
+            'return_destination = "ack_sync"\n', ""
+        )
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root / "manifest.toml"
+            path.write_text(source, encoding="utf-8")
+            (root / "design.sv").write_text(
+                "module handshake_crossing; endmodule\n", encoding="utf-8"
+            )
+            with self.assertRaisesRegex(ManifestError, "requires return"):
+                load_manifest(path)
+
     def test_loads_example_manifest(self) -> None:
         manifest = load_manifest(ROOT / "examples/level_crossing/safe/manifest.toml")
         self.assertEqual(manifest.top, "level_crossing")

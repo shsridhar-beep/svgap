@@ -17,7 +17,14 @@ from svgap.api import evaluate
 from svgap.backends.registry import BackendError, discover_backends, load_backend
 from svgap.functional import run_functional
 from svgap.manifest import Manifest, ManifestError, load_manifest
-from svgap.model import CheckResult, EvaluationReport, Finding, FunctionalResult
+from svgap.model import (
+    CheckResult,
+    EvaluationReport,
+    Finding,
+    FunctionalResult,
+    OracleConfig,
+    OracleResult,
+)
 from svgap.pilot import materialize_candidate
 from svgap.resources import taskpack_metadata, taskpack_root
 from svgap.study import summarize_reports
@@ -33,6 +40,8 @@ __all__ = [
     "FunctionalResult",
     "Manifest",
     "ManifestError",
+    "OracleConfig",
+    "OracleResult",
     "ReportValidationError",
     "discover_backends",
     "evaluate",

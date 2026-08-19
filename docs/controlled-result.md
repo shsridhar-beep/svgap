@@ -51,8 +51,10 @@ the image is cached:
 docker run --rm ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.9 demo
 ```
 
-To regenerate all five controlled witness pairs from a source checkout after
-installing the documented open-source prerequisites:
+This dated result remains the original five-family, ten-candidate construction;
+its reported `0.500` is not retroactively recomputed. The current source tree
+also contains twelve expansion pairs for detector calibration. To run all
+current pairs after installing the open-source prerequisites:
 
 ```bash
 python3 -m unittest discover -s tests -v

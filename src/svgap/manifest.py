@@ -5,7 +5,14 @@ import re
 from pathlib import Path
 from typing import Any
 
-from svgap.model import ClockIntent, CrossingIntent, Manifest, ResetIntent
+from svgap.model import (
+    ClockIntent,
+    CrossingIntent,
+    Manifest,
+    OracleConfig,
+    ResetIntent,
+    StateRequirement,
+)
 
 
 class ManifestError(ValueError):
@@ -26,19 +33,24 @@ def load_manifest(path: str | Path) -> Manifest:
         raise ManifestError(f"cannot read {manifest_path}: {exc}") from exc
 
     base = manifest_path.parent
+    schema_version = str(_required(raw, "schema_version", "manifest"))
+    if schema_version not in ("1.0", "2.0"):
+        raise ManifestError(f"unsupported schema_version: {schema_version!r}")
+
     design = _required(raw, "design", "manifest")
     functional = raw.get("functional", {})
-    structural = _required(raw, "structural", "manifest")
+    structural = raw.get("structural")
     intent = _required(raw, "intent", "manifest")
     output = raw.get("output", {})
-    schema_version = str(_required(raw, "schema_version", "manifest"))
-    if schema_version != "1.0":
-        raise ManifestError(f"unsupported schema_version: {schema_version!r}")
 
     if not isinstance(design, dict) or not isinstance(functional, dict):
         raise ManifestError("design and functional sections must be tables")
-    if not isinstance(structural, dict) or not isinstance(intent, dict):
-        raise ManifestError("structural and intent sections must be tables")
+    if schema_version == "1.0" and not isinstance(structural, dict):
+        raise ManifestError("structural section must be a table")
+    if structural is not None and not isinstance(structural, dict):
+        raise ManifestError("structural section must be a table")
+    if not isinstance(intent, dict):
+        raise ManifestError("intent section must be a table")
     if not isinstance(output, dict):
         raise ManifestError("output section must be a table")
 
@@ -83,10 +95,12 @@ def load_manifest(path: str | Path) -> Manifest:
     clocks_raw = _table_array(intent, "clocks")
     resets_raw = _table_array(intent, "resets")
     crossings_raw = _table_array(intent, "crossings")
+    state_raw = _table_array(intent, "state_requirements")
     try:
         clocks = [ClockIntent(**item) for item in clocks_raw]
         resets = [ResetIntent(**item) for item in resets_raw]
         crossings = [CrossingIntent(**item) for item in crossings_raw]
+        state_requirements = [StateRequirement(**item) for item in state_raw]
     except TypeError as exc:
         raise ManifestError(f"invalid intent record: {exc}") from exc
     if len({clock.name for clock in clocks}) != len(clocks):
@@ -99,17 +113,60 @@ def load_manifest(path: str | Path) -> Manifest:
         raise ManifestError("intent reset assertion must be 'async' or 'sync'")
     if any(reset.deassertion not in ("async", "sync") for reset in resets):
         raise ManifestError("intent reset deassertion must be 'async' or 'sync'")
+    if any(
+        reset.allow_combination is not None
+        and not isinstance(reset.allow_combination, bool)
+        for reset in resets
+    ):
+        raise ManifestError("intent reset allow_combination must be a boolean")
     clock_names = {clock.name for clock in clocks}
     for reset in resets:
         if reset.clock is not None and reset.clock not in clock_names:
             raise ManifestError(
                 f"intent reset {reset.name!r} references undeclared clock {reset.clock!r}"
             )
+    supported_protocols = {
+        "single_bit",
+        "gray",
+        "pulse",
+        "toggle",
+        "handshake",
+        "async_fifo",
+        "unspecified",
+    }
+    if any(crossing.protocol not in supported_protocols for crossing in crossings):
+        raise ManifestError("intent crossing protocol is unsupported")
     if any(
-        crossing.protocol not in ("single_bit", "gray", "handshake", "unspecified")
+        not isinstance(crossing.source, str)
+        or not crossing.source
+        or not isinstance(crossing.destination, str)
+        or not crossing.destination
         for crossing in crossings
     ):
-        raise ManifestError("intent crossing protocol is unsupported")
+        raise ManifestError("intent crossing endpoints must be nonempty strings")
+    if any(
+        crossing.min_sync_stages is not None
+        and (
+            not isinstance(crossing.min_sync_stages, int)
+            or isinstance(crossing.min_sync_stages, bool)
+            or crossing.min_sync_stages < 2
+        )
+        for crossing in crossings
+    ):
+        raise ManifestError("intent crossing min_sync_stages must be an integer >= 2")
+    for crossing in crossings:
+        paired = (crossing.return_source, crossing.return_destination)
+        if (paired[0] is None) != (paired[1] is None):
+            raise ManifestError(
+                "intent crossing return_source and return_destination must be declared together"
+            )
+        if crossing.protocol in {"handshake", "async_fifo"} and paired[0] is None:
+            raise ManifestError(
+                f"intent {crossing.protocol} crossing requires return_source and "
+                "return_destination"
+            )
+        if any(item is not None and (not isinstance(item, str) or not item) for item in paired):
+            raise ManifestError("intent crossing return endpoints must be nonempty strings")
     power_on = intent.get("power_on", "unspecified")
     if power_on not in ("unspecified", "reset_required"):
         raise ManifestError(
@@ -126,6 +183,68 @@ def load_manifest(path: str | Path) -> Manifest:
         for group in groups
     ):
         raise ManifestError("intent.asynchronous_groups must be an array of nonempty string arrays")
+
+    independent_reset_groups = intent.get("independent_reset_groups", [])
+    if not isinstance(independent_reset_groups, list) or any(
+        not isinstance(group, list)
+        or not group
+        or not all(isinstance(name, str) and name for name in group)
+        for group in independent_reset_groups
+    ):
+        raise ManifestError(
+            "intent.independent_reset_groups must be an array of nonempty string arrays"
+        )
+    reset_names = {reset.name for reset in resets}
+    grouped_reset_names = {name for group in independent_reset_groups for name in group}
+    unknown_reset_names = sorted(grouped_reset_names - reset_names)
+    if unknown_reset_names:
+        raise ManifestError(
+            "intent independent reset groups reference undeclared resets: "
+            + ", ".join(unknown_reset_names)
+        )
+    if any(
+        not isinstance(item.signal, str)
+        or not item.signal
+        or not isinstance(item.reset, str)
+        or not item.reset
+        for item in state_requirements
+    ):
+        raise ManifestError("intent state requirement fields must be nonempty strings")
+    if any(item.reset not in reset_names for item in state_requirements):
+        missing_resets = sorted(
+            {item.reset for item in state_requirements if item.reset not in reset_names}
+        )
+        raise ManifestError(
+            "intent state requirements reference undeclared resets: "
+            + ", ".join(missing_resets)
+        )
+    if len({item.signal for item in state_requirements}) != len(state_requirements):
+        raise ManifestError("intent state requirement signals must be unique")
+    if any(
+        item.value is not None
+        and (
+            not isinstance(item.value, str)
+            or re.fullmatch(r"[01xXzZ]+", item.value) is None
+        )
+        for item in state_requirements
+    ):
+        raise ManifestError("intent state requirement values must contain only 0, 1, x, or z")
+
+    x_policy = intent.get("x_policy", "unspecified")
+    if x_policy not in ("unspecified", "strict"):
+        raise ManifestError("intent.x_policy must be 'unspecified' or 'strict'")
+    memory_power_on = intent.get("memory_power_on", "unspecified")
+    if memory_power_on not in ("unspecified", "initialized_or_reset"):
+        raise ManifestError(
+            "intent.memory_power_on must be 'unspecified' or 'initialized_or_reset'"
+        )
+    cdc_reconvergence = intent.get("cdc_reconvergence", "unspecified")
+    if cdc_reconvergence not in ("unspecified", "forbid_independent"):
+        raise ManifestError(
+            "intent.cdc_reconvergence must be 'unspecified' or 'forbid_independent'"
+        )
+
+    oracles = _load_oracles(raw, schema_version, structural)
 
     top = str(_required(design, "top", "design"))
     if re.fullmatch(r"[A-Za-z_][A-Za-z0-9_$]*", top) is None:
@@ -156,8 +275,21 @@ def load_manifest(path: str | Path) -> Manifest:
         crossings=crossings,
         power_on=power_on,
         init_attributes_are_power_on=init_attributes_are_power_on,
-        backend=str(structural.get("backend", "reference-yosys")),
+        backend=next(
+            (
+                oracle.backend
+                for oracle in oracles
+                if oracle.oracle_class == "structural"
+            ),
+            oracles[0].backend,
+        ),
         report_path=report_path,
+        oracles=oracles,
+        independent_reset_groups=[list(group) for group in independent_reset_groups],
+        state_requirements=state_requirements,
+        x_policy=x_policy,
+        memory_power_on=memory_power_on,
+        cdc_reconvergence=cdc_reconvergence,
     )
 
 
@@ -166,3 +298,86 @@ def _table_array(table: dict[str, Any], key: str) -> list[dict[str, Any]]:
     if not isinstance(value, list) or any(not isinstance(item, dict) for item in value):
         raise ManifestError(f"intent.{key} must be an array of tables")
     return value
+
+
+def _load_oracles(
+    raw: dict[str, Any], schema_version: str, structural: dict[str, Any] | None
+) -> list[OracleConfig]:
+    if schema_version == "1.0":
+        assert structural is not None
+        return [
+            OracleConfig(
+                oracle_id="structural",
+                oracle_class="structural",
+                backend=str(structural.get("backend", "reference-yosys")),
+            )
+        ]
+
+    if structural is not None:
+        raise ManifestError("schema v2 uses [[oracles]] instead of [structural]")
+    value = raw.get("oracles")
+    if not isinstance(value, list) or not value or any(
+        not isinstance(item, dict) for item in value
+    ):
+        raise ManifestError("schema v2 requires a nonempty [[oracles]] array")
+    allowed = {
+        "id",
+        "class",
+        "backend",
+        "contributes_to_gap",
+        "required",
+        "options",
+    }
+    oracles: list[OracleConfig] = []
+    for item in value:
+        extras = sorted(set(item) - allowed)
+        if extras:
+            raise ManifestError("oracle has unsupported fields: " + ", ".join(extras))
+        oracle_id = item.get("id")
+        oracle_class = item.get("class")
+        backend = item.get("backend")
+        if not isinstance(oracle_id, str) or re.fullmatch(r"[a-z][a-z0-9_.-]*", oracle_id) is None:
+            raise ManifestError("oracle id must match [a-z][a-z0-9_.-]*")
+        if not isinstance(oracle_class, str) or re.fullmatch(
+            r"[a-z][a-z0-9_.-]*", oracle_class
+        ) is None:
+            raise ManifestError("oracle class must match [a-z][a-z0-9_.-]*")
+        if not isinstance(backend, str) or not backend:
+            raise ManifestError("oracle backend must be a nonempty string")
+        contributes = item.get("contributes_to_gap", oracle_class == "structural")
+        required = item.get("required", True)
+        options = item.get("options", {})
+        if not isinstance(contributes, bool) or not isinstance(required, bool):
+            raise ManifestError("oracle contributes_to_gap and required must be booleans")
+        if not isinstance(options, dict):
+            raise ManifestError("oracle options must be a table")
+        if not _json_compatible(options):
+            raise ManifestError("oracle options must contain only JSON-compatible values")
+        oracles.append(
+            OracleConfig(
+                oracle_id=oracle_id,
+                oracle_class=oracle_class,
+                backend=backend,
+                contributes_to_gap=contributes,
+                required=required,
+                options=dict(options),
+            )
+        )
+    if len({oracle.oracle_id for oracle in oracles}) != len(oracles):
+        raise ManifestError("oracle ids must be unique")
+    if not any(oracle.oracle_class == "structural" for oracle in oracles):
+        raise ManifestError("schema v2 currently requires at least one structural oracle")
+    return oracles
+
+
+def _json_compatible(value: Any) -> bool:
+    if value is None or isinstance(value, (str, int, float, bool)):
+        return True
+    if isinstance(value, list):
+        return all(_json_compatible(item) for item in value)
+    if isinstance(value, dict):
+        return all(
+            isinstance(key, str) and _json_compatible(item)
+            for key, item in value.items()
+        )
+    return False

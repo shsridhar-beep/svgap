@@ -1,0 +1,28 @@
+schema_version = "1.0"
+candidate_id = "reset-domain-crossing-safe"
+[design]
+top = "reset_domain_crossing"
+sources = ["design.sv"]
+[functional]
+commands = [["iverilog", "-g2012", "-o", "${SVGAP_BUILD}/sim.vvp", "design.sv", "../tb.sv"], ["vvp", "${SVGAP_BUILD}/sim.vvp"]]
+[structural]
+backend = "reference-yosys"
+[intent]
+independent_reset_groups = [["domain_a"], ["domain_b"]]
+[[intent.clocks]]
+name = "core"
+port = "clk"
+[[intent.resets]]
+name = "domain_a"
+port = "rst_a_n"
+active = "low"
+assertion = "async"
+deassertion = "async"
+[[intent.resets]]
+name = "domain_b"
+port = "rst_b_n"
+active = "low"
+assertion = "async"
+deassertion = "async"
+[output]
+report = "build/report.json"

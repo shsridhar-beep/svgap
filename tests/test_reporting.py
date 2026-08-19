@@ -48,3 +48,39 @@ class ReportingTests(TestCase):
         self.assertIn("Production questions and next evidence", output)
         self.assertIn("What evidence to add next", output)
         self.assertIn("Does the candidate satisfy TEST-001?", output)
+
+    def test_schema_v2_exports_each_oracle_without_legacy_structural_field(self) -> None:
+        structural = self.report["structural"]
+        report = {
+            key: value
+            for key, value in self.report.items()
+            if key != "structural"
+        }
+        report["schema_version"] = "2.0"
+        report["oracle_results"] = [
+            {
+                "oracle_id": "structure",
+                "oracle_class": "structural",
+                "contributes_to_gap": True,
+                "required": True,
+                **structural,
+                "coverage": {"rules": ["TEST-001"]},
+            },
+            {
+                "oracle_id": "lint",
+                "oracle_class": "lint",
+                "contributes_to_gap": False,
+                "required": False,
+                "status": "pass",
+                "backend": "test-lint",
+                "backend_version": "1",
+                "findings": [],
+                "diagnostics": [],
+                "tool_versions": {},
+                "coverage": {"ruleset": "default"},
+            },
+        ]
+        sarif = build_sarif([report])
+        properties = sarif["runs"][0]["results"][0]["properties"]
+        self.assertEqual(properties["oracle_id"], "structure")
+        self.assertIn("Contributing evidence", build_html([report]))

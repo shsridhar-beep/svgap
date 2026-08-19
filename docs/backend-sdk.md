@@ -7,6 +7,18 @@ Built-in and third-party backends implement one operation:
 check(manifest: Manifest) -> CheckResult
 ```
 
+Schema-v2-aware backends may also accept the selected oracle configuration and
+publish machine-readable scope:
+
+```python
+check(manifest: Manifest, oracle: OracleConfig) -> CheckResult
+coverage(manifest: Manifest, oracle: OracleConfig) -> dict
+```
+
+SV-Gap detects the supported call shape. `coverage` is copied into that
+oracle's `OracleResult`; it should name the rule deck or ruleset, exclusions,
+and known calibration boundary rather than assert generic coverage.
+
 ## Contract
 
 A backend must expose stable `name` and `version` strings and return:
@@ -48,6 +60,30 @@ After installation, `svgap doctor` lists the backend. Select it in a manifest:
 [structural]
 backend = "my-open-checker"
 ```
+
+The v1 form above remains supported. New multi-evidence profiles should use
+schema v2 so evidence classes remain separate:
+
+```toml
+schema_version = "2.0"
+
+[[oracles]]
+id = "my-structure"
+class = "structural"
+backend = "my-open-checker"
+contributes_to_gap = true
+required = true
+
+[[oracles]]
+id = "style-lint"
+class = "lint"
+backend = "lint-verible"
+contributes_to_gap = false
+required = false
+```
+
+An optional unavailable backend still produces `tool_error` evidence. It is
+never rewritten as `pass`.
 
 Plugins cannot replace a built-in name. The plugin package must document its
 tool license, installation requirements, source-location behavior, supported

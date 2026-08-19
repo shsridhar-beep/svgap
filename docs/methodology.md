@@ -8,7 +8,9 @@ often conflate:
 1. **Functional validity:** did the candidate pass the supplied behavioral
    oracle?
 2. **Structural validity:** does the candidate satisfy declared structural
-   safety rules under explicit clock and reset intent?
+   safety rules under explicit clock/reset/value intent?
+3. **Supporting evidence:** what do distinct evidence classes such as ordinary
+   lint report without being mistaken for structural CDC/RDC analysis?
 
 Two candidates can be observationally equivalent under a functional testbench
 while differing in structural validity. We call the resulting measurement
@@ -35,6 +37,12 @@ structural_validity_gap =
 The report must also disclose functional coverage, structural determinacy,
 tool errors, rule severities, tool versions, and any expert adjudication.
 
+In schema v2, an oracle affects membership only when
+`contributes_to_gap = true`. The default profile makes the structural oracle
+contributing and ordinary lint contextual. A lint failure therefore remains
+visible but cannot silently redefine the structural-validity gap. Required and
+optional execution policy is separate from contribution policy.
+
 ## Evidence policy
 
 - `pass`: the configured oracle completed and emitted no failing finding.
@@ -45,6 +53,11 @@ tool errors, rule severities, tool versions, and any expert adjudication.
 - `tool_error`: the checker could not complete successfully.
 
 `unknown` and `tool_error` are never counted as structural passes.
+
+Schema v1 has one structural result. Schema v2 has an ordered
+`oracle_results` array, and each result includes its class, contribution flag,
+required flag, backend provenance, findings, diagnostics, and backend-declared
+coverage. Aggregators normalize v1 into a one-element structural-oracle view.
 
 ## Reference-oracle policy
 

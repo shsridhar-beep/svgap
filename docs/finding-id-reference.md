@@ -1,23 +1,47 @@
 # Finding ID reference
 
-Every reference-backend result carries findings identified by a stable
-`rule_id` such as `REF-CDC-001`. This page is the single lookup table for
-what each current finding ID detects, its severity, and which backend(s)
-emit it.
+Every checker finding has a stable `rule_id`, severity, message, and
+JSON-serializable evidence. The Yosys reference backend implements the narrow
+rules below; `reference-naja` intentionally covers only the original five-rule
+subset and abstains when a newer intent class is requested.
 
-| Finding ID | Detects | Severity | Backends | Defined in |
-|---|---|---|---|---|
-| `REF-CDC-001` | Asynchronous register crossing sampled without a recognized second synchronizer stage | `error` | reference-yosys, reference-naja | [Architecture](architecture.md#built-in-reference-oracle) |
-| `REF-CDC-002` | Combinational logic between the source register and the synchronizer | `error` | reference-yosys, reference-naja | [Architecture](architecture.md#built-in-reference-oracle) |
-| `REF-CDC-003` | Multi-bit asynchronous crossing using independent synchronizer stages without a declared coherence protocol | `error` | reference-yosys, reference-naja | [Architecture](architecture.md#built-in-reference-oracle) |
-| `REF-RDC-001` | Raw asynchronous reset reaching an unmarked state element that requires synchronous deassertion | `error` | reference-yosys, reference-naja | [Architecture](architecture.md#built-in-reference-oracle) |
-| `REF-XPROP-001` | Un-reset operational state reaches a module output although the manifest declares power-on reset coverage | `error` | reference-yosys, reference-naja | [Reference naja backend](reference-naja-backend.md#supported-rules), [Category expansion: X-optimism and metastability](category-expansion-xprop-metastability.md#ref-xprop-001-un-reset-operational-state) |
-| `REF-NAJA-FRONTEND-001` | najaeda frontend diagnostic (e.g. `case_comparison_two_state`) surfaced as a finding instead of dropped | `warning` | reference-naja only | [Reference naja backend](reference-naja-backend.md#frontend-warnings-and-working-directory-hygiene) |
+| Finding ID | Detects | Activation | Backends |
+|---|---|---|---|
+| `REF-CDC-001` | Async crossing without a recognized second destination stage | Declared asynchronous clock groups | Yosys, Naja |
+| `REF-CDC-002` | Combinational logic between source state and synchronizer input | Declared asynchronous clock groups | Yosys, Naja |
+| `REF-CDC-003` | Independently synchronized multi-bit crossing without recognized Gray coherence | Declared asynchronous clock groups | Yosys, Naja |
+| `REF-CDC-004` | Pulse crossing without recognized source toggle encoding and destination XOR reconstruction | `protocol = "pulse"` | Yosys |
+| `REF-CDC-005` | Toggle crossing without recognized source-state toggle feedback | `protocol = "toggle"` | Yosys |
+| `REF-CDC-006` | Handshake without a synchronized return acknowledgment | `protocol = "handshake"` and named return endpoints | Yosys |
+| `REF-CDC-007` | Two independently synchronized paths reconverge in destination combinational logic | `cdc_reconvergence = "forbid_independent"` | Yosys |
+| `REF-CDC-008` | Async FIFO shape without synchronized Gray pointers in both directions | `protocol = "async_fifo"` and named return endpoints | Yosys |
+| `REF-META-001` | Recognized synchronizer chain is shallower than the declared minimum | `min_sync_stages = N` | Yosys |
+| `REF-RDC-001` | Raw async reset reaches ordinary state although synchronous deassertion is required | Reset `deassertion = "sync"` | Yosys, Naja |
+| `REF-RDC-002` | Data path crosses between independently reset state domains | `independent_reset_groups` | Yosys |
+| `REF-RDC-003` | Reset reaches a state-element reset pin through unapproved combinational logic | Reset `allow_combination = false` | Yosys |
+| `REF-RDC-004` | Multiple declared resets reconverge on one state-element reset pin | Two declared reset origins reach one reset pin | Yosys |
+| `REF-XPROP-001` | Un-reset operational state reaches an output despite required reset coverage | `power_on = "reset_required"` | Yosys, Naja |
+| `REF-XPROP-002` | `casex`, `casez`, wildcard equality, or a plain `case` without `default` under strict X policy | `x_policy = "strict"` | Yosys |
+| `REF-XPROP-003` | Named state lacks its required reset or reset value | `[[intent.state_requirements]]` | Yosys |
+| `REF-XPROP-004` | Memory lacks recognized complete static initialization | `memory_power_on = "initialized_or_reset"` | Yosys |
+| `REF-NAJA-FRONTEND-001` | Naja/slang frontend warning retained as evidence | Naja frontend warning | Naja |
 
-Warning-severity findings never change a check's `pass`/`fail` verdict; only
-`error`-severity findings do (see [Evidence policy](methodology.md#evidence-policy)).
+All `REF-*` entries except `REF-NAJA-FRONTEND-001` have `error` severity.
+Frontend warnings do not change a verdict.
 
-`REF-META-001` and `REF-XPROP-002` are proposed rules described in
-[Category expansion: X-optimism and metastability](category-expansion-xprop-metastability.md#new-rules).
-They are design-stage only — no backend in this repository emits them yet —
-so they are not listed above.
+The lint evidence backends use tool-derived identifiers rather than pretending
+to be structural rules:
+
+- `LINT-VERILATOR-<CODE>` for parsed Verilator diagnostics;
+- `LINT-VERIBLE-<RULE>` for parsed Verible diagnostics.
+
+Lint warnings remain warning evidence by default. Syntax/tool errors can fail
+the lint oracle, but a lint oracle contributes to gap membership only when its
+schema-v2 profile explicitly sets `contributes_to_gap = true`.
+
+These recognizers are controlled research oracles, not a signoff deck. In
+particular, `REF-META-001` measures declared chain depth but computes no MTBF;
+`REF-CDC-008` recognizes a pointer-transfer shape but does not prove FIFO
+full/empty logic; and `REF-XPROP-004` currently recognizes complete Yosys
+`$meminit` coverage, not arbitrary procedural memory scrub sequences. See
+[Limitations](limitations.md).

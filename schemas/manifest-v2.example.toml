@@ -1,0 +1,74 @@
+schema_version = "2.0"
+candidate_id = "multi-oracle-example"
+
+[design]
+top = "example_top"
+sources = ["design.sv"]
+
+[functional]
+commands = [
+  ["iverilog", "-g2012", "-o", "${SVGAP_BUILD}/sim.vvp", "design.sv", "tb.sv"],
+  ["vvp", "${SVGAP_BUILD}/sim.vvp"],
+]
+
+[[oracles]]
+id = "reference-structure"
+class = "structural"
+backend = "reference-yosys"
+contributes_to_gap = true
+required = true
+
+[[oracles]]
+id = "verilator-lint"
+class = "lint"
+backend = "lint-verilator"
+contributes_to_gap = false
+required = false
+
+[intent]
+asynchronous_groups = [["source"], ["destination"]]
+independent_reset_groups = [["source_reset"], ["destination_reset"]]
+power_on = "reset_required"
+x_policy = "strict"
+memory_power_on = "initialized_or_reset"
+cdc_reconvergence = "forbid_independent"
+
+[[intent.clocks]]
+name = "source"
+port = "src_clk"
+
+[[intent.clocks]]
+name = "destination"
+port = "dst_clk"
+
+[[intent.resets]]
+name = "source_reset"
+port = "src_rst_n"
+active = "low"
+assertion = "async"
+deassertion = "sync"
+clock = "source"
+allow_combination = false
+
+[[intent.resets]]
+name = "destination_reset"
+port = "dst_rst_n"
+active = "low"
+assertion = "async"
+deassertion = "sync"
+clock = "destination"
+allow_combination = false
+
+[[intent.crossings]]
+source = "status_src"
+destination = "status_dst"
+protocol = "single_bit"
+min_sync_stages = 3
+
+[[intent.state_requirements]]
+signal = "mode"
+reset = "destination_reset"
+value = "0"
+
+[output]
+report = "build/report.json"

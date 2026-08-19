@@ -26,8 +26,20 @@ class ExampleTests(TestCase):
             "level_crossing": "REF-CDC-001",
             "comb_crossing": "REF-CDC-002",
             "gray_counter": "REF-CDC-003",
+            "pulse_crossing": "REF-CDC-004",
+            "toggle_crossing": "REF-CDC-005",
+            "handshake_crossing": "REF-CDC-006",
+            "cdc_reconvergence": "REF-CDC-007",
+            "async_fifo": "REF-CDC-008",
+            "synchronizer_depth": "REF-META-001",
             "reset_release": "REF-RDC-001",
+            "reset_domain_crossing": "REF-RDC-002",
+            "reset_gating": "REF-RDC-003",
+            "reset_reconvergence": "REF-RDC-004",
             "power_on_x": "REF-XPROP-001",
+            "x_control_masking": "REF-XPROP-002",
+            "selective_reset": "REF-XPROP-003",
+            "uninitialized_memory": "REF-XPROP-004",
         }
         for family, expected_rule in expected_rules.items():
             with self.subTest(family=family, variant="unsafe"):

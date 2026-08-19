@@ -5,6 +5,25 @@ versioning once the manifest and report contracts reach public v0.1.
 
 ## Unreleased
 
+### Added
+
+- Report and manifest schema v2 with ordered multi-oracle evidence,
+  per-oracle class/contribution/required flags and coverage metadata, while
+  retaining schema-v1 compatibility.
+- Verilator and Verible lint backends as a distinct `lint` evidence class,
+  carrying the frozen 0/14 RDC calibration boundary.
+- Twelve paired reference fixtures and rules covering declared synchronizer
+  depth; pulse, toggle, handshake, reconvergence, and async-FIFO CDC;
+  independent reset domains, reset gating, reset reconvergence; X-masking
+  control flow, selective reset, and uninitialized memory.
+
+### Changed
+
+- `reference-naja` publishes its supported-rule coverage and abstains with
+  `unknown` when an expanded Yosys-only intent class is requested.
+- The Yosys flow runs `opt_dff` so synchronous reset pins and values remain
+  inspectable for selective-reset checks.
+
 ## 0.3.0-alpha.12 - 2026-08-17
 
 This release is community-driven. It gathers contributions from three external

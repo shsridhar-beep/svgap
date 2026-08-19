@@ -25,10 +25,11 @@
 - real perturbation adjudication for reset release (blocked pending patent and
   employer review)
   ([design](docs/perturbation-adjudication.md))
-- `REF-XPROP-001` and `REF-META-001` with witness pairs
-  ([design](docs/category-expansion-xprop-metastability.md))
+- `REF-XPROP-001`–`004` and `REF-META-001` with witness pairs (shipped in the
+  reference implementation; [scope](docs/category-expansion-xprop-metastability.md))
 - power-on randomization adjudication for `REF-XPROP-001`
-- second open-source SystemVerilog frontend
+- second open-source SystemVerilog frontend (`reference-naja`, shipped for the
+  original five-rule overlap; explicit abstention elsewhere)
 - additional intent-carrying CDC/RDC task packs (reset v0.2 shipped; broader
   CDC packs remain)
 - blinded human-adjudication import and agreement reports
@@ -43,6 +44,10 @@
 
 ## v0.3 follow-ons
 
+- schema-v2 multi-oracle reports with v1 compatibility (shipped)
+- Verilator and Verible lint as distinct, calibrated evidence classes (shipped)
+- expanded pulse/toggle/handshake/reconvergence/FIFO CDC and reset-domain
+  reference fixtures (shipped as controlled recognizers)
 - public backend compatibility matrix
 - waiver and expert-adjudication records
 - multiple independently maintained backends and taskpacks
