@@ -62,7 +62,6 @@ class FormalYosysBackend:
                 ],
                 f"prep -top {property_top} -flatten",
                 "clk2fflogic",
-                "chformal -lower",
                 "select -assert-min 1 t:$assert",
                 "opt_clean",
                 (

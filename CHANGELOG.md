@@ -44,6 +44,8 @@ versioning once the manifest and report contracts reach public v0.1.
 - On POSIX, functional, structural Yosys, bounded-formal, and equivalence tool
   commands run in isolated process groups and reap descendants on timeout, so
   inherited output pipes cannot defeat the configured wall-clock limit.
+- The bounded-formal script no longer requests a redundant post-0.33
+  `chformal` lowering pass, preserving compatibility with Ubuntu's Yosys 0.33.
 - Verilator backend arguments are applied after `--Wall`, allowing a manifest
   to override a default warning such as `DECLFILENAME` deterministically.
 
