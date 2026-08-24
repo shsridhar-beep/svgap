@@ -69,7 +69,11 @@ from svgap.submission import (
     initialize_submission_from_harbor,
     validate_submission,
 )
-from svgap.validation import ReportValidationError, validate_report_payload
+from svgap.validation import (
+    ReportValidationError,
+    contributing_oracle_status,
+    validate_report_payload,
+)
 
 
 RUN_REPORT_URL = (
@@ -528,7 +532,12 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "validate":
         try:
             manifest = load_manifest(args.manifest)
-            load_backend(manifest.backend)
+            for oracle in manifest.oracles:
+                try:
+                    load_backend(oracle.backend)
+                except BackendError:
+                    if oracle.required:
+                        raise
             readiness = manifest_readiness(manifest)
         except (ManifestError, BackendError) as exc:
             print(f"manifest validation failed: {exc}", file=sys.stderr)
@@ -948,30 +957,65 @@ def check(
     else:
         print_summary(report, manifest.report_path)
 
-    functional, structural = report.functional, report.structural
+    functional = report.functional
+    results = report.oracle_results or []
+    required_results = [item for item in results if item.required]
     if fail_on == "report-only":
         return 0
-    if functional.status == "tool_error" or structural.status == "tool_error":
+    if functional.status == "tool_error" or any(
+        item.status == "tool_error" for item in required_results
+    ) or (not results and report.structural.status == "tool_error"):
         return 2
     if fail_on == "gap":
         return 1 if report.gap_member else 0
-    if functional.status == "unknown" or structural.status == "unknown":
+    if functional.status == "unknown" or any(
+        item.status == "unknown" for item in required_results
+    ) or (not results and report.structural.status == "unknown"):
         return 3
-    return 1 if functional.status in ("fail", "compile_error") or structural.status == "fail" else 0
+    oracle_failed = (
+        any(item.status == "fail" for item in required_results)
+        if results
+        else report.structural.status == "fail"
+    )
+    return 1 if functional.status in ("fail", "compile_error") or oracle_failed else 0
 
 
 def print_summary(report: EvaluationReport, report_path: Path) -> None:
     print(f"candidate   {report.candidate_id}")
     print(f"functional  {report.functional.status}")
-    print(f"structural  {report.structural.status}")
+    if report.oracle_results:
+        for result in report.oracle_results:
+            print(
+                f"oracle      {result.oracle_id} ({result.oracle_class}) "
+                f"{result.status} [{result.backend}]"
+            )
+    else:
+        print(f"structural  {report.structural.status}")
     print(f"gap member  {'yes' if report.gap_member else 'no'}")
-    for finding in report.structural.findings:
-        source = finding.evidence.get("source_cell") or finding.evidence.get("cell")
-        destination = finding.evidence.get("destination_cell")
-        context = f" [{source} -> {destination}]" if destination else f" [{source}]" if source else ""
-        print(f"{finding.severity.upper():7} {finding.rule_id}: {finding.message}{context}")
-    for diagnostic in report.structural.diagnostics:
-        print(f"UNKNOWN  {diagnostic}")
+    results = report.oracle_results or []
+    if results:
+        finding_groups = [
+            (result.oracle_id, result.findings, result.diagnostics) for result in results
+        ]
+    else:
+        finding_groups = [
+            ("structural", report.structural.findings, report.structural.diagnostics)
+        ]
+    for oracle_id, findings, diagnostics in finding_groups:
+        for finding in findings:
+            source = finding.evidence.get("source_cell") or finding.evidence.get("cell")
+            destination = finding.evidence.get("destination_cell")
+            context = (
+                f" [{source} -> {destination}]"
+                if destination
+                else f" [{source}]" if source else ""
+            )
+            print(
+                f"{finding.severity.upper():7} {finding.rule_id}: "
+                f"{finding.message}{context} ({oracle_id})"
+            )
+        for diagnostic in diagnostics:
+            print(f"UNKNOWN  {diagnostic} ({oracle_id})")
     print(f"report      {report_path}")
 
 
@@ -984,10 +1028,15 @@ def gap(report_paths: list[Path]) -> int:
             print(f"cannot read {path}: {exc}", file=sys.stderr)
             return 2
     functional_pass = [item for item in reports if item["functional"]["status"] == "pass"]
+    profile_statuses = [contributing_oracle_status(item) for item in functional_pass]
     determinate = [
-        item for item in functional_pass if item["structural"]["status"] in ("pass", "fail")
+        item
+        for item, status in zip(functional_pass, profile_statuses)
+        if status in ("pass", "fail")
     ]
-    failures = [item for item in determinate if item["structural"]["status"] == "fail"]
+    failures = [
+        item for item in determinate if contributing_oracle_status(item) == "fail"
+    ]
     value = len(failures) / len(determinate) if determinate else None
     print(f"reports                    {len(reports)}")
     print(f"functional pass            {len(functional_pass)}")
@@ -995,7 +1044,6 @@ def gap(report_paths: list[Path]) -> int:
     print(f"structural failures         {len(failures)}")
     print(f"structural-validity gap     {value:.3f}" if value is not None else "structural-validity gap     n/a")
     return 0
-
 
 def portable_path(path: Path) -> str:
     try:

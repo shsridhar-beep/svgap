@@ -7,6 +7,7 @@ from collections import Counter
 from typing import Any, Iterable
 
 from svgap.legibility import explain_evaluation_report
+from svgap.validation import contributing_oracle_status, oracle_results
 
 
 def build_sarif(reports: Iterable[dict[str, Any]]) -> dict[str, Any]:
@@ -15,56 +16,69 @@ def build_sarif(reports: Iterable[dict[str, Any]]) -> dict[str, Any]:
     results: list[dict[str, Any]] = []
     notifications: list[dict[str, Any]] = []
     for report in reports:
-        structural = report["structural"]
-        for finding in structural["findings"]:
-            rule_id = finding["rule_id"]
-            rules.setdefault(
-                rule_id,
-                {
-                    "id": rule_id,
-                    "shortDescription": {"text": finding["message"]},
-                    "defaultConfiguration": {
-                        "level": sarif_level(finding["severity"])
-                    },
-                },
-            )
-            result: dict[str, Any] = {
-                "ruleId": rule_id,
-                "level": sarif_level(finding["severity"]),
-                "message": {
-                    "text": f"{report['candidate_id']}: {finding['message']}"
-                },
-                "properties": {
-                    "candidate_id": report["candidate_id"],
-                    "backend": structural["backend"],
-                    "backend_version": structural["backend_version"],
-                    "evidence": finding["evidence"],
-                },
-            }
-            location = finding["evidence"].get("source_location")
-            parsed = parse_source_location(location) if isinstance(location, str) else None
-            if parsed:
-                uri, line, column = parsed
-                region: dict[str, int] = {"startLine": line}
-                if column is not None:
-                    region["startColumn"] = column
-                result["locations"] = [
+        for oracle in oracle_results(report):
+            for finding in oracle["findings"]:
+                rule_id = finding["rule_id"]
+                rules.setdefault(
+                    rule_id,
                     {
-                        "physicalLocation": {
-                            "artifactLocation": {"uri": uri},
-                            "region": region,
-                        }
-                    }
-                ]
-            results.append(result)
-        for diagnostic in structural.get("diagnostics", []):
-            notifications.append(
-                {
-                    "descriptor": {"id": f"SVGAP-{structural['status'].upper()}"},
-                    "message": {"text": f"{report['candidate_id']}: {diagnostic}"},
-                    "level": "error" if structural["status"] == "tool_error" else "warning",
+                        "id": rule_id,
+                        "shortDescription": {"text": finding["message"]},
+                        "defaultConfiguration": {
+                            "level": sarif_level(finding["severity"])
+                        },
+                    },
+                )
+                result: dict[str, Any] = {
+                    "ruleId": rule_id,
+                    "level": sarif_level(finding["severity"]),
+                    "message": {
+                        "text": f"{report['candidate_id']}: {finding['message']}"
+                    },
+                    "properties": {
+                        "candidate_id": report["candidate_id"],
+                        "oracle_id": oracle["oracle_id"],
+                        "oracle_class": oracle["oracle_class"],
+                        "backend": oracle["backend"],
+                        "backend_version": oracle["backend_version"],
+                        "evidence": finding["evidence"],
+                    },
                 }
-            )
+                location = finding["evidence"].get("source_location")
+                parsed = (
+                    parse_source_location(location)
+                    if isinstance(location, str)
+                    else None
+                )
+                if parsed:
+                    uri, line, column = parsed
+                    region: dict[str, int] = {"startLine": line}
+                    if column is not None:
+                        region["startColumn"] = column
+                    result["locations"] = [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {"uri": uri},
+                                "region": region,
+                            }
+                        }
+                    ]
+                results.append(result)
+            for diagnostic in oracle.get("diagnostics", []):
+                notifications.append(
+                    {
+                        "descriptor": {"id": f"SVGAP-{oracle['status'].upper()}"},
+                        "message": {
+                            "text": (
+                                f"{report['candidate_id']} [{oracle['oracle_id']}]: "
+                                f"{diagnostic}"
+                            )
+                        },
+                        "level": (
+                            "error" if oracle["status"] == "tool_error" else "warning"
+                        ),
+                    }
+                )
     run: dict[str, Any] = {
         "tool": {
             "driver": {
@@ -79,7 +93,9 @@ def build_sarif(reports: Iterable[dict[str, Any]]) -> dict[str, Any]:
         run["invocations"] = [
             {
                 "executionSuccessful": not any(
-                    report["structural"]["status"] == "tool_error" for report in reports
+                    oracle["required"] and oracle["status"] == "tool_error"
+                    for report in reports
+                    for oracle in oracle_results(report)
                 ),
                 "toolExecutionNotifications": notifications,
             }
@@ -90,25 +106,31 @@ def build_sarif(reports: Iterable[dict[str, Any]]) -> dict[str, Any]:
 def build_html(reports: Iterable[dict[str, Any]]) -> str:
     reports = list(reports)
     outcomes = Counter(
-        (report["functional"]["status"], report["structural"]["status"])
+        (report["functional"]["status"], contributing_oracle_status(report))
         for report in reports
     )
     gap_members = sum(bool(report["gap_member"]) for report in reports)
     rows = []
     explanations = []
     for report in sorted(reports, key=lambda item: item["candidate_id"]):
+        profile_status = contributing_oracle_status(report)
+        report_oracles = oracle_results(report)
         manifest_parts = str(report["manifest"]).replace("\\", "/").split("/")
         run = manifest_parts[-3] if len(manifest_parts) >= 3 else "unknown"
         findings = "".join(
             "<li><code>" + escape(finding["rule_id"]) + "</code> "
-            + escape(finding["message"]) + "</li>"
-            for finding in report["structural"]["findings"]
+            + escape(finding["message"])
+            + " <small>("
+            + escape(oracle["oracle_id"])
+            + ")</small></li>"
+            for oracle in report_oracles
+            for finding in oracle["findings"]
         ) or "<li>None</li>"
         rows.append(
             "<tr><td><code>" + escape(run) + "</code></td>"
             "<td><code>" + escape(report["candidate_id"]) + "</code></td>"
             "<td>" + escape(report["functional"]["status"]) + "</td>"
-            "<td>" + escape(report["structural"]["status"]) + "</td>"
+            "<td>" + escape(profile_status) + "</td>"
             "<td>" + ("yes" if report["gap_member"] else "no") + "</td>"
             "<td><ul>" + findings + "</ul></td></tr>"
         )
@@ -137,7 +159,7 @@ def build_html(reports: Iterable[dict[str, Any]]) -> str:
 <title>SV-Gap evaluation summary</title>
 <style>body{font:16px system-ui,sans-serif;max-width:1100px;margin:2rem auto;padding:0 1rem;color:#17202a;line-height:1.45}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ccd1d1;padding:.55rem;text-align:left;vertical-align:top}th{background:#eef2f3}code{font-size:.9em}ul{margin:.35rem 0;padding-left:1.2rem}.summary,.meaning{padding:1rem;background:#f4f6f7;border-left:4px solid #2874a6}.meaning{margin:1rem 0;border-color:#7d3c98}.candidate{margin:1.5rem 0;padding:1rem;border:1px solid #d5d8dc;border-radius:.35rem}.boundary{color:#566573}</style>
 </head><body><h1>SV-Gap evaluation summary</h1>
-<div class="summary"><strong>Reports:</strong> """ + str(len(reports)) + " · <strong>Gap members:</strong> " + str(gap_members) + "<br>" + escape(outcome_text) + "</div>\n<h2>What this result means</h2><div class=\"meaning\">" + escape(interpretation) + "</div>\n<table><thead><tr><th>Run</th><th>Candidate</th><th>Functional</th><th>Structural</th><th>Gap member</th><th>Findings</th></tr></thead><tbody>\n" + "\n".join(rows) + "\n</tbody></table>\n<h2>Production questions and next evidence</h2>\n" + "\n".join(explanations) + "\n<p class=\"boundary\">Generated by SV-Gap. Results are conditional on supplied evidence and configured rules. A structural pass means no configured finding; it is not silicon signoff or a population-level defect estimate.</p></body></html>\n"
+<div class="summary"><strong>Reports:</strong> """ + str(len(reports)) + " · <strong>Gap members:</strong> " + str(gap_members) + "<br>" + escape(outcome_text) + "</div>\n<h2>What this result means</h2><div class=\"meaning\">" + escape(interpretation) + "</div>\n<table><thead><tr><th>Run</th><th>Candidate</th><th>Functional</th><th>Contributing evidence</th><th>Gap member</th><th>Findings</th></tr></thead><tbody>\n" + "\n".join(rows) + "\n</tbody></table>\n<h2>Production questions and next evidence</h2>\n" + "\n".join(explanations) + "\n<p class=\"boundary\">Generated by SV-Gap. Results are conditional on supplied evidence and configured rules. A structural pass means no configured finding; it is not silicon signoff or a population-level defect estimate.</p></body></html>\n"
 
 
 def _explanation_html(explanation: dict[str, Any], run: str) -> str:

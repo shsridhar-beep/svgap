@@ -1,0 +1,29 @@
+schema_version = "1.0"
+candidate_id = "reset-reconvergence-unsafe"
+[design]
+top = "reset_reconvergence"
+sources = ["design.sv"]
+[functional]
+commands = [["iverilog", "-g2012", "-o", "${SVGAP_BUILD}/sim.vvp", "design.sv", "../tb.sv"], ["vvp", "${SVGAP_BUILD}/sim.vvp"]]
+[structural]
+backend = "reference-yosys"
+[intent]
+[[intent.clocks]]
+name = "core"
+port = "clk"
+[[intent.resets]]
+name = "reset_a"
+port = "rst_a_n"
+active = "low"
+assertion = "async"
+deassertion = "async"
+allow_combination = true
+[[intent.resets]]
+name = "reset_b"
+port = "rst_b_n"
+active = "low"
+assertion = "async"
+deassertion = "async"
+allow_combination = true
+[output]
+report = "build/report.json"

@@ -13,7 +13,11 @@ import tomllib
 from typing import Any, Iterable
 
 from svgap.study import summarize_reports
-from svgap.validation import ReportValidationError, validate_report_payload
+from svgap.validation import (
+    ReportValidationError,
+    contributing_oracle_status,
+    validate_report_payload,
+)
 
 
 class SubmissionError(ValueError):
@@ -588,7 +592,7 @@ def _validate_harbor_task(
 
 def _harbor_rewards(report: dict[str, Any]) -> dict[str, int]:
     functional = report["functional"]["status"]
-    structural = report["structural"]["status"]
+    structural = contributing_oracle_status(report)
     functional_accept = int(functional == "pass")
     structural_accept = int(structural == "pass")
     return {
@@ -619,7 +623,7 @@ def _validate_harbor_agreement(
             raise SubmissionError(f"Harbor reward/report mismatch for {task_name}: {key}")
     expected_verdict = {
         "functional_status": report["functional"]["status"],
-        "structural_status": report["structural"]["status"],
+        "structural_status": contributing_oracle_status(report),
         "gap_member": bool(expected["gap_member"]),
         "unknown": bool(expected["unknown"]),
         "tool_error": bool(expected["tool_error"]),

@@ -41,6 +41,7 @@ nav:
       - RTL designer review protocol: rtl-designer-review-protocol.md
       - Independent review result: independent-review-result.md
       - Power-on prevalence protocol: power-on-prevalence-protocol.md
+      - X propagation and metastability containment: category-expansion-xprop-metastability.md
       - Methodology: methodology.md
       - Limitations: limitations.md
   - Extend:

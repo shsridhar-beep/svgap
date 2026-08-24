@@ -5,7 +5,11 @@ from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any, Iterable
 
-from svgap.validation import validate_report_payload
+from svgap.validation import (
+    contributing_oracle_status,
+    oracle_results,
+    validate_report_payload,
+)
 
 
 def summarize_reports(report_paths: Iterable[Path]) -> dict[str, Any]:
@@ -19,9 +23,13 @@ def summarize_reports(report_paths: Iterable[Path]) -> dict[str, Any]:
     by_model: dict[str, Counter[tuple[str, str, bool]]] = defaultdict(Counter)
     rule_counts: Counter[str] = Counter()
     for path, report in reports:
+        contributing = [
+            item for item in oracle_results(report) if item["contributes_to_gap"]
+        ]
+        structural_status = contributing_oracle_status(report)
         outcome = (
             report["functional"]["status"],
-            report["structural"]["status"],
+            structural_status,
             bool(report["gap_member"]),
         )
         outcome_counts[outcome] += 1
@@ -30,7 +38,9 @@ def summarize_reports(report_paths: Iterable[Path]) -> dict[str, Any]:
         model = run_id.split("--sample-", 1)[0]
         by_model[model][outcome] += 1
         rule_counts.update(
-            finding["rule_id"] for finding in report["structural"].get("findings", [])
+            finding["rule_id"]
+            for item in contributing
+            for finding in item.get("findings", [])
         )
     functional_pass = sum(
         count for (functional, _structural, _gap), count in outcome_counts.items()

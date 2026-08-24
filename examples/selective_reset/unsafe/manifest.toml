@@ -1,0 +1,25 @@
+schema_version = "1.0"
+candidate_id = "selective-reset-unsafe"
+[design]
+top = "selective_reset"
+sources = ["design.sv"]
+[functional]
+commands = [["iverilog", "-g2012", "-o", "${SVGAP_BUILD}/sim.vvp", "design.sv", "../tb.sv"], ["vvp", "${SVGAP_BUILD}/sim.vvp"]]
+[structural]
+backend = "reference-yosys"
+[intent]
+[[intent.clocks]]
+name = "core"
+port = "clk"
+[[intent.resets]]
+name = "core_reset"
+port = "rst_n"
+active = "low"
+assertion = "sync"
+deassertion = "sync"
+[[intent.state_requirements]]
+signal = "mode"
+reset = "core_reset"
+value = "01"
+[output]
+report = "build/report.json"

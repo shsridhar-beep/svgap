@@ -99,6 +99,13 @@ Missing or insufficient intent is reported as `unknown` (never `pass`), and an
 elaboration or analysis failure is reported as `tool_error` (never `pass`),
 matching the SDK contract.
 
+The expanded Yosys-only intent classes—synchronizer depth; pulse, toggle,
+handshake, reconvergence, and async-FIFO protocols; independent reset domains;
+reset-combination policy; selective reset; strict X control; and memory
+power-on—are listed in schema-v2 `coverage` metadata as unsupported. If any is
+requested, `reference-naja` returns `unknown` with the exact feature names
+instead of a false clean result.
+
 ## Frontend warnings and working-directory hygiene
 
 Backend runs create no files in the caller's working directory. najaeda's
@@ -123,10 +130,10 @@ findings never change the verdict; only error-severity findings do.
 analysis synchronously, with no wall-clock bound. A pathological or extremely
 large source could therefore run unbounded. In practice the flat, single-module
 CDC/RDC fixtures elaborate in milliseconds, but callers that run untrusted or
-unbounded input should impose their own external timeout. `reference-yosys` has
-the same characteristic (it does not time-bound the `yosys` subprocess either),
-so this is not a regression relative to the built-in backend, but it is a real
-limitation to close before running this backend on adversarial input.
+unbounded input should impose their own external timeout. `reference-yosys`
+bounds its Yosys subprocess at 60 seconds; Naja's in-process call cannot
+currently use that mechanism. This is a real limitation to close before
+running this backend on adversarial input.
 
 ## Known false-positive and false-negative classes
 
@@ -174,9 +181,10 @@ code comments.
 
 ## Tests
 
-- `tests/test_reference_naja.py` — the four controlled safe/unsafe witness pairs
+- `tests/test_reference_naja.py` — the original controlled safe/unsafe witness pairs
   and their rule IDs, the gray-declaration and wildcard-gray cases,
-  missing-intent (`unknown`), unparseable/missing source (`tool_error`),
+  expanded-intent abstention, missing-intent (`unknown`),
+  unparseable/missing source (`tool_error`),
   report-schema validation, and the cross-oracle differential against the frozen
   72-candidate artifact.
 - `tests/test_backends.py` — the capability probe (registry discovery and

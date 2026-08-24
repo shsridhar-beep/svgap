@@ -4,7 +4,12 @@ import json
 from pathlib import Path
 from typing import Any
 
-from svgap.validation import ReportValidationError, validate_report_payload
+from svgap.validation import (
+    ReportValidationError,
+    contributing_oracle_status,
+    primary_structural_result,
+    validate_report_payload,
+)
 
 
 class ChallengeError(ValueError):
@@ -157,7 +162,7 @@ def _check(name: str, passed: bool, evidence: str) -> dict[str, Any]:
 
 def _score_generation(report: dict[str, Any]) -> list[dict[str, Any]]:
     functional = report["functional"]
-    structural = report["structural"]
+    profile_status = contributing_oracle_status(report)
     functional_provenance = bool(
         functional.get("commands") or functional.get("imported_from")
     )
@@ -165,10 +170,10 @@ def _score_generation(report: dict[str, Any]) -> list[dict[str, Any]]:
         _check("functional_pass", functional["status"] == "pass", functional["status"]),
         _check(
             "structural_determinate",
-            structural["status"] in {"pass", "fail"},
-            structural["status"],
+            profile_status in {"pass", "fail"},
+            profile_status,
         ),
-        _check("structural_pass", structural["status"] == "pass", structural["status"]),
+        _check("structural_pass", profile_status == "pass", profile_status),
         _check(
             "functional_provenance_declared",
             functional_provenance,
@@ -176,8 +181,8 @@ def _score_generation(report: dict[str, Any]) -> list[dict[str, Any]]:
         ),
         _check(
             "tool_clean",
-            functional["status"] != "tool_error" and structural["status"] != "tool_error",
-            f"functional={functional['status']} structural={structural['status']}",
+            functional["status"] != "tool_error" and profile_status != "tool_error",
+            f"functional={functional['status']} structural={profile_status}",
         ),
     ]
 
@@ -225,8 +230,10 @@ def _score_repair(
     task: dict[str, Any], before: dict[str, Any], after: dict[str, Any]
 ) -> list[dict[str, Any]]:
     target = task["target_rule"]
-    before_rules = {item["rule_id"] for item in before["structural"]["findings"]}
-    after_rules = {item["rule_id"] for item in after["structural"]["findings"]}
+    before_structural = primary_structural_result(before)
+    after_structural = primary_structural_result(after)
+    before_rules = {item["rule_id"] for item in before_structural["findings"]}
+    after_rules = {item["rule_id"] for item in after_structural["findings"]}
     new_rules = sorted(after_rules - before_rules)
     return [
         _check(
@@ -236,12 +243,19 @@ def _score_repair(
         ),
         _check(
             "same_structural_backend",
-            before["structural"]["backend"] == after["structural"]["backend"],
-            f"before={before['structural']['backend']} after={after['structural']['backend']}",
+            before_structural["backend"] == after_structural["backend"],
+            (
+                f"before={before_structural['backend']} "
+                f"after={after_structural['backend']}"
+            ),
         ),
         _check("target_present_before", target in before_rules, ", ".join(sorted(before_rules)) or "none"),
         _check("target_removed_after", target not in after_rules, ", ".join(sorted(after_rules)) or "none"),
         _check("functional_pass_after", after["functional"]["status"] == "pass", after["functional"]["status"]),
-        _check("structural_pass_after", after["structural"]["status"] == "pass", after["structural"]["status"]),
+        _check(
+            "structural_pass_after",
+            after_structural["status"] == "pass",
+            after_structural["status"],
+        ),
         _check("no_new_rule_regression", not new_rules, ", ".join(new_rules) or "none"),
     ]

@@ -17,20 +17,30 @@ HAS_TOOLS = all(shutil.which(tool) for tool in ("yosys", "iverilog", "vvp"))
 @skipUnless(HAS_TOOLS, "Yosys and Icarus Verilog are required")
 class SchemaTests(TestCase):
     def test_all_controlled_reports_validate(self) -> None:
-        schema = json.loads((ROOT / "schemas/report-v1.json").read_text(encoding="utf-8"))
-        validator = Draft202012Validator(schema, format_checker=FormatChecker())
+        validators = {
+            version: Draft202012Validator(
+                json.loads(
+                    (ROOT / f"schemas/report-v{version[0]}.json").read_text(
+                        encoding="utf-8"
+                    )
+                ),
+                format_checker=FormatChecker(),
+            )
+            for version in ("1.0", "2.0")
+        }
         manifests = sorted(ROOT.glob("examples/*/*/manifest.toml"))
-        self.assertEqual(len(manifests), 10)
+        self.assertEqual(len(manifests), 34)
         for path in manifests:
             with self.subTest(manifest=path):
                 with redirect_stdout(io.StringIO()):
                     exit_code = check(path, False, False)
                 self.assertIn(exit_code, (0, 1))
         reports = sorted(ROOT.glob("examples/*/*/build/report.json"))
-        self.assertEqual(len(reports), 10)
+        self.assertEqual(len(reports), 34)
         for path in reports:
             with self.subTest(path=path):
-                validator.validate(json.loads(path.read_text(encoding="utf-8")))
+                payload = json.loads(path.read_text(encoding="utf-8"))
+                validators[payload["schema_version"]].validate(payload)
 
     def test_all_public_artifact_reports_validate(self) -> None:
         schema = json.loads((ROOT / "schemas/report-v1.json").read_text(encoding="utf-8"))

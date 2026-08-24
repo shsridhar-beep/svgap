@@ -1,0 +1,16 @@
+schema_version = "1.0"
+candidate_id = "x-control-masking-unsafe"
+[design]
+top = "x_control_masking"
+sources = ["design.sv"]
+[functional]
+commands = [["iverilog", "-g2012", "-o", "${SVGAP_BUILD}/sim.vvp", "design.sv", "../tb.sv"], ["vvp", "${SVGAP_BUILD}/sim.vvp"]]
+[structural]
+backend = "reference-yosys"
+[intent]
+x_policy = "strict"
+[[intent.clocks]]
+name = "core"
+port = "clk"
+[output]
+report = "build/report.json"

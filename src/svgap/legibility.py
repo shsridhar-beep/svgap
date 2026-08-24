@@ -2,11 +2,11 @@ from __future__ import annotations
 
 from typing import Any
 
-from svgap.validation import validate_report_payload
+from svgap.validation import oracle_results, validate_report_payload
 
 
 def explain_payload(payload: dict[str, Any]) -> dict[str, Any]:
-    if "functional" in payload and "structural" in payload:
+    if "functional" in payload and ("structural" in payload or "oracle_results" in payload):
         return explain_evaluation_report(validate_report_payload(payload))
     if "verdict" in payload and "semantics" in payload:
         return explain_adjudication_report(payload)
@@ -19,7 +19,7 @@ def explain_evaluation_report(report: dict[str, Any]) -> dict[str, Any]:
     unanswered: list[dict[str, str]] = []
     next_evidence: list[str] = []
     functional = report["functional"]
-    structural = report["structural"]
+    results = oracle_results(report)
 
     if functional["status"] == "pass":
         answered.append(
@@ -47,42 +47,52 @@ def explain_evaluation_report(report: dict[str, Any]) -> dict[str, Any]:
         )
         next_evidence.append("Supply or successfully execute a content-bound functional result.")
 
-    if structural["status"] == "pass":
-        answered.append(
-            {
-                "question": "Did the configured structural backend emit a failing finding?",
-                "answer": "no",
-                "evidence": f"{structural['backend']} {structural['backend_version']}",
-            }
+    for result in results:
+        label = (
+            result["oracle_id"]
+            if result["oracle_id"] == result["oracle_class"]
+            else f"{result['oracle_id']} ({result['oracle_class']})"
         )
-        next_evidence.append(
-            "Review backend coverage before treating a structural pass as evidence beyond configured rules."
-        )
-    elif structural["status"] == "fail":
-        for finding in structural["findings"]:
-            failed.append(
+        if result["status"] == "pass":
+            answered.append(
                 {
-                    "question": f"Does the candidate satisfy {finding['rule_id']}?",
+                    "question": f"Did {label} emit a failing finding?",
                     "answer": "no",
-                    "evidence": finding["message"],
+                    "evidence": f"{result['backend']} {result['backend_version']}",
                 }
             )
-        next_evidence.append(
-            "Review the finding, repair the candidate, run an independent backend, or attach an approved adjudication."
-        )
-    else:
-        reasons = structural.get("diagnostics", []) or [structural["status"]]
-        for reason in reasons:
-            unanswered.append(
-                {
-                    "question": "Does the candidate satisfy the configured structural rules?",
-                    "reason": reason,
-                }
+            next_evidence.append(
+                "Review per-oracle coverage before treating a pass as evidence beyond configured rules."
             )
-        if structural["status"] == "unknown":
-            next_evidence.append("Supply missing design intent or use a backend that covers the submitted structure.")
+        elif result["status"] == "fail":
+            for finding in result["findings"]:
+                failed.append(
+                    {
+                        "question": f"Does the candidate satisfy {finding['rule_id']}?",
+                        "answer": "no",
+                        "evidence": f"{finding['message']} ({label})",
+                    }
+                )
+            next_evidence.append(
+                "Review the finding, repair the candidate, run an independent backend, or attach an approved adjudication."
+            )
         else:
-            next_evidence.append("Resolve the structural tool failure and rerun without converting it to pass.")
+            reasons = result.get("diagnostics", []) or [result["status"]]
+            for reason in reasons:
+                unanswered.append(
+                    {
+                        "question": f"Did {label} complete its configured scope?",
+                        "reason": reason,
+                    }
+                )
+            if result["status"] == "unknown":
+                next_evidence.append(
+                    "Supply missing design intent or use a backend that covers the submitted structure."
+                )
+            else:
+                next_evidence.append(
+                    "Resolve the checker tool failure and rerun without converting it to pass."
+                )
 
     return {
         "schema_version": "1.0",

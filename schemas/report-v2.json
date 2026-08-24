@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://svgap.dev/schemas/report-v2.json",
+  "title": "SV-Gap multi-oracle evaluation report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "candidate_id",
+    "manifest",
+    "functional",
+    "oracle_results",
+    "gap_member",
+    "generated_at"
+  ],
+  "properties": {
+    "schema_version": {"const": "2.0"},
+    "candidate_id": {"type": "string", "minLength": 1},
+    "manifest": {"type": "string", "minLength": 1},
+    "gap_member": {"type": "boolean"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "functional": {"$ref": "#/$defs/functionalResult"},
+    "oracle_results": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/oracleResult"}
+    }
+  },
+  "$defs": {
+    "toolVersions": {
+      "type": "object",
+      "additionalProperties": {"type": "string"}
+    },
+    "functionalResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status"],
+      "properties": {
+        "status": {
+          "enum": ["pass", "fail", "compile_error", "unknown", "tool_error", "not_run"]
+        },
+        "commands": {
+          "type": "array",
+          "items": {"type": "array", "items": {"type": "string"}}
+        },
+        "returncodes": {"type": "array", "items": {"type": "integer"}},
+        "stdout": {"type": "string"},
+        "stderr": {"type": "string"},
+        "tool_versions": {"$ref": "#/$defs/toolVersions"},
+        "imported_from": {"type": ["string", "null"]},
+        "evidence": {"type": "object"}
+      }
+    },
+    "finding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rule_id", "severity", "message", "evidence"],
+      "properties": {
+        "rule_id": {"type": "string", "pattern": "^[A-Z0-9][A-Z0-9_.-]*$"},
+        "severity": {"enum": ["error", "warning", "info"]},
+        "message": {"type": "string", "minLength": 1},
+        "evidence": {"type": "object"}
+      }
+    },
+    "oracleResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "oracle_id",
+        "oracle_class",
+        "contributes_to_gap",
+        "required",
+        "status",
+        "backend",
+        "backend_version",
+        "findings",
+        "diagnostics",
+        "tool_versions",
+        "coverage"
+      ],
+      "properties": {
+        "oracle_id": {"type": "string", "pattern": "^[a-z][a-z0-9_.-]*$"},
+        "oracle_class": {"type": "string", "pattern": "^[a-z][a-z0-9_.-]*$"},
+        "contributes_to_gap": {"type": "boolean"},
+        "required": {"type": "boolean"},
+        "status": {"enum": ["pass", "fail", "unknown", "tool_error"]},
+        "backend": {"type": "string", "minLength": 1},
+        "backend_version": {"type": "string", "minLength": 1},
+        "findings": {"type": "array", "items": {"$ref": "#/$defs/finding"}},
+        "diagnostics": {"type": "array", "items": {"type": "string"}},
+        "tool_versions": {"$ref": "#/$defs/toolVersions"},
+        "coverage": {"type": "object"}
+      }
+    }
+  }
+}

@@ -1,113 +1,177 @@
 # Architecture
 
-SV-Gap separates experiment orchestration from structural analysis.
+SV-Gap separates functional execution from independently versioned evidence
+producers. Schema v2 records every producer as a distinct oracle result.
 
 ```text
-candidate manifest
-  |-- RTL sources
-  |-- functional commands or imported result
-  |-- clock/reset/crossing intent
-  `-- checker backend
-          |
-          v
- normalized EvaluationReport
-  |-- functional status and evidence
-  |-- structural status and findings
-  |-- tool/backend versions
-  `-- gap membership
+manifest + RTL
+   |
+   +-- functional commands/import --------> FunctionalResult
+   |
+   +-- structural oracle (Yosys/Naja) ----> OracleResult[class=structural]
+   +-- ordinary lint (Verilator) ---------> OracleResult[class=lint]
+   `-- other configured evidence ---------> OracleResult[class=...]
+                                              |
+                                              v
+                                     EvaluationReport v2
+                                     + gap membership
+                                     + per-oracle coverage
+                                     + versions/diagnostics
 ```
+
+This prevents a lint-clean result from overwriting a CDC/RDC failure, and it
+prevents an unavailable optional tool from being silently reported as a pass.
 
 ## Manifest boundary
 
-The manifest is the reproducibility boundary. Relative file paths resolve from
-the manifest directory. Clock relationships are never inferred as asynchronous
-merely because two clock names differ; the evaluator must declare asynchronous
-groups explicitly.
+The manifest is the reproducibility boundary. Relative paths resolve from its
+directory. Clock and reset relationships are declared, never inferred merely
+from different signal names.
 
-## Annotated intent-manifest example
-
-This is the manifest the demo's `reset_release` safe design ships with
-(`src/svgap/demo_assets/reset_release/safe/manifest.toml`), reduced to the
-fields the current loader (`src/svgap/manifest.py`) requires and annotated
-one line per field. It is a companion to the unannotated
-[`schemas/manifest-v1.example.toml`](https://github.com/shsridhar-beep/svgap/blob/main/schemas/manifest-v1.example.toml)
-and to the open [intent-contract RFC](https://github.com/shsridhar-beep/svgap/discussions/20),
-which asks whether this contract expresses the production questions
-reviewers actually need answered.
+Schema v1 remains accepted and maps its single `[structural]` table to one
+compatibility oracle. Schema v2 uses ordered `[[oracles]]` records:
 
 ```toml
-schema_version = "1.0"       # manifest format version; the loader rejects anything else
-candidate_id = "demo-reset-release-safe"  # identifies this candidate in the report and gap membership
+schema_version = "2.0"
+candidate_id = "candidate-a"
 
 [design]
-top = "reset_release"        # top module name; must be a valid Verilog identifier
-sources = ["design.sv"]      # RTL sources, relative to this manifest, checked to exist
+top = "top"
+sources = ["design.sv"]
 
 [functional]
 commands = [
-  ["iverilog", "-g2012", "-o", "${SVGAP_BUILD}/sim.vvp", "design.sv", "../tb.sv"],
+  ["iverilog", "-g2012", "-o", "${SVGAP_BUILD}/sim.vvp", "design.sv", "tb.sv"],
   ["vvp", "${SVGAP_BUILD}/sim.vvp"],
-]                             # functional oracle commands, run inside a candidate-local build dir
+]
 
-[structural]
-backend = "reference-yosys"  # checker backend that evaluates the declared intent
+[[oracles]]
+id = "reference-structure"
+class = "structural"
+backend = "reference-yosys"
+contributes_to_gap = true
+required = true
+
+[[oracles]]
+id = "ordinary-lint"
+class = "lint"
+backend = "lint-verilator"
+contributes_to_gap = false
+required = false
 
 [intent]
-asynchronous_groups = []     # explicit async clock groups; never inferred from clock names
+asynchronous_groups = [["source"], ["destination"]]
+cdc_reconvergence = "forbid_independent"
+x_policy = "strict"
 
 [[intent.clocks]]
-name = "core"                # intent-local clock name, referenced by resets/crossings
-port = "clk"                 # RTL port this clock name binds to
+name = "source"
+port = "src_clk"
 
-[[intent.resets]]
-name = "power_on_reset"      # intent-local reset name
-port = "arst_n"               # RTL port this reset binds to
-active = "low"                # reset is asserted when this port is driven low
-assertion = "async"           # the reset can assert without a clock edge
-deassertion = "sync"          # release must be synchronized; this is what REF-RDC-001 checks
-clock = "core"                # optional; if set, must name a declared intent.clocks entry
+[[intent.clocks]]
+name = "destination"
+port = "dst_clk"
+
+[[intent.crossings]]
+source = "event_toggle"
+destination = "event_pulse"
+protocol = "pulse"
+min_sync_stages = 2
 
 [output]
-report = "build/report.json" # where `svgap check` writes the normalized report
+report = "build/report.json"
 ```
 
-Every field above maps directly to a field `load_manifest` in
-`src/svgap/manifest.py` accepts; nothing here is aspirational syntax.
+`required = false` means tool absence is retained as `tool_error` evidence but
+does not make the command fail. `contributes_to_gap = false` means the result is
+contextual evidence and cannot create a structural-gap member. At least one
+structural oracle is currently required in a v2 manifest.
 
-This example only establishes that the manifest's declared reset-release
-intent is legible and checkable — a structural pass built from it is still
-bounded evidence, not a signoff claim. See the
-[scope boundary](scope-boundary.md) for what SV-Gap does and does not claim.
+The complete syntax example is
+[`schemas/manifest-v2.example.toml`](https://github.com/shsridhar-beep/svgap/blob/main/schemas/manifest-v2.example.toml).
+
+## Report boundary
+
+Schema v1 emits the legacy top-level `structural` result. Schema v2 emits
+`oracle_results` and deliberately omits that top-level field:
+
+```json
+{
+  "schema_version": "2.0",
+  "functional": {"status": "pass"},
+  "oracle_results": [
+    {
+      "oracle_id": "reference-structure",
+      "oracle_class": "structural",
+      "status": "fail",
+      "contributes_to_gap": true,
+      "required": true,
+      "coverage": {"rules": ["REF-CDC-001"]}
+    },
+    {
+      "oracle_id": "ordinary-lint",
+      "oracle_class": "lint",
+      "status": "pass",
+      "contributes_to_gap": false,
+      "required": false,
+      "coverage": {"ruleset": "--Wall"}
+    }
+  ],
+  "gap_member": true
+}
+```
+
+The actual schema requires the remaining backend, finding, diagnostic, version,
+and timestamp fields. Gap membership is:
+
+```text
+functional == pass
+AND any(oracle.contributes_to_gap AND oracle.status == fail)
+```
 
 ## Backend boundary
 
-A backend implements one operation:
+A backend exposes stable `name` and `version` values and implements either:
 
 ```python
 check(manifest) -> CheckResult
 ```
 
-It must return one of `pass`, `fail`, `unknown`, or `tool_error`, stable rule
-identifiers, evidence, and its own version. A backend must return `unknown` when
-required intent is absent. It must not silently reinterpret tool failure as a
-clean result.
+or the schema-v2-aware form:
+
+```python
+check(manifest, oracle_config) -> CheckResult
+coverage(manifest, oracle_config) -> dict
+```
+
+It returns `pass`, `fail`, `unknown`, or `tool_error`. Missing required intent
+or unsupported analysis must not become `pass`.
 
 ## Built-in reference oracle
 
-The reference oracle elaborates RTL to Yosys JSON and walks register/data
-relationships. It is intentionally limited to controlled structural shapes:
+`reference-yosys` elaborates RTL with Yosys and implements 17 controlled
+recognizers across these classes:
 
-- `REF-CDC-001`: asynchronous register crossing without a recognized second
-  destination stage;
-- `REF-CDC-002`: combinational logic immediately before a recognized
-  synchronizer;
-- `REF-CDC-003`: independently synchronized multi-bit crossing without a
-  declared Gray-code protocol and a recognizable XOR-based source transform;
-- `REF-RDC-001`: raw asynchronous reset on unmarked state when the manifest
-  requires synchronous deassertion.
-- `REF-XPROP-001`: un-reset state reaches a module output when the manifest
-  declares that operational state requires reset coverage at power-on.
+- baseline CDC (`REF-CDC-001` through `003`);
+- pulse, toggle, handshake, reconvergence, and async-FIFO CDC
+  (`REF-CDC-004` through `008`);
+- declared synchronizer depth (`REF-META-001`);
+- reset release, independent reset domains, reset gating, and reset
+  reconvergence (`REF-RDC-001` through `004`);
+- output-reachable un-reset state, X-masking control flow, selective reset, and
+  memory initialization (`REF-XPROP-001` through `004`).
 
-These rules demonstrate the evaluation contract. They are not a signoff rule
-deck. External backends may provide much broader coverage without changing the
-manifest/report concepts.
+See the [finding ID reference](finding-id-reference.md) for exact activation
+conditions. These are reference shapes with paired fixtures, not a signoff deck.
+
+`reference-naja` independently reproduces the original CDC/RDC/X subset using
+Naja's in-process SNL graph. It exposes its supported rules in coverage
+metadata and returns `unknown` when newer intent classes are requested.
+
+## Lint evidence
+
+`lint-verilator` and `lint-verible` run ordinary source lint as the separate
+`lint` evidence class. Their coverage metadata records the ruleset and the
+frozen RDC calibration result: neither default configuration detected the
+RDC mechanism in the 14 functionally passing `REF-RDC-001` cases. This makes
+lint useful evidence without relabeling it as structural CDC/RDC analysis.

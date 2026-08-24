@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "svgap"
-version = "0.3.0a11"
+version = "0.3.0a12"
 description = "Production-evidence profiles for AI-generated digital RTL"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -39,6 +39,8 @@ svgap = "svgap.cli:main"
 [project.entry-points."svgap.backends"]
 reference-yosys = "svgap.backends.reference_yosys:ReferenceYosysBackend"
 reference-naja = "svgap.backends.reference_naja:ReferenceNajaBackend"
+lint-verilator = "svgap.backends.lint_verilator:VerilatorLintBackend"
+lint-verible = "svgap.backends.lint_verible:VeribleLintBackend"
 
 [tool.setuptools.packages.find]
 where = ["src"]

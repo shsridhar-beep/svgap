@@ -1,4 +1,6 @@
 from importlib.util import find_spec
+from pathlib import Path
+from subprocess import CompletedProcess
 from unittest import TestCase, skipIf, skipUnless
 from unittest.mock import patch
 
@@ -9,6 +11,9 @@ from svgap.backends.registry import (
     load_backend,
     unavailable_backends,
 )
+from svgap.backends.lint_verible import VeribleLintBackend
+from svgap.backends.lint_verilator import VerilatorLintBackend
+from svgap.manifest import load_manifest
 
 HAS_NAJAEDA = find_spec("najaeda") is not None
 
@@ -17,6 +22,59 @@ class BackendRegistryTests(TestCase):
     def test_builtin_backend_is_discoverable(self) -> None:
         self.assertIn("reference-yosys", available_backends())
         self.assertEqual(load_backend("reference-yosys").name, "reference-yosys")
+        self.assertIn("lint-verilator", available_backends())
+        self.assertIn("lint-verible", available_backends())
+
+    def test_verilator_warnings_are_evidence_not_structural_failure(self) -> None:
+        root = Path(__file__).resolve().parents[1]
+        manifest = load_manifest(root / "examples/level_crossing/safe/manifest.toml")
+        runs = [
+            CompletedProcess(
+                args=[],
+                returncode=0,
+                stdout="",
+                stderr="%Warning-WIDTH: design.sv:1: width differs\n",
+            ),
+            CompletedProcess(args=[], returncode=0, stdout="Verilator 5.050\n", stderr=""),
+        ]
+        with (
+            patch(
+                "svgap.backends.lint_verilator.shutil.which",
+                return_value="/tool/verilator",
+            ),
+            patch(
+                "svgap.backends.lint_verilator.subprocess.run", side_effect=runs
+            ),
+        ):
+            result = VerilatorLintBackend().check(manifest)
+        self.assertEqual(result.status, "pass")
+        self.assertEqual(result.findings[0].rule_id, "LINT-VERILATOR-WIDTH")
+        self.assertEqual(result.findings[0].severity, "warning")
+
+    def test_verible_style_diagnostics_are_nonstructural_evidence(self) -> None:
+        root = Path(__file__).resolve().parents[1]
+        manifest = load_manifest(root / "examples/level_crossing/safe/manifest.toml")
+        runs = [
+            CompletedProcess(
+                args=[],
+                returncode=1,
+                stdout="",
+                stderr="design.sv:1:8: module name style [module-filename]\n",
+            ),
+            CompletedProcess(args=[], returncode=0, stdout="v0.0-test\n", stderr=""),
+        ]
+        with (
+            patch(
+                "svgap.backends.lint_verible.shutil.which",
+                return_value="/tool/verible-verilog-lint",
+            ),
+            patch("svgap.backends.lint_verible.subprocess.run", side_effect=runs),
+        ):
+            result = VeribleLintBackend().check(manifest)
+        self.assertEqual(result.status, "pass")
+        self.assertEqual(
+            result.findings[0].rule_id, "LINT-VERIBLE-MODULE-FILENAME"
+        )
 
     def test_unknown_backend_has_actionable_error(self) -> None:
         with self.assertRaisesRegex(BackendError, "available"):

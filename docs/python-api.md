@@ -19,6 +19,24 @@ report.gap_member          # functional pass AND structural fail
 report.structural.findings # rule_id, severity, message, evidence
 ```
 
+For schema v2, `report.structural` remains a convenience view of the first
+structural oracle for in-process callers, while serialized reports use the
+non-lossy list:
+
+```python
+for result in report.oracle_results:
+    print(
+        result.oracle_id,
+        result.oracle_class,       # structural | lint | plugin-defined class
+        result.status,
+        result.contributes_to_gap,
+        result.coverage,
+    )
+```
+
+The schema-v2 JSON deliberately omits the legacy top-level `structural` field;
+use `oracle_results`. Schema-v1 JSON remains unchanged.
+
 `evaluate` accepts a path or a loaded `Manifest`, and writes the
 schema-versioned report to the manifest's report path by default
 (`write_report=False` returns the report without touching disk).
@@ -56,7 +74,8 @@ summary = svgap.summarize_reports(reports)
 `evaluate`, `load_manifest`, `materialize_candidate`, `run_functional`,
 `summarize_reports`, `load_backend`, `discover_backends`,
 `validate_report_payload`, the `Manifest`, `EvaluationReport`,
-`FunctionalResult`, `CheckResult`, and `Finding` types, and the
+`FunctionalResult`, `CheckResult`, `OracleConfig`, `OracleResult`, and `Finding`
+types, and the
 `ManifestError`, `BackendError`, and `ReportValidationError` exceptions.
 Anything not exported from the top-level package is internal and may change
 without notice.

@@ -85,6 +85,16 @@ class ReferenceNajaExampleTests(TestCase):
 
 
 class ReferenceNajaDiagnosticTests(TestCase):
+    def test_new_intent_classes_abstain_instead_of_false_pass(self) -> None:
+        manifest = load_manifest(ROOT / "examples/pulse_crossing/safe/manifest.toml")
+        backend = ReferenceNajaBackend()
+        result = backend.check(manifest)
+        self.assertEqual(result.status, "unknown", result)
+        self.assertIn("cdc-pulse", " ".join(result.diagnostics))
+        self.assertIn(
+            "cdc-pulse", backend.coverage(manifest)["unsupported_intent_features"]
+        )
+
     def test_missing_intent_is_unknown(self) -> None:
         # No declared clock or reset intent: the backend must abstain
         # (``unknown``) via its diagnostics path, never silently ``pass``.

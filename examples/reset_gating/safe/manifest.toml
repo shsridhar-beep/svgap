@@ -1,0 +1,22 @@
+schema_version = "1.0"
+candidate_id = "reset-gating-safe"
+[design]
+top = "reset_gating"
+sources = ["design.sv"]
+[functional]
+commands = [["iverilog", "-g2012", "-o", "${SVGAP_BUILD}/sim.vvp", "design.sv", "../tb.sv"], ["vvp", "${SVGAP_BUILD}/sim.vvp"]]
+[structural]
+backend = "reference-yosys"
+[intent]
+[[intent.clocks]]
+name = "core"
+port = "clk"
+[[intent.resets]]
+name = "power_on"
+port = "rst_n"
+active = "low"
+assertion = "async"
+deassertion = "async"
+allow_combination = false
+[output]
+report = "build/report.json"
