@@ -53,3 +53,22 @@ Install or upgrade with `pip install --upgrade svgap`. The optional independent
 Naja backend remains available with `pip install "svgap[naja]"`. The GitHub
 prerelease carries a checksummed `temporal-equivalence-audit-v0.1.tar.gz`
 evidence bundle and the schema-v1 and schema-v2 report contracts.
+
+## Verified release artifacts
+
+- GitHub: [`v0.3.0-alpha.13`](https://github.com/shsridhar-beep/svgap/releases/tag/v0.3.0-alpha.13)
+- PyPI: [`svgap==0.3.0a13`](https://pypi.org/project/svgap/0.3.0a13/)
+- GitHub/PyPI wheel: `sha256:6ba6913609474083c3f6ddd349ea72c5610abe8e8745ce9f4e2dfa781f206d77`
+- GitHub/PyPI source distribution: `sha256:d8ef79972fe68acf90ef4f7cdeec723fa14ab6dd8c9cd3e3d723270999fc6f8b`
+- Container: `ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.13`
+- Multi-architecture container index: `sha256:af55831a46af27573141f29827be24e041a0f9f82a37db1af5b50ac92a8c789d`
+- Temporal/equivalence audit archive: `sha256:6be779441725ee64068225d7568c5848779ec68b1176b1aab954e681c60b4030`
+- Zenodo: [doi:10.5281/zenodo.22087102](https://doi.org/10.5281/zenodo.22087102)
+
+The GitHub checksum manifest verifies against a flat release download, and
+PyPI advertises the same wheel and source-distribution hashes. The container
+index contains both `linux/amd64` and `linux/arm64` images. An independently
+downloaded Zenodo archive matched its published MD5
+`cbd72815fb7548c89f5a34db7ae6dd04`; its extracted tree matched the tagged Git
+tree file-for-file and byte-for-byte and contained none of the explicitly
+excluded local images, power-on taskpack, or `.DS_Store` files.

@@ -4,6 +4,7 @@ title: "SV-Gap: Structural-validity evaluation for AI-generated RTL"
 type: software
 version: 0.3.0-alpha.13
 date-released: 2026-08-24
+doi: "10.5281/zenodo.22087102"
 license: Apache-2.0
 authors:
   - family-names: "Sridhar"

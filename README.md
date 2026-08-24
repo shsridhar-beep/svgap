@@ -218,9 +218,10 @@ SV-Gap is early research software maintained by
 direction, incorporated changes, research claims, and releases. Material AI
 development assistance is disclosed in [CONTRIBUTORS.md](https://github.com/shsridhar-beep/svgap/blob/main/CONTRIBUTORS.md).
 
-Cite the exact release used. The
-independently fetched and scanned alpha.5 archive is
-[doi:10.5281/zenodo.21226232](https://doi.org/10.5281/zenodo.21226232). The
+Cite the exact release used. The independently fetched and verified alpha.13
+archive is
+[doi:10.5281/zenodo.22087102](https://doi.org/10.5281/zenodo.22087102). Its
+extracted tree matches the tagged release file-for-file and byte-for-byte. The
 [all-versions DOI](https://doi.org/10.5281/zenodo.21198938) always resolves to
 the latest archived release.
 

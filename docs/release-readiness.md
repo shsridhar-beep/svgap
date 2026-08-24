@@ -1,14 +1,15 @@
 # Public release readiness
 
-Audit date: 2026-07-06
+Audit date: 2026-08-24
 
 ## Ready
 
 - Apache-2.0 license, notice, and third-party inventory are present.
 - The quickstart, limitations, security warning, contribution guide, and conduct
   policy are present.
-- Ninety-four tests pass with Yosys 0.66 and Icarus Verilog 13.0, including
-  adversarial oracle and JSON Schema checks.
+- The 197-test suite completes with one expected environment-dependent skip
+  under local Yosys 0.66 and Icarus Verilog 13.0. GitHub repeats the applicable
+  tests with Python 3.11, 3.12, and 3.13 and Ubuntu Yosys 0.33.
 - A wheel builds and installs successfully in a clean temporary environment.
 - The controlled witnesses, 508-task benchmark audit, exploratory pilot, and
   72-candidate reset replication have tracked summaries and interpretation
@@ -24,10 +25,10 @@ Audit date: 2026-07-06
 - A deterministic 72-candidate bundle is versioned at
   `artifacts/reset-replication-v0.1`; manifest SHA-256 is
   `e523a03b604864d276b35d88d097c45f0a17ed3f9650bd2c3dcb9a9d4ea0f132`.
-- Ten scoped issues are open, including five bounded `good first issue` entry
-  points for demo, registry, documentation, and oracle-review contributions.
+- Public issue templates and bounded `good first issue` entry points cover
+  demos, registry work, documentation, and oracle-review contributions.
 - The public repository is `https://github.com/shsridhar-beep/svgap`. Releases
-  `v0.1.0-alpha.1` through `v0.3.0-alpha.4` were built from the public,
+  `v0.1.0-alpha.1` through `v0.3.0-alpha.13` were built from the public,
   identifier-sanitized tags.
 - The pre-redaction Zenodo version deposits were deleted. The replacement
   `v0.3.0-alpha.2` archive is published at DOI
@@ -219,3 +220,40 @@ installed the public wheel, discovered the packaged taskpack at canonical digest
 `sha256:b63acd8845b555ebb0b2ddd5085b70737befdee295b6e68789749494cf3e20e8`,
 and received actionable native, container, and documentation remediation when
 the EDA tools were intentionally hidden.
+
+## v0.3.0-alpha.13 released
+
+Tag `v0.3.0-alpha.13` was published from tested commit `ff2ccca`. The local
+197-test suite completed with one expected environment-dependent skip. The
+reproducible 508-task audit, validation-sample digest, controlled/public report
+schemas, result registry, documentation links, strict MkDocs build, package
+build, installed-wheel research surface, all five new safe/unsafe witness pairs,
+and release-archive dry run passed. Public CI passed on Python 3.11, 3.12, and
+3.13, including Ubuntu Yosys 0.33, package installation, and the pinned
+container quickstart.
+
+GitHub Release, PyPI `0.3.0a13`, the multi-architecture GHCR image, Pages, and
+Zenodo ingestion completed successfully. GitHub and PyPI carry byte-identical
+distributions:
+
+- wheel: `sha256:6ba6913609474083c3f6ddd349ea72c5610abe8e8745ce9f4e2dfa781f206d77`;
+- source distribution: `sha256:d8ef79972fe68acf90ef4f7cdeec723fa14ab6dd8c9cd3e3d723270999fc6f8b`.
+
+The GHCR index digest is
+`sha256:af55831a46af27573141f29827be24e041a0f9f82a37db1af5b50ac92a8c789d`
+and contains `linux/amd64` and `linux/arm64` images. The checksummed
+temporal/equivalence evidence archive is
+`sha256:6be779441725ee64068225d7568c5848779ec68b1176b1aab954e681c60b4030`.
+
+Zenodo archived the tag as DOI `10.5281/zenodo.22087102`. An independently
+downloaded copy matched Zenodo's published MD5
+`cbd72815fb7548c89f5a34db7ae6dd04`. Its extracted tree matched
+`git archive v0.3.0-alpha.13` file-for-file and byte-for-byte, produced no
+built-in credential, home-path, or internal-endpoint scan findings, and had no
+`images/`, `taskpacks/power-on-v0.2/`, or `.DS_Store` entries.
+
+This release makes the temporal and equivalence benchmark shortfall
+reproducible and citable. It does not close the paper's remaining external
+validation boundary: independent replication, negative-sample review of the
+audit detector, and practitioner assessment of the production relevance of the
+new witness set remain pending.
