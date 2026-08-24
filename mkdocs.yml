@@ -38,6 +38,7 @@ nav:
       - Cross-oracle naja result: cross-oracle-naja-result.md
       - Benchmark audit: benchmark-audit.md
       - Power-on benchmark audit: power-on-benchmark-audit.md
+      - Temporal and equivalence benchmark audit: temporal-equivalence-benchmark-audit.md
       - RTL designer review protocol: rtl-designer-review-protocol.md
       - Independent review result: independent-review-result.md
       - Power-on prevalence protocol: power-on-prevalence-protocol.md

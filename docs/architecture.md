@@ -9,6 +9,8 @@ manifest + RTL
    +-- functional commands/import --------> FunctionalResult
    |
    +-- structural oracle (Yosys/Naja) ----> OracleResult[class=structural]
+   +-- bounded properties (Yosys SAT) ----> OracleResult[class=temporal|protocol]
+   +-- synthesized reference miter -------> OracleResult[class=equivalence]
    +-- ordinary lint (Verilator) ---------> OracleResult[class=lint]
    `-- other configured evidence ---------> OracleResult[class=...]
                                               |
@@ -84,8 +86,9 @@ report = "build/report.json"
 
 `required = false` means tool absence is retained as `tool_error` evidence but
 does not make the command fail. `contributes_to_gap = false` means the result is
-contextual evidence and cannot create a structural-gap member. At least one
-structural oracle is currently required in a v2 manifest.
+contextual evidence and cannot create a gap member. A v2 manifest requires at
+least one contributing oracle; that oracle may be structural, temporal,
+protocol, equivalence, or a plugin-defined evidence class.
 
 The complete syntax example is
 [`schemas/manifest-v2.example.toml`](https://github.com/shsridhar-beep/svgap/blob/main/schemas/manifest-v2.example.toml).
@@ -175,3 +178,21 @@ metadata and returns `unknown` when newer intent classes are requested.
 frozen RDC calibration result: neither default configuration detected the
 RDC mechanism in the 14 functionally passing `REF-RDC-001` cases. This makes
 lint useful evidence without relabeling it as structural CDC/RDC analysis.
+
+## Temporal, protocol, and equivalence evidence
+
+`formal-yosys` reads candidate RTL plus manifest-named formal property sources,
+lowers clocked properties through `clk2fflogic`, honors assumptions, and runs a
+bounded Yosys SAT proof. The rule ID, property top, bound, and message are
+explicit oracle options. Its coverage says `proof_scope = "bounded"`; it does
+not claim unbounded liveness or production formal signoff.
+
+`equivalence-yosys` separately synthesizes the supplied reference and candidate
+views, builds a Yosys miter, and proves its comparison assertion for the
+configured bound. The current controlled fixtures are combinational. A larger
+bound is still only bounded, zero-initialized sequential comparison—not
+industrial four-state or state-mapped sequential equivalence.
+
+The [temporal/equivalence benchmark audit](temporal-equivalence-benchmark-audit.md)
+explains why these classes are separate from finite functional simulation and
+ordinary lint.

@@ -52,10 +52,22 @@ def evaluate(
         )
     ]
     oracle_results = [_run_oracle(manifest, config) for config in configs]
-    structural_oracle = next(
-        item for item in oracle_results if item.oracle_class == "structural"
+    # ``structural`` remains the in-process v1 compatibility view.  A v2
+    # profile may now be led by a temporal or equivalence oracle, so prefer an
+    # actual structural result and otherwise expose the first contributing
+    # result through that legacy attribute.  V2 JSON uses ``oracle_results``.
+    primary_oracle = next(
+        (
+            item
+            for item in oracle_results
+            if item.oracle_class == "structural"
+        ),
+        next(
+            (item for item in oracle_results if item.contributes_to_gap),
+            oracle_results[0],
+        ),
     )
-    structural = structural_oracle.to_check_result()
+    structural = primary_oracle.to_check_result()
     gap_member = functional.status == "pass" and any(
         item.contributes_to_gap and item.status == "fail" for item in oracle_results
     )

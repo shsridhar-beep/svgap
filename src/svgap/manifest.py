@@ -365,8 +365,8 @@ def _load_oracles(
         )
     if len({oracle.oracle_id for oracle in oracles}) != len(oracles):
         raise ManifestError("oracle ids must be unique")
-    if not any(oracle.oracle_class == "structural" for oracle in oracles):
-        raise ManifestError("schema v2 currently requires at least one structural oracle")
+    if not any(oracle.contributes_to_gap for oracle in oracles):
+        raise ManifestError("schema v2 requires at least one contributing oracle")
     return oracles
 
 

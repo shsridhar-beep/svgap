@@ -24,6 +24,10 @@ subset and abstains when a newer intent class is requested.
 | `REF-XPROP-002` | `casex`, `casez`, wildcard equality, or a plain `case` without `default` under strict X policy | `x_policy = "strict"` | Yosys |
 | `REF-XPROP-003` | Named state lacks its required reset or reset value | `[[intent.state_requirements]]` | Yosys |
 | `REF-XPROP-004` | Memory lacks recognized complete static initialization | `memory_power_on = "initialized_or_reset"` | Yosys |
+| `REF-PROT-001` | Ready/valid output or payload is withdrawn or changed while backpressured | Explicit bounded property source | Formal Yosys SAT |
+| `REF-TEMP-001` | A request does not complete within the declared cycle bound | Explicit bounded property source | Formal Yosys SAT |
+| `REF-TEMP-002` | A declared one-cycle pulse remains asserted into a second cycle | Explicit bounded property source | Formal Yosys SAT |
+| `REF-EQUIV-001` | Candidate and supplied reference differ after Yosys RTL synthesis | Explicit reference source and comparison top | Yosys synthesized miter |
 | `REF-NAJA-FRONTEND-001` | Naja/slang frontend warning retained as evidence | Naja frontend warning | Naja |
 
 All `REF-*` entries except `REF-NAJA-FRONTEND-001` have `error` severity.
@@ -38,6 +42,13 @@ to be structural rules:
 Lint warnings remain warning evidence by default. Syntax/tool errors can fail
 the lint oracle, but a lint oracle contributes to gap membership only when its
 schema-v2 profile explicitly sets `contributes_to_gap = true`.
+
+`REF-PROT-*`, `REF-TEMP-*`, and `REF-EQUIV-*` are implemented by separate
+schema-v2 backends rather than the structural `reference-yosys` backend.
+`formal-yosys` is bounded and uses the manifest's explicit assumptions and
+property sources. `equivalence-yosys` uses zero-initialized bounded comparison
+after Yosys RTL synthesis. Neither is an industrial liveness or sequential
+equivalence flow.
 
 These recognizers are controlled research oracles, not a signoff deck. In
 particular, `REF-META-001` measures declared chain depth but computes no MTBF;

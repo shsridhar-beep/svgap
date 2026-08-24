@@ -4,6 +4,8 @@ from importlib.metadata import entry_points
 from typing import Callable
 
 from svgap.backends.base import BackendUnavailable, CheckerBackend
+from svgap.backends.equivalence_yosys import EquivalenceYosysBackend
+from svgap.backends.formal_yosys import FormalYosysBackend
 from svgap.backends.lint_verible import VeribleLintBackend
 from svgap.backends.lint_verilator import VerilatorLintBackend
 from svgap.backends.reference_yosys import ReferenceYosysBackend
@@ -19,6 +21,8 @@ class BackendError(ValueError):
 def _discover() -> tuple[dict[str, BackendFactory], dict[str, str], dict[str, str]]:
     factories: dict[str, BackendFactory] = {
         ReferenceYosysBackend.name: ReferenceYosysBackend,
+        FormalYosysBackend.name: FormalYosysBackend,
+        EquivalenceYosysBackend.name: EquivalenceYosysBackend,
         VerilatorLintBackend.name: VerilatorLintBackend,
         VeribleLintBackend.name: VeribleLintBackend,
     }

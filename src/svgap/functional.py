@@ -8,6 +8,7 @@ from pathlib import Path
 
 from svgap.model import FunctionalResult, Manifest
 from svgap.provenance import canonical_file_set_digest
+from svgap.subprocess_utils import run_captured
 
 
 def run_functional(manifest: Manifest) -> FunctionalResult:
@@ -36,14 +37,11 @@ def run_functional(manifest: Manifest) -> FunctionalResult:
     for command in manifest.functional_commands:
         expanded = [item.replace("${SVGAP_BUILD}", str(build)) for item in command]
         try:
-            completed = subprocess.run(
+            completed = run_captured(
                 expanded,
                 cwd=manifest.path.parent,
                 env=env,
-                capture_output=True,
-                text=True,
                 timeout=60,
-                check=False,
             )
         except (OSError, subprocess.TimeoutExpired) as exc:
             return FunctionalResult(

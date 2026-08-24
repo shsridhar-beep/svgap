@@ -31,15 +31,6 @@ class VerilatorLintBackend:
                 diagnostics=[f"Verilator executable not found: {executable}"],
             )
         sources = [_candidate_relative(path, manifest) for path in manifest.sources]
-        command = [
-            resolved,
-            "--lint-only",
-            "--Wall",
-            "--Wno-fatal",
-            "--top-module",
-            manifest.top,
-            *sources,
-        ]
         extra_args = options.get("extra_args", [])
         if not isinstance(extra_args, list) or not all(
             isinstance(item, str) for item in extra_args
@@ -50,7 +41,18 @@ class VerilatorLintBackend:
                 backend_version=self.version,
                 diagnostics=["lint-verilator extra_args must be an array of strings"],
             )
-        command[1:1] = extra_args
+        # Place caller policy after the built-in defaults so a targeted
+        # ``-Wno-*`` can override ``--Wall`` deterministically.
+        command = [
+            resolved,
+            "--lint-only",
+            "--Wall",
+            "--Wno-fatal",
+            *extra_args,
+            "--top-module",
+            manifest.top,
+            *sources,
+        ]
         try:
             completed = subprocess.run(
                 command,

@@ -51,6 +51,10 @@
 - public backend compatibility matrix
 - waiver and expert-adjudication records
 - multiple independently maintained backends and taskpacks
+- bounded protocol/temporal property and synthesized-reference equivalence
+  backends with controlled escape witnesses (shipped)
+- public 508-task temporal/equivalence coverage audit and lower-bound report
+  (shipped)
 
 ## Later
 
@@ -59,4 +63,6 @@
 - X-behavior task packs
 - structural feedback and repair studies grounded in perturbation
   counterexamples
+- unbounded liveness, four-state sequential equivalence, and independently
+  reviewed negative-sample recall for temporal/equivalence audits
 - commercial-tool adapters maintained outside the open reference oracle

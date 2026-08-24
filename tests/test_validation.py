@@ -4,6 +4,32 @@ from svgap.validation import ReportValidationError, validate_report_payload
 
 
 class ValidationTests(TestCase):
+    def test_v2_accepts_contributing_temporal_profile_without_structure(self) -> None:
+        report = {
+            "schema_version": "2.0",
+            "candidate_id": "candidate",
+            "manifest": "manifest.toml",
+            "functional": {"status": "pass"},
+            "oracle_results": [
+                {
+                    "oracle_id": "bounded-response",
+                    "oracle_class": "temporal",
+                    "contributes_to_gap": True,
+                    "required": True,
+                    "status": "pass",
+                    "backend": "formal-yosys",
+                    "backend_version": "0.1",
+                    "findings": [],
+                    "diagnostics": [],
+                    "tool_versions": {},
+                    "coverage": {"proof_scope": "bounded"},
+                }
+            ],
+            "gap_member": False,
+            "generated_at": "2026-08-24T00:00:00Z",
+        }
+        self.assertIs(validate_report_payload(report), report)
+
     def test_v2_gap_uses_only_contributing_oracles(self) -> None:
         report = {
             "schema_version": "2.0",

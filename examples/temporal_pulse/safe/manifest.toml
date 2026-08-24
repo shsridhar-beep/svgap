@@ -1,0 +1,41 @@
+schema_version = "2.0"
+candidate_id = "temporal-pulse-safe"
+
+[design]
+top = "pulse_generator"
+sources = ["design.sv"]
+
+[functional]
+commands = [
+  ["iverilog", "-g2012", "-o", "${SVGAP_BUILD}/sim.vvp", "design.sv", "../tb.sv"],
+  ["vvp", "${SVGAP_BUILD}/sim.vvp"],
+]
+
+[[oracles]]
+id = "pulse-width"
+class = "temporal"
+backend = "formal-yosys"
+contributes_to_gap = true
+required = true
+
+[oracles.options]
+property_sources = ["properties.sv"]
+property_top = "temporal_pulse_properties"
+depth = 8
+rule_id = "REF-TEMP-002"
+message = "pulse remains asserted for more than one cycle"
+
+[[oracles]]
+id = "ordinary-lint"
+class = "lint"
+backend = "lint-verilator"
+contributes_to_gap = false
+required = false
+
+[oracles.options]
+extra_args = ["-Wno-DECLFILENAME"]
+
+[intent]
+
+[output]
+report = "build/report.json"

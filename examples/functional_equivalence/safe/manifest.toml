@@ -1,0 +1,41 @@
+schema_version = "2.0"
+candidate_id = "functional-equivalence-safe"
+
+[design]
+top = "tiny_alu"
+sources = ["design.sv"]
+
+[functional]
+commands = [
+  ["iverilog", "-g2012", "-o", "${SVGAP_BUILD}/sim.vvp", "design.sv", "../tb.sv"],
+  ["vvp", "${SVGAP_BUILD}/sim.vvp"],
+]
+
+[[oracles]]
+id = "reference-equivalence"
+class = "equivalence"
+backend = "equivalence-yosys"
+contributes_to_gap = true
+required = true
+
+[oracles.options]
+reference_sources = ["reference.sv"]
+reference_top = "tiny_alu"
+depth = 1
+rule_id = "REF-EQUIV-001"
+message = "candidate differs from the reference outside the finite smoke vectors"
+
+[[oracles]]
+id = "ordinary-lint"
+class = "lint"
+backend = "lint-verilator"
+contributes_to_gap = false
+required = false
+
+[oracles.options]
+extra_args = ["-Wno-DECLFILENAME"]
+
+[intent]
+
+[output]
+report = "build/report.json"

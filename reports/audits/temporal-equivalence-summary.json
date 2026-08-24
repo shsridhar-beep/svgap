@@ -1,0 +1,32 @@
+{
+  "bounded_temporal_contract": 83,
+  "equivalence_contract_explicit": 16,
+  "equivalence_contract_with_formal_equivalence": 0,
+  "equivalence_contract_with_post_synthesis_behavior": 0,
+  "equivalence_contract_with_synthesis_scoring": 16,
+  "functional_oracle": 508,
+  "interpretation": {
+    "lower_bound": "Counts only detector-positive contracts whose supplied scoring artifacts lack the named evidence; additional gaps may exist.",
+    "not_prevalence": "The three heterogeneous suites are a descriptive inventory, not a random sample of RTL work."
+  },
+  "persistence_temporal_contract": 5,
+  "progress_or_liveness_contract": 4,
+  "protocol_or_ordering_contract": 14,
+  "public_reference_rtl": 222,
+  "schema_version": "1.0",
+  "sources": {
+    "cvdp": "sha256:cbcd81295561ebb16e4d857e096f4d9908d042c33aff3b58abf236e868411857",
+    "rtllm": "41b26896e33b536940116a975626455eed3de65e",
+    "verilog-eval": "c498220d0a52248f8e3fdffe279075215bde2da6"
+  },
+  "synthesis_contract_explicit": 31,
+  "synthesis_contract_with_synthesis_scoring": 16,
+  "synthesis_contract_without_synthesis_scoring": 15,
+  "synthesis_equivalence_gap_lower_bound": 16,
+  "tasks": 508,
+  "temporal_contract_explicit": 98,
+  "temporal_contract_with_finite_trace_scoring": 97,
+  "temporal_contract_with_formal_scoring": 0,
+  "temporal_contract_with_native_property_scoring": 0,
+  "temporal_property_gap_lower_bound": 98
+}

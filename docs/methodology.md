@@ -7,10 +7,11 @@ often conflate:
 
 1. **Functional validity:** did the candidate pass the supplied behavioral
    oracle?
-2. **Structural validity:** does the candidate satisfy declared structural
-   safety rules under explicit clock/reset/value intent?
-3. **Supporting evidence:** what do distinct evidence classes such as ordinary
-   lint report without being mistaken for structural CDC/RDC analysis?
+2. **Production-contract validity:** does the candidate satisfy the configured
+   structural, temporal/protocol, or reference-equivalence obligation under
+   explicit intent and assumptions?
+3. **Supporting evidence:** what do contextual classes such as ordinary lint
+   report without being mistaken for a stronger specialized analysis?
 
 Two candidates can be observationally equivalent under a functional testbench
 while differing in structural validity. We call the resulting measurement
@@ -38,10 +39,12 @@ The report must also disclose functional coverage, structural determinacy,
 tool errors, rule severities, tool versions, and any expert adjudication.
 
 In schema v2, an oracle affects membership only when
-`contributes_to_gap = true`. The default profile makes the structural oracle
-contributing and ordinary lint contextual. A lint failure therefore remains
-visible but cannot silently redefine the structural-validity gap. Required and
-optional execution policy is separate from contribution policy.
+`contributes_to_gap = true`. The default CDC/RDC profile makes the structural
+oracle contributing and ordinary lint contextual. Temporal, protocol, and
+equivalence profiles can instead make their matching specialized oracle
+contributing without labeling it structural. A lint failure therefore remains
+visible but cannot silently redefine the configured gap. Required and optional
+execution policy is separate from contribution policy.
 
 ## Evidence policy
 
@@ -52,7 +55,7 @@ optional execution policy is separate from contribution policy.
 - `unknown`: intent or analyzer coverage was insufficient for a conclusion.
 - `tool_error`: the checker could not complete successfully.
 
-`unknown` and `tool_error` are never counted as structural passes.
+`unknown` and `tool_error` are never counted as oracle passes.
 
 Schema v1 has one structural result. Schema v2 has an ordered
 `oracle_results` array, and each result includes its class, contribution flag,
@@ -68,3 +71,10 @@ plain-language limitation statement. Broader or signoff-grade analysis belongs
 in independently versioned checker backends. See the
 [finding ID reference](finding-id-reference.md) for what each stable
 identifier detects.
+
+Bounded temporal and equivalence reference backends follow the same fixture and
+stable-ID policy. Their reports must expose the proof bound, initialization and
+assumption treatment, comparison stage, and non-signoff boundary. A bounded
+property result must not be restated as an unbounded liveness proof; a
+zero-initialized synthesized miter must not be restated as general sequential
+or four-state equivalence.

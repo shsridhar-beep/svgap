@@ -4,7 +4,8 @@
 harnesses and pipelines that live in Python. The contract is unchanged:
 setup errors raise; measurement outcomes - including `unknown` and
 `tool_error` - come back inside the report, never as exceptions; a
-structural `pass` means no configured finding, not verified safety.
+oracle `pass` means no configured finding in its declared scope, not verified
+safety.
 
 ## Evaluate one candidate
 
@@ -14,20 +15,20 @@ import svgap
 report = svgap.evaluate("path/to/manifest.toml")
 
 report.functional.status   # pass | fail | compile_error | unknown | tool_error | not_run
-report.structural.status   # pass | fail | unknown | tool_error
-report.gap_member          # functional pass AND structural fail
-report.structural.findings # rule_id, severity, message, evidence
+report.structural.status   # legacy compatibility view; see below
+report.gap_member          # functional pass AND any contributing-oracle fail
+report.structural.findings # findings from that compatibility view
 ```
 
-For schema v2, `report.structural` remains a convenience view of the first
-structural oracle for in-process callers, while serialized reports use the
-non-lossy list:
+For schema v2, `report.structural` remains a legacy convenience view. It uses
+the first structural oracle when present, otherwise the first contributing
+oracle. Serialized reports and new integrations should use the non-lossy list:
 
 ```python
 for result in report.oracle_results:
     print(
         result.oracle_id,
-        result.oracle_class,       # structural | lint | plugin-defined class
+        result.oracle_class,       # structural | temporal | protocol | equivalence | lint
         result.status,
         result.contributes_to_gap,
         result.coverage,

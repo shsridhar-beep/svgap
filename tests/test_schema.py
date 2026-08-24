@@ -29,14 +29,14 @@ class SchemaTests(TestCase):
             for version in ("1.0", "2.0")
         }
         manifests = sorted(ROOT.glob("examples/*/*/manifest.toml"))
-        self.assertEqual(len(manifests), 34)
+        self.assertEqual(len(manifests), 44)
         for path in manifests:
             with self.subTest(manifest=path):
                 with redirect_stdout(io.StringIO()):
                     exit_code = check(path, False, False)
                 self.assertIn(exit_code, (0, 1))
         reports = sorted(ROOT.glob("examples/*/*/build/report.json"))
-        self.assertEqual(len(reports), 34)
+        self.assertEqual(len(reports), 44)
         for path in reports:
             with self.subTest(path=path):
                 payload = json.loads(path.read_text(encoding="utf-8"))

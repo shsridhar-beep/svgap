@@ -21,6 +21,29 @@ class ManifestTests(TestCase):
         self.assertFalse(manifest.oracles[1].contributes_to_gap)
         self.assertFalse(manifest.oracles[1].required)
 
+    def test_schema_v2_accepts_contributing_temporal_oracle_without_structure(self) -> None:
+        manifest = load_manifest(
+            ROOT / "examples/temporal_response/safe/manifest.toml"
+        )
+        self.assertEqual(
+            [item.oracle_class for item in manifest.oracles], ["temporal", "lint"]
+        )
+        self.assertTrue(manifest.oracles[0].contributes_to_gap)
+
+    def test_schema_v2_rejects_profile_without_contributing_oracle(self) -> None:
+        source = (
+            ROOT / "examples/temporal_response/safe/manifest.toml"
+        ).read_text(encoding="utf-8")
+        source = source.replace("contributes_to_gap = true", "contributes_to_gap = false")
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root / "manifest.toml"
+            path.write_text(source, encoding="utf-8")
+            (root / "design.sv").write_text("module response_engine; endmodule\n")
+            (root / "properties.sv").write_text("module p; assert(1); endmodule\n")
+            with self.assertRaisesRegex(ManifestError, "contributing"):
+                load_manifest(path)
+
     def test_v1_structural_table_maps_to_compatibility_oracle(self) -> None:
         manifest = load_manifest(ROOT / "examples/level_crossing/safe/manifest.toml")
         self.assertEqual(len(manifest.oracles), 1)

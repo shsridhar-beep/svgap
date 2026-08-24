@@ -9,14 +9,44 @@ from svgap.backends.reference_yosys import (
     SeqCell,
     reset_synchronizer_bits,
     same_domain_successors,
+    trace_sequential_sources,
 )
+from svgap.api import evaluate
 from svgap.functional import run_functional
 from svgap.manifest import load_manifest
 from svgap.model import CrossingIntent
+from svgap.validation import validate_report_payload
 
 
 ROOT = Path(__file__).resolve().parents[1]
 HAS_TOOLS = all(shutil.which(tool) for tool in ("yosys", "iverilog", "vvp"))
+
+
+class ReferenceYosysUtilityTests(TestCase):
+    def test_sequential_source_trace_is_linear_through_reconvergence(self) -> None:
+        class CountingDrivers(dict):
+            calls = 0
+
+            def get(self, key, default=None):
+                self.calls += 1
+                return super().get(key, default)
+
+        source = SeqCell("source", "$dff", 2, "src", (0,), (1,), (), {})
+        drivers = CountingDrivers()
+        previous = 1
+        for layer in range(12):
+            left = 100 + layer * 3
+            right = left + 1
+            merged = left + 2
+            drivers[left] = (f"left_{layer}", "$not", (previous,))
+            drivers[right] = (f"right_{layer}", "$not", (previous,))
+            drivers[merged] = (f"merge_{layer}", "$and", (left, right))
+            previous = merged
+
+        found = trace_sequential_sources(previous, {1: source}, drivers, set())
+
+        self.assertEqual([cell.name for cell, _path in found], ["source"])
+        self.assertLessEqual(drivers.calls, len(drivers))
 
 
 @skipUnless(HAS_TOOLS, "Yosys and Icarus Verilog are required")
@@ -62,6 +92,44 @@ class ExampleTests(TestCase):
         self.assertIsNotNone(functional.imported_from)
         self.assertIn("import_sha256", functional.evidence)
         self.assertEqual(ReferenceYosysBackend().check(manifest).status, "pass")
+
+    def test_temporal_protocol_and_equivalence_witnesses(self) -> None:
+        expected_rules = {
+            "temporal_backpressure": "REF-PROT-001",
+            "temporal_response": "REF-TEMP-001",
+            "temporal_pulse": "REF-TEMP-002",
+            "synthesis_directive_equivalence": "REF-EQUIV-001",
+            "functional_equivalence": "REF-EQUIV-001",
+        }
+        for family, expected_rule in expected_rules.items():
+            safe = evaluate(
+                ROOT / f"examples/{family}/safe/manifest.toml", write_report=False
+            )
+            unsafe = evaluate(
+                ROOT / f"examples/{family}/unsafe/manifest.toml", write_report=False
+            )
+            validate_report_payload(safe.to_dict())
+            validate_report_payload(unsafe.to_dict())
+            with self.subTest(family=family, variant="safe"):
+                self.assertEqual(safe.functional.status, "pass")
+                self.assertFalse(safe.gap_member)
+                self.assertEqual(safe.oracle_results[0].status, "pass")
+                if shutil.which("verilator"):
+                    self.assertEqual(safe.oracle_results[1].oracle_class, "lint")
+                    self.assertEqual(safe.oracle_results[1].status, "pass")
+                    self.assertEqual(safe.oracle_results[1].findings, [])
+            with self.subTest(family=family, variant="unsafe"):
+                self.assertEqual(unsafe.functional.status, "pass")
+                self.assertTrue(unsafe.gap_member)
+                self.assertEqual(unsafe.oracle_results[0].status, "fail")
+                self.assertIn(
+                    expected_rule,
+                    {item.rule_id for item in unsafe.oracle_results[0].findings},
+                )
+                if shutil.which("verilator"):
+                    self.assertEqual(unsafe.oracle_results[1].oracle_class, "lint")
+                    self.assertEqual(unsafe.oracle_results[1].status, "pass")
+                    self.assertEqual(unsafe.oracle_results[1].findings, [])
 
     def test_gray_declaration_does_not_waive_binary_source(self) -> None:
         manifest = load_manifest(ROOT / "examples/gray_counter/unsafe/manifest.toml")

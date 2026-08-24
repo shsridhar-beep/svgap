@@ -153,8 +153,8 @@ def _validate_v2(payload: dict[str, Any]) -> dict[str, Any]:
         if result["oracle_id"] in ids:
             raise ReportValidationError("oracle result ids must be unique")
         ids.add(result["oracle_id"])
-    if not any(result["oracle_class"] == "structural" for result in results):
-        raise ReportValidationError("report requires at least one structural oracle result")
+    if not any(result["contributes_to_gap"] for result in results):
+        raise ReportValidationError("report requires at least one contributing oracle result")
     if not isinstance(payload["gap_member"], bool):
         raise ReportValidationError("gap_member must be boolean")
     expected_gap = functional["status"] == "pass" and any(
@@ -256,9 +256,17 @@ def oracle_results(payload: dict[str, Any]) -> list[dict[str, Any]]:
 
 def primary_structural_result(payload: dict[str, Any]) -> dict[str, Any]:
     """Return the first structural oracle in a validated v1 or v2 report."""
-    return next(
-        item for item in oracle_results(payload) if item["oracle_class"] == "structural"
+    result = next(
+        (
+            item
+            for item in oracle_results(payload)
+            if item["oracle_class"] == "structural"
+        ),
+        None,
     )
+    if result is None:
+        raise ReportValidationError("report does not contain a structural oracle result")
+    return result
 
 
 def contributing_oracle_status(payload: dict[str, Any]) -> str:

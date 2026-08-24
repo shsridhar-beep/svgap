@@ -854,7 +854,7 @@ def doctor() -> int:
         else:
             print(f"  No native installation recipe is maintained for {system or 'this platform'}.")
         print("Or use the pinned container with no host EDA installation:")
-        print("  docker run --rm ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.9 doctor")
+        print("  docker run --rm ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.13 doctor")
         print("Docs: https://shsridhar-beep.github.io/svgap/linux-install-and-doctor/")
     return 1 if missing_tools or backend_errors else 0
 

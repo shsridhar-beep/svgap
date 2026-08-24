@@ -4,8 +4,8 @@ SV-Gap makes the gap between “passes the benchmark” and “reviewable by a
 chip-design team” explicit for AI-generated digital RTL: LLM-written Verilog
 and SystemVerilog, evaluated against declared design intent for clock-domain
 crossing (CDC), reset-domain crossing (RDC), synchronizer depth, X behavior,
-and power-on state. Schema v2 can retain structural and ordinary-lint evidence
-side by side without conflating their coverage.
+power-on state, temporal/protocol behavior, and synthesized equivalence.
+Schema v2 retains each evidence class separately without conflating coverage.
 
 ![SV-Gap turns an offline pass into an evidence profile](assets/svgap-demo.svg)
 
@@ -78,5 +78,6 @@ defect-rate estimate or silicon signoff.
 - [Ordinary RTL lint baseline](rdc-lint-baseline-result.md)
 - [Benchmark audit](benchmark-audit.md)
 - [Power-on and unknown-state benchmark audit](power-on-benchmark-audit.md)
+- [Temporal and synthesis-equivalence benchmark audit](temporal-equivalence-benchmark-audit.md)
 - [Methodology](methodology.md)
 - [Limitations](limitations.md)

@@ -15,9 +15,9 @@ team” explicit.**
 SV-Gap is an open evaluation layer for AI-generated digital RTL: LLM-written
 Verilog and SystemVerilog scored today by functional benchmarks. It preserves
 the functional result, adds declared design intent for clock-domain crossing
-(CDC), reset-domain crossing (RDC), metastability containment, X behavior, and
-power-on state, and reports the
-structural evidence a hardware verification or signoff team can review: which
+(CDC), reset-domain crossing (RDC), metastability containment, X behavior,
+power-on state, temporal/protocol behavior, and reference equivalence, and
+reports the evidence a hardware verification or signoff team can review: which
 production questions are answered, failed, or still unknown.
 
 > Supply RTL and evaluation evidence. Receive a reviewable account of what that
@@ -59,10 +59,10 @@ or silicon signoff.
 | Surface | Current support | Boundary |
 |---|---|---|
 | Domain | AI-generated digital RTL | Analog and mixed-signal design are out of scope |
-| Initial properties | 17 paired reference rules across CDC, RDC, synchronizer depth, X behavior, and memory power-on | Not comprehensive structural signoff |
+| Initial properties | 21 reference rules across CDC, RDC, synchronizer depth, X/power-on, protocol/temporal behavior, and equivalence; 22 paired witnesses | Not comprehensive signoff |
 | Research tracks | Generation, diagnosis, and repair | Profiles remain multidimensional; no scalar leaderboard |
 | Functional evidence | Executed commands or digest-bound imported results | Evidence quality remains visible |
-| Evidence backends | Narrow Yosys reference oracle, independent Naja subset, and separate Verilator/Verible lint evidence | Backend `pass` means no configured finding, not a true negative |
+| Evidence backends | Narrow structural, bounded temporal, synthesized-equivalence, Naja, and separate Verilator/Verible lint oracles | Backend `pass` means no configured finding, not a true negative |
 | Report contract | Schema v1 compatibility or schema v2 multi-oracle evidence | Only explicitly contributing oracles define gap membership |
 | Outcomes | `pass`, `fail`, `unknown`, `tool_error` | Missing intent or coverage never becomes `pass` |
 | Platforms | Python 3.11–3.13; tested on macOS and Linux | Native Windows is not tested; use Docker Desktop or WSL2 |
@@ -99,18 +99,18 @@ large image pull depends on network speed; the demo itself runs in
 under two minutes once the image is cached:
 
 ```bash
-docker run --rm ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.9 demo
+docker run --rm ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.13 demo
 ```
 
 ```bash
-docker run --rm ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.9 demo -- scenario comb-crossing
+docker run --rm ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.13 demo -- scenario comb-crossing
 ```
 For a native macOS installation:
 
 ```bash
 brew install yosys icarus-verilog
 python3 -m venv .venv
-.venv/bin/python -m pip install svgap==0.3.0a9
+.venv/bin/python -m pip install svgap==0.3.0a13
 .venv/bin/svgap doctor
 .venv/bin/svgap study quickstart --output my-first-svgap-study
 ```
@@ -149,8 +149,10 @@ manifest and imported-result path. Python integrations can call
 
 ## Current evidence
 
-- Seventeen controlled witness pairs have identical functional outcomes and
-  different configured structural outcomes. Twelve expand detector coverage;
+- Twenty-two controlled witness pairs have identical functional outcomes and
+  different configured oracle outcomes. Seventeen exercise structural rules;
+  five expose protocol/temporal and synthesis-equivalence blind spots. Twelve
+  of the structural pairs expand detector coverage;
   they are newly added calibration fixtures without independent review yet,
   not new prevalence evidence.
 - A frozen 72-call reset-release study contains 57 functional passes; at least
@@ -162,6 +164,10 @@ manifest and imported-result path. Python integrations can call
   VerilogEval, RTLLM, and CVDP.
 - A separate audit of those 508 tasks inventories stated power-on intent and
   recognizable unknown-initial-state scoring.
+- A temporal/equivalence audit finds a conservative lower bound of 98 tasks
+  with explicit temporal contracts but no recognizable property/formal score,
+  and 16 tasks requiring equivalence that synthesize without comparing against
+  their supplied original RTL.
 - Two reproducible open-weights profiles demonstrate the public submission
   path; they are maintainer-produced anchors, not independent replications.
 
@@ -170,6 +176,7 @@ manifest and imported-result path. Python integrations can call
 [RTL lint baseline](https://shsridhar-beep.github.io/svgap/rdc-lint-baseline-result/) ·
 [Benchmark audit](https://shsridhar-beep.github.io/svgap/benchmark-audit/) ·
 [Power-on audit](https://shsridhar-beep.github.io/svgap/power-on-benchmark-audit/) ·
+[Temporal/equivalence audit](https://shsridhar-beep.github.io/svgap/temporal-equivalence-benchmark-audit/) ·
 [Evidence profiles](https://shsridhar-beep.github.io/svgap/results/) ·
 [Compact research note](https://shsridhar-beep.github.io/svgap/compact-research-note/)
 

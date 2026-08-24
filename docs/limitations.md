@@ -40,6 +40,16 @@ SV-Gap intentionally favors auditable conclusions over broad coverage.
 - Ordinary lint warnings are retained as lint evidence and do not become
   structural CDC/RDC findings. The published 0/14 calibration applies only to
   the recorded Verilator/Verible versions and default configurations.
+- `formal-yosys` proves only the explicit immediate properties within the
+  configured bound, with assumptions honored, initial registers forced to
+  zero, and clocked logic lowered through `clk2fflogic`. It does not prove
+  unbounded liveness, validate assumptions, or replace production formal.
+- `equivalence-yosys` compares the Yosys-synthesized candidate and reference
+  under a bounded, zero-initialized model. It does not perform four-state,
+  state-mapped, retiming-aware, or industrial sequential equivalence.
+- A public reference implementation is not automatically the only legal
+  implementation. Equivalence should contribute only when the task contract
+  explicitly requires that reference behavior.
 - Benchmark interface/scoring detection is heuristic. Reported negative counts
   are not a validated census until negative samples are manually reviewed.
 - The core evaluator and shipped EDA dependencies are open source, but the

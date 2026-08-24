@@ -1,5 +1,6 @@
 import shutil
 import json
+import tomllib
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from unittest import TestCase, skipUnless
@@ -18,7 +19,10 @@ class PublicSurfaceTests(TestCase):
             self.assertTrue(hasattr(svgap, name), name)
 
     def test_version_is_exported(self) -> None:
-        self.assertTrue(svgap.__version__)
+        root = Path(__file__).resolve().parents[1]
+        with (root / "pyproject.toml").open("rb") as handle:
+            package_version = tomllib.load(handle)["project"]["version"]
+        self.assertEqual(svgap.__version__, package_version)
 
 
 @skipUnless(HAS_TOOLS, "Yosys and Icarus Verilog are required")

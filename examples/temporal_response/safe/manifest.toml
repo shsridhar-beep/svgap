@@ -1,0 +1,41 @@
+schema_version = "2.0"
+candidate_id = "temporal-response-safe"
+
+[design]
+top = "response_engine"
+sources = ["design.sv"]
+
+[functional]
+commands = [
+  ["iverilog", "-g2012", "-o", "${SVGAP_BUILD}/sim.vvp", "design.sv", "../tb.sv"],
+  ["vvp", "${SVGAP_BUILD}/sim.vvp"],
+]
+
+[[oracles]]
+id = "bounded-response"
+class = "temporal"
+backend = "formal-yosys"
+contributes_to_gap = true
+required = true
+
+[oracles.options]
+property_sources = ["properties.sv"]
+property_top = "temporal_response_properties"
+depth = 12
+rule_id = "REF-TEMP-001"
+message = "a request is not completed within three cycles"
+
+[[oracles]]
+id = "ordinary-lint"
+class = "lint"
+backend = "lint-verilator"
+contributes_to_gap = false
+required = false
+
+[oracles.options]
+extra_args = ["-Wno-DECLFILENAME"]
+
+[intent]
+
+[output]
+report = "build/report.json"

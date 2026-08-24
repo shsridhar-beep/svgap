@@ -35,7 +35,8 @@ jobs:
           git archive --format=tar.gz --prefix=reset-replication-v0.1/ -o dist/reset-replication-v0.1.tar.gz HEAD:artifacts/reset-replication-v0.1
           git archive --format=tar.gz --prefix=reset-taskpack-v0.2/ -o dist/reset-taskpack-v0.2.tar.gz HEAD:taskpacks/reset-replication-v0.2
           git archive --format=tar.gz --prefix=svgap-baselines-v0.1/ -o dist/svgap-baselines-v0.1.tar.gz HEAD:results
-          cp schemas/report-v1.json schemas/functional-result-v1.json schemas/result-registry-v1.json schemas/submission-v1.json dist/
+          git archive --format=tar.gz --prefix=temporal-equivalence-audit-v0.1/ -o dist/temporal-equivalence-audit-v0.1.tar.gz HEAD docs/temporal-equivalence-benchmark-audit.md reports/audits/temporal-equivalence-cvdp.csv reports/audits/temporal-equivalence-cvdp.json reports/audits/temporal-equivalence-rtllm.csv reports/audits/temporal-equivalence-rtllm.json reports/audits/temporal-equivalence-summary.json reports/audits/temporal-equivalence-validation-sample-v0.1.csv reports/audits/temporal-equivalence-verilog-eval.csv reports/audits/temporal-equivalence-verilog-eval.json scripts/audit_temporal_equivalence_benchmarks.py scripts/build_temporal_equivalence_audit_validation_sample.py src/svgap/contract_audit.py examples/functional_equivalence examples/synthesis_directive_equivalence examples/temporal_backpressure examples/temporal_pulse examples/temporal_response src/svgap/backends/equivalence_yosys.py src/svgap/backends/formal_yosys.py
+          cp schemas/report-v1.json schemas/report-v2.json schemas/manifest-v2.example.toml schemas/functional-result-v1.json schemas/result-registry-v1.json schemas/submission-v1.json dist/
           (cd dist && sha256sum * > SHA256SUMS)
       - name: Create prerelease with assets
         env:

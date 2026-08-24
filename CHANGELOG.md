@@ -5,6 +5,8 @@ versioning once the manifest and report contracts reach public v0.1.
 
 ## Unreleased
 
+## 0.3.0-alpha.13 - 2026-08-24
+
 ### Added
 
 - Report and manifest schema v2 with ordered multi-oracle evidence,
@@ -16,13 +18,34 @@ versioning once the manifest and report contracts reach public v0.1.
   depth; pulse, toggle, handshake, reconvergence, and async-FIFO CDC;
   independent reset domains, reset gating, reset reconvergence; X-masking
   control flow, selective reset, and uninitialized memory.
+- `formal-yosys` bounded protocol/temporal properties and
+  `equivalence-yosys` synthesized reference miters, with five paired witnesses
+  and four stable finding IDs.
+- A reproducible 508-task temporal/equivalence benchmark audit. It establishes
+  conservative lower bounds of 98 explicit temporal contracts without
+  recognizable property/formal scoring and 16 explicit equivalence contracts
+  with synthesis but no equivalence or post-synthesis comparison.
 
 ### Changed
 
+- Schema-v2 profiles now require at least one contributing oracle rather than
+  specifically requiring a `structural` class, allowing temporal, protocol,
+  and equivalence profiles without mislabeling their evidence.
 - `reference-naja` publishes its supported-rule coverage and abstains with
   `unknown` when an expanded Yosys-only intent class is requested.
 - The Yosys flow runs `opt_dff` so synchronous reset pins and values remain
   inspectable for selective-reset checks.
+
+### Fixed
+
+- Yosys structural fan-in tracing now visits each net once instead of
+  enumerating every path through reconvergent combinational logic, preventing
+  one candidate from stalling a complete evaluation batch.
+- On POSIX, functional, structural Yosys, bounded-formal, and equivalence tool
+  commands run in isolated process groups and reap descendants on timeout, so
+  inherited output pipes cannot defeat the configured wall-clock limit.
+- Verilator backend arguments are applied after `--Wall`, allowing a manifest
+  to override a default warning such as `DECLFILENAME` deterministically.
 
 ## 0.3.0-alpha.12 - 2026-08-17
 

@@ -48,7 +48,7 @@ pull is large and depends on network speed; execution is quick once
 the image is cached:
 
 ```bash
-docker run --rm ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.9 demo
+docker run --rm ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.13 demo
 ```
 
 This dated result remains the original five-family, ten-candidate construction;

@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any, Iterable
 
 from svgap.model import CheckResult, Finding, Manifest, OracleConfig
+from svgap.subprocess_utils import run_captured
 
 
 @dataclass(frozen=True)
@@ -48,13 +49,10 @@ class ReferenceYosysBackend:
             ]
         )
         try:
-            completed = subprocess.run(
+            completed = run_captured(
                 ["yosys", "-q", "-p", script],
                 cwd=manifest.path.parent,
-                capture_output=True,
-                text=True,
                 timeout=60,
-                check=False,
             )
         except (OSError, subprocess.TimeoutExpired) as exc:
             return CheckResult(
@@ -774,21 +772,35 @@ def trace_sequential_sources(
     comb_driver: dict[int | str, tuple[str, str, tuple[int | str, ...]]],
     visited: set[int | str],
 ) -> list[tuple[SeqCell, tuple[tuple[str, str], ...]]]:
-    if bit in visited or isinstance(bit, str):
-        return []
-    if bit in seq_by_q_bit:
-        return [(seq_by_q_bit[bit], ())]
-    driver = comb_driver.get(bit)
-    if driver is None:
-        return []
-    name, _cell_type, inputs = driver
-    found: list[tuple[SeqCell, tuple[tuple[str, str], ...]]] = []
-    for input_bit in inputs:
-        for source, path in trace_sequential_sources(
-            input_bit, seq_by_q_bit, comb_driver, {*visited, bit}
-        ):
-            found.append((source, ((name, _cell_type), *path)))
-    return found
+    """Return one deterministic combinational path per reachable state source.
+
+    A global visited set makes this walk linear in the fan-in graph. The old
+    recursive implementation copied a per-path set and enumerated every path
+    through reconvergent logic, which could grow exponentially and stall a
+    complete evaluation batch.
+    """
+
+    seen = set(visited)
+    frontier: list[
+        tuple[int | str, tuple[tuple[str, str], ...]]
+    ] = [(bit, ())]
+    found: dict[str, tuple[SeqCell, tuple[tuple[str, str], ...]]] = {}
+    while frontier:
+        current, path = frontier.pop()
+        if current in seen or isinstance(current, str):
+            continue
+        seen.add(current)
+        source = seq_by_q_bit.get(current)
+        if source is not None:
+            found.setdefault(source.name, (source, path))
+            continue
+        driver = comb_driver.get(current)
+        if driver is None:
+            continue
+        name, cell_type, inputs = driver
+        next_path = (*path, (name, cell_type))
+        frontier.extend((input_bit, next_path) for input_bit in reversed(inputs))
+    return list(found.values())
 
 
 def same_domain_successors(

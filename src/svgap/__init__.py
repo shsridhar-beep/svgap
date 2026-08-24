@@ -9,8 +9,9 @@ Public library surface:
         ...
 
 Everything exported here follows the same contract as the CLI: setup errors
-raise, measurement outcomes (``unknown``, ``tool_error``) are reported, and a
-structural ``pass`` means no configured finding - not verified safety.
+raise, measurement outcomes (``unknown``, ``tool_error``) are reported, and an
+oracle ``pass`` means no configured finding in its declared scope - not
+verified safety.
 """
 
 from svgap.api import evaluate
@@ -30,7 +31,7 @@ from svgap.resources import taskpack_metadata, taskpack_root
 from svgap.study import summarize_reports
 from svgap.validation import ReportValidationError, validate_report_payload
 
-__version__ = "0.3.0a9"
+__version__ = "0.3.0a13"
 
 __all__ = [
     "BackendError",

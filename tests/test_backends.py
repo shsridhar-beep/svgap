@@ -22,6 +22,10 @@ class BackendRegistryTests(TestCase):
     def test_builtin_backend_is_discoverable(self) -> None:
         self.assertIn("reference-yosys", available_backends())
         self.assertEqual(load_backend("reference-yosys").name, "reference-yosys")
+        self.assertEqual(load_backend("formal-yosys").name, "formal-yosys")
+        self.assertEqual(
+            load_backend("equivalence-yosys").name, "equivalence-yosys"
+        )
         self.assertIn("lint-verilator", available_backends())
         self.assertIn("lint-verible", available_backends())
 

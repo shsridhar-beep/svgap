@@ -62,7 +62,7 @@ install behaves differently:
    instead of a native install:
 
    ```bash
-   docker run --rm ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.9 doctor
+   docker run --rm ghcr.io/shsridhar-beep/svgap:v0.3.0-alpha.13 doctor
    ```
 
 ## Still stuck?

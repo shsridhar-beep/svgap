@@ -82,6 +82,12 @@ contributes_to_gap = false
 required = false
 ```
 
+Schema v2 requires at least one `contributes_to_gap = true` oracle, but that
+oracle does not have to be structural. A temporal-property backend should use a
+class such as `temporal` or `protocol`; a reference-comparison backend should
+use `equivalence`. Keep ordinary lint contextual unless its rule policy has
+been separately calibrated for the claim being measured.
+
 An optional unavailable backend still produces `tool_error` evidence. It is
 never rewritten as `pass`.
 
