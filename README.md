@@ -208,6 +208,8 @@ attributable protocol design, redistributable evidence, task design, analysis,
 validation, documentation, or code. See [Contributors](https://github.com/shsridhar-beep/svgap/blob/main/CONTRIBUTORS.md) and
 [Contributing](https://github.com/shsridhar-beep/svgap/blob/main/CONTRIBUTING.md).
 
+⭐ If you find SVGap useful, starring the repo helps spread the word.
+
 ## Extend and integrate
 
 - [Submit a result](https://shsridhar-beep.github.io/svgap/submitting-results/)
