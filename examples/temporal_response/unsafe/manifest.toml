@@ -22,6 +22,9 @@ required = true
 property_sources = ["properties.sv"]
 property_top = "temporal_response_properties"
 depth = 12
+non_vacuity_signal = "pending"
+non_vacuity_depth = 12
+require_non_vacuity = true
 rule_id = "REF-TEMP-001"
 message = "a request is not completed within three cycles"
 

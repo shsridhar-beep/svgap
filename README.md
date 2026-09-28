@@ -64,7 +64,7 @@ or silicon signoff.
 | Functional evidence | Executed commands or digest-bound imported results | Evidence quality remains visible |
 | Evidence backends | Narrow structural, bounded temporal, synthesized-equivalence, Naja, and separate Verilator/Verible lint oracles | Backend `pass` means no configured finding, not a true negative |
 | Report contract | Schema v1 compatibility or schema v2 multi-oracle evidence | Only explicitly contributing oracles define gap membership |
-| Outcomes | `pass`, `fail`, `unknown`, `tool_error` | Missing intent or coverage never becomes `pass` |
+| Outcomes | Per-oracle outcomes plus configured-contract `closed`, `open`, `incomplete`, or `tool_error` | Missing intent or observed required coverage never becomes closure |
 | Platforms | Python 3.11–3.13; tested on macOS and Linux | Native Windows is not tested; use Docker Desktop or WSL2 |
 
 Read the full [methodology](https://shsridhar-beep.github.io/svgap/methodology/),

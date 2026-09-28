@@ -113,11 +113,25 @@ class ExampleTests(TestCase):
             with self.subTest(family=family, variant="safe"):
                 self.assertEqual(safe.functional.status, "pass")
                 self.assertFalse(safe.gap_member)
+                self.assertEqual(safe.contract_status, "closed")
                 self.assertEqual(
                     safe.oracle_results[0].status,
                     "pass",
                     safe.oracle_results[0],
                 )
+                self.assertIn("proof_log", safe.oracle_results[0].artifacts)
+                self.assertEqual(
+                    len(safe.oracle_results[0].artifacts["proof_log"]["sha256"]),
+                    64,
+                )
+                if family.startswith("temporal_"):
+                    self.assertEqual(
+                        safe.oracle_results[0].coverage["observed"]["non_vacuity"],
+                        "reached",
+                    )
+                    self.assertTrue(
+                        safe.oracle_results[0].coverage["observed"]["requirements_met"]
+                    )
                 if shutil.which("verilator"):
                     self.assertEqual(safe.oracle_results[1].oracle_class, "lint")
                     self.assertEqual(safe.oracle_results[1].status, "pass")
@@ -125,6 +139,7 @@ class ExampleTests(TestCase):
             with self.subTest(family=family, variant="unsafe"):
                 self.assertEqual(unsafe.functional.status, "pass")
                 self.assertTrue(unsafe.gap_member)
+                self.assertEqual(unsafe.contract_status, "open")
                 self.assertEqual(
                     unsafe.oracle_results[0].status,
                     "fail",
@@ -134,6 +149,7 @@ class ExampleTests(TestCase):
                     expected_rule,
                     {item.rule_id for item in unsafe.oracle_results[0].findings},
                 )
+                self.assertIn("proof_log", unsafe.oracle_results[0].artifacts)
                 if shutil.which("verilator"):
                     self.assertEqual(unsafe.oracle_results[1].oracle_class, "lint")
                     self.assertEqual(unsafe.oracle_results[1].status, "pass")

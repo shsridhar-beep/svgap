@@ -21,6 +21,7 @@ from svgap.model import (
     FunctionalResult,
     OracleConfig,
     OracleResult,
+    configured_contract_status,
 )
 
 
@@ -80,6 +81,11 @@ def evaluate(
         gap_member=gap_member,
         generated_at=datetime.now(timezone.utc).isoformat(),
         oracle_results=oracle_results if manifest.schema_version == "2.0" else [],
+        contract_status=(
+            configured_contract_status(functional, oracle_results)
+            if manifest.schema_version == "2.0"
+            else None
+        ),
     )
     if write_report:
         manifest.report_path.parent.mkdir(parents=True, exist_ok=True)
@@ -102,7 +108,8 @@ def _run_oracle(manifest: Manifest, config: OracleConfig) -> OracleResult:
             backend_version="unavailable",
             diagnostics=[str(exc)],
         )
-        return OracleResult.from_check(config, result, coverage={"executed": False})
+        result.observed_coverage = {"executed": False}
+        return OracleResult.from_check(config, result)
 
     check = backend.check
     parameters = inspect.signature(check).parameters

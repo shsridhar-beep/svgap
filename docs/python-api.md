@@ -3,7 +3,7 @@
 `import svgap` exposes the same evaluation path as the CLI, for eval
 harnesses and pipelines that live in Python. The contract is unchanged:
 setup errors raise; measurement outcomes - including `unknown` and
-`tool_error` - come back inside the report, never as exceptions; a
+`tool_error` - come back inside the report, never as exceptions; an
 oracle `pass` means no configured finding in its declared scope, not verified
 safety.
 
@@ -17,6 +17,7 @@ report = svgap.evaluate("path/to/manifest.toml")
 report.functional.status   # pass | fail | compile_error | unknown | tool_error | not_run
 report.structural.status   # legacy compatibility view; see below
 report.gap_member          # functional pass AND any contributing-oracle fail
+report.contract_status     # closed | open | incomplete | tool_error (schema v2)
 report.structural.findings # findings from that compatibility view
 ```
 
@@ -32,6 +33,7 @@ for result in report.oracle_results:
         result.status,
         result.contributes_to_gap,
         result.coverage,
+        result.artifacts,          # content-addressed scripts, logs, traces
     )
 ```
 
@@ -70,14 +72,29 @@ reports = sorted(output_root.glob("*/*/report.json"))
 summary = svgap.summarize_reports(reports)
 ```
 
+## Run a campaign
+
+The CLI campaign engine is also part of the public Python surface:
+
+```python
+plan = svgap.plan_campaign(Path("campaign.toml"))
+summary = svgap.run_campaign(Path("campaign.toml"), Path("reports/run-01"))
+summary = svgap.resume_campaign(Path("reports/run-01"))
+replay = svgap.replay_campaign(
+    Path("reports/run-01"), cell="sample-01/reset_counter", attempt=2
+)
+```
+
 ## Exported surface
 
 `evaluate`, `load_manifest`, `materialize_candidate`, `run_functional`,
-`summarize_reports`, `load_backend`, `discover_backends`,
+`summarize_reports`, `plan_campaign`, `run_campaign`, `resume_campaign`,
+`replay_campaign`, `load_backend`, `discover_backends`,
 `validate_report_payload`, the `Manifest`, `EvaluationReport`,
 `FunctionalResult`, `CheckResult`, `OracleConfig`, `OracleResult`, and `Finding`
 types, and the
-`ManifestError`, `BackendError`, and `ReportValidationError` exceptions.
+`ManifestError`, `BackendError`, `CampaignError`, and `ReportValidationError`
+exceptions.
 Anything not exported from the top-level package is internal and may change
 without notice.
 

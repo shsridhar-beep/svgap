@@ -8,6 +8,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable
 
+from svgap.artifacts import existing_artifacts
 from svgap.model import CheckResult, Finding, Manifest, OracleConfig
 from svgap.subprocess_utils import run_captured
 
@@ -31,13 +32,16 @@ class ReferenceYosysBackend:
     """Small, auditable structural oracle for controlled research fixtures."""
 
     name = "reference-yosys"
-    version = "0.3"
+    version = "0.4"
 
     def check(self, manifest: Manifest) -> CheckResult:
         tool_versions = {"yosys": yosys_version()}
         build = manifest.path.parent / "build"
         build.mkdir(parents=True, exist_ok=True)
         netlist_path = build / "structural.json"
+        script_path = build / "structural.ys"
+        log_path = build / "structural.log"
+        netlist_path.unlink(missing_ok=True)
         script = "\n".join(
             [
                 *[f"read_verilog -sv {yosys_quote(path)}" for path in manifest.sources],
@@ -48,9 +52,10 @@ class ReferenceYosysBackend:
                 f"write_json {yosys_quote(netlist_path)}",
             ]
         )
+        script_path.write_text(script + "\n", encoding="utf-8")
         try:
             completed = run_captured(
-                ["yosys", "-q", "-p", script],
+                ["yosys", "-q", "-s", str(script_path)],
                 cwd=manifest.path.parent,
                 timeout=60,
             )
@@ -61,7 +66,24 @@ class ReferenceYosysBackend:
                 backend_version=self.version,
                 diagnostics=[str(exc)],
                 tool_versions=tool_versions,
+                artifacts=existing_artifacts(
+                    manifest.path.parent,
+                    structural_script=(script_path, "yosys-script"),
+                ),
+                observed_coverage={
+                    "analysis_completed": False,
+                    "requirements_met": False,
+                },
             )
+        log_path.write_text(
+            completed.stdout + "\n" + completed.stderr, encoding="utf-8"
+        )
+        artifacts = existing_artifacts(
+            manifest.path.parent,
+            structural_script=(script_path, "yosys-script"),
+            structural_log=(log_path, "tool-log"),
+            elaborated_netlist=(netlist_path, "yosys-json-netlist"),
+        )
         if completed.returncode != 0:
             return CheckResult(
                 status="tool_error",
@@ -69,6 +91,11 @@ class ReferenceYosysBackend:
                 backend_version=self.version,
                 diagnostics=[completed.stderr.strip() or completed.stdout.strip()],
                 tool_versions=tool_versions,
+                artifacts=artifacts,
+                observed_coverage={
+                    "analysis_completed": False,
+                    "requirements_met": False,
+                },
             )
         try:
             netlist = json.loads(netlist_path.read_text(encoding="utf-8"))
@@ -79,6 +106,16 @@ class ReferenceYosysBackend:
             )
             result = self._analyze(manifest, netlist)
             result.tool_versions = tool_versions
+            result.artifacts = existing_artifacts(
+                manifest.path.parent,
+                structural_script=(script_path, "yosys-script"),
+                structural_log=(log_path, "tool-log"),
+                elaborated_netlist=(netlist_path, "yosys-json-netlist"),
+            )
+            result.observed_coverage = {
+                "analysis_completed": True,
+                "requirements_met": result.status in {"pass", "fail"},
+            }
             return result
         except (OSError, ValueError, KeyError, TypeError) as exc:
             return CheckResult(
@@ -87,6 +124,16 @@ class ReferenceYosysBackend:
                 backend_version=self.version,
                 diagnostics=[f"cannot analyze Yosys netlist: {exc}"],
                 tool_versions=tool_versions,
+                artifacts=existing_artifacts(
+                    manifest.path.parent,
+                    structural_script=(script_path, "yosys-script"),
+                    structural_log=(log_path, "tool-log"),
+                    elaborated_netlist=(netlist_path, "yosys-json-netlist"),
+                ),
+                observed_coverage={
+                    "analysis_completed": False,
+                    "requirements_met": False,
+                },
             )
 
     def coverage(

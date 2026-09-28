@@ -2,7 +2,11 @@ from __future__ import annotations
 
 from typing import Any
 
-from svgap.validation import oracle_results, validate_report_payload
+from svgap.validation import (
+    configured_contract_status,
+    oracle_results,
+    validate_report_payload,
+)
 
 
 def explain_payload(payload: dict[str, Any]) -> dict[str, Any]:
@@ -53,7 +57,23 @@ def explain_evaluation_report(report: dict[str, Any]) -> dict[str, Any]:
             if result["oracle_id"] == result["oracle_class"]
             else f"{result['oracle_id']} ({result['oracle_class']})"
         )
-        if result["status"] == "pass":
+        coverage_unmet = (
+            result.get("coverage", {})
+            .get("observed", {})
+            .get("requirements_met")
+            is False
+        )
+        if result["status"] == "pass" and coverage_unmet:
+            unanswered.append(
+                {
+                    "question": f"Did {label} meet its observed coverage goals?",
+                    "reason": "required observed coverage was not met",
+                }
+            )
+            next_evidence.append(
+                "Reach the required observed-coverage goal or revise the declared goal with review."
+            )
+        elif result["status"] == "pass":
             answered.append(
                 {
                     "question": f"Did {label} emit a failing finding?",
@@ -97,6 +117,8 @@ def explain_evaluation_report(report: dict[str, Any]) -> dict[str, Any]:
     return {
         "schema_version": "1.0",
         "candidate_id": report["candidate_id"],
+        "contract_status": report.get("contract_status")
+        or configured_contract_status(report),
         "answered": answered,
         "failed": failed,
         "unanswered": unanswered,
@@ -170,6 +192,8 @@ def explain_adjudication_report(report: dict[str, Any]) -> dict[str, Any]:
 
 def render_explanation(explanation: dict[str, Any]) -> str:
     lines = [f"candidate   {explanation['candidate_id']}"]
+    if explanation.get("contract_status"):
+        lines.append(f"contract    {explanation['contract_status']}")
     for heading, key in (("ANSWERED", "answered"), ("FAILED", "failed"), ("UNANSWERED", "unanswered")):
         lines.append(heading)
         items = explanation[key]

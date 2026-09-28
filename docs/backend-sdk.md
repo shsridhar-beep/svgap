@@ -18,6 +18,12 @@ coverage(manifest: Manifest, oracle: OracleConfig) -> dict
 SV-Gap detects the supported call shape. `coverage` is copied into that
 oracle's `OracleResult`; it should name the rule deck or ruleset, exclusions,
 and known calibration boundary rather than assert generic coverage.
+`CheckResult.observed_coverage` is nested under `coverage.observed`, and
+`CheckResult.artifacts` is copied to the result unchanged. Artifact records
+should use portable paths and content digests. Set
+`observed_coverage.requirements_met = false` when an explicitly required
+coverage goal did not complete; this prevents configured-contract closure even
+when the primary check itself returned `pass`.
 
 ## Contract
 

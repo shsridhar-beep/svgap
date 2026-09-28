@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any, Iterable
 
 from svgap.validation import (
+    configured_contract_status,
     contributing_oracle_status,
     oracle_results,
     validate_report_payload,
@@ -19,10 +20,12 @@ def summarize_reports(report_paths: Iterable[Path]) -> dict[str, Any]:
             (path, validate_report_payload(json.loads(path.read_text(encoding="utf-8"))))
         )
     outcome_counts: Counter[tuple[str, str, bool]] = Counter()
+    contract_counts: Counter[str] = Counter()
     by_task: dict[str, Counter[tuple[str, str, bool]]] = defaultdict(Counter)
     by_model: dict[str, Counter[tuple[str, str, bool]]] = defaultdict(Counter)
     rule_counts: Counter[str] = Counter()
     for path, report in reports:
+        contract_counts[report.get("contract_status") or configured_contract_status(report)] += 1
         contributing = [
             item for item in oracle_results(report) if item["contributes_to_gap"]
         ]
@@ -53,7 +56,7 @@ def summarize_reports(report_paths: Iterable[Path]) -> dict[str, Any]:
     gap_members = sum(
         count for (_functional, _structural, gap), count in outcome_counts.items() if gap
     )
-    return {
+    summary = {
         "schema_version": "1.0",
         "report_count": len(reports),
         "functional_pass": functional_pass,
@@ -73,6 +76,10 @@ def summarize_reports(report_paths: Iterable[Path]) -> dict[str, Any]:
         "by_task": {key: compact_counts(value) for key, value in sorted(by_task.items())},
         "by_model": {key: compact_counts(value) for key, value in sorted(by_model.items())},
     }
+    if any("contract_status" in report for _path, report in reports):
+        summary["configured_contract_statuses"] = dict(sorted(contract_counts.items()))
+        summary["configured_contract_closed"] = contract_counts["closed"]
+    return summary
 
 
 def compact_counts(counts: Counter[tuple[str, str, bool]]) -> dict[str, int]:

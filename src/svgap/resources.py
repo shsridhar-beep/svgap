@@ -25,6 +25,12 @@ TASKPACKS: dict[str, dict[str, Any]] = {
         "smoke_task": "power_enable",
         "full_samples": 3,
     },
+    "real-fix-prompt-depth-v0.1": {
+        "directory": "real-fix-prompt-depth-v0.1",
+        "version": "0.1",
+        "smoke_task": "ibex_332_fetch_request",
+        "full_samples": 3,
+    },
 }
 
 

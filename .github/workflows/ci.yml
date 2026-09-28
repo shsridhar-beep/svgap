@@ -53,8 +53,9 @@ jobs:
           cd /tmp
           /tmp/svgap-wheel/bin/svgap taskpack list
           /tmp/svgap-wheel/bin/svgap study run --help
+          /tmp/svgap-wheel/bin/svgap campaign plan --help
           /tmp/svgap-wheel/bin/svgap challenge run --help
-          /tmp/svgap-wheel/bin/python -c 'import svgap; assert callable(svgap.evaluate); assert len(svgap.taskpack_metadata("reset-release-v0.2")["tasks"]) == 8'
+          /tmp/svgap-wheel/bin/python -c 'import svgap; assert callable(svgap.evaluate); assert len(svgap.taskpack_metadata("reset-release-v0.2")["tasks"]) == 8; assert len(svgap.taskpack_metadata("real-fix-prompt-depth-v0.1")["tasks"]) == 24; assert callable(svgap.run_campaign)'
       - uses: actions/upload-artifact@v6
         with:
           name: python-distributions

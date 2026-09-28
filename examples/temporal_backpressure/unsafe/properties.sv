@@ -8,10 +8,12 @@ module temporal_backpressure_properties;
     logic m_valid;
     logic [7:0] m_data;
     logic f_past_valid;
+    (* keep *) logic backpressure_seen;
 
     elastic_buffer dut (.*);
 
     always_ff @(posedge clk) begin
+        backpressure_seen <= f_past_valid && rst_n && m_valid && !m_ready;
         f_past_valid <= 1'b1;
         if (!f_past_valid)
             assume (!rst_n);

@@ -119,7 +119,8 @@ def _validate_v2(payload: dict[str, Any]) -> dict[str, Any]:
     missing = sorted(required - payload.keys())
     if missing:
         raise ReportValidationError("report is missing fields: " + ", ".join(missing))
-    extras = sorted(payload.keys() - required)
+    optional = {"contract_status"}
+    extras = sorted(payload.keys() - required - optional)
     if extras:
         raise ReportValidationError("report has unsupported fields: " + ", ".join(extras))
     if not isinstance(payload["candidate_id"], str) or not payload["candidate_id"]:
@@ -163,6 +164,12 @@ def _validate_v2(payload: dict[str, Any]) -> dict[str, Any]:
     )
     if payload["gap_member"] != expected_gap:
         raise ReportValidationError("gap_member is inconsistent with oracle results")
+    expected_contract = configured_contract_status(payload)
+    if (
+        "contract_status" in payload
+        and payload["contract_status"] != expected_contract
+    ):
+        raise ReportValidationError("contract_status is inconsistent with result statuses")
     return payload
 
 
@@ -180,7 +187,12 @@ def _validate_oracle_result(result: Any) -> None:
         "tool_versions",
         "coverage",
     }
-    if not isinstance(result, dict) or set(result) != required:
+    optional = {"artifacts"}
+    if (
+        not isinstance(result, dict)
+        or not required.issubset(result)
+        or set(result) - required - optional
+    ):
         raise ReportValidationError("oracle result fields do not match schema v2")
     if result["status"] not in STRUCTURAL_STATUSES:
         raise ReportValidationError("invalid oracle result status")
@@ -233,6 +245,8 @@ def _validate_oracle_result(result: Any) -> None:
         raise ReportValidationError("oracle tool versions must contain strings")
     if not isinstance(result["coverage"], dict):
         raise ReportValidationError("oracle coverage must be an object")
+    if "artifacts" in result and not isinstance(result["artifacts"], dict):
+        raise ReportValidationError("oracle artifacts must be an object")
 
 
 def oracle_results(payload: dict[str, Any]) -> list[dict[str, Any]]:
@@ -280,3 +294,37 @@ def contributing_oracle_status(payload: dict[str, Any]) -> str:
     if "unknown" in statuses or not statuses:
         return "unknown"
     return "pass"
+
+
+def configured_contract_status(payload: dict[str, Any]) -> str:
+    """Derive the positive configured-contract status for v1 or v2 reports."""
+
+    functional = payload.get("functional", {})
+    functional_status = functional.get("status")
+    if functional_status == "tool_error":
+        return "tool_error"
+    if functional_status in {"fail", "compile_error"}:
+        return "open"
+    if functional_status != "pass":
+        return "incomplete"
+    if payload.get("schema_version") == "2.0":
+        raw_results = payload.get("oracle_results", [])
+    else:
+        structural = dict(payload.get("structural", {}))
+        structural.setdefault("required", True)
+        structural.setdefault("coverage", {})
+        raw_results = [structural]
+    results = [item for item in raw_results if item.get("required")]
+    if any(item["status"] == "fail" for item in results):
+        return "open"
+    if any(item["status"] == "tool_error" for item in results):
+        return "tool_error"
+    if any(item["status"] == "unknown" for item in results) or not results:
+        return "incomplete"
+    if any(
+        item.get("coverage", {}).get("observed", {}).get("requirements_met")
+        is False
+        for item in results
+    ):
+        return "incomplete"
+    return "closed"

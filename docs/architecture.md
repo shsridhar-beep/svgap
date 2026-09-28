@@ -17,8 +17,9 @@ manifest + RTL
                                               v
                                      EvaluationReport v2
                                      + gap membership
+                                     + configured-contract status
                                      + per-oracle coverage
-                                     + versions/diagnostics
+                                     + versions/diagnostics/artifacts
 ```
 
 This prevents a lint-clean result from overwriting a CDC/RDC failure, and it
@@ -120,6 +121,7 @@ Schema v1 emits the legacy top-level `structural` result. Schema v2 emits
       "coverage": {"ruleset": "--Wall"}
     }
   ],
+  "contract_status": "open",
   "gap_member": true
 }
 ```
@@ -131,6 +133,13 @@ and timestamp fields. Gap membership is:
 functional == pass
 AND any(oracle.contributes_to_gap AND oracle.status == fail)
 ```
+
+`contract_status` is the positive counterpart used by campaigns. It is
+`closed` only when functional evidence passes, every required oracle passes,
+and every required observed-coverage goal reports `requirements_met != false`.
+Required failures produce `open`; missing or bounded-out evidence produces
+`incomplete`; required tool failures produce `tool_error`. Gap membership is
+retained unchanged for longitudinal compatibility.
 
 ## Backend boundary
 
@@ -185,7 +194,12 @@ lint useful evidence without relabeling it as structural CDC/RDC analysis.
 lowers clocked properties through `clk2fflogic`, honors assumptions, and runs a
 bounded Yosys SAT proof. The rule ID, property top, bound, and message are
 explicit oracle options. Its coverage says `proof_scope = "bounded"`; it does
-not claim unbounded liveness or production formal signoff.
+not claim unbounded liveness or production formal signoff. A property harness
+can name `non_vacuity_signal`, set `non_vacuity_depth`, and require
+`require_non_vacuity = true`; a proof pass then closes only if Yosys also finds
+a bounded witness reaching that signal. Proof scripts, logs, counterexamples,
+and reachability witnesses are retained with SHA-256 digests in `artifacts` for
+both passing and failing oracle outcomes.
 
 `equivalence-yosys` separately synthesizes the supplied reference and candidate
 views, builds a Yosys miter, and proves its comparison assertion for the

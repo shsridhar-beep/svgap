@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://svgap.dev/schemas/campaign-v1.json",
+  "title": "SV-Gap generation and repair campaign",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "id", "taskpack", "generator"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "id": {"type": "string", "pattern": "^[a-z][a-z0-9_.-]*$"},
+    "taskpack": {"type": "string", "minLength": 1},
+    "tasks": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "samples": {"type": "integer", "minimum": 1},
+    "prompt_level": {"type": "string", "minLength": 1},
+    "generator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["command", "label"],
+      "properties": {
+        "command": {"type": "string", "minLength": 1},
+        "label": {"type": "string", "minLength": 1},
+        "interface_label": {"type": "string", "minLength": 1}
+      }
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "timeout_seconds": {"type": "integer", "minimum": 1, "maximum": 3600},
+        "seed": {"type": "integer", "minimum": 0, "maximum": 2147483647}
+      }
+    },
+    "repair": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {"type": "boolean"},
+        "max_attempts": {"type": "integer", "minimum": 1, "maximum": 20},
+        "feedback": {"enum": ["finding", "diagnostic", "full"]}
+      }
+    },
+    "budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "max_model_calls": {"type": "integer", "minimum": 1},
+        "wall_seconds": {"type": "integer", "minimum": 1}
+      }
+    }
+  }
+}

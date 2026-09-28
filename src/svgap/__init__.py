@@ -16,6 +16,13 @@ verified safety.
 
 from svgap.api import evaluate
 from svgap.backends.registry import BackendError, discover_backends, load_backend
+from svgap.campaign import (
+    CampaignError,
+    plan_campaign,
+    replay_campaign,
+    resume_campaign,
+    run_campaign,
+)
 from svgap.functional import run_functional
 from svgap.manifest import Manifest, ManifestError, load_manifest
 from svgap.model import (
@@ -36,6 +43,7 @@ __version__ = "0.3.0a14"
 __all__ = [
     "BackendError",
     "CheckResult",
+    "CampaignError",
     "EvaluationReport",
     "Finding",
     "FunctionalResult",
@@ -49,7 +57,11 @@ __all__ = [
     "load_backend",
     "load_manifest",
     "materialize_candidate",
+    "plan_campaign",
+    "replay_campaign",
+    "resume_campaign",
     "run_functional",
+    "run_campaign",
     "summarize_reports",
     "taskpack_metadata",
     "taskpack_root",

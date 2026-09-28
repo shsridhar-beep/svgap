@@ -5,6 +5,22 @@ versioning once the manifest and report contracts reach public v0.1.
 
 ## Unreleased
 
+### Added
+
+- `svgap campaign plan|run|resume|replay` with strict TOML manifests,
+  content-chained append-only ledgers, exact saved-response replay, model-call
+  and wall-time budgets, and multi-attempt repair using finding, diagnostic, or
+  full-report feedback.
+- Schema-v2 `contract_status` (`closed`, `open`, `incomplete`, `tool_error`) as
+  a positive configured-evidence result without changing gap membership.
+- Observed oracle coverage and optional bounded non-vacuity reachability for
+  `formal-yosys`, including retained content-addressed proof scripts, logs,
+  counterexamples, and reachability witnesses. Equivalence proofs now retain
+  the same successful-oracle artifact class.
+- The 24-task real-fix prompt-depth corpus is discoverable as
+  `real-fix-prompt-depth-v0.1`. A `riscv-dv` adapter remains explicitly deferred
+  in the roadmap.
+
 ## 0.3.0-alpha.14 - 2026-09-08
 
 ### Added

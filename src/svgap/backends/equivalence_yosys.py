@@ -5,6 +5,7 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
+from svgap.artifacts import existing_artifacts
 from svgap.backends.formal_yosys import (
     _IDENTIFIER,
     _PROOF_FAILED,
@@ -24,7 +25,7 @@ class EquivalenceYosysBackend:
     """Bounded candidate/reference equivalence after Yosys RTL synthesis."""
 
     name = "equivalence-yosys"
-    version = "0.1"
+    version = "0.2"
 
     def check(
         self, manifest: Manifest, oracle: OracleConfig | None = None
@@ -47,6 +48,7 @@ class EquivalenceYosysBackend:
         script_path = build / f"{stem}.ys"
         log_path = build / f"{stem}.log"
         trace_path = build / f"{stem}-counterexample.vcd"
+        trace_path.unlink(missing_ok=True)
         script = "\n".join(
             [
                 *[
@@ -93,9 +95,32 @@ class EquivalenceYosysBackend:
                 backend_version=self.version,
                 diagnostics=[f"equivalence proof timed out after {timeout} seconds: {exc}"],
                 tool_versions={"yosys": yosys_version()},
+                artifacts=existing_artifacts(
+                    manifest.path.parent,
+                    proof_script=(script_path, "yosys-script"),
+                ),
+                observed_coverage={
+                    "proof_completed": False,
+                    "requirements_met": False,
+                },
             )
         except OSError as exc:
-            return self._tool_error(str(exc), tool_version=yosys_version())
+            return CheckResult(
+                status="tool_error",
+                backend=self.name,
+                backend_version=self.version,
+                diagnostics=[str(exc)],
+                tool_versions={"yosys": yosys_version()},
+                artifacts=existing_artifacts(
+                    manifest.path.parent,
+                    proof_script=(script_path, "yosys-script"),
+                ),
+                observed_coverage={
+                    "executed": False,
+                    "proof_completed": False,
+                    "requirements_met": False,
+                },
+            )
 
         combined = completed.stdout + "\n" + completed.stderr
         log_path.write_text(combined, encoding="utf-8")
@@ -114,12 +139,24 @@ class EquivalenceYosysBackend:
         }
         if trace_path.is_file():
             evidence["counterexample"] = _portable(trace_path, manifest.path.parent)
+        artifacts = existing_artifacts(
+            manifest.path.parent,
+            proof_script=(script_path, "yosys-script"),
+            proof_log=(log_path, "tool-log"),
+            counterexample=(trace_path, "vcd-counterexample"),
+        )
         if completed.returncode == 0:
             return CheckResult(
                 status="pass",
                 backend=self.name,
                 backend_version=self.version,
                 tool_versions=versions,
+                artifacts=artifacts,
+                observed_coverage={
+                    "proof_completed": True,
+                    "miter_assertions_present": True,
+                    "requirements_met": True,
+                },
             )
         if _PROOF_FAILED.search(combined):
             return CheckResult(
@@ -135,6 +172,13 @@ class EquivalenceYosysBackend:
                     )
                 ],
                 tool_versions=versions,
+                artifacts=artifacts,
+                observed_coverage={
+                    "proof_completed": True,
+                    "miter_assertions_present": True,
+                    "counterexample_observed": True,
+                    "requirements_met": True,
+                },
             )
         if _TIMEOUT.search(combined):
             return CheckResult(
@@ -143,6 +187,11 @@ class EquivalenceYosysBackend:
                 backend_version=self.version,
                 diagnostics=[_last_diagnostic(combined)],
                 tool_versions=versions,
+                artifacts=artifacts,
+                observed_coverage={
+                    "proof_completed": False,
+                    "requirements_met": False,
+                },
             )
         return CheckResult(
             status="tool_error",
@@ -150,6 +199,11 @@ class EquivalenceYosysBackend:
             backend_version=self.version,
             diagnostics=[_last_diagnostic(combined)],
             tool_versions=versions,
+            artifacts=artifacts,
+            observed_coverage={
+                "proof_completed": False,
+                "requirements_met": False,
+            },
         )
 
     def coverage(
@@ -180,6 +234,7 @@ class EquivalenceYosysBackend:
             backend_version=self.version,
             diagnostics=[diagnostic],
             tool_versions=versions,
+            observed_coverage={"executed": False, "requirements_met": False},
         )
 
 

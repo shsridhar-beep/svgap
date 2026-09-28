@@ -22,6 +22,9 @@ required = true
 property_sources = ["properties.sv"]
 property_top = "temporal_backpressure_properties"
 depth = 8
+non_vacuity_signal = "backpressure_seen"
+non_vacuity_depth = 8
+require_non_vacuity = true
 rule_id = "REF-PROT-001"
 message = "valid and data are not held stable while backpressured"
 

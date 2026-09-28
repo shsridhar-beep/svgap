@@ -22,6 +22,9 @@ required = true
 property_sources = ["properties.sv"]
 property_top = "temporal_pulse_properties"
 depth = 8
+non_vacuity_signal = "pulse_seen"
+non_vacuity_depth = 8
+require_non_vacuity = true
 rule_id = "REF-TEMP-002"
 message = "pulse remains asserted for more than one cycle"
 

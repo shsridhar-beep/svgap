@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Any, Literal
 
 Status = Literal["pass", "fail", "compile_error", "unknown", "tool_error", "not_run"]
+ContractStatus = Literal["closed", "open", "incomplete", "tool_error"]
 
 
 @dataclass(frozen=True)
@@ -23,6 +24,8 @@ class CheckResult:
     findings: list[Finding] = field(default_factory=list)
     diagnostics: list[str] = field(default_factory=list)
     tool_versions: dict[str, str] = field(default_factory=dict)
+    artifacts: dict[str, Any] = field(default_factory=dict)
+    observed_coverage: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -52,6 +55,7 @@ class OracleResult:
     diagnostics: list[str] = field(default_factory=list)
     tool_versions: dict[str, str] = field(default_factory=dict)
     coverage: dict[str, Any] = field(default_factory=dict)
+    artifacts: dict[str, Any] = field(default_factory=dict)
 
     @classmethod
     def from_check(
@@ -61,6 +65,10 @@ class OracleResult:
         *,
         coverage: dict[str, Any] | None = None,
     ) -> "OracleResult":
+        combined_coverage = dict(coverage or {})
+        observed = dict(result.observed_coverage)
+        observed.setdefault("executed", True)
+        combined_coverage["observed"] = observed
         return cls(
             oracle_id=config.oracle_id,
             oracle_class=config.oracle_class,
@@ -72,7 +80,8 @@ class OracleResult:
             findings=list(result.findings),
             diagnostics=list(result.diagnostics),
             tool_versions=dict(result.tool_versions),
-            coverage=dict(coverage or {}),
+            coverage=combined_coverage,
+            artifacts=dict(result.artifacts),
         )
 
     def to_check_result(self) -> CheckResult:
@@ -83,6 +92,8 @@ class OracleResult:
             findings=list(self.findings),
             diagnostics=list(self.diagnostics),
             tool_versions=dict(self.tool_versions),
+            artifacts=dict(self.artifacts),
+            observed_coverage=dict(self.coverage.get("observed", {})),
         )
 
 
@@ -108,6 +119,7 @@ class EvaluationReport:
     gap_member: bool
     generated_at: str
     oracle_results: list[OracleResult] = field(default_factory=list)
+    contract_status: ContractStatus | None = None
 
     def to_dict(self) -> dict[str, Any]:
         payload: dict[str, Any] = {
@@ -119,10 +131,44 @@ class EvaluationReport:
             "generated_at": self.generated_at,
         }
         if self.schema_version == "1.0":
-            payload["structural"] = asdict(self.structural)
+            structural = asdict(self.structural)
+            # Internal extension fields are represented by v2 oracle results.
+            # Keeping them out of schema v1 preserves its byte-level contract.
+            structural.pop("artifacts", None)
+            structural.pop("observed_coverage", None)
+            payload["structural"] = structural
         else:
             payload["oracle_results"] = [asdict(item) for item in self.oracle_results]
+            if self.contract_status is not None:
+                payload["contract_status"] = self.contract_status
         return payload
+
+
+def configured_contract_status(
+    functional: FunctionalResult, oracle_results: list[OracleResult]
+) -> ContractStatus:
+    """Summarize whether every required configured contract has usable evidence."""
+
+    if functional.status == "tool_error":
+        return "tool_error"
+    if functional.status in {"fail", "compile_error"}:
+        return "open"
+    if functional.status != "pass":
+        return "incomplete"
+
+    required = [item for item in oracle_results if item.required]
+    if any(item.status == "fail" for item in required):
+        return "open"
+    if any(item.status == "tool_error" for item in required):
+        return "tool_error"
+    if any(item.status == "unknown" for item in required) or not required:
+        return "incomplete"
+    if any(
+        item.coverage.get("observed", {}).get("requirements_met") is False
+        for item in required
+    ):
+        return "incomplete"
+    return "closed"
 
 
 @dataclass(frozen=True)

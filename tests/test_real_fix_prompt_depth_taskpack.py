@@ -7,6 +7,7 @@ from unittest import TestCase, skipUnless
 from svgap.api import evaluate
 from svgap.pilot import load_task, materialize_candidate, resolve_prompt
 from svgap.provenance import canonical_tree_digest
+from svgap.resources import taskpack_metadata
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -15,6 +16,11 @@ HAS_TOOLS = all(shutil.which(tool) for tool in ("iverilog", "vvp", "yosys"))
 
 
 class RealFixPromptDepthStructureTests(TestCase):
+    def test_pack_is_discoverable_through_public_resource_api(self) -> None:
+        metadata = taskpack_metadata("real-fix-prompt-depth-v0.1")
+        self.assertEqual(metadata["version"], "0.1")
+        self.assertEqual(len(metadata["tasks"]), 24)
+
     def test_pack_has_stratified_real_fix_sources_and_cumulative_prompts(self) -> None:
         tasks = sorted(path for path in (PACK / "tasks").iterdir() if path.is_dir())
         self.assertEqual(len(tasks), 24)
@@ -79,4 +85,3 @@ class RealFixPromptDepthCalibrationTests(TestCase):
                         ]
                         self.assertEqual(len(contributing), 1)
                         self.assertEqual(contributing[0]["status"], expected, report)
-

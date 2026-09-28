@@ -23,6 +23,11 @@ class BuildPyWithResearchAssets(build_py):
                 Path(self.build_lib) / "svgap/resources/taskpacks/power-on-v0.2",
             ),
             (
+                ROOT / "taskpacks/real-fix-prompt-depth-v0.1",
+                Path(self.build_lib)
+                / "svgap/resources/taskpacks/real-fix-prompt-depth-v0.1",
+            ),
+            (
                 ROOT / "challenges/v0.1",
                 Path(self.build_lib) / "svgap/resources/challenges/v0.1",
             ),

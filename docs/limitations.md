@@ -35,8 +35,11 @@ SV-Gap intentionally favors auditable conclusions over broad coverage.
 - Memory power-on checks recognize complete constant `$meminit` coverage.
   Procedural scrub loops, macro initialization contracts, ECC initialization,
   retention, and technology-specific memory behavior are not yet recognized.
-- Schema-v2 `coverage` is backend-declared metadata. It makes scope inspectable
-  but is not independently certified coverage.
+- Schema-v2 `coverage` separates backend-declared scope from observed execution
+  facts. The bounded-formal backend can require a named reachability signal and
+  records a non-vacuity witness, but this remains signal- and bound-specific;
+  it does not establish complete stimulus, mutation, toggle, or signoff
+  coverage, and it is not independently certified.
 - Ordinary lint warnings are retained as lint evidence and do not become
   structural CDC/RDC findings. The published 0/14 calibration applies only to
   the recorded Verilator/Verible versions and default configurations. The

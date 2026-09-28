@@ -5,6 +5,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
+from svgap.artifacts import existing_artifacts
 from svgap.model import CheckResult, Finding, Manifest, OracleConfig
 
 
@@ -17,7 +18,7 @@ class VeribleLintBackend:
     """Verible syntax/style lint represented independently from structure."""
 
     name = "lint-verible"
-    version = "0.1"
+    version = "0.2"
 
     def check(self, manifest: Manifest, oracle: OracleConfig | None = None) -> CheckResult:
         options = oracle.options if oracle is not None else {}
@@ -31,6 +32,7 @@ class VeribleLintBackend:
                 backend=self.name,
                 backend_version=self.version,
                 diagnostics=[f"Verible executable not found: {executable}"],
+                observed_coverage={"executed": False, "requirements_met": False},
             )
         ruleset = str(options.get("ruleset", "default"))
         if ruleset not in {"default", "all", "none"}:
@@ -39,6 +41,7 @@ class VeribleLintBackend:
                 backend=self.name,
                 backend_version=self.version,
                 diagnostics=["lint-verible ruleset must be default, all, or none"],
+                observed_coverage={"executed": False, "requirements_met": False},
             )
         sources = [_candidate_relative(path, manifest) for path in manifest.sources]
         command = [resolved, f"--ruleset={ruleset}", *sources]
@@ -58,7 +61,18 @@ class VeribleLintBackend:
                 backend_version=self.version,
                 diagnostics=[str(exc)],
                 tool_versions={"verible": _version(resolved)},
+                observed_coverage={"executed": False, "requirements_met": False},
             )
+
+        build = manifest.path.parent / "build"
+        build.mkdir(parents=True, exist_ok=True)
+        log_path = build / f"{_safe_stem(oracle, 'verible')}.log"
+        log_path.write_text(
+            completed.stdout + "\n" + completed.stderr, encoding="utf-8"
+        )
+        artifacts = existing_artifacts(
+            manifest.path.parent, lint_log=(log_path, "tool-log")
+        )
 
         findings: list[Finding] = []
         for line in (completed.stdout + "\n" + completed.stderr).splitlines():
@@ -101,6 +115,8 @@ class VeribleLintBackend:
                     or f"Verible exited {completed.returncode} without a parsed diagnostic"
                 ],
                 tool_versions={"verible": _version(resolved)},
+                artifacts=artifacts,
+                observed_coverage={"executed": True, "requirements_met": False},
             )
         return CheckResult(
             status="fail" if errors else "pass",
@@ -109,6 +125,8 @@ class VeribleLintBackend:
             findings=findings,
             diagnostics=[],
             tool_versions={"verible": _version(resolved)},
+            artifacts=artifacts,
+            observed_coverage={"executed": True, "requirements_met": True},
         )
 
     def coverage(self, manifest: Manifest, oracle: OracleConfig | None = None) -> dict:
@@ -136,6 +154,11 @@ def _candidate_relative(path: Path, manifest: Manifest) -> str:
         return str(path.relative_to(manifest.path.parent))
     except ValueError:
         return str(path)
+
+
+def _safe_stem(oracle: OracleConfig | None, fallback: str) -> str:
+    value = oracle.oracle_id if oracle is not None else fallback
+    return re.sub(r"[^A-Za-z0-9_.-]+", "-", value).strip("-") or fallback
 
 
 def _version(executable: str) -> str:

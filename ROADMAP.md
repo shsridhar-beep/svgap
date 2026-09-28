@@ -44,6 +44,11 @@
 
 ## v0.3 follow-ons
 
+- append-only campaign planning, budgeted run/resume/exact replay, and
+  multi-attempt structured-feedback repair loops (shipped)
+- positive configured-contract closure, observed formal non-vacuity goals, and
+  content-addressed oracle artifacts for successful and failing results
+  (shipped)
 - schema-v2 multi-oracle reports with v1 compatibility (shipped)
 - Verilator and Verible lint as distinct, calibrated evidence classes (shipped)
 - expanded pulse/toggle/handshake/reconvergence/FIFO CDC and reset-domain
@@ -62,6 +67,8 @@
 
 ## Later
 
+- `riscv-dv` adapter and instruction-generator taskpack integration; explicitly
+  deferred until campaign and coverage contracts have field evidence
 - perturbation semantics for single-bit and multi-bit CDC crossings
 - glitch-capture modeling for combinational crossings
 - X-behavior task packs

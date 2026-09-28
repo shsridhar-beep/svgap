@@ -3,6 +3,7 @@ import io
 import json
 from pathlib import Path
 import shutil
+import tomllib
 from unittest import TestCase, skipUnless
 
 from jsonschema import Draft202012Validator, FormatChecker
@@ -65,6 +66,12 @@ class SchemaTests(TestCase):
 
 
 class ContractSchemaTests(TestCase):
+    def test_campaign_example_matches_schema(self) -> None:
+        schema = json.loads((ROOT / "schemas/campaign-v1.json").read_text())
+        Draft202012Validator.check_schema(schema)
+        with (ROOT / "examples/campaign.toml").open("rb") as stream:
+            Draft202012Validator(schema).validate(tomllib.load(stream))
+
     def test_public_submission_contract_validates_initialized_submission(self) -> None:
         schema = json.loads((ROOT / "schemas/submission-v1.json").read_text())
         Draft202012Validator.check_schema(schema)

@@ -18,6 +18,9 @@
     "candidate_id": {"type": "string", "minLength": 1},
     "manifest": {"type": "string", "minLength": 1},
     "gap_member": {"type": "boolean"},
+    "contract_status": {
+      "enum": ["closed", "open", "incomplete", "tool_error"]
+    },
     "generated_at": {"type": "string", "format": "date-time"},
     "functional": {"$ref": "#/$defs/functionalResult"},
     "oracle_results": {
@@ -89,7 +92,8 @@
         "findings": {"type": "array", "items": {"$ref": "#/$defs/finding"}},
         "diagnostics": {"type": "array", "items": {"type": "string"}},
         "tool_versions": {"$ref": "#/$defs/toolVersions"},
-        "coverage": {"type": "object"}
+        "coverage": {"type": "object"},
+        "artifacts": {"type": "object"}
       }
     }
   }

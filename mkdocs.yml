@@ -20,6 +20,7 @@ nav:
   - Get started:
       - Harbor experiment: harbor.md
       - Evaluate your model: evaluate-your-model.md
+      - Run repair campaigns: campaigns.md
       - Bring your own RTL: bring-your-own-rtl.md
       - Linux install and doctor: linux-install-and-doctor.md
       - Troubleshooting: troubleshooting.md

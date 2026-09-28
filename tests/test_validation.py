@@ -135,3 +135,34 @@ class ValidationTests(TestCase):
         }
         with self.assertRaisesRegex(ReportValidationError, "unsupported"):
             validate_report_payload(report)
+
+    def test_v2_contract_status_must_match_required_evidence(self) -> None:
+        report = {
+            "schema_version": "2.0",
+            "candidate_id": "candidate",
+            "manifest": "manifest.toml",
+            "functional": {"status": "pass"},
+            "oracle_results": [
+                {
+                    "oracle_id": "contract",
+                    "oracle_class": "temporal",
+                    "contributes_to_gap": True,
+                    "required": True,
+                    "status": "pass",
+                    "backend": "test",
+                    "backend_version": "1",
+                    "findings": [],
+                    "diagnostics": [],
+                    "tool_versions": {},
+                    "coverage": {
+                        "observed": {"requirements_met": False}
+                    },
+                    "artifacts": {},
+                }
+            ],
+            "contract_status": "closed",
+            "gap_member": False,
+            "generated_at": "2026-09-28T00:00:00Z",
+        }
+        with self.assertRaisesRegex(ReportValidationError, "contract_status"):
+            validate_report_payload(report)

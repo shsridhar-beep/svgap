@@ -1,0 +1,23 @@
+schema_version = "1.0"
+id = "reset-repair-smoke"
+taskpack = "reset-release-v0.2"
+tasks = ["reset_counter"]
+samples = 1
+
+[generator]
+command = "python3 my_generate.py"
+label = "my-model-a"
+interface_label = "my-lab-harness 1.0"
+
+[execution]
+timeout_seconds = 600
+seed = 20260928
+
+[repair]
+enabled = true
+max_attempts = 3
+feedback = "diagnostic"
+
+[budget]
+max_model_calls = 3
+wall_seconds = 1800

@@ -24,6 +24,13 @@ from svgap.backends.registry import (
 )
 from svgap.challenge import ChallengeError, score_challenge
 from svgap.challenge_runner import ChallengeRunError, run_challenge
+from svgap.campaign import (
+    CampaignError,
+    plan_campaign,
+    replay_campaign,
+    resume_campaign,
+    run_campaign,
+)
 from svgap.audit import audit_benchmark, write_audit
 from svgap.adjudication import (
     InstrumenterUnavailable,
@@ -190,6 +197,31 @@ def build_parser() -> argparse.ArgumentParser:
     study_evaluate.add_argument("taskpack")
     study_evaluate.add_argument("--responses", required=True, type=Path)
     study_evaluate.add_argument("--output", required=True, type=Path)
+    campaign = subparsers.add_parser(
+        "campaign", help="plan, run, resume, and replay budgeted generation campaigns"
+    )
+    campaign_commands = campaign.add_subparsers(
+        dest="campaign_command", required=True
+    )
+    campaign_plan = campaign_commands.add_parser(
+        "plan", help="validate and expand a campaign without running it"
+    )
+    campaign_plan.add_argument("manifest", type=Path)
+    campaign_run = campaign_commands.add_parser(
+        "run", help="start a new append-only campaign"
+    )
+    campaign_run.add_argument("manifest", type=Path)
+    campaign_run.add_argument("--output", required=True, type=Path)
+    campaign_resume = campaign_commands.add_parser(
+        "resume", help="continue pending cells from a campaign ledger"
+    )
+    campaign_resume.add_argument("output", type=Path)
+    campaign_replay = campaign_commands.add_parser(
+        "replay", help="re-evaluate one exact saved campaign response"
+    )
+    campaign_replay.add_argument("output", type=Path)
+    campaign_replay.add_argument("--cell", required=True)
+    campaign_replay.add_argument("--attempt", type=int)
     challenge_group = subparsers.add_parser(
         "challenge", help="run or score packaged generation, diagnosis, and repair challenges"
     )
@@ -482,6 +514,30 @@ def main(argv: list[str] | None = None) -> int:
                 )
             else:
                 print("next            inspect the profile before preparing a submission")
+        return 0
+    if args.command == "campaign":
+        try:
+            if args.campaign_command == "plan":
+                result = plan_campaign(args.manifest)
+            elif args.campaign_command == "run":
+                result = run_campaign(args.manifest, args.output)
+            elif args.campaign_command == "resume":
+                result = resume_campaign(args.output)
+            else:
+                result = replay_campaign(
+                    args.output, cell=args.cell, attempt=args.attempt
+                )
+        except (
+            CampaignError,
+            OSError,
+            ValueError,
+            subprocess.SubprocessError,
+        ) as exc:
+            print(f"campaign failed: {exc}", file=sys.stderr)
+            return 2
+        print(json.dumps(result, indent=2, sort_keys=True))
+        if args.campaign_command == "replay" and not result["result_matches"]:
+            return 1
         return 0
     if args.command == "challenge":
         try:
@@ -832,7 +888,7 @@ def doctor() -> int:
         version = subprocess.run(
             ["yosys", "-V"], capture_output=True, text=True, check=False
         ).stdout.strip()
-        print(f"backend    reference-yosys 0.2 ({version})")
+        print(f"backend    reference-yosys 0.4 ({version})")
     backends, backend_errors = discover_backends()
     print(f"backends   {', '.join(sorted(backends))}")
     for name, hint in sorted(unavailable_backends().items()):
@@ -991,6 +1047,8 @@ def print_summary(report: EvaluationReport, report_path: Path) -> None:
             )
     else:
         print(f"structural  {report.structural.status}")
+    if report.contract_status is not None:
+        print(f"contract    {report.contract_status}")
     print(f"gap member  {'yes' if report.gap_member else 'no'}")
     results = report.oracle_results or []
     if results:

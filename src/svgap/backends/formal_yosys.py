@@ -6,6 +6,7 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
+from svgap.artifacts import existing_artifacts
 from svgap.backends.reference_yosys import yosys_quote, yosys_version
 from svgap.model import CheckResult, Finding, Manifest, OracleConfig
 from svgap.subprocess_utils import run_captured
@@ -17,6 +18,8 @@ _PROOF_FAILED = re.compile(
     r"(?i)(?:proof did fail|SAT proof finished\s*-\s*model found:\s*FAIL)"
 )
 _TIMEOUT = re.compile(r"(?i)(?:timeout|timed out)")
+_SAT_MODEL = re.compile(r"(?i)SAT solving finished\s*-\s*model found")
+_NO_MODEL = re.compile(r"(?i)SAT solving finished\s*-\s*no model found")
 
 
 class FormalYosysBackend:
@@ -28,7 +31,7 @@ class FormalYosysBackend:
     """
 
     name = "formal-yosys"
-    version = "0.1"
+    version = "0.2"
 
     def check(
         self, manifest: Manifest, oracle: OracleConfig | None = None
@@ -37,7 +40,17 @@ class FormalYosysBackend:
         configured = _formal_options(manifest, options)
         if isinstance(configured, str):
             return self._tool_error(configured)
-        property_sources, property_top, depth, rule_id, message, timeout = configured
+        (
+            property_sources,
+            property_top,
+            depth,
+            rule_id,
+            message,
+            timeout,
+            non_vacuity_signal,
+            non_vacuity_depth,
+            require_non_vacuity,
+        ) = configured
 
         executable = shutil.which(str(options.get("executable", "yosys")))
         if executable is None:
@@ -50,6 +63,7 @@ class FormalYosysBackend:
         script_path = build / f"{_safe_stem(oracle, 'formal')}.ys"
         log_path = build / f"{_safe_stem(oracle, 'formal')}.log"
         trace_path = build / f"{_safe_stem(oracle, 'formal')}-counterexample.vcd"
+        trace_path.unlink(missing_ok=True)
         script = "\n".join(
             [
                 *[
@@ -85,9 +99,34 @@ class FormalYosysBackend:
                 backend_version=self.version,
                 diagnostics=[f"bounded proof timed out after {timeout} seconds: {exc}"],
                 tool_versions={"yosys": yosys_version()},
+                artifacts=existing_artifacts(
+                    manifest.path.parent,
+                    proof_script=(script_path, "yosys-script"),
+                ),
+                observed_coverage={
+                    "proof_completed": False,
+                    "non_vacuity": "not_run",
+                    "requirements_met": False,
+                },
             )
         except OSError as exc:
-            return self._tool_error(str(exc), tool_version=yosys_version())
+            return CheckResult(
+                status="tool_error",
+                backend=self.name,
+                backend_version=self.version,
+                diagnostics=[str(exc)],
+                tool_versions={"yosys": yosys_version()},
+                artifacts=existing_artifacts(
+                    manifest.path.parent,
+                    proof_script=(script_path, "yosys-script"),
+                ),
+                observed_coverage={
+                    "executed": False,
+                    "proof_completed": False,
+                    "non_vacuity": "not_run",
+                    "requirements_met": False,
+                },
+            )
 
         combined = completed.stdout + "\n" + completed.stderr
         log_path.write_text(combined, encoding="utf-8")
@@ -106,12 +145,53 @@ class FormalYosysBackend:
         }
         if trace_path.is_file():
             evidence["counterexample"] = _portable(trace_path, manifest.path.parent)
+        artifacts = existing_artifacts(
+            manifest.path.parent,
+            proof_script=(script_path, "yosys-script"),
+            proof_log=(log_path, "tool-log"),
+            counterexample=(trace_path, "vcd-counterexample"),
+        )
         if completed.returncode == 0:
+            observed = {
+                "proof_completed": True,
+                "assertions_present": True,
+                "non_vacuity": "not_requested",
+                "requirements_met": not require_non_vacuity,
+            }
+            diagnostics: list[str] = []
+            if non_vacuity_signal is not None:
+                non_vacuity = _run_non_vacuity(
+                    executable=executable,
+                    manifest=manifest,
+                    oracle=oracle,
+                    property_sources=property_sources,
+                    property_top=property_top,
+                    signal=non_vacuity_signal,
+                    depth=non_vacuity_depth,
+                    timeout=timeout,
+                )
+                artifacts.update(non_vacuity["artifacts"])
+                observed.update(non_vacuity["coverage"])
+                diagnostics.extend(non_vacuity["diagnostics"])
+                if non_vacuity["status"] != "pass" and require_non_vacuity:
+                    return CheckResult(
+                        status=non_vacuity["status"],
+                        backend=self.name,
+                        backend_version=self.version,
+                        diagnostics=diagnostics,
+                        tool_versions=versions,
+                        artifacts=artifacts,
+                        observed_coverage=observed,
+                    )
+                if non_vacuity["status"] != "pass":
+                    observed["requirements_met"] = True
             return CheckResult(
                 status="pass",
                 backend=self.name,
                 backend_version=self.version,
                 tool_versions=versions,
+                artifacts=artifacts,
+                observed_coverage=observed,
             )
         if _PROOF_FAILED.search(combined):
             return CheckResult(
@@ -127,6 +207,13 @@ class FormalYosysBackend:
                     )
                 ],
                 tool_versions=versions,
+                artifacts=artifacts,
+                observed_coverage={
+                    "proof_completed": True,
+                    "assertions_present": True,
+                    "non_vacuity": "witnessed_by_failure",
+                    "requirements_met": True,
+                },
             )
         if _TIMEOUT.search(combined):
             return CheckResult(
@@ -135,6 +222,12 @@ class FormalYosysBackend:
                 backend_version=self.version,
                 diagnostics=[_last_diagnostic(combined)],
                 tool_versions=versions,
+                artifacts=artifacts,
+                observed_coverage={
+                    "proof_completed": False,
+                    "non_vacuity": "not_run",
+                    "requirements_met": False,
+                },
             )
         return CheckResult(
             status="tool_error",
@@ -142,6 +235,12 @@ class FormalYosysBackend:
             backend_version=self.version,
             diagnostics=[_last_diagnostic(combined)],
             tool_versions=versions,
+            artifacts=artifacts,
+            observed_coverage={
+                "proof_completed": False,
+                "non_vacuity": "not_run",
+                "requirements_met": False,
+            },
         )
 
     def coverage(
@@ -160,6 +259,8 @@ class FormalYosysBackend:
             "assumptions": "honored",
             "reference_only": True,
             "signoff_grade": False,
+            "non_vacuity_required": options.get("require_non_vacuity", False),
+            "non_vacuity_signal": options.get("non_vacuity_signal"),
         }
 
     def _tool_error(
@@ -172,12 +273,13 @@ class FormalYosysBackend:
             backend_version=self.version,
             diagnostics=[diagnostic],
             tool_versions=versions,
+            observed_coverage={"executed": False, "requirements_met": False},
         )
 
 
 def _formal_options(
     manifest: Manifest, options: dict[str, Any]
-) -> tuple[list[Path], str, int, str, str, int] | str:
+) -> tuple[list[Path], str, int, str, str, int, str | None, int, bool] | str:
     property_sources = _relative_sources(
         manifest, options.get("property_sources"), "property_sources"
     )
@@ -203,7 +305,123 @@ def _formal_options(
     timeout = options.get("timeout_seconds", 60)
     if not isinstance(timeout, int) or isinstance(timeout, bool) or not 1 <= timeout <= 600:
         return "formal-yosys timeout_seconds must be an integer from 1 through 600"
-    return property_sources, property_top, depth, rule_id, message, timeout
+    require_non_vacuity = options.get("require_non_vacuity", False)
+    if not isinstance(require_non_vacuity, bool):
+        return "formal-yosys require_non_vacuity must be boolean"
+    non_vacuity_signal = options.get("non_vacuity_signal")
+    if non_vacuity_signal is not None and (
+        not isinstance(non_vacuity_signal, str)
+        or _IDENTIFIER.fullmatch(non_vacuity_signal) is None
+    ):
+        return "formal-yosys non_vacuity_signal must be a Verilog identifier"
+    if require_non_vacuity and non_vacuity_signal is None:
+        return "formal-yosys require_non_vacuity needs non_vacuity_signal"
+    non_vacuity_depth = options.get("non_vacuity_depth", depth)
+    if (
+        not isinstance(non_vacuity_depth, int)
+        or isinstance(non_vacuity_depth, bool)
+        or not 1 <= non_vacuity_depth <= 1000
+    ):
+        return "formal-yosys non_vacuity_depth must be an integer from 1 through 1000"
+    return (
+        property_sources,
+        property_top,
+        depth,
+        rule_id,
+        message,
+        timeout,
+        non_vacuity_signal,
+        non_vacuity_depth,
+        require_non_vacuity,
+    )
+
+
+def _run_non_vacuity(
+    *,
+    executable: str,
+    manifest: Manifest,
+    oracle: OracleConfig | None,
+    property_sources: list[Path],
+    property_top: str,
+    signal: str,
+    depth: int,
+    timeout: int,
+) -> dict[str, Any]:
+    """Ask Yosys for a witness that reaches a configured coverage signal."""
+
+    build = manifest.path.parent / "build"
+    stem = _safe_stem(oracle, "formal")
+    script_path = build / f"{stem}-non-vacuity.ys"
+    log_path = build / f"{stem}-non-vacuity.log"
+    trace_path = build / f"{stem}-non-vacuity.vcd"
+    trace_path.unlink(missing_ok=True)
+    script = "\n".join(
+        [
+            *[
+                f"read_verilog -formal -sv {yosys_quote(path)}"
+                for path in manifest.sources
+            ],
+            *[
+                f"read_verilog -formal -sv {yosys_quote(path)}"
+                for path in property_sources
+            ],
+            f"prep -top {property_top} -flatten",
+            "clk2fflogic",
+            "opt_clean",
+            (
+                f"sat -seq {depth} -set-init-zero -set-assumes "
+                f"-set-at {depth} {signal} 1 -show-ports "
+                f"-dump_vcd {yosys_quote(trace_path)}"
+            ),
+        ]
+    )
+    script_path.write_text(script + "\n", encoding="utf-8")
+    diagnostics: list[str] = []
+    status = "tool_error"
+    coverage: dict[str, Any] = {
+        "non_vacuity": "tool_error",
+        "non_vacuity_signal": signal,
+        "non_vacuity_depth": depth,
+        "requirements_met": False,
+    }
+    try:
+        completed = run_captured(
+            [executable, "-s", str(script_path)],
+            cwd=manifest.path.parent,
+            timeout=timeout,
+        )
+    except subprocess.TimeoutExpired as exc:
+        status = "unknown"
+        coverage["non_vacuity"] = "timeout"
+        diagnostics.append(f"non-vacuity query timed out after {timeout} seconds: {exc}")
+    except OSError as exc:
+        diagnostics.append(str(exc))
+    else:
+        combined = completed.stdout + "\n" + completed.stderr
+        log_path.write_text(combined, encoding="utf-8")
+        if completed.returncode == 0 and _NO_MODEL.search(combined):
+            status = "unknown"
+            coverage["non_vacuity"] = "unreachable"
+            diagnostics.append(
+                f"configured non-vacuity signal {signal!r} was unreachable within {depth} steps"
+            )
+        elif completed.returncode == 0 and _SAT_MODEL.search(combined):
+            status = "pass"
+            coverage["non_vacuity"] = "reached"
+            coverage["requirements_met"] = True
+        else:
+            diagnostics.append(_last_diagnostic(combined))
+    return {
+        "status": status,
+        "coverage": coverage,
+        "diagnostics": diagnostics,
+        "artifacts": existing_artifacts(
+            manifest.path.parent,
+            non_vacuity_script=(script_path, "yosys-script"),
+            non_vacuity_log=(log_path, "tool-log"),
+            non_vacuity_witness=(trace_path, "vcd-witness"),
+        ),
+    }
 
 
 def _relative_sources(
