@@ -33,7 +33,7 @@ steps:
   - uses: actions/setup-python@v6
     with:
       python-version: "3.12"
-  - uses: shsridhar-beep/svgap@v0.3.0-alpha.13
+  - uses: shsridhar-beep/svgap@v0.3.0-alpha.14
     with:
       manifest: path/to/manifest.toml
       report: path/to/build/report.json
