@@ -5,6 +5,21 @@ versioning once the manifest and report contracts reach public v0.1.
 
 ## Unreleased
 
+### Changed
+
+- `reference-naja` (backend version 0.3) traces CDC fanin cones with
+  najaeda's structural timing queries (`SNLDesign.analyzeTiming()` and
+  `SNLOccurrence.getFaninStartpoints()`) instead of a per-path recursion that
+  was exponential in reconvergent logic (about a minute for a crossing through
+  18 reconvergent gates; the query takes about 10 ms). On the 178 manifests
+  in this repository that load, statuses, findings, evidence, and diagnostics
+  are identical before and after. The `naja` extra now requires
+  `najaeda>=0.7.35,<0.8`.
+- A combinational cycle in a design with declared asynchronous clock groups
+  now makes `reference-naja` return `unknown` with a diagnostic, because
+  najaeda rejects the cycle and the crossing rules cannot be evaluated. The
+  former path walk ignored the cycle and could report `pass`.
+
 ### Added
 
 - `svgap campaign plan|run|resume|replay` with strict TOML manifests,

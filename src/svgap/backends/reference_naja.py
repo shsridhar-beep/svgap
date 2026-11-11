@@ -6,7 +6,7 @@ import tempfile
 from dataclasses import dataclass
 from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
-from typing import Any, FrozenSet, Optional, Tuple
+from typing import Any, Optional, Tuple
 
 from svgap.backends.base import BackendUnavailable
 from svgap.model import CheckResult, Finding, Manifest, OracleConfig
@@ -294,10 +294,10 @@ def _build_seq_regs(design, clock_by_net_id: dict) -> list[SeqReg]:
 # ---------------------------------------------------------------------------
 # Backward/forward walks -- the raw-naja replacement for reference_yosys.py's
 # comb_driver + trace_sequential_sources + same_domain_successors +
-# combinational_cone_types, built directly on net/instTerm driver lookups
-# rather than a prebuilt id->driver map (the naja equivalent, an
-# SNLEquipotential/driver walk, is cheap to do on demand for these flat,
-# single-module designs).
+# combinational_cone_types. The two backward cone walks delegate to najaeda's
+# memoized structural cone queries; the linear forward walks and the
+# assign-resolution helper use net/instTerm driver lookups directly rather
+# than a prebuilt id->driver map.
 # ---------------------------------------------------------------------------
 
 
@@ -324,41 +324,42 @@ def _input_nets(inst) -> list:
 
 
 def _trace_sequential_sources(
-    net, seq_by_qnet: dict, visited: FrozenSet[Any]
-) -> list[Tuple[SeqReg, Tuple[Tuple[str, str], ...]]]:
-    """Bit-level backward walk from `net`, mirroring reference_yosys.py's
+    net, seq_by_qnet: dict
+) -> list[Tuple[SeqReg, Tuple[Tuple[str, Any], ...]]]:
+    """Sequential sources of `net`'s combinational fanin cone, each with the
+    (label, model) cells on its paths to `net`, mirroring reference_yosys.py's
     trace_sequential_sources(): only branches that actually reach a
-    sequential source contribute comb-cell path entries. `assign` glue
-    instances (naja's explicit net-aliasing leaves -- Yosys has no equivalent
-    cell for a plain continuous assignment) are transparent: crossed but
-    never recorded, since they carry no real logic.
+    sequential source contribute cells.
 
-    `visited`/the various `*_by_*net` maps below key directly on the net
+    Built on najaeda's structural cone query (`SNLOccurrence.
+    getFaninStartpoints`, najaeda >= 0.7.35; requires a prior
+    `design.analyzeTiming()`). The query stops at storage, treats `assign`
+    glue (naja's explicit net-aliasing leaves -- Yosys has no equivalent cell
+    for a plain continuous assignment) as transparent and never records it,
+    and memoizes shared sub-cones, so its cost is linear in the cone size. The
+    previous hand-written recursion enumerated every path and was exponential
+    in reconvergent logic (seconds at ~14 reconvergent gates, minutes at ~20).
+
+    `seq_by_qnet` and the other `*_by_*net` maps key directly on the net
     object (not `id(net)`): naja's Python wrappers are transient and can be
     garbage-collected and have their `id()` reused once no Python reference
     is held, but the wrapper's `__eq__`/`__hash__` are tied to the underlying
     SNL object identity, so the object itself is the safe map key."""
-    if net is None or net in visited:
+    if net is None:
         return []
-    if net.isConstant():
-        return []
-    driver = _driving_inst_term(net)
-    if driver is None:
-        return []
-    inst = driver.getInstance()
-    model = inst.getModel()
-    seqreg = seq_by_qnet.get(net)
-    if model.isSequential():
-        return [(seqreg, ())] if seqreg is not None else []
-    transparent = model.isAssign()
-    new_visited = visited | {net}
-    found: list[Tuple[SeqReg, Tuple[Tuple[str, str], ...]]] = []
-    for input_net in _input_nets(inst):
-        for source, path in _trace_sequential_sources(input_net, seq_by_qnet, new_visited):
-            if transparent:
-                found.append((source, path))
-            else:
-                found.append((source, ((_inst_segment(inst), model), *path)))
+    found: list[Tuple[SeqReg, Tuple[Tuple[str, Any], ...]]] = []
+    for row in naja.SNLOccurrence(net).getFaninStartpoints():
+        if row["kind"] != "register":
+            continue
+        launch = row["launchPin"].getInstTerm()
+        source = seq_by_qnet.get(launch.getNet()) if launch is not None else None
+        if source is None:
+            continue
+        cells = tuple(
+            (_inst_segment(cell.getInstance()), cell.getInstance().getModel())
+            for cell in row["cells"]
+        )
+        found.append((source, cells))
     return found
 
 
@@ -437,27 +438,20 @@ def _reaches_output(start_nets, output_nets: set) -> set:
     return reached
 
 
-def _cone_types(net, visited: FrozenSet[Any]) -> set:
+def _cone_types(net) -> set:
     """Full fanin closure of leaf models, stopping at sequential
     boundaries or dead ends -- mirrors combinational_cone_types(), which
     (unlike trace_sequential_sources) records every branch regardless of
-    whether it reaches a sequential source."""
-    if net is None or net in visited:
+    whether it reaches a sequential source. Uses the same linear-time
+    najaeda cone query as `_trace_sequential_sources`, over every startpoint
+    kind (register, input, constant, ...)."""
+    if net is None:
         return set()
-    if net.isConstant():
-        return set()
-    driver = _driving_inst_term(net)
-    if driver is None:
-        return set()
-    inst = driver.getInstance()
-    model = inst.getModel()
-    if model.isSequential():
-        return set()
-    new_visited = visited | {net}
-    types = set() if model.isAssign() else {model}
-    for input_net in _input_nets(inst):
-        types |= _cone_types(input_net, new_visited)
-    return types
+    return {
+        cell.getInstance().getModel()
+        for row in naja.SNLOccurrence(net).getFaninStartpoints()
+        for cell in row["cells"]
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -531,7 +525,7 @@ class ReferenceNajaBackend:
     """
 
     name = "reference-naja"
-    version = "0.2"
+    version = "0.3"
 
     def check(self, manifest: Manifest) -> CheckResult:
         tool_versions = {"najaeda": _najaeda_version()}
@@ -676,12 +670,27 @@ class ReferenceNajaBackend:
                     )
                 )
 
+        # A crossing needs two declared asynchronous groups, so the najaeda
+        # timing analysis behind the cone queries is built only when one is
+        # possible. naja rejects (rather than breaks) combinational cycles;
+        # without a cone the crossing rules cannot be evaluated, so the
+        # result is inconclusive, never a clean pass.
+        cdc_regs = seq_regs if manifest.asynchronous_groups else []
+        if cdc_regs:
+            try:
+                design.analyzeTiming()
+            except naja.SNLTimingCycleError as exc:
+                diagnostics.append(
+                    f"combinational cycle prevents clock-domain crossing analysis: {exc}"
+                )
+                cdc_regs = []
+
         crossings: dict[Tuple[str, str], dict[str, Any]] = {}
-        for dst in seq_regs:
+        for dst in cdc_regs:
             if dst.clock_name == "<undeclared>":
                 continue
             for d_net in dst.d_nets:
-                for src, comb_path in _trace_sequential_sources(d_net, seq_by_qnet, frozenset()):
+                for src, comb_path in _trace_sequential_sources(d_net, seq_by_qnet):
                     if src is None or src.clock_name in ("<undeclared>", dst.clock_name):
                         continue
                     if not _are_asynchronous(src.clock_name, dst.clock_name, manifest.asynchronous_groups):
@@ -838,7 +847,7 @@ def _declared_coherent_protocol(manifest: Manifest, source: SeqReg, second_stage
         ]
         cone_types: set = set()
         for d_net in source_d_nets:
-            cone_types |= _cone_types(d_net, frozenset())
+            cone_types |= _cone_types(d_net)
         if any(model.isXor() for model in cone_types):
             return True
     return False
