@@ -53,16 +53,19 @@ SystemVerilog frontend and SNL netlist engine.
   checks, `iverilog`/`vvp`; those are external system packages.
 - `reference-naja` runs entirely in-process against `from najaeda import naja`.
 
-Wheels for najaeda 0.7.16 cover Linux x86_64/aarch64 (manylinux 2.28), macOS
+Wheels for najaeda 0.7.35 cover Linux x86_64/aarch64 (manylinux 2.28), macOS
 arm64, and Windows x86_64; other platforms need a source build of Naja.
 (Functional simulation is unaffected and still uses Icarus; this backend only
 replaces the *structural* oracle.)
 
-The supported version range is `najaeda>=0.7.16,<0.8`. The backend uses
-`SNLDesign.isMux()` (added in 0.7.13) instead of an earlier `naja_mux*`
-name-prefix heuristic, and relies on 0.7.16 side-effect defaults (no
-performance report unless `NAJA_PERF` is set, `diagnostics_report_path`
-honored as given). najaeda is pre-1.0, so minor releases may move the API;
+The supported version range is `najaeda>=0.7.35,<0.8`. The CDC rules trace
+combinational fanin cones with najaeda's structural timing queries
+(`SNLDesign.analyzeTiming()` and `SNLOccurrence.getFaninStartpoints()`, see
+[Fanin cone tracing](#fanin-cone-tracing) below), whose final form shipped in
+0.7.35. The backend also uses `SNLDesign.isMux()` (added in 0.7.13) instead of
+an earlier `naja_mux*` name-prefix heuristic, and relies on 0.7.16
+side-effect defaults (no performance report unless `NAJA_PERF` is set,
+`diagnostics_report_path` honored as given). najaeda is pre-1.0, so minor releases may move the API;
 the ceiling is deliberate. Each result records the exact najaeda version in
 `tool_versions` provenance.
 
@@ -128,12 +131,43 @@ findings never change the verdict; only error-severity findings do.
 **Known gap: the backend has no timeout.** `check()` calls
 `db.loadSystemVerilog(...)` (slang elaboration) and the in-process netlist
 analysis synchronously, with no wall-clock bound. A pathological or extremely
-large source could therefore run unbounded. In practice the flat, single-module
+large source could therefore run unbounded. CDC cone tracing is linear in
+the netlist (see [Fanin cone tracing](#fanin-cone-tracing)), so the
+analysis itself has no known super-linear blowup. In practice the flat, single-module
 CDC/RDC fixtures elaborate in milliseconds, but callers that run untrusted or
 unbounded input should impose their own external timeout. `reference-yosys`
 bounds its Yosys subprocess at 60 seconds; Naja's in-process call cannot
 currently use that mechanism. This is a real limitation to close before
 running this backend on adversarial input.
+
+## Fanin cone tracing
+
+REF-CDC-001/002/003 need, for each destination register bit, the source
+registers in its combinational fanin and the cells on those paths, and
+REF-CDC-003 needs the cell types in a Gray source's next-state cone. Both are
+answered by najaeda's structural cone query
+(`SNLOccurrence(net).getFaninStartpoints()` after one
+`design.analyzeTiming()`). The query stops at storage, treats `assign` glue as
+transparent, and memoizes shared sub-cones, so it is linear in cone size. Before
+this, the backend enumerated every path recursively, which is exponential in
+reconvergent logic: a crossing through a chain of 18 two-path gates took about
+a minute, and 20 gates did not finish in five minutes. The query answers the
+same designs in about 10 ms.
+
+The analysis is built only when the manifest declares asynchronous clock
+groups, because only then can a crossing exist. It runs with no `NLClock` or
+`NLReset` declarations: clock-domain attribution remains the backend's own
+match of each register's clock pin against the declared clock ports, so the
+verdicts are unchanged. On the 178 loadable manifests in this repository
+(examples, frozen artifacts, results, and the reset-replication v0.1/v0.2
+taskpack references), the backend's statuses, findings, evidence, and
+diagnostics are identical before and after the change; 24 of those designs
+contain asynchronous crossings.
+
+najaeda rejects combinational cycles instead of breaking them. If the design
+has one and asynchronous groups are declared, the crossing rules cannot be
+evaluated and the result is `unknown`, with a diagnostic naming the cycle
+(previously the path walk ignored the cycle and could report `pass`).
 
 ## Known false-positive and false-negative classes
 

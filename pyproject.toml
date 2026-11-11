@@ -27,11 +27,13 @@ Changelog = "https://github.com/shsridhar-beep/svgap/blob/main/CHANGELOG.md"
 dev = ["jsonschema>=4.23,<5"]
 docs = ["mkdocs-material>=9.6,<10"]
 # najaeda ships platform-specific compiled wheels (bundled slang frontend and
-# SNL engine). The floor is 0.7.16: SNLDesign.isMux() needs >= 0.7.13, and
-# 0.7.16 is where diagnostics_report_path=None means console-only and no
-# performance report is written unless NAJA_PERF is set. Pre-1.0 minor bumps
-# signal API drift, hence the < 0.8 ceiling.
-naja = ["najaeda>=0.7.16,<0.8"]
+# SNL engine). The floor is 0.7.35: the CDC cone walks use the structural
+# timing queries (SNLDesign.analyzeTiming, SNLOccurrence.getFaninStartpoints,
+# SNLTimingCycleError) completed in that release. Earlier requirements it
+# subsumes: SNLDesign.isMux() (>= 0.7.13) and console-only diagnostics with
+# no performance report unless NAJA_PERF is set (>= 0.7.16). Pre-1.0 minor
+# bumps signal API drift, hence the < 0.8 ceiling.
+naja = ["najaeda>=0.7.35,<0.8"]
 
 [project.scripts]
 svgap = "svgap.cli:main"

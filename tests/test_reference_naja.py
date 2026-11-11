@@ -13,6 +13,7 @@ from __future__ import annotations
 import json
 import os
 import tempfile
+import time
 from dataclasses import asdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -462,3 +463,112 @@ def _bare_manifest(directory: Path, *, top: str, sources: list[Path]) -> Manifes
         backend="reference-naja",
         report_path=directory / "report.json",
     )
+
+
+def _two_clock_manifest(
+    directory: Path, *, top: str, sources: list[Path], asynchronous: bool = True
+) -> Manifest:
+    from dataclasses import replace
+
+    from svgap.model import ClockIntent
+
+    return replace(
+        _bare_manifest(directory, top=top, sources=sources),
+        clocks=[ClockIntent(name="a", port="clk_a"), ClockIntent(name="b", port="clk_b")],
+        asynchronous_groups=[["a"], ["b"]] if asynchronous else [],
+    )
+
+
+def _reconvergent_crossing(stages: int) -> str:
+    # Every stage reads x[i] twice, so there are 2**stages distinct paths from
+    # the source register to the synchronizer input.
+    return f"""
+module reconvergent_crossing (
+    input  logic clk_a,
+    input  logic clk_b,
+    input  logic [{stages - 1}:0] a,
+    output logic q
+);
+    logic [{stages - 1}:0] s;
+    logic [{stages}:0] x;
+    logic m1, m2;
+    always_ff @(posedge clk_a) s <= a;
+    assign x[0] = s[0];
+    for (genvar i = 0; i < {stages}; i++) begin : g
+        assign x[i + 1] = (x[i] & s[i]) | (x[i] ^ s[i]);
+    end
+    always_ff @(posedge clk_b) m1 <= x[{stages}];
+    always_ff @(posedge clk_b) m2 <= m1;
+    assign q = m2;
+endmodule
+"""
+
+
+_CYCLIC_CROSSING = """
+module cyclic_crossing (
+    input  logic clk_a,
+    input  logic clk_b,
+    input  logic en,
+    input  logic a,
+    output logic q
+);
+    logic s, m1, m2;
+    wire l1, l2;
+    always_ff @(posedge clk_a) s <= a;
+    assign l1 = en ? l2 : s;
+    assign l2 = l1 & a;
+    always_ff @(posedge clk_b) m1 <= l1;
+    always_ff @(posedge clk_b) m2 <= m1;
+    assign q = m2;
+endmodule
+"""
+
+
+class ReferenceNajaConeTracingTests(TestCase):
+    """CDC fanin cones come from najaeda's memoized structural cone query
+    (SNLOccurrence.getFaninStartpoints), not a per-path recursion."""
+
+    def test_reconvergent_crossing_cone_is_not_path_enumerated(self) -> None:
+        # 2**24 paths: the former per-path recursion needed about a minute at
+        # 18 stages and did not finish in five minutes at 20. The cone query is
+        # linear in the cone size; the bound below is deliberately loose.
+        stages = 24
+        with tempfile.TemporaryDirectory() as tmp:
+            source = Path(tmp) / "reconvergent_crossing.sv"
+            source.write_text(_reconvergent_crossing(stages))
+            manifest = _two_clock_manifest(
+                Path(tmp), top="reconvergent_crossing", sources=[source]
+            )
+            started = time.monotonic()
+            result = ReferenceNajaBackend().check(manifest)
+            elapsed = time.monotonic() - started
+        self.assertLess(elapsed, 20.0)
+        self.assertEqual(result.status, "fail", result)
+        (finding,) = [f for f in result.findings if f.rule_id == "REF-CDC-002"]
+        # Each stage contributes its AND, XOR, and OR gate to the cone.
+        self.assertEqual(len(finding.evidence["combinational_cells"]), 3 * stages)
+
+    def test_combinational_cycle_makes_crossing_analysis_unknown(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            source = Path(tmp) / "cyclic_crossing.sv"
+            source.write_text(_CYCLIC_CROSSING)
+            manifest = _two_clock_manifest(Path(tmp), top="cyclic_crossing", sources=[source])
+            result = ReferenceNajaBackend().check(manifest)
+        self.assertEqual(result.status, "unknown", result)
+        self.assertTrue(
+            any("combinational cycle" in d for d in result.diagnostics), result.diagnostics
+        )
+
+    def test_combinational_cycle_without_asynchronous_groups_is_not_analyzed(self) -> None:
+        # No crossing is possible without asynchronous groups, so the timing
+        # analysis (and its cycle rejection) is never built.
+        with tempfile.TemporaryDirectory() as tmp:
+            source = Path(tmp) / "cyclic_crossing.sv"
+            source.write_text(_CYCLIC_CROSSING)
+            manifest = _two_clock_manifest(
+                Path(tmp), top="cyclic_crossing", sources=[source], asynchronous=False
+            )
+            result = ReferenceNajaBackend().check(manifest)
+        self.assertFalse(
+            any("combinational cycle" in d for d in result.diagnostics), result.diagnostics
+        )
